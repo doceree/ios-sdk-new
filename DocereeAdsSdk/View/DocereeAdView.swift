@@ -19,9 +19,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
     var cbId: String?
     static var didLeaveAd: Bool = false
     private var docereeAdRequest: DocereeAdRequest?
-    
-    var consentUV: AdConsentUIView?
-    
+
     var crossImageView: UIImageView?
     var infoImageView: UIImageView?
 
@@ -320,8 +318,8 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
         openAdConsent()
     }
     
-    private func openAdConsent(){
-        consentUV = AdConsentUIView(with: self.adSize!, frame: self.frame, rootVC: self.rootViewController!, adView: self, isRichMedia: false)
+    private func openAdConsent() {
+        let consentUV = AdConsentUIView(with: self.adSize!, frame: self.frame, rootVC: self.rootViewController!, adView: self, isRichMedia: false)
         self.adImageView.removeFromSuperview()
         self.addSubview(consentUV!)
     }
