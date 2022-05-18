@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		54EBAFC0282CF30900C7B249 /* DocereeAdsSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 54EBAFBF282CF30900C7B249 /* DocereeAdsSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		54EBAFCF282CF49B00C7B249 /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBAFCE282CF49B00C7B249 /* TestVC.swift */; };
 		54EBAFD9282D018700C7B249 /* HcpProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBAFD8282D018700C7B249 /* HcpProfile.swift */; };
 		54EBAFE8282D177000C7B249 /* PathUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBAFE7282D177000C7B249 /* PathUtility.swift */; };
 		54EBAFED282E853300C7B249 /* AdWebRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBAFEC282E853300C7B249 /* AdWebRepo.swift */; };
@@ -37,7 +36,6 @@
 /* Begin PBXFileReference section */
 		54EBAFBC282CF30900C7B249 /* DocereeAdsSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DocereeAdsSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54EBAFBF282CF30900C7B249 /* DocereeAdsSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DocereeAdsSdk.h; sourceTree = "<group>"; };
-		54EBAFCE282CF49B00C7B249 /* TestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
 		54EBAFD8282D018700C7B249 /* HcpProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HcpProfile.swift; sourceTree = "<group>"; };
 		54EBAFE7282D177000C7B249 /* PathUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathUtility.swift; sourceTree = "<group>"; };
 		54EBAFEC282E853300C7B249 /* AdWebRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdWebRepo.swift; sourceTree = "<group>"; };
@@ -97,7 +95,6 @@
 				54EBAFE6282D176000C7B249 /* Utillities */,
 				54EBAFD7282D014500C7B249 /* Model */,
 				54EBAFBF282CF30900C7B249 /* DocereeAdsSdk.h */,
-				54EBAFCE282CF49B00C7B249 /* TestVC.swift */,
 				54EBB00828321FB500C7B249 /* DocereeAdView.swift */,
 				54EBB00A283221BE00C7B249 /* DocereeAdRequest.swift */,
 				54EBB013283225A200C7B249 /* DocereeAdViewDelegate.swift */,
@@ -249,7 +246,6 @@
 				54EBAFF9282E855C00C7B249 /* Helpers.swift in Sources */,
 				54EBAFF8282E855C00C7B249 /* AdSize.swift in Sources */,
 				54EBAFFE282E855C00C7B249 /* Parsing.swift in Sources */,
-				54EBAFCF282CF49B00C7B249 /* TestVC.swift in Sources */,
 				54EBAFE8282D177000C7B249 /* PathUtility.swift in Sources */,
 				54EBB0102832240B00C7B249 /* StringExtensions.swift in Sources */,
 				54EBAFD9282D018700C7B249 /* HcpProfile.swift in Sources */,
