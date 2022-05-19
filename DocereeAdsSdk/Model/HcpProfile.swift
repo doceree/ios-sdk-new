@@ -160,34 +160,6 @@ public final class Hcp: NSObject, NSCoding, Encodable {
             return Hcp(builder: self)
         }
     }
-    
-    public func saveProfile(with hcp: Hcp) {
-        do {
-            let data = try NSKeyedArchiver.archivedData(withRootObject: hcp, requiringSecureCoding: false)
-            try data.write(to: ProfileArchivingUrl)
-        } catch {
-            print("ERROR: \(error.localizedDescription)")
-        }
-    }
-
-    public static func getProfile() -> Hcp? {
-        do {
-            let data = try Data(contentsOf: ProfileArchivingUrl)
-            if let profile = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? Hcp {
-                print(profile)
-                return profile
-            }
-        } catch {
-            print("ERROR: \(error.localizedDescription)")
-        }
-        return nil
-    }
-}
-
-internal func clearUserData() {
-    do {
-        try FileManager.default.removeItem(at: ProfileArchivingUrl)
-    } catch{}
 }
 
 struct HcpProfile {

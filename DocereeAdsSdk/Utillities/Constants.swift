@@ -85,3 +85,9 @@ enum EnvironmentType {
     case Local
     case Qa
 }
+
+public enum AdPosition {
+    case top
+    case bottom
+    case custom
+}

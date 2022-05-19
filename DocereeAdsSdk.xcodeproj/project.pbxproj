@@ -26,11 +26,12 @@
 		54EBB0102832240B00C7B249 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB00D2832240B00C7B249 /* StringExtensions.swift */; };
 		54EBB0112832240B00C7B249 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB00E2832240B00C7B249 /* Extensions.swift */; };
 		54EBB0122832240B00C7B249 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB00F2832240B00C7B249 /* ImageExtensions.swift */; };
-		54EBB014283225A200C7B249 /* DocereeAdViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB013283225A200C7B249 /* DocereeAdViewDelegate.swift */; };
 		54EBB016283225D200C7B249 /* DocereeRequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB015283225D200C7B249 /* DocereeRequestError.swift */; };
-		54EBB0182832274000C7B249 /* AdsRefreshCountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB0172832274000C7B249 /* AdsRefreshCountdownTimer.swift */; };
 		54EBB0432834F62700C7B249 /* AdConsentUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB0412834F62700C7B249 /* AdConsentUIView.swift */; };
 		54EBB0442834F62700C7B249 /* DocereeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB0422834F62700C7B249 /* DocereeAdView.swift */; };
+		54EBB05328366CD800C7B249 /* CustomTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB05228366CD800C7B249 /* CustomTimer.swift */; };
+		54EBB05F28366F6E00C7B249 /* DocereeMobileAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB05E28366F6E00C7B249 /* DocereeMobileAds.swift */; };
+		54EBB061283671AA00C7B249 /* DocereeAdViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB060283671AA00C7B249 /* DocereeAdViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,11 +55,12 @@
 		54EBB00D2832240B00C7B249 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		54EBB00E2832240B00C7B249 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		54EBB00F2832240B00C7B249 /* ImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
-		54EBB013283225A200C7B249 /* DocereeAdViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocereeAdViewDelegate.swift; sourceTree = "<group>"; };
 		54EBB015283225D200C7B249 /* DocereeRequestError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocereeRequestError.swift; sourceTree = "<group>"; };
-		54EBB0172832274000C7B249 /* AdsRefreshCountdownTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsRefreshCountdownTimer.swift; sourceTree = "<group>"; };
 		54EBB0412834F62700C7B249 /* AdConsentUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdConsentUIView.swift; sourceTree = "<group>"; };
 		54EBB0422834F62700C7B249 /* DocereeAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocereeAdView.swift; sourceTree = "<group>"; };
+		54EBB05228366CD800C7B249 /* CustomTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimer.swift; sourceTree = "<group>"; };
+		54EBB05E28366F6E00C7B249 /* DocereeMobileAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocereeMobileAds.swift; sourceTree = "<group>"; };
+		54EBB060283671AA00C7B249 /* DocereeAdViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocereeAdViewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,13 +93,13 @@
 		54EBAFBE282CF30900C7B249 /* DocereeAdsSdk */ = {
 			isa = PBXGroup;
 			children = (
+				54EBB05D28366F4100C7B249 /* Helpers */,
 				54EBAFEB282E852700C7B249 /* Repo */,
 				54EBAFE6282D176000C7B249 /* Utillities */,
 				54EBAFD7282D014500C7B249 /* Model */,
 				54EBB0402834F3F800C7B249 /* View */,
 				54EBAFBF282CF30900C7B249 /* DocereeAdsSdk.h */,
 				54EBB00A283221BE00C7B249 /* DocereeAdRequest.swift */,
-				54EBB013283225A200C7B249 /* DocereeAdViewDelegate.swift */,
 			);
 			path = DocereeAdsSdk;
 			sourceTree = "<group>";
@@ -126,7 +128,7 @@
 				54EBAFF5282E855C00C7B249 /* Parsing.swift */,
 				54EBAFF6282E855C00C7B249 /* UAString.swift */,
 				54EBAFE7282D177000C7B249 /* PathUtility.swift */,
-				54EBB0172832274000C7B249 /* AdsRefreshCountdownTimer.swift */,
+				54EBB05228366CD800C7B249 /* CustomTimer.swift */,
 				54EBB015283225D200C7B249 /* DocereeRequestError.swift */,
 			);
 			path = Utillities;
@@ -157,6 +159,15 @@
 				54EBB0422834F62700C7B249 /* DocereeAdView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		54EBB05D28366F4100C7B249 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				54EBB05E28366F6E00C7B249 /* DocereeMobileAds.swift */,
+				54EBB060283671AA00C7B249 /* DocereeAdViewDelegate.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,15 +254,16 @@
 				54EBAFF7282E855C00C7B249 /* HTTPSupport.swift in Sources */,
 				54EBAFFD282E855C00C7B249 /* Colors.swift in Sources */,
 				54EBAFFF282E855C00C7B249 /* UAString.swift in Sources */,
+				54EBB061283671AA00C7B249 /* DocereeAdViewDelegate.swift in Sources */,
 				54EBB006282E87AF00C7B249 /* AdRequest.swift in Sources */,
 				54EBB007282E87AF00C7B249 /* AdResponse.swift in Sources */,
 				54EBB0112832240B00C7B249 /* Extensions.swift in Sources */,
 				54EBB016283225D200C7B249 /* DocereeRequestError.swift in Sources */,
-				54EBB014283225A200C7B249 /* DocereeAdViewDelegate.swift in Sources */,
-				54EBB0182832274000C7B249 /* AdsRefreshCountdownTimer.swift in Sources */,
+				54EBB05F28366F6E00C7B249 /* DocereeMobileAds.swift in Sources */,
 				54EBB0432834F62700C7B249 /* AdConsentUIView.swift in Sources */,
 				54EBAFF9282E855C00C7B249 /* Helpers.swift in Sources */,
 				54EBB0442834F62700C7B249 /* DocereeAdView.swift in Sources */,
+				54EBB05328366CD800C7B249 /* CustomTimer.swift in Sources */,
 				54EBAFF8282E855C00C7B249 /* AdSize.swift in Sources */,
 				54EBAFFE282E855C00C7B249 /* Parsing.swift in Sources */,
 				54EBAFE8282D177000C7B249 /* PathUtility.swift in Sources */,

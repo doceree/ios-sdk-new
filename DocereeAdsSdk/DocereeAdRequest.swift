@@ -77,7 +77,7 @@ public final class DocereeAdRequest {
 
         if advertisementId != nil {
             var bse64Str = ""
-            guard let userProfile = Hcp.getProfile() else {
+            guard let userProfile = DocereeMobileAds.getProfile() else {
                 return
             }
  
