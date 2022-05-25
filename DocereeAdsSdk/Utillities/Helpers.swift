@@ -54,10 +54,19 @@ func savePlatformuid(_ newPlatormuid: String) {
 }
 
 func getIdentifierForAdvertising() -> String? {
-    if ASIdentifierManager.shared().isAdvertisingTrackingEnabled {
-        return ASIdentifierManager.shared().advertisingIdentifier.uuidString
+    if #available(iOS 14, *){
+        if (DocereeMobileAds.trackingStatus == "authorized") {
+            return ASIdentifierManager.shared().advertisingIdentifier.uuidString
+        } else {
+            return UIDevice.current.identifierForVendor?.uuidString
+        }
     } else {
-        return UIDevice.current.identifierForVendor?.uuidString
+        // Fallback to previous versions
+        if ASIdentifierManager.shared().isAdvertisingTrackingEnabled {
+            return ASIdentifierManager.shared().advertisingIdentifier.uuidString
+        } else {
+            return UIDevice.current.identifierForVendor?.uuidString
+        }
     }
 }
 

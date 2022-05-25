@@ -88,7 +88,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
         self.init(with: adSize, adPosition: adPosition)
     }
    
-    private convenience init(with adSize: AdSize?, adPosition: AdPosition){
+    private convenience init(with adSize: AdSize?, adPosition: AdPosition) {
         self.init(frame: CGRect(x: .zero, y: .zero, width: (adSize?.width)!, height: (adSize?.height)!))
         if adSize == nil {
             if #available(iOS 10.0, *) {
@@ -148,12 +148,12 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
         self.adImageView.isUserInteractionEnabled = true
     }
     
-    public override var intrinsicContentSize: CGSize{
+    public override var intrinsicContentSize: CGSize {
         return CGSize(width: (adSize?.width)!, height: (adSize?.height)!)
     }
     
     //MARK: Public methods
-    public func load(_ docereeAdRequest: DocereeAdRequest){
+    public func load(_ docereeAdRequest: DocereeAdRequest) {
         //        todo set image here
         self.docereeAdRequest = docereeAdRequest
         let queue = OperationQueue()
@@ -161,6 +161,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
             let width: Int = Int((self.adSize?.getAdSize().width)!)
             let height: Int = Int((self.adSize?.getAdSize().height)!)
             let size = "\(width)x\(height)"
+            
             // MARK : size restriction for iPhones & iPads
             if UIDevice.current.userInterfaceIdiom == .phone && (self.adSize?.getAdSizeName() == "LEADERBOARD" || self.adSize?.getAdSizeName() == "FULLBANNER") {
                 if #available(iOS 10.0, *) {
@@ -171,77 +172,10 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
                 }
                 return
             }
+            
             docereeAdRequest.requestAd(self.docereeAdUnitId, size){ (results, isRichMediaAd) in
                 if let data = results.data {
-                    let decoder = JSONDecoder()
-                    do {
-                        let adResponseData: AdResponse = try decoder.decode(AdResponse.self, from: data)
-                        if (adResponseData.sourceURL ?? "").isEmpty{
-                            self.removeAllViews()
-                            return
-                        }
-                        let imageUrl = adResponseData.sourceURL
-                        self.cbId = adResponseData.CBID?.components(separatedBy: "_")[0]
-                        self.docereeAdUnitId = adResponseData.DIVID!
-                        self.ctaLink = adResponseData.ctaLink
-                        let isImpressionLinkNullOrEmpty: Bool = (adResponseData.impressionLink ?? "").isEmpty
-                        if (!isImpressionLinkNullOrEmpty) {
-                            docereeAdRequest.sendImpression(impressionUrl: adResponseData.impressionLink!)
-                        }
-                        if !isRichMediaAd{
-                            if (imageUrl == nil || imageUrl?.count == 0) {
-                                return
-                            }
-                            DispatchQueue.main.async {
-                                self.addSubview(self.adImageView)
-                                self.adImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-                                self.adImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-                                let imageUrl = NSURL(string: (adResponseData.sourceURL)!)
-                                self.handleImageRendering(of: imageUrl)
-                                if self.delegate != nil{
-                                    self.delegate?.docereeAdViewDidReceiveAd(self)
-                                }
-                            }
-                        } else {
-                            // Handle Rich media ads here
-                            // Show mraid banner
-                            // get source url and download html body
-                            if let url = URL(string: adResponseData.sourceURL!){
-                                do{
-                                    let htmlContent = try String(contentsOf: url)
-                                    var refinedHtmlContent = htmlContent.withReplacedCharacter("<head>", by: "<head><style>html,body{padding:0;margin:0;}</style><base href=" + (adResponseData.sourceURL?.components(separatedBy: "unzip")[0])! + "unzip/" + "target=\"_blank\">")
-                                    if (self.ctaLink != nil && self.ctaLink!.count > 0){
-                                        refinedHtmlContent = refinedHtmlContent.replacingOccurrences(of: "[TRACKING_LINK]", with: self.ctaLink!)
-                                    }
-                                    let body: String = refinedHtmlContent
-                                    if (body.count == 0){
-                                        return
-                                    }
-//                                    DispatchQueue.main.async {
-//                                        self.banner = DocereeAdViewRichMediaBanner()
-//                                        //                                    banner.initialize(parentViewController:self.rootViewController!, position:"bottom-center", respectSafeArea:true, renderBodyOverride: true, size: self.adSize!, body: body)
-//                                        NotificationCenter.default.setObserver(observer: self, selector: #selector(self.appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
-//                                        NotificationCenter.default.setObserver(observer: self, selector: #selector(self.willMoveToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
-//                                        NotificationCenter.default.setObserver(observer: self, selector: #selector(self.didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
-//                                        self.banner!.initialize(parentViewController: self.rootViewController!, frame: self.frame, renderBodyOverride: false, size: self.adSize!, body: body, docereeAdView: self, delegate: self.delegate)
-//                                        if self.delegate != nil{
-//                                            self.delegate?.docereeAdViewDidReceiveAd(self)
-//                                        }
-//                                    }
-                                    
-                                } catch{
-                                    self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
-                                    self.removeAllViews()
-                                }
-                            } else {
-                                self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
-                                self.removeAllViews()
-                            }
-                        }
-                    } catch{
-                        self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
-                        self.removeAllViews()
-                    }
+                    self.createAdUI(data: data, isRichMediaAd: isRichMediaAd)
                 } else {
                     self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
                     self.removeAllViews()
@@ -268,7 +202,88 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
         customTimer?.start()
     }
     
-    private func handleImageRendering(of imageUrl: NSURL?){
+    private func createAdUI(data: Data, isRichMediaAd: Bool) {
+            let decoder = JSONDecoder()
+            do {
+                let adResponseData: AdResponse = try decoder.decode(AdResponse.self, from: data)
+                if (adResponseData.sourceURL ?? "").isEmpty{
+                    self.removeAllViews()
+                    return
+                }
+//                let imageUrl = adResponseData.sourceURL
+                self.cbId = adResponseData.CBID?.components(separatedBy: "_")[0]
+                self.docereeAdUnitId = adResponseData.DIVID!
+                self.ctaLink = adResponseData.ctaLink
+                let isImpressionLinkNullOrEmpty: Bool = (adResponseData.impressionLink ?? "").isEmpty
+                if (!isImpressionLinkNullOrEmpty) {
+                    self.docereeAdRequest?.sendImpression(impressionUrl: adResponseData.impressionLink!)
+                }
+                if !isRichMediaAd {
+                    createSimpleAd(sourceURL: adResponseData.sourceURL)
+                } else {
+                    
+                }
+            } catch {
+                self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
+                self.removeAllViews()
+            }
+    }
+    
+    private func createSimpleAd(sourceURL: String?) {
+        if let urlString = sourceURL, urlString.count > 0 {
+            DispatchQueue.main.async {
+                self.addSubview(self.adImageView)
+                self.adImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+                self.adImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+                let imageUrl = NSURL(string: urlString)
+                self.handleImageRendering(of: imageUrl)
+                if self.delegate != nil{
+                    self.delegate?.docereeAdViewDidReceiveAd(self)
+                }
+            }
+        }
+    }
+    
+    private func createRichMediaAd(sourceURL: String?) {
+        // Handle Rich media ads here
+        // Show mraid banner
+        // get source url and download html body
+        if let urlString = sourceURL, urlString.count > 0 {
+            if let url = URL(string: urlString){
+                do{
+                    let htmlContent = try String(contentsOf: url)
+                    var refinedHtmlContent = htmlContent.withReplacedCharacter("<head>", by: "<head><style>html,body{padding:0;margin:0;}</style><base href=" + (urlString.components(separatedBy: "unzip")[0]) + "unzip/" + "target=\"_blank\">")
+                    if (self.ctaLink != nil && self.ctaLink!.count > 0){
+                        refinedHtmlContent = refinedHtmlContent.replacingOccurrences(of: "[TRACKING_LINK]", with: self.ctaLink!)
+                    }
+                    let body: String = refinedHtmlContent
+                    if (body.count == 0) {
+                        return
+                    }
+                    DispatchQueue.main.async {
+//                        self.banner = DocereeAdViewRichMediaBanner()
+//                        //                                    banner.initialize(parentViewController:self.rootViewController!, position:"bottom-center", respectSafeArea:true, renderBodyOverride: true, size: self.adSize!, body: body)
+//                        NotificationCenter.default.setObserver(observer: self, selector: #selector(self.appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+//                        NotificationCenter.default.setObserver(observer: self, selector: #selector(self.willMoveToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+//                        NotificationCenter.default.setObserver(observer: self, selector: #selector(self.didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+//                        self.banner!.initialize(parentViewController: self.rootViewController!, frame: self.frame, renderBodyOverride: false, size: self.adSize!, body: body, docereeAdView: self, delegate: self.delegate)
+//                        if self.delegate != nil{
+//                            self.delegate?.docereeAdViewDidReceiveAd(self)
+//                        }
+                    }
+                    
+                } catch {
+                    self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
+                    self.removeAllViews()
+                }
+            } else {
+                self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
+                self.removeAllViews()
+            }
+        }
+    }
+
+    private func handleImageRendering(of imageUrl: NSURL?) {
         if imageUrl == nil || imageUrl?.absoluteString?.count == 0 {
             return
         }
@@ -320,7 +335,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
         infoImageView!.addGestureRecognizer(tap)
     }
     
-    @objc func startLabelAnimation(_ sender: UITapGestureRecognizer){
+    @objc func startLabelAnimation(_ sender: UITapGestureRecognizer) {
         
         let xCoords = CGFloat(0)
         let yCoords = CGFloat(self.infoImageView!.frame.origin.y)
@@ -345,7 +360,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
         })
     }
     
-    @objc func openAdConsentView(_ sender: UITapGestureRecognizer){
+    @objc func openAdConsentView(_ sender: UITapGestureRecognizer) {
         openAdConsent()
     }
     
@@ -355,11 +370,11 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
         self.addSubview(consentUV!)
     }
     
-    public override class var requiresConstraintBasedLayout: Bool{
+    public override class var requiresConstraintBasedLayout: Bool {
         return true
     }
     
-    func removeAllViews(){
+    func removeAllViews() {
 //        DispatchQueue.main.async {
 //            for v in self.subviews{
 //                v.removeFromSuperview()
@@ -371,7 +386,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
     }
     
     //Mark: Action method
-    @objc func onImageTouched(_ sender: UITapGestureRecognizer){
+    @objc func onImageTouched(_ sender: UITapGestureRecognizer) {
         DocereeAdView.self.didLeaveAd = true
         if let url = URL(string: "\(ctaLink ?? "")"), !url.absoluteString.isEmpty {
             customTimer?.stop()
@@ -380,20 +395,20 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
         }
     }
     
-    @objc func appMovedToBackground(){
+    @objc func appMovedToBackground() {
         customTimer?.stop()
         if  DocereeAdView.didLeaveAd && delegate != nil {
             delegate?.docereeAdViewWillLeaveApplication(self)
         }
     }
     
-    @objc func willMoveToForeground(){
+    @objc func willMoveToForeground() {
         if DocereeAdView.didLeaveAd && delegate != nil {
             delegate?.docereeAdViewWillDismissScreen(self)
         }
     }
     
-    @objc func didBecomeActive(){
+    @objc func didBecomeActive() {
         if DocereeAdView.didLeaveAd && delegate != nil {
             delegate?.docereeAdViewDidDismissScreen(self)
             DocereeAdView.didLeaveAd = false
@@ -427,14 +442,14 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
     }
 }
 
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-    switch (lhs, rhs) {
-    case let (l?, r?):
-        return l < r
-    case (nil, _?):
-        return true
-    default:
-        return false
-    }
-}
+//fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+//    switch (lhs, rhs) {
+//    case let (l?, r?):
+//        return l < r
+//    case (nil, _?):
+//        return true
+//    default:
+//        return false
+//    }
+//}
 

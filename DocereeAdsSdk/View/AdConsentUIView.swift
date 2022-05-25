@@ -43,7 +43,7 @@ class AdConsentUIView: UIView {
         super.init(coder: coder)
     }
     
-    convenience init?(with adSize: AdSize, frame: CGRect, rootVC: UIViewController, adView: DocereeAdView?, isRichMedia: Bool){
+    convenience init?(with adSize: AdSize, frame: CGRect, rootVC: UIViewController, adView: DocereeAdView?, isRichMedia: Bool) {
         self.init()
         adViewSize = adSize
         adViewFrame = frame
@@ -64,7 +64,7 @@ class AdConsentUIView: UIView {
     // MARK: Vertical Containers
     
     // MARK: Load Consent form1
-    private func loadConsentForm1(){
+    private func loadConsentForm1() {
         
         var backButtonUIImageView: UIImageView?
         consentView = UIView()
@@ -191,7 +191,7 @@ class AdConsentUIView: UIView {
         if (!self.isRichMedia) {
         self.docereeAdView!.addSubview(consentView!)
         } else {
-            for v in rootViewController!.view.subviews{
+            for v in rootViewController!.view.subviews {
                 v.removeFromSuperview()
             }
             consentView!.frame = CGRect(x: .zero, y: .zero, width: adViewFrame!.width, height: adViewFrame!.height)
@@ -200,7 +200,7 @@ class AdConsentUIView: UIView {
     }
 
     // MARK: Load Consent form2
-    private func loadConsentForm2(){
+    private func loadConsentForm2() {
         // load back button
         formConsentType = .consentType2
         
@@ -246,7 +246,7 @@ class AdConsentUIView: UIView {
         if (!self.isRichMedia) {
             self.docereeAdView!.addSubview(consentView!)
         } else {
-            for v in rootViewController!.view.subviews{
+            for v in rootViewController!.view.subviews {
                 v.removeFromSuperview()
             }
             consentView!.frame = CGRect(x: .zero, y: .zero, width: adViewFrame!.width, height: adViewFrame!.height)
@@ -255,7 +255,7 @@ class AdConsentUIView: UIView {
     }
 
     // MARK: Load Consent form3
-    private func loadConsentForm3(){
+    private func loadConsentForm3() {
         
         formConsentType = .consentType3
         
@@ -353,7 +353,7 @@ class AdConsentUIView: UIView {
     }
     
     // load feedback
-    private func loadAdConsentFeedback(_ adblockLevel: String){
+    private func loadAdConsentFeedback(_ adblockLevel: String) {
         self.removeAllViews()
         let consentView: UIView = UIView()
         consentView.frame = CGRect(x: 0.0, y: 0.0, width: self.adViewSize!.width, height: self.adViewSize!.height)
@@ -398,7 +398,7 @@ class AdConsentUIView: UIView {
         }
     }
     
-    @objc func whyThisClicked(_ sender: UITapGestureRecognizer){
+    @objc func whyThisClicked(_ sender: UITapGestureRecognizer) {
         DocereeAdView.self.didLeaveAd = true
         let whyThisLink = "https://support.doceree.com/hc/en-us/articles/360050646094-Why-this-Ad-"
         if let url = URL(string: "\(whyThisLink)"), !url.absoluteString.isEmpty {
@@ -406,48 +406,48 @@ class AdConsentUIView: UIView {
         }
     }
     
-    @objc func reportAdClicked(_ sender: UITapGestureRecognizer){
+    @objc func reportAdClicked(_ sender: UITapGestureRecognizer) {
         // open second consent screen
         loadConsentForm2()
     }
     
-    @objc func backButtonClicked(_ sender: UITapGestureRecognizer){
+    @objc func backButtonClicked(_ sender: UITapGestureRecognizer) {
         // back button pressed
         self.docereeAdView?.refresh()
         // remove this view and refresh ad
     }
     
-    private func removeAllViews(){
-        for v in self.consentView!.subviews{
+    private func removeAllViews() {
+        for v in self.consentView!.subviews {
             v.removeFromSuperview()
         }
     }
     
-    @objc func adCoveringContentClicked(_ sender: UITapGestureRecognizer){
+    @objc func adCoveringContentClicked(_ sender: UITapGestureRecognizer) {
         loadAdConsentFeedback(BlockLevel.AdCoveringContent.info.blockLevelCode)
     }
     
-    @objc func adWasInappropriateClicked(_ sender: UITapGestureRecognizer){
+    @objc func adWasInappropriateClicked(_ sender: UITapGestureRecognizer) {
         loadAdConsentFeedback(BlockLevel.AdWasInappropriate.info.blockLevelCode)
     }
     
-    @objc func adNotInterestedClicked(_ sender: UITapGestureRecognizer){
+    @objc func adNotInterestedClicked(_ sender: UITapGestureRecognizer) {
         loadConsentForm3()
     }
     
-    @objc func adNotInterestedClicked1(_ sender: UITapGestureRecognizer){
+    @objc func adNotInterestedClicked1(_ sender: UITapGestureRecognizer) {
         loadAdConsentFeedback(BlockLevel.NotInterestedInCampaign.info.blockLevelCode)
     }
     
-    @objc func adNotInterestedClicked2(_ sender: UITapGestureRecognizer){
+    @objc func adNotInterestedClicked2(_ sender: UITapGestureRecognizer) {
         loadAdConsentFeedback(BlockLevel.NotInterestedInBrand.info.blockLevelCode)
     }
     
-    @objc func adNotInterestedClicked3(_ sender: UITapGestureRecognizer){
+    @objc func adNotInterestedClicked3(_ sender: UITapGestureRecognizer) {
         loadAdConsentFeedback(BlockLevel.NotInterestedInBrandType.info.blockLevelCode)
     }
     
-    @objc func adNotInterestedClicked4(_ sender: UITapGestureRecognizer){
+    @objc func adNotInterestedClicked4(_ sender: UITapGestureRecognizer) {
         loadAdConsentFeedback(BlockLevel.NotInterestedInClientType.info.blockLevelCode)
     }
 

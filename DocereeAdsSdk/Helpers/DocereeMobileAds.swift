@@ -49,7 +49,7 @@ public final class DocereeMobileAds {
     public typealias CompletionHandler = ((_ completionStatus:Any?) -> Void)?
     
     public func start(completionHandler: CompletionHandler){
-
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
         if #available(iOS 14, *) {
             #if canImport(AdSupport) && canImport(AppTrackingTransparency)
             ATTrackingManager.requestTrackingAuthorization{ (status) in
@@ -77,6 +77,7 @@ public final class DocereeMobileAds {
             }
             #endif
         }
+//        }
     }
     
     public static func clearUserData() {
