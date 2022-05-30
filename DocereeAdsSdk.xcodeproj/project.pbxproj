@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		54CBF2D2283E53AE002E4EDE /* DocereeAdViewRichMediaBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CBF2D1283E53AE002E4EDE /* DocereeAdViewRichMediaBanner.swift */; };
+		54CBF2D4283E5B1E002E4EDE /* MRAIDDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CBF2D3283E5B1E002E4EDE /* MRAIDDelegate.swift */; };
+		54CBF2D6283E5B61002E4EDE /* MRAIDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CBF2D5283E5B61002E4EDE /* MRAIDConstants.swift */; };
+		54CBF2D8283E5BB1002E4EDE /* MRAIDHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CBF2D7283E5BB1002E4EDE /* MRAIDHandler.swift */; };
+		54CBF2DA283E5BC6002E4EDE /* MRAIDUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CBF2D9283E5BC6002E4EDE /* MRAIDUtilities.swift */; };
+		54CBF2DC283E5BF0002E4EDE /* MRAIDBrowserWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CBF2DB283E5BF0002E4EDE /* MRAIDBrowserWindow.swift */; };
 		54EBAFC0282CF30900C7B249 /* DocereeAdsSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 54EBAFBF282CF30900C7B249 /* DocereeAdsSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54EBAFD9282D018700C7B249 /* HcpProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBAFD8282D018700C7B249 /* HcpProfile.swift */; };
 		54EBAFE8282D177000C7B249 /* PathUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBAFE7282D177000C7B249 /* PathUtility.swift */; };
@@ -35,6 +41,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		54CBF2D1283E53AE002E4EDE /* DocereeAdViewRichMediaBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocereeAdViewRichMediaBanner.swift; sourceTree = "<group>"; };
+		54CBF2D3283E5B1E002E4EDE /* MRAIDDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRAIDDelegate.swift; sourceTree = "<group>"; };
+		54CBF2D5283E5B61002E4EDE /* MRAIDConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRAIDConstants.swift; sourceTree = "<group>"; };
+		54CBF2D7283E5BB1002E4EDE /* MRAIDHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRAIDHandler.swift; sourceTree = "<group>"; };
+		54CBF2D9283E5BC6002E4EDE /* MRAIDUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRAIDUtilities.swift; sourceTree = "<group>"; };
+		54CBF2DB283E5BF0002E4EDE /* MRAIDBrowserWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRAIDBrowserWindow.swift; sourceTree = "<group>"; };
 		54EBAFBC282CF30900C7B249 /* DocereeAdsSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DocereeAdsSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54EBAFBF282CF30900C7B249 /* DocereeAdsSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DocereeAdsSdk.h; sourceTree = "<group>"; };
 		54EBAFD8282D018700C7B249 /* HcpProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HcpProfile.swift; sourceTree = "<group>"; };
@@ -74,6 +86,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		54CBF2D0283E5398002E4EDE /* RichMedia */ = {
+			isa = PBXGroup;
+			children = (
+				54CBF2D1283E53AE002E4EDE /* DocereeAdViewRichMediaBanner.swift */,
+				54CBF2DB283E5BF0002E4EDE /* MRAIDBrowserWindow.swift */,
+			);
+			path = RichMedia;
+			sourceTree = "<group>";
+		};
 		54EBAFB2282CF30900C7B249 = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +151,8 @@
 				54EBAFE7282D177000C7B249 /* PathUtility.swift */,
 				54EBB05228366CD800C7B249 /* CustomTimer.swift */,
 				54EBB015283225D200C7B249 /* DocereeRequestError.swift */,
+				54CBF2D5283E5B61002E4EDE /* MRAIDConstants.swift */,
+				54CBF2D9283E5BC6002E4EDE /* MRAIDUtilities.swift */,
 			);
 			path = Utillities;
 			sourceTree = "<group>";
@@ -155,6 +178,7 @@
 		54EBB0402834F3F800C7B249 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				54CBF2D0283E5398002E4EDE /* RichMedia */,
 				54EBB0412834F62700C7B249 /* AdConsentUIView.swift */,
 				54EBB0422834F62700C7B249 /* DocereeAdView.swift */,
 			);
@@ -166,6 +190,8 @@
 			children = (
 				54EBB05E28366F6E00C7B249 /* DocereeMobileAds.swift */,
 				54EBB060283671AA00C7B249 /* DocereeAdViewDelegate.swift */,
+				54CBF2D3283E5B1E002E4EDE /* MRAIDDelegate.swift */,
+				54CBF2D7283E5BB1002E4EDE /* MRAIDHandler.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -250,9 +276,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54CBF2D4283E5B1E002E4EDE /* MRAIDDelegate.swift in Sources */,
 				54EBB005282E87AF00C7B249 /* adBlockRequest.swift in Sources */,
 				54EBAFF7282E855C00C7B249 /* HTTPSupport.swift in Sources */,
+				54CBF2DA283E5BC6002E4EDE /* MRAIDUtilities.swift in Sources */,
 				54EBAFFD282E855C00C7B249 /* Colors.swift in Sources */,
+				54CBF2D8283E5BB1002E4EDE /* MRAIDHandler.swift in Sources */,
 				54EBAFFF282E855C00C7B249 /* UAString.swift in Sources */,
 				54EBB061283671AA00C7B249 /* DocereeAdViewDelegate.swift in Sources */,
 				54EBB006282E87AF00C7B249 /* AdRequest.swift in Sources */,
@@ -263,12 +292,15 @@
 				54EBB0432834F62700C7B249 /* AdConsentUIView.swift in Sources */,
 				54EBAFF9282E855C00C7B249 /* Helpers.swift in Sources */,
 				54EBB0442834F62700C7B249 /* DocereeAdView.swift in Sources */,
+				54CBF2DC283E5BF0002E4EDE /* MRAIDBrowserWindow.swift in Sources */,
 				54EBB05328366CD800C7B249 /* CustomTimer.swift in Sources */,
 				54EBAFF8282E855C00C7B249 /* AdSize.swift in Sources */,
 				54EBAFFE282E855C00C7B249 /* Parsing.swift in Sources */,
+				54CBF2D2283E53AE002E4EDE /* DocereeAdViewRichMediaBanner.swift in Sources */,
 				54EBAFE8282D177000C7B249 /* PathUtility.swift in Sources */,
 				54EBB0102832240B00C7B249 /* StringExtensions.swift in Sources */,
 				54EBAFD9282D018700C7B249 /* HcpProfile.swift in Sources */,
+				54CBF2D6283E5B61002E4EDE /* MRAIDConstants.swift in Sources */,
 				54EBB0122832240B00C7B249 /* ImageExtensions.swift in Sources */,
 				54EBAFED282E853300C7B249 /* AdWebRepo.swift in Sources */,
 				54EBB00B283221BE00C7B249 /* DocereeAdRequest.swift in Sources */,

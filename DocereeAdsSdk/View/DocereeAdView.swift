@@ -24,7 +24,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
     var crossImageView: UIImageView?
     var infoImageView: UIImageView?
 
-//    var banner: DocereeAdViewRichMediaBanner?
+    var richMediaBanner: DocereeAdViewRichMediaBanner?
     
     @IBOutlet public weak var rootViewController: UIViewController?
     
@@ -221,7 +221,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
                 if !isRichMediaAd {
                     createSimpleAd(sourceURL: adResponseData.sourceURL)
                 } else {
-                    
+                    createRichMediaAd(sourceURL: adResponseData.sourceURL)
                 }
             } catch {
                 self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
@@ -261,15 +261,15 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
                         return
                     }
                     DispatchQueue.main.async {
-//                        self.banner = DocereeAdViewRichMediaBanner()
-//                        //                                    banner.initialize(parentViewController:self.rootViewController!, position:"bottom-center", respectSafeArea:true, renderBodyOverride: true, size: self.adSize!, body: body)
-//                        NotificationCenter.default.setObserver(observer: self, selector: #selector(self.appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
-//                        NotificationCenter.default.setObserver(observer: self, selector: #selector(self.willMoveToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
-//                        NotificationCenter.default.setObserver(observer: self, selector: #selector(self.didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
-//                        self.banner!.initialize(parentViewController: self.rootViewController!, frame: self.frame, renderBodyOverride: false, size: self.adSize!, body: body, docereeAdView: self, delegate: self.delegate)
-//                        if self.delegate != nil{
-//                            self.delegate?.docereeAdViewDidReceiveAd(self)
-//                        }
+                        self.richMediaBanner = DocereeAdViewRichMediaBanner()
+                        //                                    banner.initialize(parentViewController:self.rootViewController!, position:"bottom-center", respectSafeArea:true, renderBodyOverride: true, size: self.adSize!, body: body)
+                        NotificationCenter.default.setObserver(observer: self, selector: #selector(self.appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+                        NotificationCenter.default.setObserver(observer: self, selector: #selector(self.willMoveToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+                        NotificationCenter.default.setObserver(observer: self, selector: #selector(self.didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+                        self.richMediaBanner!.initialize(parentViewController: self.rootViewController!, frame: self.frame, renderBodyOverride: false, size: self.adSize!, body: body, docereeAdView: self, delegate: self.delegate)
+                        if self.delegate != nil {
+                            self.delegate?.docereeAdViewDidReceiveAd(self)
+                        }
                     }
                     
                 } catch {
@@ -375,14 +375,14 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
     }
     
     func removeAllViews() {
-//        DispatchQueue.main.async {
-//            for v in self.subviews{
-//                v.removeFromSuperview()
-//            }
-//            if(self.banner != nil){
-//                self.banner?.view.removeFromSuperview()
-//            }
-//        }
+        DispatchQueue.main.async {
+            for v in self.subviews{
+                v.removeFromSuperview()
+            }
+            if(self.richMediaBanner != nil) {
+                self.richMediaBanner?.view.removeFromSuperview()
+            }
+        }
     }
     
     //Mark: Action method
