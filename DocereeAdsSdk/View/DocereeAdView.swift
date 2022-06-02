@@ -232,6 +232,9 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
     private func createSimpleAd(sourceURL: String?) {
         if let urlString = sourceURL, urlString.count > 0 {
             DispatchQueue.main.async {
+                NotificationCenter.default.setObserver(observer: self, selector: #selector(self.appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+                NotificationCenter.default.setObserver(observer: self, selector: #selector(self.willMoveToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+                NotificationCenter.default.setObserver(observer: self, selector: #selector(self.didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
                 self.addSubview(self.adImageView)
                 self.adImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
                 self.adImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
