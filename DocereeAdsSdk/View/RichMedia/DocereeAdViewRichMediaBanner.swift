@@ -4,7 +4,7 @@ import JavaScriptCore
 import Photos
 import EventKit
 
-public class DocereeAdViewRichMediaBanner: UIViewController, MRAIDDelegate, UINavigationControllerDelegate {
+public class DocereeAdViewRichMediaBanner: UIViewController, UINavigationControllerDelegate {
     private var mraidView: WKWebView!
     private var secondaryWebView: WKWebView?
     internal var mraidHandler: MRAIDHandler!
@@ -58,7 +58,7 @@ public class DocereeAdViewRichMediaBanner: UIViewController, MRAIDDelegate, UINa
         
         if (!renderBody2.matches()) {
             isAdMRAIDMedia = false
-            MRAIDUtilities.validateHTML(&renderBody2)
+//            MRAIDUtilities.validateHTML(&renderBody2)
             let url = URL(fileURLWithPath: "https://adbserver.doceree.com/")
             mraidView.loadHTMLString(renderBody2, baseURL: url)
             originalRootController = UIApplication.shared.delegate?.window??.rootViewController
@@ -69,15 +69,7 @@ public class DocereeAdViewRichMediaBanner: UIViewController, MRAIDDelegate, UINa
         } else {
             isAdMRAIDMedia = true
         }
-        
-        let url = URL(fileURLWithPath: "https://adbserver.doceree.com/")
-        mraidView.loadHTMLString(renderBody2, baseURL: url)
-        originalRootController = UIApplication.shared.delegate?.window??.rootViewController
-        if (position != nil) {
-            addAsChild(to: parentViewController, position: position!)
-        } else if(frame != nil) {
-            addAsChild(to: parentViewController, frame: frame!)
-        }
+ 
     }
     
     // MARK: declare visibility var
@@ -120,35 +112,6 @@ public class DocereeAdViewRichMediaBanner: UIViewController, MRAIDDelegate, UINa
         self.view.removeFromSuperview()
     }
     
-    //MARK: creating WkWebViewConfiguration here
-    
-    func webViewConfiguration() -> WKWebViewConfiguration {
-        let configuration = WKWebViewConfiguration()
-        configuration.userContentController = userContentController()
-        return configuration
-    }
-    
-    private func userContentController() -> WKUserContentController {
-        let controller = WKUserContentController()
-        controller.addUserScript(viewPortScript())
-        return controller
-    }
-    
-    private func viewPortScript() -> WKUserScript {
-        let viewPorScript = """
-            var meta = document.createElement('meta');
-            meta.setAttribute('name', 'viewport');
-            meta.setAttribute('content', 'width=device-width');
-            meta.setAttribute('initial-scale', '1.0');
-            meta.setAttribute('maximum-scale', '1.0');
-            meta.setAttribute('minimum-scale', '1.0');
-            meta.setAttribute('user-scalable', 'no');
-            document.getElementsByTagName('head')[0].appendChild(meta);
-        """
-        return WKUserScript(source: viewPorScript, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-    }
-
-    
     func initBanner(frame: CGRect) {
         view.backgroundColor = UIColor.white
         self.frame1 = frame
@@ -164,9 +127,8 @@ public class DocereeAdViewRichMediaBanner: UIViewController, MRAIDDelegate, UINa
     private func initWebView(frame: CGRect) {
         mraidHandler = MRAIDHandler()
         mraidHandler.respectsSafeArea = respectSafeArea
-        mraidHandler.initialize(parentViewController: self, mraidDelegate: self, isMRAIDCompatible: isAdMRAIDMedia)
+//        mraidHandler.initialize(parentViewController: self, mraidDelegate: self, isMRAIDCompatible: isAdMRAIDMedia)
         
-//        mraidView = WKWebView(frame: frame, configuration: webViewConfiguration())
         mraidView = WKWebView()
         mraidHandler.activeWebView = mraidView
         
@@ -183,65 +145,6 @@ public class DocereeAdViewRichMediaBanner: UIViewController, MRAIDDelegate, UINa
         setInitialConstraints()
     }
     
-    private func initSecondaryWebView(_ url: String) {
-        let config = WKWebViewConfiguration()
-        config.allowsInlineMediaPlayback = true
-        secondaryWebView = WKWebView(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-        mraidHandler.activeWebView = secondaryWebView!
-        mraidHandler.isExpandedView = true
-        secondaryWebView!.uiDelegate = mraidHandler
-        secondaryWebView!.navigationDelegate = mraidHandler
-        secondaryWebView!.isUserInteractionEnabled = true
-        secondaryWebView!.translatesAutoresizingMaskIntoConstraints = false
-        secondaryWebView?.scrollView.isScrollEnabled = false
-        parentController!.view.addSubview(secondaryWebView!)
-        if #available(iOS 11.0, *) {
-            secondaryWebView!.scrollView.contentInsetAdjustmentBehavior = .never
-        }
-        NSLayoutConstraint.activate([
-            secondaryWebView!.heightAnchor.constraint(equalTo: parentController.view.heightAnchor),
-            secondaryWebView!.widthAnchor.constraint(equalTo: parentController.view.widthAnchor)
-        ])
-        MRAIDUtilities.getExpandedUrlContent(url, completion: { val in
-            DispatchQueue.main.async {
-                self.mraidHandler.setMRAIDState(States.EXPANDED)
-                self.secondaryWebView!.loadHTMLString(val, baseURL:nil)
-            }
-        })
-    }
-    
-    public func webViewLoaded() {
-        if (defaultSize == nil) {
-            defaultSize = fallbackSize
-        }
-        //        setSize(defaultSize!)
-        setSize(size.getAdSize())
-        if (isAdMRAIDMedia) {
-            mraidHandler.setDefaultPosition(CGRect(x: defaultPosition!.x, y: defaultPosition!.y, width: defaultSize!.width, height: defaultSize!.height))
-            mraidHandler.setCurrentPosition(CGRect(x: defaultPosition!.x, y: defaultPosition!.y, width: defaultSize!.width, height: defaultSize!.height))
-            setPosition(defaultPosition!)
-            mraidHandler.setIsViewable(true)
-        }
-    }
-    
-    private func addAsChild(to parent: UIViewController, position: String) {
-        view.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-        parent.view.addSubview(view)
-        previousRootController = originalRootController
-        parentController.addChild(self)
-        let size = CGSize(width: 320, height: 50)
-        if (size.width > 0 && size.height > 0) {
-            defaultSize = size
-            // setting mraid default will happen at setSize
-        }
-        view.translatesAutoresizingMaskIntoConstraints = false
-        layoutPosition = position
-        setResizeMask()
-        if #available(iOS 11.0, *) {
-            mraidView!.scrollView.contentInsetAdjustmentBehavior = .never
-        }
-    }
-        
     private func addAsNormalChild(to parent: UIViewController, frame: CGRect) {
         view.frame = frame
         parent.view.addSubview(view)
@@ -315,76 +218,6 @@ public class DocereeAdViewRichMediaBanner: UIViewController, MRAIDDelegate, UINa
         self.view.addSubview(consentUV!)
     }
     
-    private func addAsChild(to parent: UIViewController, frame: CGRect) {
-        defaultPosition = CGPoint(x: frame.minX, y: frame.minY)
-        defaultSize = CGSize(width: frame.width, height: frame.height)
-        if (isAdMRAIDMedia) {
-            mraidHandler.setDefaultPosition(frame)
-            mraidHandler.setCurrentPosition(frame)
-        }
-    }
-    
-    private func setResizeMask() {
-        let standardSpacing: CGFloat = 8.0
-        
-        if (layoutPosition! == "center") {
-            NSLayoutConstraint.activate([view.centerXAnchor.constraint(equalTo: parentController.view.centerXAnchor),
-                                         view.centerYAnchor.constraint(equalTo: parentController.view.centerYAnchor)])
-        } else {
-            if(layoutPosition!.range(of: "top") != nil) {
-                if(mraidHandler.respectsSafeArea) {
-                    if #available(iOS 11.0, *) {
-                        let guide = parentController.view.safeAreaLayoutGuide
-                        NSLayoutConstraint.activate([view.topAnchor.constraint(equalToSystemSpacingBelow: guide.topAnchor, multiplier: 1.0)])
-                    } else {
-                        NSLayoutConstraint.activate([view.topAnchor.constraint(equalTo: parentController.topLayoutGuide.bottomAnchor, constant: standardSpacing)])
-                    }
-                } else {
-                    NSLayoutConstraint.activate([view.topAnchor.constraint(equalTo: parentController.view.topAnchor)])
-                }
-                if (layoutPosition!.range(of: "center") != nil) {
-                    NSLayoutConstraint.activate([view.centerXAnchor.constraint(equalTo: parentController.view.centerXAnchor)])
-                }
-            }
-            if (layoutPosition!.range(of: "bottom") != nil) {
-                if (mraidHandler.respectsSafeArea) {
-                    if #available(iOS 11.0, *) {
-                        let guide = parentController.view.safeAreaLayoutGuide
-                        NSLayoutConstraint.activate([view.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: 0)])
-                    } else {
-                        NSLayoutConstraint.activate([view.bottomAnchor.constraint(equalTo: parentController.bottomLayoutGuide.topAnchor, constant: standardSpacing)])
-                    }
-                } else {
-                    NSLayoutConstraint.activate([view.bottomAnchor.constraint(equalTo: parentController.view.bottomAnchor)])
-                }
-                if (layoutPosition!.range(of: "center") != nil) {
-                    NSLayoutConstraint.activate([view.centerXAnchor.constraint(equalTo: parentController.view.centerXAnchor)])
-                }
-            }
-            if (layoutPosition!.range(of: "left") != nil) {
-                NSLayoutConstraint.activate([view.leftAnchor.constraint(equalTo: parentController.view.leftAnchor)])
-                if(layoutPosition!.range(of: "center") != nil) {
-                    NSLayoutConstraint.activate([view.centerYAnchor.constraint(equalTo: parentController.view.centerYAnchor)])
-                }
-            }
-            if(layoutPosition!.range(of: "right") != nil) {
-                NSLayoutConstraint.activate([view.rightAnchor.constraint(equalTo: parentController.view.rightAnchor)])
-                if(layoutPosition!.range(of: "center") != nil) {
-                    NSLayoutConstraint.activate([view.centerYAnchor.constraint(equalTo: parentController.view.centerYAnchor)])
-                }
-            }
-        }
-    }
-    
-    @objc func onCloseExpandedClicked(sender: UIButton!) {
-        close()
-    }
-    
-    
-    func customCloseClicked() {
-        close()
-    }
-    
     func setRootController(_ controller: UIViewController) {
         previousRootController = UIApplication.shared.delegate?.window??.rootViewController
         UIApplication.shared.delegate?.window??.addSubview(controller.view)
@@ -399,49 +232,9 @@ public class DocereeAdViewRichMediaBanner: UIViewController, MRAIDDelegate, UINa
         return mraidHandler.orientationProperties.allowOrientationChange ?? true
     }
     
-    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return mraidHandler.orientationMask
-    }
-    
-    public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        var degrees = 0
-        switch(UIDevice.current.orientation) {
-        case UIDeviceOrientation.portrait:
-            degrees = 0
-        case UIDeviceOrientation.landscapeLeft:
-            degrees = 90
-        case UIDeviceOrientation.landscapeRight:
-            degrees = -90
-        case UIDeviceOrientation.portraitUpsideDown:
-            degrees = 180
-        default:
-            break
-        }
-        let js = """
-        window.__defineGetter__('orientation',function(){return \(degrees);});
-        (function(){
-        var event = document.createEvent('Events');
-        event.initEvent('orientationchange', true, false);
-        window.dispatchEvent(event);
-        })();
-        """
-        if (mraidHandler.state == States.RESIZED) {
-            close()
-        }
-        if (mraidHandler.state == States.EXPANDED) {
-            UIView.setAnimationsEnabled(false)
-            self.mraidHandler.setCurrentPosition(CGRect(x:0, y:0, width:size.width, height:size.height))
-            self.mraidHandler.setMRAIDScreenSize(size)
-            self.mraidHandler.setMRAIDSizeChanged(to:size)
-            coordinator.animate(alongsideTransition: { (_) in }, completion: { _ in
-                UIView.setAnimationsEnabled(true)
-            })
-        }
-        
-        mraidView.evaluateJavaScript(js, completionHandler: nil)
-    }
-    
-    
+//    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+//        return mraidHandler.orientationMask
+//    }
     
     // webview should always be the same size as the main view
     private func setInitialConstraints() {
@@ -515,122 +308,6 @@ public class DocereeAdViewRichMediaBanner: UIViewController, MRAIDDelegate, UINa
         //        mraidHandler.setMRAIDSizeChanged(to: fullScreenSize)
     }
     
-    //  ---------------------------------------
-    //  ------   MRAID DELEGATE PROTOCOl ------
-    //  ---------------------------------------
-    public func reportDOMSize(_ args: String?) {
-        do{
-            if (defaultSize == nil && args != nil) {
-                let size: Size? = try MRAIDUtilities.deserialize(args!)
-                if(size != nil) {
-                    if(size!.width == 0 || size!.height == 0) {
-                        defaultSize = fallbackSize
-                    } else{
-                        defaultSize = CGSize(width: size!.width, height: size!.height)
-                    }
-                }
-            } else {
-                //TODO args was nil
-            }
-        } catch {
-            // width or height was null.. can't find size.
-            if (defaultSize == nil) {
-                defaultSize = fallbackSize
-            }
-        }
-    }
-    
-    public func expand(_ url: String?) {
-        if (url != nil) {
-            //TODO second webview
-            initSecondaryWebView(url!)
-        } else {
-            if (mraidHandler.state != States.EXPANDED) {
-                setFullScreen()
-                removeFromParent()
-                setRootController(self)
-            }
-        }
-    }
-    
-    public func open(_ url: String) {
-        let browser = MRAIDBrowserWindow()
-        browser.initialize()
-        browser.loadUrl(url)
-        browser.onClose(perform: {() in
-            MRAIDUtilities.setRootController(self.originalRootController!)
-        })
-        MRAIDUtilities.setRootController(browser)
-    }
-    
-    public func resize(to: ResizeProperties) {
-        setSize(CGSize(width: to.width!, height: to.height!))
-        if(to.allowOffscreen == false) {
-            var x = CGFloat(0)
-            var y = CGFloat(0)
-            let vminX = view.frame.minX
-            let vminY = view.frame.minY
-            let smaxX = parentController.view.frame.maxX
-            let smaxY = parentController.view.frame.maxY
-            
-            if (vminX <= 0) {
-                x = 0
-            } else {
-                x = min(smaxX - view.bounds.width, vminX)
-            }
-            
-            if (vminY <= 0) {
-                y = 0
-            } else {
-                y = min(smaxY - view.bounds.height, vminY)
-            }
-            setPosition(CGPoint(x: x, y: y))
-            mraidHandler.setCurrentPosition(CGRect(x: Int(x), y: Int(y), width: to.width!, height: to.height!))
-        } else {
-            setPosition(CGPoint(x: view.frame.minX + CGFloat(to.offsetX!), y: view.frame.minY + CGFloat(to.offsetY!)))
-            mraidHandler.setCurrentPosition(CGRect(x: Int(defaultPosition!.x) + to.offsetX!, y: Int(defaultPosition!.y) + to.offsetY!, width: to.width!, height: to.height!))
-        }
-    }
-    
-    public func close() {
-        if (mraidHandler.state == States.RESIZED) {
-            setSize(defaultSize!)
-            if (layoutPosition != nil) {
-                // we may have rotated by force, or just by user interaction while resized.
-                // defualt position may be out of place.
-                let point = getPointFromPosition(layoutPosition!)
-                setPosition(point)
-            } else {
-                setPosition(defaultPosition!)
-            }
-            mraidHandler.setCurrentPosition(CGRect(x: defaultPosition!.x, y: defaultPosition!.y, width: defaultSize!.width, height: defaultSize!.height))
-        }
-        if (mraidHandler.state == States.EXPANDED) {
-            if (mraidHandler.activeWebView == secondaryWebView) {
-                mraidHandler.activeWebView = mraidView
-                secondaryWebView?.removeFromSuperview()
-                secondaryWebView = nil
-            } else {
-                UIView.setAnimationsEnabled(true)
-                // re-enable the old root view controller, and add ourselves back to it.
-                view.backgroundColor = nil
-                setRootController(originalRootController!)
-                parentController.addChild(self)
-                parentController.view.addSubview(view)
-            }
-            setSize(defaultSize!)
-            if (layoutPosition != nil) {
-                // we may have rotated by force, or just by user interaction while expanded.
-                // defualt position may be out of place.
-                let point = getPointFromPosition(layoutPosition!)
-                setPosition(point)
-            } else {
-                setPosition(defaultPosition!)
-            }
-            mraidHandler.setCurrentPosition(CGRect(x: defaultPosition!.x, y: defaultPosition!.y, width: defaultSize!.width, height: defaultSize!.height))
-            setResizeMask()
-        }
-    }
 }
 
 extension String {
