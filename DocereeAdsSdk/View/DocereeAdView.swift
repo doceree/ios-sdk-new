@@ -25,7 +25,6 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     var crossImageView: UIImageView?
     var infoImageView: UIImageView?
 
-    var richMediaBanner: DocereeAdViewRichMediaBanner?
     var isRichMediaAd = false
     
     @IBOutlet public weak var rootViewController: UIViewController?
@@ -268,7 +267,6 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                         return
                     }
                     DispatchQueue.main.async {
-                        self.richMediaBanner = DocereeAdViewRichMediaBanner()
                         NotificationCenter.default.setObserver(observer: self, selector: #selector(self.appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
                         NotificationCenter.default.setObserver(observer: self, selector: #selector(self.willMoveToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
                         NotificationCenter.default.setObserver(observer: self, selector: #selector(self.didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
@@ -394,11 +392,8 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     
     func removeAllViews() {
         DispatchQueue.main.async {
-            for v in self.subviews{
+            for v in self.subviews {
                 v.removeFromSuperview()
-            }
-            if(self.richMediaBanner != nil) {
-                self.richMediaBanner?.view.removeFromSuperview()
             }
         }
     }
@@ -460,10 +455,6 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     }
     
     
-    
-    
-    
-    
     // MARK: Rich Media Setup
 
     private func initializeRichAds(frame: CGRect?, body: String?) {
@@ -477,7 +468,6 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     }
     
     // MARK: initialize webView
-
     private func initWebView(frame: CGRect) {
         adWebView = WKWebView()
         adWebView.configuration.allowsInlineMediaPlayback = true
