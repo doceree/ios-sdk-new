@@ -219,7 +219,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                 self.ctaLink = adResponseData.ctaLink
                 let isImpressionLinkNullOrEmpty: Bool = (adResponseData.impressionLink ?? "").isEmpty
                 if (!isImpressionLinkNullOrEmpty) {
-                    self.docereeAdRequest?.sendImpression(impressionUrl: adResponseData.impressionLink!)
+                    self.docereeAdRequest?.sendAdImpression(impressionUrl: adResponseData.impressionLink!)
                 }
                 if !isRichMediaAd {
                     createSimpleAd(sourceURL: adResponseData.sourceURL)
@@ -362,7 +362,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         placeHolderView.isUserInteractionEnabled = true
         
         UIView.animate(withDuration: 1.0, animations: { [self] in
-            placeHolderView.backgroundColor = UIColor(named: "#F2F2F2")
+            placeHolderView.backgroundColor = UIColor(hexString: "#F2F2F2")
             placeHolderView.frame = CGRect(x: xCoords, y: yCoords, width: -placeHolderView.intrinsicContentSize.width, height: (self.infoImageView?.frame.height)!)
         }, completion: { (finished: Bool) in
             let tap = UITapGestureRecognizer(target: self, action: #selector(self.openAdConsentView))
@@ -403,7 +403,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         DocereeAdView.self.didLeaveAd = true
         if let url = URL(string: "\(ctaLink ?? "")"), !url.absoluteString.isEmpty {
             customTimer?.stop()
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            UIApplication.shared.openURL(url)
             self.removeAllViews()
         }
     }

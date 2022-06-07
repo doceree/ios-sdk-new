@@ -20,13 +20,13 @@ public final class DocereeMobileAds {
         return docereeMobileAds
     }()
     
+    
     public static func login(with hcp: Hcp){
-        do {
-            let data = try NSKeyedArchiver.archivedData(withRootObject: hcp, requiringSecureCoding: false)
-            try data.write(to: ProfileArchivingUrl)
-        } catch {
-            print("ERROR: \(error.localizedDescription)")
-        }
+        NSKeyedArchiver.archiveRootObject(hcp, toFile: ProfileArchivingUrl.path)
+    }
+    
+    public static func setApplicationKey(_ key: String){
+        NSKeyedArchiver.archiveRootObject(key, toFile: DocereeAdsIdArchivingUrl.path)
     }
     
     public static func getProfile() -> Hcp? {

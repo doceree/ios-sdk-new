@@ -44,13 +44,7 @@ func getAdTypeBySize(adSize: AdSize) -> AdType {
 }
 
 func savePlatformuid(_ newPlatormuid: String) {
-//    NSKeyedArchiver.archiveRootObject(newPlatormuid, toFile: PlatformArchivingUrl.path)
-    do {
-        let data = try NSKeyedArchiver.archivedData(withRootObject: newPlatormuid, requiringSecureCoding: false)
-        try data.write(to: PlatformArchivingUrl)
-    } catch {
-        print("ERROR: \(error.localizedDescription)")
-    }
+    NSKeyedArchiver.archiveRootObject(newPlatormuid, toFile: PlatformArchivingUrl.path)
 }
 
 func getIdentifierForAdvertising() -> String? {
@@ -70,28 +64,38 @@ func getIdentifierForAdvertising() -> String? {
     }
 }
 
-func getHost(type: EnvironmentType) -> String?{
-    switch type {
-    case .Dev:
-        return "dev-bidder.doceree.com"
-    case .Local:
-        return "10.0.3.2"
-    case .Qa:
-        return "qa-bidder.doceree.com"
-    case .Prod:
-        return "bidder.doceree.com"
+struct RestEntity {
+    private var values: [String: String] = [:]
+    
+    mutating func add(value: String, forKey key: String){
+        values[key] = value
+    }
+    
+    func value(forKey key: String) -> String?{
+        return values[key]
+    }
+    
+    func allValues() -> [String: String]{
+        return values
+    }
+    
+    func totalItems() -> Int{
+        return values.count
     }
 }
 
-func getDocTrackerHost(type: EnvironmentType) -> String?{
-    switch type {
-    case .Dev:
-        return "dev-tracking.doceree.com"
-    case .Local:
-        return "10.0.3.2"
-    case .Qa:
-        return "qa-tracking.doceree.com"
-    case .Prod:
-        return "tracking.doceree.com"
+extension Bundle {
+    // Name of the app - title under the icon.
+    var displayName: String? {
+        return object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ??
+            object(forInfoDictionaryKey: "CFBundleName") as? String
+    }
+    
+    var releaseVersionNumber: String? {
+        return self.infoDictionary?["CFBundleShortVersionString"] as? String
+    }
+    
+    var buildVersionNumber: String? {
+        return self.infoDictionary?["CFBundleVersion"] as? String
     }
 }
