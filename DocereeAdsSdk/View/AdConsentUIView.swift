@@ -43,7 +43,7 @@ class AdConsentUIView: UIView {
         super.init(coder: coder)
     }
     
-    convenience init?(with adSize: AdSize, frame: CGRect, rootVC: UIViewController, adView: DocereeAdView?, isRichMedia: Bool) {
+    convenience init?(with adSize: AdSize, frame: CGRect, rootVC: UIViewController?, adView: DocereeAdView?, isRichMedia: Bool) {
         self.init()
         adViewSize = adSize
         adViewFrame = frame
@@ -189,7 +189,7 @@ class AdConsentUIView: UIView {
         consentView!.frame = CGRect(x: .zero, y: .zero, width: adViewFrame!.width, height: adViewFrame!.height)
         
         if (!self.isRichMedia) {
-        self.docereeAdView!.addSubview(consentView!)
+            self.docereeAdView!.addSubview(consentView!)
         } else {
             for v in rootViewController!.view.subviews {
                 v.removeFromSuperview()

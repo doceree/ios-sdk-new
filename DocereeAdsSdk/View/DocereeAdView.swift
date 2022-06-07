@@ -9,8 +9,9 @@ import UIKit
 import ImageIO
 import SafariServices
 import os.log
+import WebKit
 
-public final class DocereeAdView: UIView, UIApplicationDelegate {
+public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDelegate {
     
     //MARK: Properties
     public var docereeAdUnitId: String = String.init()
@@ -25,6 +26,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
     var infoImageView: UIImageView?
 
     var richMediaBanner: DocereeAdViewRichMediaBanner?
+    var isRichMediaAd = false
     
     @IBOutlet public weak var rootViewController: UIViewController?
     
@@ -36,6 +38,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
         adImageView.translatesAutoresizingMaskIntoConstraints = false
         return adImageView
     }()
+    private var adWebView: WKWebView!
     
     // MARK: Initialization
     
@@ -175,6 +178,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
             
             docereeAdRequest.requestAd(self.docereeAdUnitId, size){ (results, isRichMediaAd) in
                 if let data = results.data {
+                    self.isRichMediaAd = isRichMediaAd
                     self.createAdUI(data: data, isRichMediaAd: isRichMediaAd)
                 } else {
                     self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
@@ -240,7 +244,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
                 self.adImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
                 let imageUrl = NSURL(string: urlString)
                 self.handleImageRendering(of: imageUrl)
-                if self.delegate != nil{
+                if self.delegate != nil {
                     self.delegate?.docereeAdViewDidReceiveAd(self)
                 }
             }
@@ -252,7 +256,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
         // Show mraid banner
         // get source url and download html body
         if let urlString = sourceURL, urlString.count > 0 {
-            if let url = URL(string: urlString){
+            if let url = URL(string: urlString) {
                 do{
                     let htmlContent = try String(contentsOf: url)
                     var refinedHtmlContent = htmlContent.withReplacedCharacter("<head>", by: "<head><style>html,body{padding:0;margin:0;}</style><base href=" + (urlString.components(separatedBy: "unzip")[0]) + "unzip/" + "target=\"_blank\">")
@@ -265,11 +269,10 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
                     }
                     DispatchQueue.main.async {
                         self.richMediaBanner = DocereeAdViewRichMediaBanner()
-                        //                                    banner.initialize(parentViewController:self.rootViewController!, position:"bottom-center", respectSafeArea:true, renderBodyOverride: true, size: self.adSize!, body: body)
                         NotificationCenter.default.setObserver(observer: self, selector: #selector(self.appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
                         NotificationCenter.default.setObserver(observer: self, selector: #selector(self.willMoveToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
                         NotificationCenter.default.setObserver(observer: self, selector: #selector(self.didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
-                        self.richMediaBanner!.initialize(parentViewController: self.rootViewController!, frame: self.frame, renderBodyOverride: false, size: self.adSize!, body: body, docereeAdView: self, delegate: self.delegate)
+                        self.initializeRichAds(frame: self.frame, body: body)
                         if self.delegate != nil {
                             self.delegate?.docereeAdViewDidReceiveAd(self)
                         }
@@ -319,7 +322,11 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
         
         crossImageView!.frame = CGRect(x: Int(adSize!.width) - iconWidth, y: iconHeight/10, width: iconWidth, height: iconHeight)
         crossImageView!.tintColor =  UIColor.init(hexString: "#6C40F7")
-        self.adImageView.addSubview(crossImageView!)
+        if !isRichMediaAd {
+            self.adImageView.addSubview(crossImageView!)
+        } else {
+            self.adWebView.addSubview(crossImageView!)
+        }
         crossImageView!.isUserInteractionEnabled = true
         let tapOnCrossButton = UITapGestureRecognizer(target: self, action: #selector(openAdConsentView))
         crossImageView!.addGestureRecognizer(tapOnCrossButton)
@@ -332,7 +339,11 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
         }
         infoImageView!.frame = CGRect(x: Int(adSize!.width) - 2*iconWidth, y: iconHeight/10, width: iconWidth, height: iconHeight)
         infoImageView!.tintColor =  UIColor.init(hexString: "#6C40F7")
-        self.adImageView.addSubview(infoImageView!)
+        if !isRichMediaAd {
+            self.adImageView.addSubview(infoImageView!)
+        } else {
+            self.adWebView.addSubview(infoImageView!)
+        }
         infoImageView!.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(startLabelAnimation))
         infoImageView!.addGestureRecognizer(tap)
@@ -368,8 +379,12 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
     }
     
     private func openAdConsent() {
-        let consentUV = AdConsentUIView(with: self.adSize!, frame: self.frame, rootVC: self.rootViewController!, adView: self, isRichMedia: false)
-        self.adImageView.removeFromSuperview()
+        let consentUV = AdConsentUIView(with: self.adSize!, frame: self.frame, rootVC: self.rootViewController, adView: self, isRichMedia: false)
+        if !isRichMediaAd {
+            self.adImageView.removeFromSuperview()
+        } else {
+            self.adWebView.removeFromSuperview()
+        }
         self.addSubview(consentUV!)
     }
     
@@ -443,6 +458,75 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
             load(self.docereeAdRequest!)
         }
     }
+    
+    
+    
+    
+    
+    
+    // MARK: Rich Media Setup
+
+    private func initializeRichAds(frame: CGRect?, body: String?) {
+        
+        initWebView(frame: frame!)
+
+        let url = URL(fileURLWithPath: "https://adbserver.doceree.com/")
+        adWebView.loadHTMLString(body!, baseURL: url)
+        setupConsentIcons()
+ 
+    }
+    
+    // MARK: initialize webView
+
+    private func initWebView(frame: CGRect) {
+        adWebView = WKWebView()
+        adWebView.configuration.allowsInlineMediaPlayback = true
+        adWebView.navigationDelegate = self
+        adWebView.translatesAutoresizingMaskIntoConstraints = false
+        adWebView.scrollView.isScrollEnabled = false
+        adWebView.isOpaque = true
+        adWebView.isUserInteractionEnabled = true
+        
+        self.addSubview(adWebView)
+        
+        setInitialConstraints()
+    }
+    
+    /* Handle HTTP requests from the webview */
+    public func webView(_ webView: WKWebView,
+                        decidePolicyFor navigationAction: WKNavigationAction,
+                        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if navigationAction.navigationType == .linkActivated  {
+            if let url = navigationAction.request.url,
+                let host = url.host, !host.hasPrefix("www.google.com"),
+                UIApplication.shared.canOpenURL(url) {
+                DocereeAdView.didLeaveAd = true
+                if #available(iOS 10, *) {
+                    UIApplication.shared.open(url)
+                } else {
+                    // Fallback on earlier versions
+                    UIApplication.shared.openURL(url)
+                }
+                decisionHandler(.cancel)
+            } else {
+                decisionHandler(.allow)
+            }
+        } else {
+            decisionHandler(.allow)
+        }
+    }
+
+    // webview should always be the same size as the main view
+    private func setInitialConstraints() {
+        let webViewSizeConstraints = [
+            NSLayoutConstraint(item: self as Any, attribute: .width, relatedBy: .equal, toItem: adWebView, attribute: .width, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: self as Any, attribute: .height, relatedBy: .equal, toItem: adWebView, attribute: .height, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: self as Any, attribute: .centerX, relatedBy: .equal, toItem: adWebView, attribute: .centerX, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: self as Any, attribute: .centerY, relatedBy: .equal, toItem: adWebView, attribute: .centerY, multiplier: 1.0, constant: 0),
+        ]
+        self.addConstraints(webViewSizeConstraints)
+    }
+    
 }
 
 //fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
