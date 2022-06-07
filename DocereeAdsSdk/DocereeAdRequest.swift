@@ -140,7 +140,7 @@ public final class DocereeAdRequest {
             let session = URLSession(configuration: config)
             var components = URLComponents()
             components.scheme = "https"
-            components.host = getHost(type: EnvironmentType.Dev)
+            components.host = getHost(type: EnvironmentType.Prod)
             components.path = getPath(methodName: Methods.GetImage)
             var queryItems: [URLQueryItem] = []
             for (key, value) in self.urlQueryParameters.allValues(){
