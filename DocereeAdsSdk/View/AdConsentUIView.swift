@@ -12,9 +12,7 @@ class AdConsentUIView: UIView {
     
     // MARK: Properties
     var requestHttpHeaders = RestEntity()
-    var urlQueryParameters = RestEntity()
     var httpBodyParameters = RestEntity()
-    var httpBody: Data?
     
     // MARK: private vars
     private var consentView: UIView?
@@ -86,7 +84,6 @@ class AdConsentUIView: UIView {
             backButtonUIImageView = UIImageView(image: UIImage(systemName: "arrow.backward", withConfiguration: lightConfiguration))
         } else {
             // Fallback on earlier versions
-
             backArrowUIImage = backArrowUIImage!.resizeImage(image: UIImage(named: "backarrow", in: nil, compatibleWith: nil)!, targetSize: CGSize(width: iconSize, height: iconSize))!
             backButtonUIImageView = UIImageView(image: backArrowUIImage)
         }
@@ -115,6 +112,7 @@ class AdConsentUIView: UIView {
         horizontalStackView1.addArrangedSubview(backButtonUIImageView!)
         horizontalStackView1.addArrangedSubview(titleView)
         horizontalStackView1.translatesAutoresizingMaskIntoConstraints = false
+        backButtonUIImageView?.leadingAnchor.constraint(equalTo: horizontalStackView1.leadingAnchor, constant: 5.0).isActive = true
         
         consentView!.addSubview(horizontalStackView1)
         

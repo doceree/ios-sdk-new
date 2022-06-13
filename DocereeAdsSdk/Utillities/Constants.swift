@@ -26,7 +26,7 @@ enum BlockLevel {
     case NotInterestedInBrandType
     case NotInterestedInClientType
     
-    var info: (blockLevelCode: String, blockLevelDesc: String){
+    var info: (blockLevelCode: String, blockLevelDesc: String) {
         switch self{
         case .AdCoveringContent:
             return ("overlappingAd", "Ad is covering the content of the website.")

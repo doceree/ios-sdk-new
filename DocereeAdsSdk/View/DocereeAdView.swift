@@ -175,7 +175,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                 return
             }
             
-            docereeAdRequest.requestAd(self.docereeAdUnitId, size){ (results, isRichMediaAd) in
+            docereeAdRequest.requestAd(self.docereeAdUnitId, size) { (results, isRichMediaAd) in
                 if let data = results.data {
                     self.isRichMediaAd = isRichMediaAd
                     self.createAdUI(data: data, isRichMediaAd: isRichMediaAd)

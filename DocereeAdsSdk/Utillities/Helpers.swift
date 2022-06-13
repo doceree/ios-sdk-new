@@ -48,7 +48,7 @@ func savePlatformuid(_ newPlatormuid: String) {
 }
 
 func getIdentifierForAdvertising() -> String? {
-    if #available(iOS 14, *){
+    if #available(iOS 14, *) {
         if (DocereeMobileAds.trackingStatus == "authorized") {
             return ASIdentifierManager.shared().advertisingIdentifier.uuidString
         } else {

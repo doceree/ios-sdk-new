@@ -19,8 +19,6 @@ public final class DocereeAdRequest {
     // MARK: Properties
     var requestHttpHeaders = RestEntity()
     var urlQueryParameters = RestEntity()
-    var httpBodyParameters = RestEntity()
-    var httpBody: Data?
     var isVendorId: Bool = false
     
     // todo: create a queue of requests and inititate request
@@ -32,38 +30,15 @@ public final class DocereeAdRequest {
     
     // MARK: Public methods
     internal func requestAd(_ adUnitId: String!, _ size: String!, completion: @escaping(_ results: Results,
-                                                                                        _ isRichMediaAd: Bool) -> Void){
+                                                                                        _ isRichMediaAd: Bool) -> Void) {
         self.adUnitId = adUnitId
         self.size = size
-        setUpImage(self.size!, self.adUnitId!){ (results, isRichMediaAd) in
+        setUpImage(self.size!, self.adUnitId!) { (results, isRichMediaAd) in
             completion(results, isRichMediaAd)
         }
     }
-    
-    
-    internal func sendAdImpression(impressionUrl: String) {
-        let updatedUrl: String? = impressionUrl
-        let url: URL = URL(string: updatedUrl!)!
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = HttpMethod.get.rawValue
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        
-        // set headers
-        for header in requestHttpHeaders.allValues() {
-            urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
-        }
-        
-        let task = session.dataTask(with: urlRequest){ (data, response, error) in
-            guard data != nil else { return }
-            _ = response as! HTTPURLResponse
-            print("Test: Send Imressions")
-//            print("impression sent. Http Status code is \(urlResponse.statusCode)")
-        }
-        task.resume()
-    }
 
-    internal func setUpImage(_ size: String!, _ slotId: String!, completion: @escaping(_ results: Results, _ isRichmedia: Bool) -> Void){
+    internal func setUpImage(_ size: String!, _ slotId: String!, completion: @escaping(_ results: Results, _ isRichmedia: Bool) -> Void) {
 
         guard let appKey = NSKeyedUnarchiver.unarchiveObject(withFile: DocereeAdsIdArchivingUrl.path) as? String else {
             if #available(iOS 10.0, *) {
@@ -88,6 +63,7 @@ public final class DocereeAdRequest {
         }
         if advertisementId != nil {
             guard let loggedInUser = DocereeMobileAds.getProfile() else {
+                print("Error: Not found profile data")
                 return
             }
  
@@ -160,7 +136,7 @@ public final class DocereeAdRequest {
                 let urlResponse = response as! HTTPURLResponse
                 if urlResponse.statusCode == 200 {
                     print("Test: Ad Request")
-                    do{
+                    do {
                         let adResponseData: AdResponse = try JSONDecoder().decode(AdResponse.self, from: data)
                         print("Ad Response: \(adResponseData)")
                         if adResponseData.errMessage != nil && adResponseData.errMessage!.count > 0 {
@@ -187,6 +163,27 @@ public final class DocereeAdRequest {
                 print("Unknown error")
             }
         }
+    }
+    
+    internal func sendAdImpression(impressionUrl: String) {
+        let updatedUrl: String? = impressionUrl
+        let url: URL = URL(string: updatedUrl!)!
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = HttpMethod.get.rawValue
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        
+        // set headers
+        for header in requestHttpHeaders.allValues() {
+            urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
+        }
+        
+        let task = session.dataTask(with: urlRequest){ (data, response, error) in
+            guard data != nil else { return }
+            let urlResponse = response as! HTTPURLResponse
+            print("impression sent. Http Status code is \(urlResponse.statusCode)")
+        }
+        task.resume()
     }
 
 }
