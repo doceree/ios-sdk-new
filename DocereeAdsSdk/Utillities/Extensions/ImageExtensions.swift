@@ -1,7 +1,7 @@
 
 import UIKit
 
-struct ImageHeaderData{
+struct ImageHeaderData {
     static var PNG: [UInt8] = [0x89]
     static var JPEG: [UInt8] = [0xFF]
     static var GIF: [UInt8] = [0x47]
@@ -9,7 +9,7 @@ struct ImageHeaderData{
     static var TIFF_02: [UInt8] = [0x4D]
 }
 
-enum ImageFormat{
+enum ImageFormat {
     case Unknown, PNG, JPEG, GIF, TIFF
 }
 
