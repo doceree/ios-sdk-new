@@ -63,7 +63,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         self.init(with: adSize, and: origin, adPosition: adPosition!)
     }
     
-    public convenience init?(with size: String?, adPosition: AdPosition) {
+    private convenience init?(with size: String?, adPosition: AdPosition) {
         self.init()
         if size == nil || size?.count == 0 {
             if #available(iOS 10.0, *) {
@@ -98,22 +98,8 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
             } else {
                 // Fallback on earlier versions
             }
-        } else{
-            if adSize is Banner {
-                self.adSize = Banner()
-            } else if adSize is FullBanner {
-                self.adSize = FullBanner()
-            } else if adSize is MediumRectangle {
-                self.adSize = MediumRectangle()
-            } else if adSize is LargeBanner {
-                self.adSize = LargeBanner()
-            } else if adSize is LeaderBoard {
-                self.adSize = LeaderBoard()
-            } else if adSize is SmallBanner {
-                self.adSize = SmallBanner()
-            } else {
-                self.adSize = Banner()
-            }
+        } else {
+            self.adSize = getAddSize(adSize: adSize!)
         }
         self.position = adPosition
         addSubview(adImageView)
@@ -156,7 +142,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     
     //MARK: Public methods
     public func load(_ docereeAdRequest: DocereeAdRequest) {
-        //        todo set image here
+        // todo set image here
         self.docereeAdRequest = docereeAdRequest
         let queue = OperationQueue()
         let operation1 = BlockOperation(block: {
@@ -194,8 +180,6 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     private func startTimer() {
         customTimer?.stop()
         customTimer = CustomTimer { (seconds) in
-            // do whatever you want
-//            print("seconds: ", seconds)
             if self.customTimer!.count % 30 == 0 {
                 self.customTimer?.count = 0
                 self.refresh()
@@ -206,30 +190,29 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     }
     
     private func createAdUI(data: Data, isRichMediaAd: Bool) {
-            let decoder = JSONDecoder()
-            do {
-                let adResponseData: AdResponse = try decoder.decode(AdResponse.self, from: data)
-                if (adResponseData.sourceURL ?? "").isEmpty{
-                    self.removeAllViews()
-                    return
-                }
-//                let imageUrl = adResponseData.sourceURL
-                self.cbId = adResponseData.CBID?.components(separatedBy: "_")[0]
-                self.docereeAdUnitId = adResponseData.DIVID!
-                self.ctaLink = adResponseData.ctaLink
-                let isImpressionLinkNullOrEmpty: Bool = (adResponseData.impressionLink ?? "").isEmpty
-                if (!isImpressionLinkNullOrEmpty) {
-                    self.docereeAdRequest?.sendAdImpression(impressionUrl: adResponseData.impressionLink!)
-                }
-                if !isRichMediaAd {
-                    createSimpleAd(sourceURL: adResponseData.sourceURL)
-                } else {
-                    createRichMediaAd(sourceURL: adResponseData.sourceURL)
-                }
-            } catch {
-                self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
+        let decoder = JSONDecoder()
+        do {
+            let adResponseData: AdResponse = try decoder.decode(AdResponse.self, from: data)
+            if (adResponseData.sourceURL ?? "").isEmpty{
                 self.removeAllViews()
+                return
             }
+            self.cbId = adResponseData.CBID?.components(separatedBy: "_")[0]
+            self.docereeAdUnitId = adResponseData.DIVID!
+            self.ctaLink = adResponseData.ctaLink
+            let isImpressionLinkNullOrEmpty: Bool = (adResponseData.impressionLink ?? "").isEmpty
+            if (!isImpressionLinkNullOrEmpty) {
+                self.docereeAdRequest?.sendAdImpression(impressionUrl: adResponseData.impressionLink!)
+            }
+            if !isRichMediaAd {
+                createSimpleAd(sourceURL: adResponseData.sourceURL)
+            } else {
+                createRichMediaAd(sourceURL: adResponseData.sourceURL)
+            }
+        } catch {
+            self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
+            self.removeAllViews()
+        }
     }
     
     private func createSimpleAd(sourceURL: String?) {
@@ -256,10 +239,10 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         // get source url and download html body
         if let urlString = sourceURL, urlString.count > 0 {
             if let url = URL(string: urlString) {
-                do{
+                do {
                     let htmlContent = try String(contentsOf: url)
                     var refinedHtmlContent = htmlContent.withReplacedCharacter("<head>", by: "<head><style>html,body{padding:0;margin:0;}</style><base href=" + (urlString.components(separatedBy: "unzip")[0]) + "unzip/" + "target=\"_blank\">")
-                    if (self.ctaLink != nil && self.ctaLink!.count > 0){
+                    if (self.ctaLink != nil && self.ctaLink!.count > 0) {
                         refinedHtmlContent = refinedHtmlContent.replacingOccurrences(of: "[TRACKING_LINK]", with: self.ctaLink!)
                     }
                     let body: String = refinedHtmlContent
@@ -275,7 +258,6 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                             self.delegate?.docereeAdViewDidReceiveAd(self)
                         }
                     }
-                    
                 } catch {
                     self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
                     self.removeAllViews()
@@ -367,8 +349,8 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         }, completion: { (finished: Bool) in
             let tap = UITapGestureRecognizer(target: self, action: #selector(self.openAdConsentView))
             self.infoImageView?.addGestureRecognizer(tap)
-                        placeHolderView.removeFromSuperview()
-                        self.openAdConsent()
+            placeHolderView.removeFromSuperview()
+            self.openAdConsent()
         })
     }
     
@@ -456,15 +438,11 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     
     
     // MARK: Rich Media Setup
-
     private func initializeRichAds(frame: CGRect?, body: String?) {
-        
         initWebView(frame: frame!)
-
         let url = URL(fileURLWithPath: "https://adbserver.doceree.com/")
         adWebView.loadHTMLString(body!, baseURL: url)
         setupConsentIcons()
- 
     }
     
     // MARK: initialize webView
@@ -476,9 +454,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         adWebView.scrollView.isScrollEnabled = false
         adWebView.isOpaque = true
         adWebView.isUserInteractionEnabled = true
-        
         self.addSubview(adWebView)
-        
         setInitialConstraints()
     }
     
@@ -518,15 +494,3 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     }
     
 }
-
-//fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-//    switch (lhs, rhs) {
-//    case let (l?, r?):
-//        return l < r
-//    case (nil, _?):
-//        return true
-//    default:
-//        return false
-//    }
-//}
-
