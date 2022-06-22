@@ -13,94 +13,72 @@ import WebKit
 
 public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDelegate {
     
+    @IBOutlet public weak var rootViewController: UIViewController?
+    
     //MARK: Properties
     public var docereeAdUnitId: String = String.init()
     public var delegate: DocereeAdViewDelegate?
     public var position: AdPosition = .custom
-    var ctaLink: String?
+    
     var cbId: String?
-    static var didLeaveAd: Bool = false
+    
+    private var adSize: AdSize?
+    private var ctaLink: String?
+    private var crossImageView: UIImageView?
+    private var infoImageView: UIImageView?
     private var docereeAdRequest: DocereeAdRequest?
-
-    var crossImageView: UIImageView?
-    var infoImageView: UIImageView?
-
-    var isRichMediaAd = false
+    private var isRichMediaAd = false
+    private var customTimer: CustomTimer?
+    private var adWebView: WKWebView!
     
-    @IBOutlet public weak var rootViewController: UIViewController?
+    static var didLeaveAd: Bool = false
     
-    var adSize: AdSize?
-    
-    var customTimer: CustomTimer?
     lazy var adImageView: UIImageView = {
         let adImageView = UIImageView()
         adImageView.translatesAutoresizingMaskIntoConstraints = false
         return adImageView
     }()
-    private var adWebView: WKWebView!
     
     // MARK: Initialization
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(adImageView)
-        setUpLayout()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        addSubview(adImageView)
-        setUpLayout()
     }
  
-    public convenience init?(with size: String?, and origin: CGPoint, adPosition: AdPosition?){
-        self.init(with: size, adPosition: adPosition!)
-        
-        adSize = getAdSize(for: size)
-        if adSize!.width > UIScreen.main.bounds.width {
-            self.adSize?.width = UIScreen.main.bounds.width
-        }
-        self.init(with: adSize, and: origin, adPosition: adPosition!)
-    }
-    
-    private convenience init?(with size: String?, adPosition: AdPosition) {
+    public convenience init?(with size: String?, and origin: CGPoint, adPosition: AdPosition?) {
         self.init()
-        if size == nil || size?.count == 0 {
-            if #available(iOS 10.0, *) {
-                os_log("Error: Please provide a valid size!", log: .default, type: .error)
-            } else {
-                // Fallback on earlier versions
-            }
-            return
-        }
-        adSize = getAdSize(for: size)
-        if adSize is Invalid {
-            if #available(iOS 10.0, *) {
-                print("adSize:", adSize as Any)
-                os_log("Error Test: Invalid size!", log: .default, type: .error)
-            } else {
-                // Fallback on earlier versions
-            }
-            return
-        }
-        adSize = getAdSize(for: size)
-        if adSize!.width > UIScreen.main.bounds.width {
-            self.adSize?.width = UIScreen.main.bounds.width
-        }
-        self.init(with: adSize, adPosition: adPosition)
-    }
-   
-    private convenience init(with adSize: AdSize?, adPosition: AdPosition) {
-        self.init(frame: CGRect(x: .zero, y: .zero, width: (adSize?.width)!, height: (adSize?.height)!))
-        if adSize == nil {
+        
+        if size == nil {
             if #available(iOS 10.0, *) {
                 os_log("Error: AdSize must be provided", log: .default, type: .error)
             } else {
                 // Fallback on earlier versions
             }
-        } else {
-            self.adSize = getAddSize(adSize: adSize!)
+            return
         }
+        
+        adSize = getAdSize(for: size)
+        if adSize is Invalid {
+            if #available(iOS 10.0, *) {
+                print("adSize:", adSize as Any)
+                os_log("Error: Please provide a valid size!", log: .default, type: .error)
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+        self.init(with: adSize, adPosition: adPosition!)
+        if adSize!.width > UIScreen.main.bounds.width {
+            self.adSize?.width = UIScreen.main.bounds.width
+        }
+        self.init(with: adSize, and: origin, adPosition: adPosition!)
+    }
+
+    private convenience init(with adSize: AdSize?, adPosition: AdPosition) {
+        self.init(frame: CGRect(x: .zero, y: .zero, width: (adSize?.width)!, height: (adSize?.height)!))
+        self.adSize = getAddSize(adSize: adSize!)
         self.position = adPosition
         addSubview(adImageView)
         setUpLayout()
@@ -108,15 +86,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     
     private convenience init(with adSize: AdSize?, and origin: CGPoint, adPosition: AdPosition){
         self.init(frame: CGRect(x: origin.x, y: origin.y, width: (adSize?.width)!, height: (adSize?.height)!))
-        if adSize == nil {
-            if #available(iOS 10.0, *) {
-                os_log("Error: AdSize must be provided", log: .default, type: .error)
-            } else {
-                // Fallback on earlier versions
-            }
-        } else{
-            self.adSize = adSize
-        }
+        self.adSize = adSize
         self.position = adPosition
         addSubview(adImageView)
         setUpLayout()
@@ -142,36 +112,36 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     
     //MARK: Public methods
     public func load(_ docereeAdRequest: DocereeAdRequest) {
-        // todo set image here
+        // check for size existence
+        if self.adSize == nil {
+            return
+        }
+
+        // MARK : size restriction for iPhones & iPads
+        if UIDevice.current.userInterfaceIdiom == .phone && (self.adSize?.getAdSizeName() == "LEADERBOARD" || self.adSize?.getAdSizeName() == "FULLBANNER") {
+            if #available(iOS 10.0, *) {
+                os_log("Invalid Request. Ad size will not fit on screen", log: .default, type: .error)
+            } else {
+                // Fallback on earlier versions
+                print("Invalid Request. Ad size will not fit on screen")
+            }
+            return
+        }
+        
         self.docereeAdRequest = docereeAdRequest
-        let queue = OperationQueue()
-        let operation1 = BlockOperation(block: {
-            let width: Int = Int((self.adSize?.getAdSize().width)!)
-            let height: Int = Int((self.adSize?.getAdSize().height)!)
-            let size = "\(width)x\(height)"
-            
-            // MARK : size restriction for iPhones & iPads
-            if UIDevice.current.userInterfaceIdiom == .phone && (self.adSize?.getAdSizeName() == "LEADERBOARD" || self.adSize?.getAdSizeName() == "FULLBANNER") {
-                if #available(iOS 10.0, *) {
-                    os_log("Invalid Request. Ad size will not fit on screen", log: .default, type: .error)
-                } else {
-                    // Fallback on earlier versions
-                    print("Invalid Request. Ad size will not fit on screen")
-                }
-                return
+        let width: Int = Int((self.adSize?.getAdSize().width)!)
+        let height: Int = Int((self.adSize?.getAdSize().height)!)
+        let size = "\(width)x\(height)"
+        
+        docereeAdRequest.requestAd(self.docereeAdUnitId, size) { (results, isRichMediaAd) in
+            if let data = results.data {
+                self.isRichMediaAd = isRichMediaAd
+                self.createAdUI(data: data, isRichMediaAd: isRichMediaAd)
+            } else {
+                self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
+                self.removeAllViews()
             }
-            
-            docereeAdRequest.requestAd(self.docereeAdUnitId, size) { (results, isRichMediaAd) in
-                if let data = results.data {
-                    self.isRichMediaAd = isRichMediaAd
-                    self.createAdUI(data: data, isRichMediaAd: isRichMediaAd)
-                } else {
-                    self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
-                    self.removeAllViews()
-                }
-            }
-        })
-        queue.addOperation(operation1)
+        }
         startTimer()
     }
     
@@ -193,7 +163,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         let decoder = JSONDecoder()
         do {
             let adResponseData: AdResponse = try decoder.decode(AdResponse.self, from: data)
-            if (adResponseData.sourceURL ?? "").isEmpty{
+            if (adResponseData.sourceURL ?? "").isEmpty {
                 self.removeAllViews()
                 return
             }
@@ -311,7 +281,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         let tapOnCrossButton = UITapGestureRecognizer(target: self, action: #selector(openAdConsentView))
         crossImageView!.addGestureRecognizer(tapOnCrossButton)
 
-        if #available(iOS 13.0, *){
+        if #available(iOS 13.0, *) {
             let lightConfiguration = UIImage.SymbolConfiguration(weight: .light)
         self.infoImageView = UIImageView(image: UIImage(systemName: "info.circle", withConfiguration: lightConfiguration))
         } else {
@@ -372,7 +342,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         return true
     }
     
-    func removeAllViews() {
+    private func removeAllViews() {
         DispatchQueue.main.async {
             for v in self.subviews {
                 v.removeFromSuperview()
@@ -410,18 +380,13 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         }
         self.refresh()
     }
-    
-    public func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        if delegate != nil {
-            delegate?.docereeAdViewWillDismissScreen(self)
-        }
-    }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
         customTimer?.stop()
     }
     
+    //will call on dismiss view
     public override func willMove(toWindow newWindow: UIWindow?) {
         if window != nil {
             NotificationCenter.default.removeObserver(self)
@@ -429,7 +394,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         }
     }
     
-    func refresh() {
+    internal func refresh() {
         self.removeAllViews()
         if docereeAdRequest != nil {
             load(self.docereeAdRequest!)
