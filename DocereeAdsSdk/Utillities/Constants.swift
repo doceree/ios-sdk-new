@@ -44,11 +44,6 @@ enum BlockLevel {
     }
 }
 
-enum TypeOfEvent: String {
-       case CPC = "CPC"
-       case CPM = "CPM"
-}
-
 enum Header: String {
     case header_user_agent = "User-Agent"
     case header_advertising_id = "doceree-device-id"

@@ -9,32 +9,21 @@ import UIKit
 import WebKit
 
 class AdConsentUIView: UIView {
-    
-    // MARK: Properties
-    var requestHttpHeaders = RestEntity()
-    var httpBodyParameters = RestEntity()
-    
+
     // MARK: private vars
     private var consentView: UIView?
-    
-    var docereeAdView: DocereeAdView?
-    
-    var isRichMedia: Bool = false
-
-    var isMediumRectangle: Bool = false
-    var isBanner: Bool = false
-    var isLeaderboard: Bool = false
-    var isSmallBanner: Bool = false
-     
-    var adViewSize: AdSize?
-    
-    var adViewFrame: CGRect?
-    var rootViewController: UIViewController?
-    
-    var formConsentType: ConsentType = .consentType2
+    private var docereeAdView: DocereeAdView?
+    private var isRichMedia: Bool = false
+    private var isMediumRectangle: Bool = false
+    private var isBanner: Bool = false
+    private var isLeaderboard: Bool = false
+    private var isSmallBanner: Bool = false
+    private var adViewSize: AdSize?
+    private var adViewFrame: CGRect?
+    private var rootViewController: UIViewController?
+    private var formConsentType: ConsentType = .consentType2
     
     // MARK: Initialization
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -50,40 +39,38 @@ class AdConsentUIView: UIView {
         rootViewController = rootVC
         docereeAdView = adView
         self.isRichMedia = isRichMedia
+        initialization()
+    }
+    
+    // MARK: Initialize AdConsentUIView
+    private func initialization() {
         isMediumRectangle = getAdTypeBySize(adSize: self.adViewSize!) == AdType.MEDIUMRECTANGLE
         isBanner = getAdTypeBySize(adSize: self.adViewSize!) == AdType.BANNER
         isLeaderboard = getAdTypeBySize(adSize: self.adViewSize!) == AdType.LEADERBOARD
         isSmallBanner = getAdTypeBySize(adSize: self.adViewSize!) == AdType.SMALLBANNER
+        
+        // Initialize consent view
+        consentView = UIView()
+        consentView!.backgroundColor = greyBackgroundColor
         loadConsentForm1()
     }
     
-    // MARK: Initialize AdConsentUIView
-    
-    // MARK: Horizontal Containers
-    
-    // MARK: Vertical Containers
-    
     // MARK: Load Consent form1
     private func loadConsentForm1() {
-        
-        var backButtonUIImageView: UIImageView?
-        consentView = UIView()
-        consentView!.backgroundColor = greyBackgroundColor
-
         let iconSize: CGFloat = 15.0
         let titleHeight: CGFloat = 15.0
         
         let buttonWidth: CGFloat = isMediumRectangle ? self.adViewFrame!.width * 0.8 : self.adViewFrame!.width * 0.4
         let buttonHeight: CGFloat = isMediumRectangle ? self.adViewFrame!.height * 0.2 : self.adViewFrame!.height/2
         let buttonLabelFontSize: CGFloat = textFontSize12
- 
-        var backArrowUIImage: UIImage? = UIImage()
         
+        var backButtonUIImageView: UIImageView?
         if #available(iOS 13.0, *) {
             let lightConfiguration = UIImage.SymbolConfiguration(pointSize: 5, weight: .light, scale: .small)
             backButtonUIImageView = UIImageView(image: UIImage(systemName: "arrow.backward", withConfiguration: lightConfiguration))
         } else {
             // Fallback on earlier versions
+            var backArrowUIImage: UIImage? = UIImage()
             backArrowUIImage = backArrowUIImage!.resizeImage(image: UIImage(named: "backarrow", in: nil, compatibleWith: nil)!, targetSize: CGSize(width: iconSize, height: iconSize))!
             backButtonUIImageView = UIImageView(image: backArrowUIImage)
         }
@@ -103,18 +90,16 @@ class AdConsentUIView: UIView {
         titleView.heightAnchor.constraint(equalToConstant: titleHeight).isActive = true
         titleView.textAlignment = .center
         
-        // horizontal stackview 1
-        let horizontalStackView1 = UIStackView()
-        horizontalStackView1.axis = .horizontal
-        horizontalStackView1.distribution = UIStackView.Distribution.equalSpacing
-        horizontalStackView1.alignment = .fill
-        
-        horizontalStackView1.addArrangedSubview(backButtonUIImageView!)
-        horizontalStackView1.addArrangedSubview(titleView)
-        horizontalStackView1.translatesAutoresizingMaskIntoConstraints = false
-        backButtonUIImageView?.leadingAnchor.constraint(equalTo: horizontalStackView1.leadingAnchor, constant: 5.0).isActive = true
-        
-        consentView!.addSubview(horizontalStackView1)
+        // horizontal stackview
+        let horizontalStackView = UIStackView()
+        horizontalStackView.axis = .horizontal
+        horizontalStackView.distribution = UIStackView.Distribution.equalSpacing
+        horizontalStackView.alignment = .fill
+        horizontalStackView.addArrangedSubview(backButtonUIImageView!)
+        horizontalStackView.addArrangedSubview(titleView)
+        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
+        backButtonUIImageView?.leadingAnchor.constraint(equalTo: horizontalStackView.leadingAnchor, constant: 5.0).isActive = true
+        consentView!.addSubview(horizontalStackView)
         
         let btnReportAd = UIButton()
         btnReportAd.setTitle("Report this Ad", for: .normal)
@@ -154,38 +139,33 @@ class AdConsentUIView: UIView {
         let whyThisTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(whyThisClicked))
         btnWhyThisAd.addGestureRecognizer(whyThisTapGestureRecognizer)
         
-        // horizontal stackview 2
-        let horizontalStackView2 = UIStackView()
-        horizontalStackView2.axis =  self.isMediumRectangle ? .vertical : .horizontal
-        horizontalStackView2.distribution = self.isMediumRectangle ? .fillEqually : .fill
-        horizontalStackView2.alignment = .center
-        horizontalStackView2.spacing = 8.0
-        horizontalStackView2.addArrangedSubview(btnReportAd)
-        horizontalStackView2.addArrangedSubview(btnWhyThisAd)
-        
+        // stackview
+        let stackView = UIStackView()
+        stackView.axis =  self.isMediumRectangle ? .vertical : .horizontal
+        stackView.distribution = self.isMediumRectangle ? .fillEqually : .fill
+        stackView.alignment = .center
+        stackView.spacing = 8.0
+        stackView.addArrangedSubview(btnReportAd)
+        stackView.addArrangedSubview(btnWhyThisAd)
         if isMediumRectangle {
-            btnReportAd.topAnchor.constraint(equalTo: horizontalStackView2.topAnchor, constant: self.adViewFrame!.height * 0.25).isActive = true
+            btnReportAd.topAnchor.constraint(equalTo: stackView.topAnchor, constant: self.adViewFrame!.height * 0.25).isActive = true
         }
-        
-        horizontalStackView2.translatesAutoresizingMaskIntoConstraints = false
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         
         // vertical stackview
-        
         let verticalStackView = UIStackView()
         verticalStackView.axis = .vertical
         verticalStackView.distribution = .fillProportionally
         verticalStackView.alignment = .center
         verticalStackView.translatesAutoresizingMaskIntoConstraints = false
-        verticalStackView.addArrangedSubview(horizontalStackView1)
-        verticalStackView.addArrangedSubview(horizontalStackView2)
-        
+        verticalStackView.addArrangedSubview(horizontalStackView)
+        verticalStackView.addArrangedSubview(stackView)
         consentView!.addSubview(verticalStackView)
         
         verticalStackView.topAnchor.constraint(equalTo: consentView!.topAnchor, constant: 0).isActive = true
         verticalStackView.bottomAnchor.constraint(equalTo: consentView!.bottomAnchor, constant: self.isMediumRectangle ? -self.adViewFrame!.height * 0.25 : 0).isActive = true
         verticalStackView.leadingAnchor.constraint(equalTo: consentView!.leadingAnchor, constant: 0).isActive = true
         verticalStackView.trailingAnchor.constraint(equalTo: consentView!.trailingAnchor, constant: 0).isActive = true
-        
         consentView!.frame = CGRect(x: .zero, y: .zero, width: adViewFrame!.width, height: adViewFrame!.height)
         
         if (!self.isRichMedia) {
@@ -219,28 +199,25 @@ class AdConsentUIView: UIView {
         let tap3 = UITapGestureRecognizer(target: self, action: #selector(adNotInterestedClicked))
         btnAdNotInterested.addGestureRecognizer(tap3)
         
-        // horizontal stackview 2
-        let horizontalStackView2 = UIStackView()
-        horizontalStackView2.axis = isMediumRectangle ? .vertical : .horizontal
-        horizontalStackView2.distribution = .fillEqually
-        horizontalStackView2.alignment = .center
-        horizontalStackView2.spacing = self.isMediumRectangle ? 8.0 : 4.0
-        horizontalStackView2.addArrangedSubview(btnAdCoveringContent)
-        horizontalStackView2.addArrangedSubview(btnAdInappropriate)
-        horizontalStackView2.addArrangedSubview(btnAdNotInterested)
-        horizontalStackView2.translatesAutoresizingMaskIntoConstraints = false
-
+        // stackview
+        let stackView = UIStackView()
+        stackView.axis = isMediumRectangle ? .vertical : .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .center
+        stackView.spacing = self.isMediumRectangle ? 8.0 : 4.0
+        stackView.addArrangedSubview(btnAdCoveringContent)
+        stackView.addArrangedSubview(btnAdInappropriate)
+        stackView.addArrangedSubview(btnAdNotInterested)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         if isMediumRectangle {
-            btnAdCoveringContent.topAnchor.constraint(equalTo: horizontalStackView2.topAnchor, constant: self.adViewFrame!.height * 0.2).isActive = true
+            btnAdCoveringContent.topAnchor.constraint(equalTo: stackView.topAnchor, constant: self.adViewFrame!.height * 0.2).isActive = true
         }
+        consentView!.addSubview(stackView)
         
-        consentView!.addSubview(horizontalStackView2)
-        
-        horizontalStackView2.topAnchor.constraint(equalTo: consentView!.topAnchor, constant: self.isLeaderboard ? self.adViewFrame!.height * 0.2 : 0).isActive = true
-        horizontalStackView2.bottomAnchor.constraint(equalTo: consentView!.bottomAnchor, constant: (self.isMediumRectangle || self.isLeaderboard) ? -self.adViewFrame!.height * 0.2 : 0).isActive = true
-        horizontalStackView2.leadingAnchor.constraint(equalTo: consentView!.leadingAnchor, constant: self.isLeaderboard ? 32 :  4).isActive = true
-        horizontalStackView2.trailingAnchor.constraint(equalTo: consentView!.trailingAnchor, constant: self.isLeaderboard ? -32 : -4).isActive = true
-  
+        stackView.topAnchor.constraint(equalTo: consentView!.topAnchor, constant: self.isLeaderboard ? self.adViewFrame!.height * 0.2 : 0).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: consentView!.bottomAnchor, constant: (self.isMediumRectangle || self.isLeaderboard) ? -self.adViewFrame!.height * 0.2 : 0).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: consentView!.leadingAnchor, constant: self.isLeaderboard ? 32 :  4).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: consentView!.trailingAnchor, constant: self.isLeaderboard ? -32 : -4).isActive = true
         consentView!.frame = CGRect(x: .zero, y: .zero, width: adViewFrame!.width, height: adViewFrame!.height)
 
         if (!self.isRichMedia) {
@@ -315,7 +292,7 @@ class AdConsentUIView: UIView {
         }
     }
     
-    func createButtonWithText(_ text: String) -> UIButton {
+    private func createButtonWithText(_ text: String) -> UIButton {
         
         let buttonWidth: CGFloat = getButtonSizes().0
         let buttonHeight: CGFloat = getButtonSizes().1
@@ -336,7 +313,7 @@ class AdConsentUIView: UIView {
         return btnAdCoveringContent
     }
     
-    func getButtonSizes() -> (CGFloat, CGFloat, CGFloat) {
+    private func getButtonSizes() -> (CGFloat, CGFloat, CGFloat) {
         if formConsentType == .consentType2 {
             let buttonWidth: CGFloat = isMediumRectangle ? self.adViewFrame!.width * 0.8 : self.adViewFrame!.width * 0.3
             let buttonHeight: CGFloat = self.adViewFrame!.height * 0.8
@@ -390,7 +367,7 @@ class AdConsentUIView: UIView {
             do {
                 let rawdata = try Data(contentsOf: URL(fileURLWithPath: PlatformArchivingUrl.path))
                 if let plaformUid = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(rawdata) as! String? {
-                    self.sendAdBlockRequest(self.docereeAdView!.cbId!, adblockLevel, plaformUid, self.docereeAdView!.docereeAdUnitId)
+                    self.docereeAdView?.docereeAdRequest?.sendAdBlockRequest(self.docereeAdView!.cbId!, adblockLevel, plaformUid, self.docereeAdView!.docereeAdUnitId)
                 }
             } catch {
                 print("Couldn't read file")
@@ -450,56 +427,6 @@ class AdConsentUIView: UIView {
     @objc func adNotInterestedClicked4(_ sender: UITapGestureRecognizer) {
         loadAdConsentFeedback(BlockLevel.NotInterestedInClientType.info.blockLevelCode)
     }
-    
-    internal func sendAdBlockRequest(_ advertiserCampID: String?, _ blockLevel: String?, _ platformUid: String?, _ publisherACSID: String?){
-        if ((advertiserCampID ?? "").isEmpty || (blockLevel ?? "").isEmpty || (platformUid ?? "").isEmpty || (publisherACSID ?? "").isEmpty) {
-            return
-        }
-        let ua: String = UAString.init().UAString()
-        // headers
-        self.requestHttpHeaders.add(value: "application/json", forKey: "Content-Type")
-        self.requestHttpHeaders.add(value: UAString.init().UAString(), forKey: Header.header_user_agent.rawValue)
-        
-        // query params
-        self.httpBodyParameters.add(value: advertiserCampID!, forKey: AdBlockService.advertiserCampID.rawValue)
-        self.httpBodyParameters.add(value: blockLevel!, forKey: AdBlockService.blockLevel.rawValue)
-        self.httpBodyParameters.add(value: platformUid!, forKey: AdBlockService.platformUid.rawValue)
-        self.httpBodyParameters.add(value: publisherACSID!, forKey: AdBlockService.publisherACSID.rawValue)
-        
-        let body = httpBodyParameters.allValues()
-//        print("AdBlock request passed is \(body)")
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        var components = URLComponents()
-        components.scheme = "https"
-        components.host = getDocTrackerHost(type: EnvironmentType.Prod)
-        components.path = getPath(methodName: Methods.AdBlock)
-        let adBlockEndPoint: URL = components.url!
-        var request: URLRequest = URLRequest(url: adBlockEndPoint)
-        request.setValue(ua, forHTTPHeaderField: Header.header_user_agent.rawValue)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        // set headers
-        for header in requestHttpHeaders.allValues() {
-            request.setValue(header.value, forHTTPHeaderField: header.key)
-        }
-        
-        request.httpMethod = HttpMethod.post.rawValue
-        let jsonData: Data
-        do {
-            jsonData = try JSONSerialization.data(withJSONObject: body, options: [])
-            request.httpBody = jsonData
-        } catch{
-            return
-        }
-        let task = session.dataTask(with: request){(data, response, error) in
-            guard data != nil else { return }
-            let urlResponse = response as! HTTPURLResponse
-            print("Test: Send Block")
-            print(urlResponse.statusCode)
-        }
-        task.resume()
-    }
-    
+
 }
 
