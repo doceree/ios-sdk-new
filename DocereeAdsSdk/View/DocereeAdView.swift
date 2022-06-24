@@ -21,12 +21,12 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     public var position: AdPosition = .custom
     
     var cbId: String?
+    var docereeAdRequest: DocereeAdRequest?
     
     private var adSize: AdSize?
     private var ctaLink: String?
     private var crossImageView: UIImageView?
     private var infoImageView: UIImageView?
-    private var docereeAdRequest: DocereeAdRequest?
     private var isRichMediaAd = false
     private var customTimer: CustomTimer?
     private var adWebView: WKWebView!
