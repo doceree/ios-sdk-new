@@ -84,6 +84,7 @@ public final class DocereeMobileAds {
         do {
             try FileManager.default.removeItem(at: ProfileArchivingUrl)
             try FileManager.default.removeItem(at: PlatformArchivingUrl)
+            try FileManager.default.removeItem(at: DocereeAdsIdArchivingUrl)
         } catch {}
     }
     
