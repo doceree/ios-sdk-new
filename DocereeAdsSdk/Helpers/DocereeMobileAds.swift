@@ -53,7 +53,7 @@ public final class DocereeMobileAds {
         if #available(iOS 14, *) {
             #if canImport(AdSupport) && canImport(AppTrackingTransparency)
             ATTrackingManager.requestTrackingAuthorization{ (status) in
-                switch status{
+                switch status {
                 case .authorized:
                     DocereeMobileAds.trackingStatus = "authorized"
 //                    os_log("authorized", log: .default, type: .error)
