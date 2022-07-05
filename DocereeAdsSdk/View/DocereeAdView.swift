@@ -412,7 +412,14 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     
     // MARK: initialize webView
     private func initWebView(frame: CGRect) {
-        adWebView = WKWebView()
+        let webConfiguration = WKWebViewConfiguration()
+        // Fix Fullscreen mode for video and autoplay
+//        webConfiguration.preferences.javaScriptEnabled = true
+        webConfiguration.mediaPlaybackRequiresUserAction = false
+        webConfiguration.allowsInlineMediaPlayback = true
+        adWebView = WKWebView(frame: CGRect(x: 0, y: 0, width: adSize?.width ?? 320, height: adSize?.height ?? 100), configuration: webConfiguration)
+        
+//        adWebView = WKWebView()
         adWebView.configuration.allowsInlineMediaPlayback = true
         adWebView.navigationDelegate = self
         adWebView.translatesAutoresizingMaskIntoConstraints = false
