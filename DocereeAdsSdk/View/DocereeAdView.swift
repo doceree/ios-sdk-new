@@ -415,7 +415,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         let webConfiguration = WKWebViewConfiguration()
         // Fix Fullscreen mode for video and autoplay
 //        webConfiguration.preferences.javaScriptEnabled = true
-        webConfiguration.mediaPlaybackRequiresUserAction = false
+//        webConfiguration.mediaPlaybackRequiresUserAction = false
         webConfiguration.allowsInlineMediaPlayback = true
         adWebView = WKWebView(frame: CGRect(x: 0, y: 0, width: adSize?.width ?? 320, height: adSize?.height ?? 100), configuration: webConfiguration)
         
