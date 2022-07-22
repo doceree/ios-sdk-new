@@ -11,7 +11,7 @@ import SafariServices
 import os.log
 import WebKit
 
-public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDelegate {
+public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDelegate, WKUIDelegate {
     
     @IBOutlet public weak var rootViewController: UIViewController?
     
@@ -422,6 +422,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
 //        adWebView = WKWebView()
         adWebView.configuration.allowsInlineMediaPlayback = true
         adWebView.navigationDelegate = self
+        adWebView.uiDelegate = self
         adWebView.translatesAutoresizingMaskIntoConstraints = false
         adWebView.scrollView.isScrollEnabled = false
         adWebView.isOpaque = true
@@ -430,30 +431,6 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         setInitialConstraints()
     }
     
-    /* Handle HTTP requests from the webview */
-    public func webView(_ webView: WKWebView,
-                        decidePolicyFor navigationAction: WKNavigationAction,
-                        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if navigationAction.navigationType == .linkActivated  {
-            if let url = navigationAction.request.url,
-                let host = url.host, !host.hasPrefix("www.google.com"),
-                UIApplication.shared.canOpenURL(url) {
-                DocereeAdView.didLeaveAd = true
-                if #available(iOS 10, *) {
-                    UIApplication.shared.open(url)
-                } else {
-                    // Fallback on earlier versions
-                    UIApplication.shared.openURL(url)
-                }
-                decisionHandler(.cancel)
-            } else {
-                decisionHandler(.allow)
-            }
-        } else {
-            decisionHandler(.allow)
-        }
-    }
-
     // webview should always be the same size as the main view
     private func setInitialConstraints() {
         let webViewSizeConstraints = [
@@ -464,5 +441,49 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         ]
         self.addConstraints(webViewSizeConstraints)
     }
-    
+
 }
+
+ extension DocereeAdView {
+     /* Handle HTTP requests from the webview */
+     public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+         if navigationAction.navigationType == .linkActivated  {
+             if let url = navigationAction.request.url,
+                let host = url.host, !host.hasPrefix("www.google.com"),
+                UIApplication.shared.canOpenURL(url) {
+                 print("click one: ")
+                 DocereeAdView.didLeaveAd = true
+                 if #available(iOS 10, *) {
+                     UIApplication.shared.open(url)
+                 } else {
+                     // Fallback on earlier versions
+                     UIApplication.shared.openURL(url)
+                 }
+                 decisionHandler(.cancel)
+             } else {
+                 decisionHandler(.allow)
+             }
+         } else {
+             decisionHandler(.allow)
+         }
+     }
+
+     public func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+         if navigationAction.targetFrame == nil || navigationAction.targetFrame?.isMainFrame == false {
+             if let url = navigationAction.request.url {
+                 if UIApplication.shared.canOpenURL(url) {
+                     print("click two: ")
+                     DocereeAdView.didLeaveAd = true
+                     if #available(iOS 10.0, *) {
+                         UIApplication.shared.open(url)
+                     } else {
+                         // Fallback on earlier versions
+                         UIApplication.shared.openURL(url)
+                     }
+                 }
+             }
+         }
+         return nil
+     }
+     
+ }
