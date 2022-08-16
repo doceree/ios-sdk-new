@@ -86,3 +86,95 @@ extension DateFormatter {
         return nil
     }
 }
+
+extension UIView {
+    var parentViewController: UIViewController? {
+        // Starts from next (As we know self is not a UIViewController).
+        var parentResponder: UIResponder? = self.next
+        while parentResponder != nil {
+            if let viewController = parentResponder as? UIViewController {
+                return viewController
+            }
+            parentResponder = parentResponder?.next
+        }
+        return nil
+    }
+}
+
+extension UIView {
+    var lastViewObject: AnyObject? {
+        // Starts from next (As we know self is not a UIViewController).
+        var parentResponder: UIResponder? = self.next
+        var lastObject: AnyObject?
+        while parentResponder != nil {
+            if parentResponder is UIViewController {
+                return lastObject // return last object before viewController
+//                return viewController
+            }
+            lastObject = parentResponder
+            parentResponder = parentResponder?.next
+            print("lastObject", lastObject)
+        }
+        return nil
+    }
+}
+
+extension UIView {
+    var scrollviewObject: UIScrollView? {
+        // Starts from next (As we know self is not a UIViewController).
+        var parentResponder: UIResponder? = self.next
+        while parentResponder != nil {
+            if parentResponder is UIScrollView {
+                return parentResponder as? UIScrollView
+            }
+            parentResponder = parentResponder?.next
+        }
+        return nil
+    }
+}
+
+extension UIView {
+
+    // there can be other views between `subview` and `self`
+    func getConvertedFrame(fromSubview subview: UIView) -> CGRect? {
+        // check if `subview` is a subview of self
+        guard subview.isDescendant(of: self) else {
+            return nil
+        }
+        
+        var frame = subview.frame
+        if subview.superview == nil {
+            return frame
+        }
+        
+        var superview = subview.superview
+        while superview != self {
+            frame = superview!.convert(frame, to: superview!.superview)
+            if superview!.superview == nil {
+                break
+            } else {
+                superview = superview!.superview
+            }
+        }
+        
+        return superview!.convert(frame, to: self)
+    }
+
+}
+
+extension UIView {
+    func getPosition(parent: UIView) -> CGPoint {
+        var originOnWindow: CGPoint { return convert(CGPoint.zero, to: parent) }
+        return originOnWindow
+    }
+}
+
+extension UITableView {
+    var originOnWindowUT: CGPoint { return convert(contentOffset, to: nil) }
+}
+
+extension UIView {
+    var globalFrame: CGRect {
+        return convert(bounds, to: window)
+    }
+}

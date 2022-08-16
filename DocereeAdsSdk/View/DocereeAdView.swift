@@ -137,22 +137,33 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
             if let data = results.data {
                 self.isRichMediaAd = isRichMediaAd
                 self.createAdUI(data: data, isRichMediaAd: isRichMediaAd)
+                
+                DispatchQueue.main.async {
+                    self.startTimer(adFound: true)
+                }
+                
             } else {
                 self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
                 self.removeAllViews()
+                
+                DispatchQueue.main.async {
+                    self.startTimer(adFound: false)
+                }
             }
         }
-        startTimer()
     }
     
     //MARK: Private methods
     
-    private func startTimer() {
+    private func startTimer(adFound: Bool) {
         customTimer?.stop()
         customTimer = CustomTimer { (seconds) in
             if self.customTimer!.count % 30 == 0 {
                 self.customTimer?.count = 0
                 self.refresh()
+            }
+            if adFound {
+                checkViewability(adView: self)
             }
         }
         customTimer?.count = 0

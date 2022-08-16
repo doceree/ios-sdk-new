@@ -116,7 +116,7 @@ public final class DocereeAdRequest {
             let session = URLSession(configuration: config)
             var components = URLComponents()
             components.scheme = "https"
-            components.host = getHost(type: EnvironmentType.Prod)
+            components.host = getHost(type: EnvironmentType.Dev)
             components.path = getPath(methodName: Methods.GetImage)
             var queryItems: [URLQueryItem] = []
             for (key, value) in self.urlQueryParameters.allValues(){
@@ -208,7 +208,7 @@ public final class DocereeAdRequest {
         let session = URLSession(configuration: config)
         var components = URLComponents()
         components.scheme = "https"
-        components.host = getDocTrackerHost(type: EnvironmentType.Prod)
+        components.host = getDocTrackerHost(type: EnvironmentType.Dev)
         components.path = getPath(methodName: Methods.AdBlock)
         let adBlockEndPoint: URL = components.url!
         var request: URLRequest = URLRequest(url: adBlockEndPoint)

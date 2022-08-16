@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		54BD89C6284F563F00DC94A3 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54BD89C5284F563F00DC94A3 /* Media.xcassets */; };
+		54BD8A2E28A2503200DC94A3 /* Viewability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BD8A2D28A2503200DC94A3 /* Viewability.swift */; };
 		54EBAFC0282CF30900C7B249 /* DocereeAdsSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 54EBAFBF282CF30900C7B249 /* DocereeAdsSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54EBAFD9282D018700C7B249 /* HcpProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBAFD8282D018700C7B249 /* HcpProfile.swift */; };
 		54EBAFE8282D177000C7B249 /* PathUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBAFE7282D177000C7B249 /* PathUtility.swift */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		54BD89C5284F563F00DC94A3 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		54BD8A2D28A2503200DC94A3 /* Viewability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Viewability.swift; sourceTree = "<group>"; };
 		54EBAFBC282CF30900C7B249 /* DocereeAdsSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DocereeAdsSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54EBAFBF282CF30900C7B249 /* DocereeAdsSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DocereeAdsSdk.h; sourceTree = "<group>"; };
 		54EBAFD8282D018700C7B249 /* HcpProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HcpProfile.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				54EBAFE7282D177000C7B249 /* PathUtility.swift */,
 				54EBB05228366CD800C7B249 /* CustomTimer.swift */,
 				54EBB015283225D200C7B249 /* DocereeRequestError.swift */,
+				54BD8A2D28A2503200DC94A3 /* Viewability.swift */,
 			);
 			path = Utillities;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				54EBB005282E87AF00C7B249 /* adBlockRequest.swift in Sources */,
 				54EBAFF7282E855C00C7B249 /* HTTPSupport.swift in Sources */,
 				54EBAFFD282E855C00C7B249 /* Colors.swift in Sources */,
+				54BD8A2E28A2503200DC94A3 /* Viewability.swift in Sources */,
 				54EBAFFF282E855C00C7B249 /* UAString.swift in Sources */,
 				54EBB061283671AA00C7B249 /* DocereeAdViewDelegate.swift in Sources */,
 				54EBB006282E87AF00C7B249 /* AdRequest.swift in Sources */,
