@@ -32,6 +32,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     private var adWebView: WKWebView!
     
     static var didLeaveAd: Bool = false
+    var viewTime = 0
     
     lazy var adImageView: UIImageView = {
         let adImageView = UIImageView()
@@ -128,6 +129,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
             return
         }
         
+        viewTime = 0
         self.docereeAdRequest = docereeAdRequest
         let width: Int = Int((self.adSize?.getAdSize().width)!)
         let height: Int = Int((self.adSize?.getAdSize().height)!)
@@ -158,16 +160,33 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     private func startTimer(adFound: Bool) {
         customTimer?.stop()
         customTimer = CustomTimer { (seconds) in
+
+            if adFound {
+                let viewPercentage = checkViewability(adView: self)
+                print("final percentage: ", viewPercentage)
+                if viewPercentage >= 50 {
+                    self.viewTime += 1
+//                    print("viewTime: \(self.viewTime)")
+                } else {
+                    self.sendViewTime()
+                }
+            }
             if self.customTimer!.count % 30 == 0 {
                 self.customTimer?.count = 0
+                self.customTimer?.stop()
+                self.sendViewTime()
                 self.refresh()
-            }
-            if adFound {
-                checkViewability(adView: self)
             }
         }
         customTimer?.count = 0
         customTimer?.start()
+    }
+    
+    func sendViewTime() {
+        if viewTime > 0 {
+            print("View Time: ", viewTime)
+            viewTime = 0
+        }
     }
     
     private func createAdUI(data: Data, isRichMediaAd: Bool) {
@@ -366,6 +385,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         DocereeAdView.self.didLeaveAd = true
         if let url = URL(string: "\(ctaLink ?? "")"), !url.absoluteString.isEmpty {
             customTimer?.stop()
+            self.sendViewTime()
             UIApplication.shared.openURL(url)
             self.removeAllViews()
         }
@@ -373,6 +393,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     
     @objc func appMovedToBackground() {
         customTimer?.stop()
+        self.sendViewTime()
         if  DocereeAdView.didLeaveAd && delegate != nil {
             delegate?.docereeAdViewWillLeaveApplication(self)
         }
@@ -395,6 +416,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     deinit {
         NotificationCenter.default.removeObserver(self)
         customTimer?.stop()
+        self.sendViewTime()
     }
     
     //will call on dismiss view
@@ -402,6 +424,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         if window != nil {
             NotificationCenter.default.removeObserver(self)
             customTimer?.stop()
+            self.sendViewTime()
         }
     }
     
