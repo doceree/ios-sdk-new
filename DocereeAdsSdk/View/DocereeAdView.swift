@@ -430,7 +430,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     
     internal func refresh() {
         self.removeAllViews()
-        if docereeAdRequest != nil {
+        if docereeAdRequest != nil && self.parentViewController != nil {
             load(self.docereeAdRequest!)
         }
     }
