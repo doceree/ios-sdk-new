@@ -9,10 +9,10 @@ func checkViewability(adView: UIView) -> Float {
 //        let viewPercentage = viewabilityPercentageNewTable(view: adView, viewFrame: positionOnWindow, tableView: tv)
 //        return Float(viewPercentage)
 //    } else
-    if adView.scrollviewObject is UIScrollView {
+    
+    if let parentView = adView.scrollviewObject {
         print("ScrollView found")
-        let scrollView = adView.scrollviewObject
-        let viewPercentage = viewabilityPercentageScrollView(adView: adView, scrollView: scrollView!)
+        let viewPercentage = viewabilityPercentageScrollView(adView: adView, scrollView: parentView)
         return Float(viewPercentage)
     } else {
         let parentVC = adView.parentViewController
@@ -180,38 +180,38 @@ func viewabilityPercentageScrollView(adView: UIView, scrollView: UIScrollView) -
 
     let currentAdX =  adCurrentPos!.minX - offset!.x
     let currentAdY =  adCurrentPos!.minY - offset!.y
-    print("currentAdX: \(currentAdX), currentAdY: \(currentAdY)")
+//    print("currentAdX: \(currentAdX), currentAdY: \(currentAdY)")
     
     var visibleHeight = 0.0
     if (currentAdY + adView.frame.height) < 0 {
-        print("hidden at top: ")
+//        print("hidden at top: ")
     } else if currentAdY < 0 {
         if scrollViewPos!.minY > 0 {
             let yWithScreen = scrollViewPos!.minY - offset!.y + adCurrentPos!.minY
             if screenSize.height - yWithScreen > adView.frame.height {
                 visibleHeight = adView.frame.height + currentAdY
 //                verticalPercentage = (visibleHeight / adView.frame.height) * 100
-                print("bottom portion ", visibleHeight)
+//                print("bottom portion ", visibleHeight)
             } else {
                 print("mid portion ")
             }
         } else {
             visibleHeight = adView.frame.height + currentAdY
 //            verticalPercentage = (visibleHeight / adView.frame.height) * 100
-            print("bottom portion ", visibleHeight)
+//            print("bottom portion ", visibleHeight)
         }
     } else {
         visibleHeight = (screenSize.height - scrollViewPos!.minY) - currentAdY
         if visibleHeight > adView.frame.height {
-            print("Full add vertically")
+//            print("Full add vertically")
             visibleHeight = adView.frame.height
         } else {
             if visibleHeight < 0 {
                 visibleHeight = 0
-                print("hidden at bottom: ")
+//                print("hidden at bottom: ")
             } else {
 //                verticalPercentage = (visibleHeight / adView.frame.height) * 100
-                print("top portion: \(visibleHeight)")
+//                print("top portion: \(visibleHeight)")
             }
         }
     }
@@ -219,34 +219,34 @@ func viewabilityPercentageScrollView(adView: UIView, scrollView: UIScrollView) -
     
     var visibleWidth = 0.0
     if (currentAdX + adView.frame.width) < 0 {
-        print("hidden at left: ")
+//        print("hidden at left: ")
     } else if currentAdX < 0 {
         if scrollViewPos!.minX > 0 {
             let xWithScreen = scrollViewPos!.minX - offset!.x + adCurrentPos!.minX
             if screenSize.width - xWithScreen > adView.frame.width {
                 visibleWidth = adView.frame.width + currentAdX
 //                horizontalPercentage = (visibleWidth / adView.frame.width) * 100
-                print("right portion ", visibleWidth)
+//                print("right portion ", visibleWidth)
             } else {
                 print("mid portion ")
             }
         } else {
             visibleWidth = adView.frame.width + currentAdX
 //            horizontalPercentage = (visibleWidth / adView.frame.width) * 100
-            print("right portion ", visibleWidth)
+//            print("right portion ", visibleWidth)
         }
     } else {
         visibleWidth = (screenSize.width - scrollViewPos!.minX) - currentAdX
         if visibleWidth > adView.frame.width {
             visibleWidth = adView.frame.width
-            print("Full add horizontally")
+//            print("Full add horizontally")
         } else {
             if visibleWidth < 0 {
                 visibleWidth = 0
-                print("hidden at right: ")
+//                print("hidden at right: ")
             } else {
 //                horizontalPercentage = (visibleWidth / adView.frame.width) * 100
-                print("left portion: \(visibleWidth)")
+//                print("left portion: \(visibleWidth)")
             }
         }
     }

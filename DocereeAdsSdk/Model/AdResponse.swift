@@ -18,6 +18,9 @@ internal struct AdResponse: Codable {
     let IntegrationType: String?
     let creativeType: String?
     let errMessage: String?
+    let viewLink: String?
+    let minViewPercentage: Float?
+    let minViewTime: Int?
     
     enum Platformuid: String{
         case platformuid = "platformuid"
@@ -41,6 +44,9 @@ internal struct AdResponse: Codable {
         self.IntegrationType = try container.decodeIfPresent(String.self, forKey: .IntegrationType)
         self.creativeType = try container.decodeIfPresent(String.self, forKey: .creativeType)
         self.errMessage = try container.decodeIfPresent(String.self, forKey: .errMessage)
+        self.viewLink = try container.decodeIfPresent(String.self, forKey: .viewLink)
+        self.minViewPercentage = try container.decodeIfPresent(Float.self, forKey: .minViewPercentage)
+        self.minViewTime = try container.decodeIfPresent(Int.self, forKey: .minViewTime)
     }
     
     internal func isAdRichMedia() -> Bool{
@@ -50,7 +56,14 @@ internal struct AdResponse: Codable {
         let text_ad = "text_ad"
         return compareIfSame(presentValue: givenType!, expectedValue: html) || compareIfSame(presentValue: givenType!, expectedValue: custom_html) || compareIfSame(presentValue: givenType!, expectedValue: text_ad)
     }
-
+    internal func standard() -> String {
+        if minViewTime == 0 {
+            return "mrc"
+        } else {
+            return "custom"
+        }
+        
+    }
     func compareIfSame(presentValue: String, expectedValue: String) -> Bool {
         return presentValue.caseInsensitiveCompare(expectedValue) == ComparisonResult.orderedSame
     }

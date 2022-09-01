@@ -113,7 +113,6 @@ extension UIView {
             }
             lastObject = parentResponder
             parentResponder = parentResponder?.next
-            print("lastObject", lastObject)
         }
         return nil
     }

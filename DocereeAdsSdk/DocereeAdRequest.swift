@@ -116,7 +116,7 @@ public final class DocereeAdRequest {
             let session = URLSession(configuration: config)
             var components = URLComponents()
             components.scheme = "https"
-            components.host = getHost(type: EnvironmentType.Dev)
+            components.host = getHost(type: EnvironmentType.Qa)
             components.path = getPath(methodName: Methods.GetImage)
             var queryItems: [URLQueryItem] = []
             for (key, value) in self.urlQueryParameters.allValues(){
@@ -138,7 +138,7 @@ public final class DocereeAdRequest {
                     print("Test: Ad Request")
                     do {
                         let adResponseData: AdResponse = try JSONDecoder().decode(AdResponse.self, from: data)
-                        print("Ad Response: \(adResponseData)")
+//                        print("Ad Response: \(adResponseData)")
                         if adResponseData.errMessage != nil && adResponseData.errMessage!.count > 0 {
                             completion(Results(withData: nil, response: response as? HTTPURLResponse, error: DocereeAdRequestError.failedToCreateRequest), adResponseData.isAdRichMedia())
                             return
@@ -186,6 +186,28 @@ public final class DocereeAdRequest {
         task.resume()
     }
     
+    internal func sendAdViewability(viewLink: String) {
+        print("sendAdViewability: ", viewLink)
+        let updatedUrl: String? = viewLink
+        let url: URL = URL(string: updatedUrl!)!
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = HttpMethod.get.rawValue
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        
+        // set headers
+        for header in requestHttpHeaders.allValues() {
+            urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
+        }
+        
+        let task = session.dataTask(with: urlRequest){ (data, response, error) in
+            guard data != nil else { return }
+            let urlResponse = response as! HTTPURLResponse
+            print("viewability sent. Http Status code is \(urlResponse.statusCode)")
+        }
+        task.resume()
+    }
+    
     internal func sendAdBlockRequest(_ advertiserCampID: String?, _ blockLevel: String?, _ platformUid: String?, _ publisherACSID: String?){
         if ((advertiserCampID ?? "").isEmpty || (blockLevel ?? "").isEmpty || (platformUid ?? "").isEmpty || (publisherACSID ?? "").isEmpty) {
             return
@@ -208,7 +230,7 @@ public final class DocereeAdRequest {
         let session = URLSession(configuration: config)
         var components = URLComponents()
         components.scheme = "https"
-        components.host = getDocTrackerHost(type: EnvironmentType.Dev)
+        components.host = getDocTrackerHost(type: EnvironmentType.Qa)
         components.path = getPath(methodName: Methods.AdBlock)
         let adBlockEndPoint: URL = components.url!
         var request: URLRequest = URLRequest(url: adBlockEndPoint)
