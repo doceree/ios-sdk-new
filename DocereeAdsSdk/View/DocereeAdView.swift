@@ -33,10 +33,10 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     
     static var didLeaveAd: Bool = false
     var adResponseData: AdResponse?
-    var viewTime = 0
-//    var viewPercentage: Float = 0.0
+    var totalViewTime = 0
     var savedViewPercentage: Float = 0.0
     var OneSecMrcSent = false
+    
     
     lazy var adImageView: UIImageView = {
         let adImageView = UIImageView()
@@ -133,7 +133,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
             return
         }
         
-        viewTime = 0
+        totalViewTime = 0
         savedViewPercentage = 0
         self.OneSecMrcSent = false
         self.docereeAdRequest = docereeAdRequest
@@ -164,6 +164,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     //MARK: Private methods
     
     private func startTimer(adFound: Bool) {
+
         customTimer?.stop()
         customTimer = CustomTimer { (seconds) in
 
@@ -173,7 +174,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                 
                 // for standard: mcr
                 if viewPercentage >= 50 {
-                    self.viewTime += 1
+                    self.totalViewTime += 1
                     self.savedViewPercentage = viewPercentage
                     if self.OneSecMrcSent == false {
                         self.sendViewTime(standard: "mrc")
@@ -185,7 +186,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                 
                 // for standard: custom
                 if self.adResponseData?.standard() == "custom" {
-                    if self.viewTime == self.adResponseData?.minViewTime && viewPercentage >= (self.adResponseData?.minViewPercentage)! {
+                    if self.totalViewTime == self.adResponseData?.minViewTime && Int(viewPercentage) >= (self.adResponseData?.minViewPercentage)! {
                         self.sendViewTime(standard: "custom")
                     }
                 }
@@ -202,17 +203,26 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     }
     
     func sendViewTime(standard: String) {
-        if viewTime > 0 && (savedViewPercentage > 50 || savedViewPercentage >= (self.adResponseData?.minViewPercentage)!) {
-            print("View Time: ", viewTime)
+        if totalViewTime > 0 && (savedViewPercentage > 50 || Int(savedViewPercentage) >= (self.adResponseData?.minViewPercentage)!) {
+            print("View Time: ", totalViewTime)
             if adResponseData?.viewLink != nil {
                 var viewLink = adResponseData?.viewLink
-                viewLink = adResponseData?.viewLink!.replacingOccurrences(of: "_viewPercentage", with: String(savedViewPercentage))
-                viewLink = viewLink?.replacingOccurrences(of: "_viewTime", with: String(viewTime))
+                if standard == "mrc" {
+                    if totalViewTime == 1 {
+                        viewLink = viewLink?.replacingOccurrences(of: "_viewTime", with: String(1))
+                    } else {
+                        viewLink = viewLink?.replacingOccurrences(of: "_viewTotalTime", with: String(totalViewTime))
+                    }
+                    viewLink = viewLink?.replacingOccurrences(of: "_viewPercentage", with: String(50))
+                } else {
+                    viewLink = viewLink?.replacingOccurrences(of: "_viewTime", with: String((self.adResponseData?.minViewTime)!))
+                    viewLink = viewLink?.replacingOccurrences(of: "_viewPercentage", with: String((self.adResponseData?.minViewPercentage)!))
+                }
                 viewLink = viewLink?.replacingOccurrences(of: "_std", with: standard)
                 self.docereeAdRequest?.sendAdViewability(viewLink: viewLink!)
             }
             if standard == "mrc" && self.OneSecMrcSent == true {
-                viewTime = 0
+                totalViewTime = 0
                 savedViewPercentage = 0
             }
         }

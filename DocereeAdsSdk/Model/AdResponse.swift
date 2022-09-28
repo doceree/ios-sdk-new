@@ -19,7 +19,7 @@ internal struct AdResponse: Codable {
     let creativeType: String?
     let errMessage: String?
     let viewLink: String?
-    let minViewPercentage: Float?
+    let minViewPercentage: Int?
     let minViewTime: Int?
     
     enum Platformuid: String{
@@ -45,7 +45,7 @@ internal struct AdResponse: Codable {
         self.creativeType = try container.decodeIfPresent(String.self, forKey: .creativeType)
         self.errMessage = try container.decodeIfPresent(String.self, forKey: .errMessage)
         self.viewLink = try container.decodeIfPresent(String.self, forKey: .viewLink)
-        self.minViewPercentage = try container.decodeIfPresent(Float.self, forKey: .minViewPercentage)
+        self.minViewPercentage = try container.decodeIfPresent(Int.self, forKey: .minViewPercentage)
         self.minViewTime = try container.decodeIfPresent(Int.self, forKey: .minViewTime)
     }
     

@@ -2,14 +2,6 @@
 import UIKit
 
 func checkViewability(adView: UIView) -> Float {
-    
-//    if let tableCell = adView.superview as? UITableViewCell {
-//        let tv = tableCell.superview as! UITableView
-//        let positionOnWindow = adView.getPosition(parent: tv)
-//        let viewPercentage = viewabilityPercentageNewTable(view: adView, viewFrame: positionOnWindow, tableView: tv)
-//        return Float(viewPercentage)
-//    } else
-    
     if let parentView = adView.scrollviewObject {
         print("ScrollView found")
         let viewPercentage = viewabilityPercentageScrollView(adView: adView, scrollView: parentView)
@@ -23,62 +15,8 @@ func checkViewability(adView: UIView) -> Float {
             return Float(viewPercentage)
         }
     }
-    
     return 0.0
 }
-
-//func tableViewabilityPercentage(viewFrame: CGRect, tableView: UITableView) -> CGFloat {
-//
-//
-//    if tableView.contentOffset.y == 0 {
-//        if viewFrame.maxY < tableView.frame.height {
-//            print("percentage", 100)
-//        } else if viewFrame.minY < tableView.frame.height {
-//
-//            let hidePixels = viewFrame.maxY - tableView.frame.height
-//            let viewingHeight = viewFrame.height - hidePixels
-//            let percentage = (viewingHeight / viewFrame.height) * 100
-//            print("percentage", percentage)
-//        } else {
-//            print("hidePixels", 0.0)
-//        }
-//    } else if (viewFrame.minY - tableView.contentOffset.y) <= 0 {
-//        let currentY =  -(tableView.contentOffset.y - viewFrame.minY)
-//        if currentY < 0 {
-//            if -currentY > viewFrame.height {
-//                print("percentage", 0)
-//            } else {
-//                let viewableHeight =  viewFrame.height + currentY
-//                let percentage = (viewableHeight / viewFrame.height) * 100
-//                print("percentage", percentage)
-//            }
-//        }
-//    } else if (viewFrame.minY - tableView.contentOffset.y) > tableView.frame.height {
-//        let yDiff = viewFrame.maxY - tableView.frame.height
-//        let viewingHeight = viewFrame.height - yDiff
-//        if viewingHeight < 0 {
-//            return 0.0
-//        }
-//        let percentage = (viewingHeight / viewFrame.height) * 100
-//        print("percentage", percentage)
-//    } else if (viewFrame.minY - tableView.contentOffset.y) < tableView.frame.height {
-//        let yDiff = tableView.frame.height - (viewFrame.minY - tableView.contentOffset.y)
-//        let viewingHeight = yDiff
-//        if viewingHeight < 0 {
-//            return 0.0
-//        } else if viewingHeight >= viewFrame.height {
-//            print("percentage", 100)
-//        } else {
-//            let percentage = (viewingHeight / viewFrame.height) * 100
-//            print("percentage", percentage)
-//        }
-//    } else {
-//        print("percentage blank")
-//    }
-//
-//
-//    return 0.0
-//}
 
 func viewabilityPercentage(viewFrame: CGRect) -> CGFloat {
     
@@ -138,35 +76,6 @@ func viewabilityPercentage(viewFrame: CGRect) -> CGFloat {
 //
 //    return max(verticalPercentage, horizontalPercentage)
     return verticalPercentage
-}
-
-func viewabilityPercentageNewTable(view: UIView, viewFrame: CGPoint, tableView: UITableView) -> Float {
-    
-    print("test", viewFrame.y - tableView.contentOffset.y)
-    let hiddenPixels =  tableView.contentOffset.y - viewFrame.y
-//    print("hiddenPixels: ", hiddenPixels)
-    if (viewFrame.y + view.frame.height) > (tableView.frame.height + tableView.contentOffset.y) {
-        let viewableHeight =  (tableView.frame.height + tableView.contentOffset.y) - viewFrame.y
-        if viewableHeight < 0 {
-            print("Full hidden below the view")
-        } else {
-            let percentage = (viewableHeight / view.frame.height) * 100
-            print("percentage on top : \(percentage) %")
-            return Float(percentage)
-        }
-    } else if hiddenPixels > view.frame.height {
-        print("Full hidden above the view")
-    } else if hiddenPixels < 0 {
-        print("Full view")
-        return Float(100)
-    } else {
-        let viewingHeight = view.frame.height - hiddenPixels
-        let percentage = (viewingHeight / view.frame.height) * 100
-        print("percentage on bottom : \(percentage) %")
-        return Float(percentage)
-    }
-
-    return 0.0
 }
 
 func viewabilityPercentageScrollView(adView: UIView, scrollView: UIScrollView) -> Float {

@@ -116,7 +116,7 @@ public final class DocereeAdRequest {
             let session = URLSession(configuration: config)
             var components = URLComponents()
             components.scheme = "https"
-            components.host = getHost(type: EnvironmentType.Qa)
+            components.host = getHost(type: EnvironmentType.Prod)
             components.path = getPath(methodName: Methods.GetImage)
             var queryItems: [URLQueryItem] = []
             for (key, value) in self.urlQueryParameters.allValues(){
@@ -138,7 +138,7 @@ public final class DocereeAdRequest {
                     print("Test: Ad Request")
                     do {
                         let adResponseData: AdResponse = try JSONDecoder().decode(AdResponse.self, from: data)
-//                        print("Ad Response: \(adResponseData)")
+                        print("Ad Response: \(adResponseData)")
                         if adResponseData.errMessage != nil && adResponseData.errMessage!.count > 0 {
                             completion(Results(withData: nil, response: response as? HTTPURLResponse, error: DocereeAdRequestError.failedToCreateRequest), adResponseData.isAdRichMedia())
                             return
@@ -230,7 +230,7 @@ public final class DocereeAdRequest {
         let session = URLSession(configuration: config)
         var components = URLComponents()
         components.scheme = "https"
-        components.host = getDocTrackerHost(type: EnvironmentType.Qa)
+        components.host = getDocTrackerHost(type: EnvironmentType.Prod)
         components.path = getPath(methodName: Methods.AdBlock)
         let adBlockEndPoint: URL = components.url!
         var request: URLRequest = URLRequest(url: adBlockEndPoint)
