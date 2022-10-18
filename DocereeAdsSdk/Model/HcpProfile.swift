@@ -13,6 +13,7 @@ public final class Hcp: NSObject, NSCoding, Encodable {
     var email: String?
     var mobile: String?
     var mciRegistrationNumber: String?
+    var hashedGMC: String?
     var npi: String?
     var hashedNPI: String?
     var hashedEmail: String?
@@ -27,12 +28,13 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         self.email = builder.email
         self.mobile = builder.mobile
         self.mciRegistrationNumber = builder.mciRegistrationNumber
+        self.hashedGMC = builder.hashedGMC
         self.npi = builder.npi
         self.hashedEmail = builder.hashedEmail
         self.hashedNPI = builder.hashedNPI
     }
     
-    private init(firstName: String?, lastName: String?, specialization: String?, gender: String?, city: String?, zipCode: String?, email: String?, mobile: String?, mciRegistrationNumber: String?, npi: String?, hashedNPI: String?, hashedEmail: String?) {
+    private init(firstName: String?, lastName: String?, specialization: String?, gender: String?, city: String?, zipCode: String?, email: String?, mobile: String?, mciRegistrationNumber: String?, hashedGMC: String?, npi: String?, hashedNPI: String?, hashedEmail: String?) {
         self.firstName = firstName
         self.lastName = lastName
         self.specialization = specialization
@@ -42,6 +44,7 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         self.email = email
         self.mobile = mobile
         self.mciRegistrationNumber = mciRegistrationNumber
+        self.hashedGMC = hashedGMC
         self.npi = npi
         self.hashedEmail = hashedEmail
         self.hashedNPI = hashedNPI
@@ -57,6 +60,7 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         coder.encode(email, forKey: HcpProfile.email)
         coder.encode(mobile, forKey: HcpProfile.mobile)
         coder.encode(mciRegistrationNumber, forKey: HcpProfile.mciRegistrationNumber)
+        coder.encode(hashedGMC, forKey: HcpProfile.hashedGMC)
         coder.encode(npi, forKey: HcpProfile.npi)
         coder.encode(hashedNPI, forKey: HcpProfile.hashedNPI)
         coder.encode(hashedEmail, forKey: HcpProfile.hashedEmail)
@@ -72,11 +76,12 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         let email = aDecoder.decodeObject(forKey: HcpProfile.email) as? String
         let mobile = aDecoder.decodeObject(forKey: HcpProfile.mobile) as? String
         let mciRegistrationNumber = aDecoder.decodeObject(forKey: HcpProfile.mciRegistrationNumber) as? String
+        let hashedGMC = aDecoder.decodeObject(forKey: HcpProfile.hashedGMC) as? String
         let npi = aDecoder.decodeObject(forKey: HcpProfile.npi) as? String
         let hashedNPI = aDecoder.decodeObject(forKey: HcpProfile.hashedNPI) as? String
         let hashedEmail = aDecoder.decodeObject(forKey: HcpProfile.hashedEmail) as? String
         
-        self.init(firstName: firstName, lastName: lastName, specialization: specialization, gender: gender, city: city, zipCode: zipcode, email: email, mobile: mobile, mciRegistrationNumber: mciRegistrationNumber, npi: npi, hashedNPI: hashedNPI, hashedEmail: hashedEmail)
+        self.init(firstName: firstName, lastName: lastName, specialization: specialization, gender: gender, city: city, zipCode: zipcode, email: email, mobile: mobile, mciRegistrationNumber: mciRegistrationNumber, hashedGMC: hashedGMC, npi: npi, hashedNPI: hashedNPI, hashedEmail: hashedEmail)
     }
     
     public class HcpBuilder {
@@ -92,6 +97,7 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         var email: String?
         var mobile: String?
         var mciRegistrationNumber: String?
+        var hashedGMC: String?
         var npi: String?
         var hashedNPI: String?
         var hashedEmail: String?
@@ -141,6 +147,11 @@ public final class Hcp: NSObject, NSCoding, Encodable {
             return self
         }
         
+        public func setHashedGMC(hashedGMC: String?) -> HcpBuilder {
+            self.hashedGMC = hashedGMC
+            return self
+        }
+        
         public func setNpi(npi: String?) -> HcpBuilder {
             self.npi = npi
             return self
@@ -172,6 +183,7 @@ struct HcpProfile {
     static let email = "email"
     static let mobile = "mobile"
     static let mciRegistrationNumber = "mciregistrationnumber"
+    static let hashedGMC = "hashedGMC"
     static let npi = "npi"
     static let hashedNPI = "hashedNPI"
     static let hashedEmail = "hashedEmail"
