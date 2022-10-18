@@ -168,7 +168,8 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         customTimer?.stop()
         customTimer = CustomTimer { (seconds) in
 
-            if adFound {
+            let isViewLinkNullOrEmpty: Bool = (self.adResponseData?.viewLink ?? "").isEmpty
+            if adFound && (!isViewLinkNullOrEmpty) {
                 let viewPercentage = checkViewability(adView: self)
                 print("final percentage: ", viewPercentage)
                 
@@ -205,7 +206,8 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     func sendViewTime(standard: String) {
         if totalViewTime > 0 && (savedViewPercentage > 50 || Int(savedViewPercentage) >= (self.adResponseData?.minViewPercentage)!) {
             print("View Time: ", totalViewTime)
-            if adResponseData?.viewLink != nil {
+            let isViewLinkNullOrEmpty: Bool = (adResponseData?.viewLink ?? "").isEmpty
+            if (!isViewLinkNullOrEmpty) {
                 var viewLink = adResponseData?.viewLink
                 if standard == "mrc" {
                     if totalViewTime == 1 {
@@ -221,6 +223,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                 viewLink = viewLink?.replacingOccurrences(of: "_std", with: standard)
                 self.docereeAdRequest?.sendAdViewability(viewLink: viewLink!)
             }
+
             if standard == "mrc" && self.OneSecMrcSent == true {
                 totalViewTime = 0
                 savedViewPercentage = 0
