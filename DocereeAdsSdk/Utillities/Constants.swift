@@ -75,7 +75,7 @@ enum ConsentType {
     case consentType3
 }
 
-enum EnvironmentType {
+public enum EnvironmentType {
     case Dev
     case Prod
     case Local
