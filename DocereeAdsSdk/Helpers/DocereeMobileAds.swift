@@ -14,6 +14,7 @@ import AdSupport
 public final class DocereeMobileAds {
     
     internal static var trackingStatus: String = "not determined"
+    public static var collectDataStatus = true
     
     private static var sharedNetworkManager: DocereeMobileAds = {
         var docereeMobileAds = DocereeMobileAds()
@@ -27,9 +28,10 @@ public final class DocereeMobileAds {
     
     public static func setApplicationKey(_ key: String){
         NSKeyedArchiver.archiveRootObject(key, toFile: DocereeAdsIdArchivingUrl.path)
+        DocereeMobileAds.shared().sendDefaultData()
     }
-    
-    public static func getProfile() -> Hcp? {
+
+    public func getProfile() -> Hcp? {
         do {
             let data = try Data(contentsOf: ProfileArchivingUrl)
             if let profile = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? Hcp {
@@ -48,7 +50,7 @@ public final class DocereeMobileAds {
     
     public typealias CompletionHandler = ((_ completionStatus:Any?) -> Void)?
     
-    public func start(completionHandler: CompletionHandler){
+    public func start(completionHandler: CompletionHandler) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
         if #available(iOS 14, *) {
             #if canImport(AdSupport) && canImport(AppTrackingTransparency)
@@ -85,6 +87,15 @@ public final class DocereeMobileAds {
             try FileManager.default.removeItem(at: ProfileArchivingUrl)
             try FileManager.default.removeItem(at: PlatformArchivingUrl)
             try FileManager.default.removeItem(at: DocereeAdsIdArchivingUrl)
+            try FileManager.default.removeItem(at: EventListArchivingUrl)
+            try FileManager.default.removeItem(at: EditorialTagsArchivingUrl)
+            try FileManager.default.removeItem(at: RxDxCodesArchivingUrl)
+        } catch {}
+    }
+    
+    public static func clearEventsData() {
+        do {
+            try FileManager.default.removeItem(at: EventListArchivingUrl)
         } catch {}
     }
     
@@ -92,6 +103,81 @@ public final class DocereeMobileAds {
         case Success
         case Failure
         case Loading
+    }
+    
+    func sendDefaultData() {
+        DocereeAdRequest.shared().sendDataCollection()
+    }
+    
+    public func sendData(rxdxCodes: [String : String]?, editorialTags: [String]?, event: [String : String]?) {
+        if let codes = rxdxCodes {
+            NSKeyedArchiver.archiveRootObject(codes, toFile: RxDxCodesArchivingUrl.path)
+        }
+        
+        if let tags = editorialTags {
+            NSKeyedArchiver.archiveRootObject(tags, toFile: EditorialTagsArchivingUrl.path)
+        }
+        
+        if !DocereeMobileAds.collectDataStatus {
+            return
+        }
+        
+        if let event = event {
+            do {
+                if !FileManager.default.fileExists(atPath: EventListArchivingUrl.path) {
+                    NSKeyedArchiver.archiveRootObject([event], toFile: EventListArchivingUrl.path)
+                } else {
+                    let data = try Data(contentsOf: EventListArchivingUrl)
+                    if var events = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [[String : String]] {
+                        events.append(event)
+                        print(events)
+                        NSKeyedArchiver.archiveRootObject(events, toFile: EventListArchivingUrl.path)
+                        
+                        if events.count >= 5 {
+                            DocereeAdRequest.shared().sendDataCollection()
+                        }
+                    }
+                }
+            } catch {
+                print("ERROR: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    public func getEditorialTags() -> [String]? {
+        do {
+            let data = try Data(contentsOf: EditorialTagsArchivingUrl)
+            if let tags = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [String] {
+                return tags
+            }
+        } catch {
+            print("ERROR: \(error.localizedDescription)")
+        }
+        return nil
+    }
+    
+    public func getEvents() -> [[String : String]]? {
+        do {
+            let data = try Data(contentsOf: EventListArchivingUrl)
+            if let event = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [[String : String]] {
+                return event
+            }
+        } catch {
+            print("ERROR: \(error.localizedDescription)")
+        }
+        return nil
+    }
+    
+    public func getCodes() -> [String : String]? {
+        do {
+            let data = try Data(contentsOf: RxDxCodesArchivingUrl)
+            if let codes = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [String : String] {
+                return codes
+            }
+        } catch {
+            print("ERROR: \(error.localizedDescription)")
+        }
+        return nil
     }
 }
 

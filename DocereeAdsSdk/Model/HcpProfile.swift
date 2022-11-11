@@ -7,6 +7,7 @@ public final class Hcp: NSObject, NSCoding, Encodable {
     var firstName: String?
     var lastName: String?
     var specialization: String?
+    var organisation: String?
     var gender: String?
     var city: String?
     var zipCode: String?
@@ -21,6 +22,7 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         self.firstName = builder.firstName
         self.lastName = builder.lastName
         self.specialization = builder.specialization
+        self.organisation = builder.organisation
         self.gender = builder.gender
         self.city = builder.city
         self.zipCode = builder.zipCode
@@ -32,10 +34,11 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         self.hashedNPI = builder.hashedNPI
     }
     
-    private init(firstName: String?, lastName: String?, specialization: String?, gender: String?, city: String?, zipCode: String?, email: String?, mobile: String?, mciRegistrationNumber: String?, npi: String?, hashedNPI: String?, hashedEmail: String?) {
+    private init(firstName: String?, lastName: String?, specialization: String?, organisation: String?, gender: String?, city: String?, zipCode: String?, email: String?, mobile: String?, mciRegistrationNumber: String?, npi: String?, hashedNPI: String?, hashedEmail: String?) {
         self.firstName = firstName
         self.lastName = lastName
         self.specialization = specialization
+        self.organisation = organisation
         self.gender = gender
         self.city = city
         self.zipCode = zipCode
@@ -51,6 +54,7 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         coder.encode(firstName, forKey: HcpProfile.firstName)
         coder.encode(lastName, forKey: HcpProfile.lastName)
         coder.encode(specialization, forKey: HcpProfile.specialization)
+        coder.encode(organisation, forKey: HcpProfile.organisation)
         coder.encode(gender, forKey: HcpProfile.gender)
         coder.encode(city, forKey: HcpProfile.city)
         coder.encode(zipCode, forKey: HcpProfile.zipCode)
@@ -66,6 +70,7 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         let firstName = aDecoder.decodeObject(forKey: HcpProfile.firstName) as? String
         let lastName = aDecoder.decodeObject(forKey: HcpProfile.lastName) as? String
         let specialization = aDecoder.decodeObject(forKey: HcpProfile.specialization) as? String
+        let organisation = aDecoder.decodeObject(forKey: HcpProfile.organisation) as? String
         let gender = aDecoder.decodeObject(forKey: HcpProfile.gender) as? String
         let city = aDecoder.decodeObject(forKey: HcpProfile.city) as? String
         let zipcode = aDecoder.decodeObject(forKey: HcpProfile.zipCode) as? String
@@ -76,7 +81,7 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         let hashedNPI = aDecoder.decodeObject(forKey: HcpProfile.hashedNPI) as? String
         let hashedEmail = aDecoder.decodeObject(forKey: HcpProfile.hashedEmail) as? String
         
-        self.init(firstName: firstName, lastName: lastName, specialization: specialization, gender: gender, city: city, zipCode: zipcode, email: email, mobile: mobile, mciRegistrationNumber: mciRegistrationNumber, npi: npi, hashedNPI: hashedNPI, hashedEmail: hashedEmail)
+        self.init(firstName: firstName, lastName: lastName, specialization: specialization, organisation: organisation, gender: gender, city: city, zipCode: zipcode, email: email, mobile: mobile, mciRegistrationNumber: mciRegistrationNumber, npi: npi, hashedNPI: hashedNPI, hashedEmail: hashedEmail)
     }
     
     public class HcpBuilder {
@@ -86,6 +91,7 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         var firstName: String?
         var lastName: String?
         var specialization: String?
+        var organisation: String?
         var gender: String?
         var city: String?
         var zipCode: String?
@@ -105,9 +111,14 @@ public final class Hcp: NSObject, NSCoding, Encodable {
             self.lastName = lastName
             return self
         }
-        
+
         public func setSpecialization(specialization: String?) -> HcpBuilder {
             self.specialization = specialization
+            return self
+        }
+        
+        public func setOrganisation(organisation: String?) -> HcpBuilder {
+            self.organisation = organisation
             return self
         }
         
@@ -166,6 +177,7 @@ struct HcpProfile {
     static let firstName = "firstname"
     static let lastName = "lastname"
     static let specialization = "specialization"
+    static let organisation = "organisation"
     static let gender = "gender"
     static let city = "city"
     static let zipCode = "zipcode"

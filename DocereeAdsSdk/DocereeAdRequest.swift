@@ -28,6 +28,14 @@ public final class DocereeAdRequest {
     // MARK: Properties
     private var isPlatformUidPresent: Bool = false
     
+    private static var sharedObject: DocereeAdRequest = {
+        let docereeAdRequest = DocereeAdRequest()
+        return docereeAdRequest
+    }()
+    
+    public class func shared() -> DocereeAdRequest {
+        return sharedObject
+    }
     // MARK: Public methods
     internal func requestAd(_ adUnitId: String!, _ size: String!, completion: @escaping(_ results: Results,
                                                                                         _ isRichMediaAd: Bool) -> Void) {
@@ -36,6 +44,7 @@ public final class DocereeAdRequest {
         setUpImage(self.size!, self.adUnitId!) { (results, isRichMediaAd) in
             completion(results, isRichMediaAd)
         }
+
     }
 
     internal func setUpImage(_ size: String!, _ slotId: String!, completion: @escaping(_ results: Results, _ isRichmedia: Bool) -> Void) {
@@ -62,7 +71,7 @@ public final class DocereeAdRequest {
             return
         }
         if advertisementId != nil {
-            guard let loggedInUser = DocereeMobileAds.getProfile() else {
+            guard let loggedInUser = DocereeMobileAds.shared().getProfile() else {
                 print("Error: Not found profile data")
                 return
             }
@@ -116,7 +125,7 @@ public final class DocereeAdRequest {
             let session = URLSession(configuration: config)
             var components = URLComponents()
             components.scheme = "https"
-            components.host = getHost(type: EnvironmentType.Prod)
+            components.host = getHost(type: EnvironmentType.Dev)
             components.path = getPath(methodName: Methods.GetImage)
             var queryItems: [URLQueryItem] = []
             for (key, value) in self.urlQueryParameters.allValues(){
@@ -230,7 +239,7 @@ public final class DocereeAdRequest {
         let session = URLSession(configuration: config)
         var components = URLComponents()
         components.scheme = "https"
-        components.host = getDocTrackerHost(type: EnvironmentType.Prod)
+        components.host = getDocTrackerHost(type: EnvironmentType.Dev)
         components.path = getPath(methodName: Methods.AdBlock)
         let adBlockEndPoint: URL = components.url!
         var request: URLRequest = URLRequest(url: adBlockEndPoint)
@@ -259,4 +268,104 @@ public final class DocereeAdRequest {
         task.resume()
     }
     
+    internal func sendDataCollection() {
+        if !DocereeMobileAds.collectDataStatus {
+            return
+        }
+        var advertisementId: String?
+        advertisementId = getIdentifierForAdvertising()
+        if (advertisementId == nil) {
+            if #available(iOS 10.0, *) {
+                os_log("Error: Ad Tracking is disabled . Please re-enable it to view ads", log: .default, type: .error)
+            } else {
+                // Fallback on earlier versions
+                print("Error: Ad Tracking is disabled . Please re-enable it to view ads")
+            }
+            return
+        }
+        
+        self.requestHttpHeaders.add(value: "application/json", forKey: "Content-Type")
+        
+        // query params
+        let josnObject: [String : Any] = [
+            CollectDataService.bundleID.rawValue : Bundle.main.bundleIdentifier!,
+            CollectDataService.platformID.rawValue : platformId,
+            CollectDataService.dataSource.rawValue : dataSource,
+            CollectDataService.editorialTags.rawValue : DocereeMobileAds.shared().getEditorialTags() as Any,
+            CollectDataService.eventList.rawValue : DocereeMobileAds.shared().getEvents() as Any,
+            CollectDataService.localTimestamp.rawValue : Date.getFormattedDate(),
+            CollectDataService.platformData.rawValue : getPlatformData(),
+            CollectDataService.partnerData.rawValue : "",
+            CollectDataService.advertisingID.rawValue : advertisementId as Any,
+            CollectDataService.privateMode.rawValue : 0
+        ]
+
+        let body = josnObject //httpBodyParameters.allValues()
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "qa-identity.doceree.com" //getDocTrackerHost(type: EnvironmentType.Qa)
+        components.path = getPath(methodName: Methods.CollectData)
+        let collectDataEndPoint: URL = components.url!
+        var request: URLRequest = URLRequest(url: collectDataEndPoint)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // set headers
+        for header in requestHttpHeaders.allValues() {
+            request.setValue(header.value, forHTTPHeaderField: header.key)
+        }
+        
+        request.httpMethod = HttpMethod.post.rawValue
+        
+        let jsonData: Data
+        do {
+            jsonData = try JSONSerialization.data(withJSONObject: body, options: [])
+            request.httpBody = jsonData
+        } catch {
+            return
+        }
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            guard data != nil else { return }
+            let urlResponse = response as! HTTPURLResponse
+            print(urlResponse.statusCode)
+        }
+        task.resume()
+        
+        
+        if let eventList = DocereeMobileAds.shared().getEvents() {
+            if eventList.count >= 5 {
+                DocereeMobileAds.clearEventsData()
+            }
+        }
+        
+    }
+}
+
+func getPlatformData() -> String {
+    guard let loggedInUser = DocereeMobileAds.shared().getProfile() else {
+        print("Error: Not found profile data")
+        return ""
+    }
+
+    let codes = DocereeMobileAds.shared().getCodes()
+    
+    let name = loggedInUser.firstName! + " " + loggedInUser.lastName!
+    let dict = ["nm" : name,
+                "em" : loggedInUser.email,
+                "sp" : loggedInUser.specialization,
+                "og" : loggedInUser.organisation,
+                "hc" : loggedInUser.mciRegistrationNumber,
+                "rx" : codes?["rx"],
+                "dx" : codes?["dx"]
+    ]
+    
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = .prettyPrinted
+    let data = try! encoder.encode(dict)
+    let jsonString = String(data: data, encoding: .utf8)!
+    print(jsonString)
+    let toBase64 = jsonString.toBase64()
+    return toBase64!
 }

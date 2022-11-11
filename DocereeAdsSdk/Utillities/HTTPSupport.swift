@@ -60,6 +60,7 @@ func getDocTrackerHost(type: EnvironmentType) -> String? {
 enum Methods{
     case GetImage
     case AdBlock
+    case CollectData
 }
 
 func getPath(methodName: Methods) -> String {
@@ -68,5 +69,7 @@ func getPath(methodName: Methods) -> String {
         return "/v1/adrequest"
     case .AdBlock:
         return "/saveadblockinfo"
+    case .CollectData:
+        return "/curator"
     }
 }

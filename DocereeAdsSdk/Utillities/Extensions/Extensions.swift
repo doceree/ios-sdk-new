@@ -87,6 +87,17 @@ extension DateFormatter {
     }
 }
 
+extension Date {
+    static func getFormattedDate() -> String {
+        let date = Date()
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+        let dateString = df.string(from: date)
+
+        return dateString
+    }
+}
+
 extension UIView {
     var parentViewController: UIViewController? {
         // Starts from next (As we know self is not a UIViewController).

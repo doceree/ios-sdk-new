@@ -7,6 +7,8 @@ let textFontSize9: CGFloat = 9.0
 let textFontSize10: CGFloat = 10.0
 let textFontSize8: CGFloat = 8.0
 let sdkVersion = Bundle(for: DocereeAdRequest.self).infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0"
+let platformId = 4 // (#1- web #2- mweb #3- andorid #4- ios #5- amp)"
+let dataSource = 2 // (#1- js, #2- sdk, #3- adservedata, #4- dmd, #5- purplelab, #6- liveintent)
 
 enum AdType {
     case BANNER
@@ -86,4 +88,29 @@ public enum AdPosition {
     case top
     case bottom
     case custom
+}
+
+enum CollectDataService: String {
+    case bundleID = "bnd"
+    case platformID = "pl"
+    case dataSource = "sr"
+    case editorialTags = "mt"
+    case eventList = "el"
+    case localTimestamp = "lt"
+    case platformData = "pd"
+    case partnerData = "qp"
+    case advertisingID = "uid"
+    case privateMode = "pv"
+}
+
+enum Event: String {
+    case share = "shr"
+    case comment = "cmt"
+    case like = "lik"
+    case pateintID = "pid"
+    case officeID = "oif"
+    case providerID = "pro"
+    case encounterID = "enc"
+    case erxEncounterID = "enx"
+    case scrollPath = "scd"
 }
