@@ -16,11 +16,20 @@ public final class DocereeMobileAds {
     internal static var trackingStatus: String = "not determined"
     public static var collectDataStatus = true
     
+    private var environmentType = EnvironmentType.Prod
+    
     private static var sharedNetworkManager: DocereeMobileAds = {
         var docereeMobileAds = DocereeMobileAds()
         return docereeMobileAds
     }()
     
+    public func setEnvironment(type: EnvironmentType) {
+        environmentType = type
+    }
+    
+    public func getEnvironment() -> EnvironmentType {
+        return environmentType
+    }
     
     public static func login(with hcp: Hcp){
         NSKeyedArchiver.archiveRootObject(hcp, toFile: ProfileArchivingUrl.path)
