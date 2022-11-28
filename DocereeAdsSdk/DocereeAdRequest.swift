@@ -111,9 +111,20 @@ public final class DocereeAdRequest {
                     data = Dictionary()
                     data = ["platformUid": platformuid,
                             "city": loggedInUser.city,
-                            "specialization": loggedInUser.specialization,
-                            "gmc": loggedInUser.gmc,
-                            "hashedGMC": loggedInUser.hashedGMC]
+                            "specialization": loggedInUser.specialization]
+                    if let email = loggedInUser.email {
+                        data["email"] = email
+                    }
+                    if let hashedEmail = loggedInUser.hashedEmail {
+                        data["hashedEmail"] = hashedEmail
+                    }
+                    if let gmc = loggedInUser.gmc {
+                        data["gmc"] = gmc
+                    }
+                    if let hashedGMC = loggedInUser.hashedGMC {
+                        data["hashedGMC"] = hashedGMC
+                    }
+                        
                 }
                 let jsonData = try? JSONSerialization.data(withJSONObject: data, options: [])
                 let jsonString = String(data: jsonData!, encoding: .utf8)?.toBase64() // encode to base64
@@ -185,9 +196,9 @@ public final class DocereeAdRequest {
         let session = URLSession(configuration: config)
         
         // set headers
-        for header in requestHttpHeaders.allValues() {
-            urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
-        }
+//        for header in requestHttpHeaders.allValues() {
+//            urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
+//        }
         
         let task = session.dataTask(with: urlRequest){ (data, response, error) in
             guard data != nil else { return }
@@ -207,9 +218,9 @@ public final class DocereeAdRequest {
         let session = URLSession(configuration: config)
         
         // set headers
-        for header in requestHttpHeaders.allValues() {
-            urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
-        }
+//        for header in requestHttpHeaders.allValues() {
+//            urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
+//        }
         
         let task = session.dataTask(with: urlRequest){ (data, response, error) in
             guard data != nil else { return }
