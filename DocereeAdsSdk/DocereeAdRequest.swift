@@ -111,7 +111,9 @@ public final class DocereeAdRequest {
                     data = Dictionary()
                     data = ["platformUid": platformuid,
                             "city": loggedInUser.city,
-                            "specialization": loggedInUser.specialization,]
+                            "specialization": loggedInUser.specialization,
+                            "gmc": loggedInUser.gmc,
+                            "hashedGMC": loggedInUser.hashedGMC]
                 }
                 let jsonData = try? JSONSerialization.data(withJSONObject: data, options: [])
                 let jsonString = String(data: jsonData!, encoding: .utf8)?.toBase64() // encode to base64
