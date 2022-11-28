@@ -37,7 +37,7 @@ public final class DocereeMobileAds {
     
     public static func setApplicationKey(_ key: String){
         NSKeyedArchiver.archiveRootObject(key, toFile: DocereeAdsIdArchivingUrl.path)
-        DocereeMobileAds.shared().sendDefaultData()
+//        DocereeMobileAds.shared().sendDefaultData()
     }
 
     public func getProfile() -> Hcp? {
@@ -114,44 +114,44 @@ public final class DocereeMobileAds {
         case Loading
     }
     
-    func sendDefaultData() {
-        DocereeAdRequest.shared().sendDataCollection()
-    }
-    
-    public func sendData(rxdxCodes: [String : String]?, editorialTags: [String]?, event: [String : String]?) {
-        if let codes = rxdxCodes {
-            NSKeyedArchiver.archiveRootObject(codes, toFile: RxDxCodesArchivingUrl.path)
-        }
-        
-        if let tags = editorialTags {
-            NSKeyedArchiver.archiveRootObject(tags, toFile: EditorialTagsArchivingUrl.path)
-        }
-        
-        if !DocereeMobileAds.collectDataStatus {
-            return
-        }
-        
-        if let event = event {
-            do {
-                if !FileManager.default.fileExists(atPath: EventListArchivingUrl.path) {
-                    NSKeyedArchiver.archiveRootObject([event], toFile: EventListArchivingUrl.path)
-                } else {
-                    let data = try Data(contentsOf: EventListArchivingUrl)
-                    if var events = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [[String : String]] {
-                        events.append(event)
-                        print(events)
-                        NSKeyedArchiver.archiveRootObject(events, toFile: EventListArchivingUrl.path)
-                        
-                        if events.count >= 5 {
-                            DocereeAdRequest.shared().sendDataCollection()
-                        }
-                    }
-                }
-            } catch {
-                print("ERROR: \(error.localizedDescription)")
-            }
-        }
-    }
+//    func sendDefaultData() {
+//        DocereeAdRequest.shared().sendDataCollection()
+//    }
+//
+//    public func sendData(rxdxCodes: [String : String]?, editorialTags: [String]?, event: [String : String]?) {
+//        if let codes = rxdxCodes {
+//            NSKeyedArchiver.archiveRootObject(codes, toFile: RxDxCodesArchivingUrl.path)
+//        }
+//
+//        if let tags = editorialTags {
+//            NSKeyedArchiver.archiveRootObject(tags, toFile: EditorialTagsArchivingUrl.path)
+//        }
+//
+//        if !DocereeMobileAds.collectDataStatus {
+//            return
+//        }
+//
+//        if let event = event {
+//            do {
+//                if !FileManager.default.fileExists(atPath: EventListArchivingUrl.path) {
+//                    NSKeyedArchiver.archiveRootObject([event], toFile: EventListArchivingUrl.path)
+//                } else {
+//                    let data = try Data(contentsOf: EventListArchivingUrl)
+//                    if var events = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [[String : String]] {
+//                        events.append(event)
+//                        print(events)
+//                        NSKeyedArchiver.archiveRootObject(events, toFile: EventListArchivingUrl.path)
+//
+//                        if events.count >= 5 {
+//                            DocereeAdRequest.shared().sendDataCollection()
+//                        }
+//                    }
+//                }
+//            } catch {
+//                print("ERROR: \(error.localizedDescription)")
+//            }
+//        }
+//    }
     
     public func getEditorialTags() -> [String]? {
         do {
