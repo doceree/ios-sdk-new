@@ -57,6 +57,19 @@ func getDocTrackerHost(type: EnvironmentType) -> String? {
     }
 }
 
+func getDataCollectionHost(type: EnvironmentType) -> String? {
+    switch type {
+    case .Dev:
+        return "qa-identity.doceree.com"
+    case .Local:
+        return "10.0.3.2"
+    case .Qa:
+        return "qa-identity.doceree.com"
+    case .Prod:
+        return "qa-identity.doceree.com"
+    }
+}
+
 enum Methods{
     case GetImage
     case AdBlock

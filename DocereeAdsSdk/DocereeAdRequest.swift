@@ -318,7 +318,7 @@ public final class DocereeAdRequest {
         let session = URLSession(configuration: config)
         var components = URLComponents()
         components.scheme = "https"
-        components.host = "qa-identity.doceree.com" //getDocTrackerHost(type: EnvironmentType.Qa)
+        components.host = getDataCollectionHost(type: DocereeMobileAds.shared().getEnvironment())
         components.path = getPath(methodName: Methods.CollectData)
         let collectDataEndPoint: URL = components.url!
         var request: URLRequest = URLRequest(url: collectDataEndPoint)
