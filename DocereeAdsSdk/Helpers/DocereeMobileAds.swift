@@ -96,18 +96,11 @@ public final class DocereeMobileAds {
             try FileManager.default.removeItem(at: ProfileArchivingUrl)
             try FileManager.default.removeItem(at: PlatformArchivingUrl)
             try FileManager.default.removeItem(at: DocereeAdsIdArchivingUrl)
-            try FileManager.default.removeItem(at: EventListArchivingUrl)
             try FileManager.default.removeItem(at: EditorialTagsArchivingUrl)
             try FileManager.default.removeItem(at: RxDxCodesArchivingUrl)
         } catch {}
     }
-    
-    public static func clearEventsData() {
-        do {
-            try FileManager.default.removeItem(at: EventListArchivingUrl)
-        } catch {}
-    }
-    
+
     internal enum CompletionStatus: Any {
         case Success
         case Failure
@@ -115,7 +108,7 @@ public final class DocereeMobileAds {
     }
     
     func sendDefaultData() {
-        DocereeAdRequest.shared().sendDataCollection()
+        DocereeAdRequest.shared().sendDataCollection(event: nil)
     }
 
     public func sendData(rxdxCodes: [String : String]?, editorialTags: [String]?, event: [String : String]?) {
@@ -132,24 +125,7 @@ public final class DocereeMobileAds {
         }
 
         if let event = event {
-            do {
-                if !FileManager.default.fileExists(atPath: EventListArchivingUrl.path) {
-                    NSKeyedArchiver.archiveRootObject([event], toFile: EventListArchivingUrl.path)
-                } else {
-                    let data = try Data(contentsOf: EventListArchivingUrl)
-                    if var events = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [[String : String]] {
-                        events.append(event)
-                        print(events)
-                        NSKeyedArchiver.archiveRootObject(events, toFile: EventListArchivingUrl.path)
-
-                        if events.count >= 5 {
-                            DocereeAdRequest.shared().sendDataCollection()
-                        }
-                    }
-                }
-            } catch {
-                print("ERROR: \(error.localizedDescription)")
-            }
+            DocereeAdRequest.shared().sendDataCollection(event: event)
         }
     }
     
@@ -158,18 +134,6 @@ public final class DocereeMobileAds {
             let data = try Data(contentsOf: EditorialTagsArchivingUrl)
             if let tags = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [String] {
                 return tags
-            }
-        } catch {
-            print("ERROR: \(error.localizedDescription)")
-        }
-        return nil
-    }
-    
-    public func getEvents() -> [[String : String]]? {
-        do {
-            let data = try Data(contentsOf: EventListArchivingUrl)
-            if let event = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [[String : String]] {
-                return event
             }
         } catch {
             print("ERROR: \(error.localizedDescription)")
