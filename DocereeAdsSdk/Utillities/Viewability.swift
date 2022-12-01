@@ -110,7 +110,18 @@ func viewabilityPercentageScrollView(adView: UIView, scrollView: UIScrollView) -
 //            print("bottom portion ", visibleHeight)
         }
     } else {
-        visibleHeight = (screenSize.height - scrollViewPos!.minY) - currentAdY
+        var topBarHeight = 0.0 // In case of top bar we have to calculate viewability from the top bar
+        if let navBarHeight = adView.parentViewController?.navigationController?.navigationBar.frame.height {
+            topBarHeight = UIApplication.shared.statusBarFrame.size.height + navBarHeight
+        }
+        
+        var vcY = 0.0 // In case of automatic view presentaiotn we have to skip that heihgt gap
+        if let viewHeight = adView.parentViewController?.view.frame.maxY {
+            let heightDiff = UIScreen.main.bounds.height - viewHeight
+            vcY = heightDiff
+        }
+        
+        visibleHeight = (screenSize.height - scrollViewPos!.minY) - currentAdY - topBarHeight - vcY
         if visibleHeight > adView.frame.height {
 //            print("Full add vertically")
             visibleHeight = adView.frame.height
