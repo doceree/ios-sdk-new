@@ -16,19 +16,23 @@ class ImageLoader {
         return Static.instance
     }
     
-    func imageForUrl(urlString: String, completionHandler:@escaping (_ image: UIImage?) -> ()) {
-        let downloadTask: URLSessionDataTask = URLSession.shared.dataTask(with: URL.init(string: urlString)!) { (data, response, error) in
-            if error == nil {
-                if data != nil {
-                    let image = UIImage.init(data: data!)
+    func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
+        let session = URLSession(configuration: .default)
+        DispatchQueue.global(qos: .background).async {
+            print("In background")
+            session.dataTask(with: URLRequest(url: url)) { data, response, error in
+                if error != nil {
+                    print(error?.localizedDescription ?? "Unknown error")
+                }
+                if let data = data, let image = UIImage(data: data) {
+                    print("Downloaded image")
                     DispatchQueue.main.async {
-                        completionHandler(image)
+                        print("dispatched to main")
+                        completion(image)
                     }
                 }
-            } else {
-                completionHandler(nil)
-            }
+                }.resume()
         }
-        downloadTask.resume()
     }
+    
 }

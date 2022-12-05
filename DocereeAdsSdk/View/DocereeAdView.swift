@@ -266,7 +266,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                 self.addSubview(self.adImageView)
                 self.adImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
                 self.adImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-                let imageUrl = NSURL(string: urlString)
+                let imageUrl = URL(string: urlString)
                 self.handleImageRendering(of: imageUrl)
                 if self.delegate != nil {
                     self.delegate?.docereeAdViewDidReceiveAd(self)
@@ -311,8 +311,8 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         }
     }
 
-    private func handleImageRendering(of imageUrl: NSURL?) {
-        if imageUrl == nil || imageUrl?.absoluteString?.count == 0 {
+    private func handleImageRendering(of imageUrl: URL?) {
+        if imageUrl == nil || imageUrl?.absoluteString.count == 0 {
             return
         }
         if NSData(contentsOf: imageUrl! as URL)?.imageFormat == ImageFormat.GIF {
@@ -321,10 +321,8 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
             self.adImageView.image = image
             setupConsentIcons()
         } else {
-            ImageLoader.sharedInstance.imageForUrl(urlString: (imageUrl?.absoluteString)!, completionHandler: { (image) in
-                if image != nil {
-                    self.adImageView.image = image
-                }
+            ImageLoader.sharedInstance.downloadImage(from: imageUrl! as URL, completion: { (image) in
+                self.adImageView.image = image
             })
             setupConsentIcons()
         }
