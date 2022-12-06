@@ -315,10 +315,13 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         if imageUrl == nil || imageUrl?.absoluteString.count == 0 {
             return
         }
-        if NSData(contentsOf: imageUrl! as URL)?.imageFormat == ImageFormat.GIF {
-            let url = imageUrl
-            let image = UIImage.gifImageWithURL((url?.absoluteString)!)
-            self.adImageView.image = image
+        if imageUrl?.pathExtension.lowercased() == "gif" {
+            DispatchQueue.global().async {
+                let image = UIImage.gifImageWithURL((imageUrl?.absoluteString)!)
+                DispatchQueue.main.async {
+                    self.adImageView.image = image
+                }
+            }
             setupConsentIcons()
         } else {
             ImageLoader.sharedInstance.downloadImage(from: imageUrl! as URL, completion: { (image) in
