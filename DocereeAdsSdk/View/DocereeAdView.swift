@@ -266,7 +266,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                 self.addSubview(self.adImageView)
                 self.adImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
                 self.adImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-                let imageUrl = NSURL(string: urlString)
+                let imageUrl = URL(string: urlString)
                 self.handleImageRendering(of: imageUrl)
                 if self.delegate != nil {
                     self.delegate?.docereeAdViewDidReceiveAd(self)
@@ -311,21 +311,22 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         }
     }
 
-    private func handleImageRendering(of imageUrl: NSURL?) {
-        if imageUrl == nil || imageUrl?.absoluteString?.count == 0 {
+    private func handleImageRendering(of imageUrl: URL?) {
+        if imageUrl == nil || imageUrl?.absoluteString.count == 0 {
             return
         }
-        if NSData(contentsOf: imageUrl! as URL)?.imageFormat == ImageFormat.GIF {
-            let url = imageUrl
-            let image = UIImage.gifImageWithURL((url?.absoluteString)!)
-            self.adImageView.image = image
+        if imageUrl?.pathExtension.lowercased() == "gif" {
+            DispatchQueue.global().async {
+                let image = UIImage.gifImageWithURL((imageUrl?.absoluteString)!)
+                DispatchQueue.main.async {
+                    self.adImageView.image = image
+                }
+            }
             setupConsentIcons()
         } else {
-            guard let imageSource = CGImageSourceCreateWithURL(imageUrl!, nil) else {
-                return
-            }
-            let image = UIImage(cgImage: CGImageSourceCreateImageAtIndex(imageSource, 0, nil)!)
-            self.adImageView.image = image
+            ImageLoader.sharedInstance.downloadImage(from: imageUrl! as URL, completion: { (image) in
+                self.adImageView.image = image
+            })
             setupConsentIcons()
         }
     }
@@ -334,41 +335,47 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         let iconWidth = 20
         let iconHeight = 20
         
-        if #available(iOS 13.0, *) {
-            let lightConfiguration = UIImage.SymbolConfiguration(weight: .light)
-            self.crossImageView = UIImageView(image: UIImage(systemName: "xmark.square", withConfiguration: lightConfiguration))
-        } else {
-            // Fallback on earlier versions
-            self.crossImageView = UIImageView(image: UIImage(named: "xmark", in: nil, compatibleWith: nil))
+        // create and set cross icon
+        if crossImageView == nil {
+            if #available(iOS 13.0, *) {
+                let lightConfiguration = UIImage.SymbolConfiguration(weight: .light)
+                self.crossImageView = UIImageView(image: UIImage(systemName: "xmark.square", withConfiguration: lightConfiguration))
+            } else {
+                // Fallback on earlier versions
+                self.crossImageView = UIImageView(image: UIImage(named: "xmark", in: nil, compatibleWith: nil))
+            }
+            crossImageView!.frame = CGRect(x: Int(adSize!.width) - iconWidth, y: iconHeight/10, width: iconWidth, height: iconHeight)
+            crossImageView!.tintColor =  UIColor.init(hexString: "#6C40F7")
+            crossImageView!.isUserInteractionEnabled = true
+            let tapOnCrossButton = UITapGestureRecognizer(target: self, action: #selector(openAdConsentView))
+            crossImageView!.addGestureRecognizer(tapOnCrossButton)
         }
-        
-        crossImageView!.frame = CGRect(x: Int(adSize!.width) - iconWidth, y: iconHeight/10, width: iconWidth, height: iconHeight)
-        crossImageView!.tintColor =  UIColor.init(hexString: "#6C40F7")
         if !isRichMediaAd {
             self.adImageView.addSubview(crossImageView!)
         } else {
             self.adWebView.addSubview(crossImageView!)
         }
-        crossImageView!.isUserInteractionEnabled = true
-        let tapOnCrossButton = UITapGestureRecognizer(target: self, action: #selector(openAdConsentView))
-        crossImageView!.addGestureRecognizer(tapOnCrossButton)
 
-        if #available(iOS 13.0, *) {
-            let lightConfiguration = UIImage.SymbolConfiguration(weight: .light)
-        self.infoImageView = UIImageView(image: UIImage(systemName: "info.circle", withConfiguration: lightConfiguration))
-        } else {
-            self.infoImageView = UIImageView(image: UIImage(named: "info", in: nil, compatibleWith: nil))
+        // create and add info icon
+        if infoImageView == nil {
+            if #available(iOS 13.0, *) {
+                let lightConfiguration = UIImage.SymbolConfiguration(weight: .light)
+                self.infoImageView = UIImageView(image: UIImage(systemName: "info.circle", withConfiguration: lightConfiguration))
+            } else {
+                self.infoImageView = UIImageView(image: UIImage(named: "info", in: nil, compatibleWith: nil))
+            }
+            infoImageView!.frame = CGRect(x: Int(adSize!.width) - 2*iconWidth, y: iconHeight/10, width: iconWidth, height: iconHeight)
+            infoImageView!.tintColor =  UIColor.init(hexString: "#6C40F7")
+            infoImageView!.isUserInteractionEnabled = true
+            let tap = UITapGestureRecognizer(target: self, action: #selector(startLabelAnimation))
+            infoImageView!.addGestureRecognizer(tap)
         }
-        infoImageView!.frame = CGRect(x: Int(adSize!.width) - 2*iconWidth, y: iconHeight/10, width: iconWidth, height: iconHeight)
-        infoImageView!.tintColor =  UIColor.init(hexString: "#6C40F7")
         if !isRichMediaAd {
             self.adImageView.addSubview(infoImageView!)
         } else {
             self.adWebView.addSubview(infoImageView!)
         }
-        infoImageView!.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(startLabelAnimation))
-        infoImageView!.addGestureRecognizer(tap)
+        
     }
     
     @objc func startLabelAnimation(_ sender: UITapGestureRecognizer) {
