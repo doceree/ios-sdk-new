@@ -235,21 +235,25 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         let decoder = JSONDecoder()
         do {
             adResponseData = try decoder.decode(AdResponse.self, from: data)
-            if (adResponseData?.sourceURL ?? "").isEmpty {
-                self.removeAllViews()
-                return
-            }
-            self.cbId = adResponseData?.CBID?.components(separatedBy: "_")[0]
-            self.docereeAdUnitId = (adResponseData?.DIVID)!
-            self.ctaLink = adResponseData?.ctaLink
-            let isImpressionLinkNullOrEmpty: Bool = (adResponseData?.impressionLink ?? "").isEmpty
-            if (!isImpressionLinkNullOrEmpty) {
-                self.docereeAdRequest?.sendAdImpression(impressionUrl: (adResponseData?.impressionLink)!)
-            }
-            if !isRichMediaAd {
-                createSimpleAd(sourceURL: adResponseData?.sourceURL)
+            if let tag = adResponseData?.passbackTag, !tag.isEmpty {
+                createPassbackAd(tag: tag)
             } else {
-                createRichMediaAd(sourceURL: adResponseData?.sourceURL)
+                if (adResponseData?.sourceURL ?? "").isEmpty {
+                    self.removeAllViews()
+                    return
+                }
+                self.cbId = adResponseData?.CBID?.components(separatedBy: "_")[0]
+                self.docereeAdUnitId = (adResponseData?.DIVID)!
+                self.ctaLink = adResponseData?.ctaLink
+                let isImpressionLinkNullOrEmpty: Bool = (adResponseData?.impressionLink ?? "").isEmpty
+                if (!isImpressionLinkNullOrEmpty) {
+                    self.docereeAdRequest?.sendAdImpression(impressionUrl: (adResponseData?.impressionLink)!)
+                }
+                if !isRichMediaAd {
+                    createSimpleAd(sourceURL: adResponseData?.sourceURL)
+                } else {
+                    createRichMediaAd(sourceURL: adResponseData?.sourceURL)
+                }
             }
         } catch {
             self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
@@ -311,6 +315,18 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         }
     }
 
+    private func createPassbackAd(tag: String) {
+        DispatchQueue.main.async {
+            NotificationCenter.default.setObserver(observer: self, selector: #selector(self.appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+            NotificationCenter.default.setObserver(observer: self, selector: #selector(self.willMoveToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+            NotificationCenter.default.setObserver(observer: self, selector: #selector(self.didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+            self.initializeRichAds(frame: self.frame, body: self.createPassbackHTML(passbackTag: tag))
+            if self.delegate != nil {
+                self.delegate?.docereeAdViewDidReceiveAd(self)
+            }
+        }
+    }
+    
     private func handleImageRendering(of imageUrl: URL?) {
         if imageUrl == nil || imageUrl?.absoluteString.count == 0 {
             return
@@ -525,6 +541,11 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         self.addConstraints(webViewSizeConstraints)
     }
 
+    private func createPassbackHTML(passbackTag: String) -> String {
+        let htmlStr = "<html><head></head><body>\(passbackTag)</body></html>"
+        return htmlStr
+    }
+
 }
 
  extension DocereeAdView {
@@ -534,7 +555,6 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
              if let url = navigationAction.request.url,
                 let host = url.host, !host.hasPrefix("www.google.com"),
                 UIApplication.shared.canOpenURL(url) {
-                 print("click one: ")
                  DocereeAdView.didLeaveAd = true
                  if #available(iOS 10, *) {
                      UIApplication.shared.open(url)
