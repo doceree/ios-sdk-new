@@ -542,7 +542,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     }
 
     private func createPassbackHTML(passbackTag: String) -> String {
-        let htmlStr = "<html><head></head><body>\(passbackTag)</body></html>"
+        let htmlStr = "<html><head><style>html,body{padding:0;margin:0;}</style><meta name='viewport' content='width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'></head><body>\(passbackTag)</body></html>"
         return htmlStr
     }
 
