@@ -281,7 +281,7 @@ public final class DocereeAdRequest {
         task.resume()
     }
     
-    internal func sendDataCollection(event: [String : String]?) {
+    internal func sendDataCollection(editorialTags: [String]?, platformData: String?, event: [String : String]?) {
         if !DocereeMobileAds.collectDataStatus {
             return
         }
@@ -304,10 +304,10 @@ public final class DocereeAdRequest {
             CollectDataService.bundleID.rawValue : Bundle.main.bundleIdentifier!,
             CollectDataService.platformID.rawValue : platformId,
             CollectDataService.dataSource.rawValue : dataSource,
-            CollectDataService.editorialTags.rawValue : DocereeMobileAds.shared().getEditorialTags() as Any,
+            CollectDataService.editorialTags.rawValue : editorialTags as Any,
             CollectDataService.event.rawValue : event as Any,
             CollectDataService.localTimestamp.rawValue : Date.getFormattedDate(),
-            CollectDataService.platformData.rawValue : getPlatformData(),
+            CollectDataService.platformData.rawValue : platformData as Any,
             CollectDataService.partnerData.rawValue : "",
             CollectDataService.advertisingID.rawValue : advertisementId as Any,
             CollectDataService.privateMode.rawValue : 0
@@ -349,27 +349,19 @@ public final class DocereeAdRequest {
     }
 }
 
-func getPlatformData() -> String {
+func getPlatformData(rxCodes: [String]?, dxCodes: [String]?) -> String {
     guard let loggedInUser = DocereeMobileAds.shared().getProfile() else {
         print("Error: Not found profile data")
         return ""
     }
 
-    let codes = DocereeMobileAds.shared().getCodes()
-    
     let name = loggedInUser.firstName! + " " + loggedInUser.lastName!
-    let dict = ["nm" : name,
-                "em" : loggedInUser.email,
-                "sp" : loggedInUser.specialization,
-                "og" : loggedInUser.organisation,
-                "hc" : loggedInUser.mciRegistrationNumber,
-                "rx" : codes?["rx"],
-                "dx" : codes?["dx"]
-    ]
+
+    let pd = PlatformData(nm: name, em: loggedInUser.email ?? "", sp: loggedInUser.specialization ?? "", og: loggedInUser.organisation ?? "", hc: loggedInUser.mciRegistrationNumber ?? "", rx: rxCodes ?? [], dx: dxCodes ?? [])
     
     let encoder = JSONEncoder()
     encoder.outputFormatting = .prettyPrinted
-    let data = try! encoder.encode(dict)
+    let data = try! encoder.encode(pd)
     let jsonString = String(data: data, encoding: .utf8)!
     print(jsonString)
     let toBase64 = jsonString.toBase64()
