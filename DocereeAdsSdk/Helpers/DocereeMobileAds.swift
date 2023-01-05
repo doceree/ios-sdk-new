@@ -14,7 +14,7 @@ import AdSupport
 public final class DocereeMobileAds {
     
     internal static var trackingStatus: String = "not determined"
-    public static var collectDataStatus = false
+    public static var collectDataStatus = true
     
     private var environmentType = EnvironmentType.Prod
     
@@ -33,6 +33,7 @@ public final class DocereeMobileAds {
     
     public static func login(with hcp: Hcp){
         NSKeyedArchiver.archiveRootObject(hcp, toFile: ProfileArchivingUrl.path)
+        DocereeMobileAds.shared().sendData()
     }
     
     public static func setApplicationKey(_ key: String){
