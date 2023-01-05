@@ -169,7 +169,8 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         customTimer = CustomTimer { (seconds) in
 
             let isViewLinkNullOrEmpty: Bool = (self.adResponseData?.viewLink ?? "").isEmpty
-            if adFound && (!isViewLinkNullOrEmpty) {
+            let isPassbackEmpty: Bool = (self.adResponseData?.passbackTag ?? "").isEmpty
+            if adFound && (!isViewLinkNullOrEmpty) && isPassbackEmpty {
                 let viewPercentage = checkViewability(adView: self)
                 print("final percentage: ", viewPercentage)
                 
@@ -447,8 +448,8 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     
     //Mark: Action method
     @objc func onImageTouched(_ sender: UITapGestureRecognizer) {
-        DocereeAdView.self.didLeaveAd = true
-        if let url = URL(string: "\(ctaLink ?? "")"), !url.absoluteString.isEmpty {
+        if let url = URL(string: "\(ctaLink ?? "")"), !url.absoluteString.isEmpty, UIApplication.shared.canOpenURL(url) {
+            DocereeAdView.self.didLeaveAd = true
             customTimer?.stop()
             self.sendViewTime(standard: "mrc")
             UIApplication.shared.openURL(url)
