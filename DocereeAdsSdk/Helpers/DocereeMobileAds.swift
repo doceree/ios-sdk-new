@@ -14,7 +14,7 @@ import AdSupport
 public final class DocereeMobileAds {
     
     internal static var trackingStatus: String = "not determined"
-    public static var collectDataStatus = true
+    public static var collectDataStatus = false
     
     private var environmentType = EnvironmentType.Prod
     
@@ -37,7 +37,6 @@ public final class DocereeMobileAds {
     
     public static func setApplicationKey(_ key: String){
         NSKeyedArchiver.archiveRootObject(key, toFile: DocereeAdsIdArchivingUrl.path)
-        DocereeMobileAds.shared().sendDefaultData()
     }
 
     public func getProfile() -> Hcp? {
@@ -96,9 +95,6 @@ public final class DocereeMobileAds {
             try FileManager.default.removeItem(at: ProfileArchivingUrl)
             try FileManager.default.removeItem(at: PlatformArchivingUrl)
             try FileManager.default.removeItem(at: DocereeAdsIdArchivingUrl)
-//            try FileManager.default.removeItem(at: EditorialTagsArchivingUrl)
-//            try FileManager.default.removeItem(at: RxCodesArchivingUrl)
-//            try FileManager.default.removeItem(at: DxCodesArchivingUrl)
         } catch {}
     }
 
@@ -107,29 +103,16 @@ public final class DocereeMobileAds {
         case Failure
         case Loading
     }
-    
-    func sendDefaultData() {
-        DocereeAdRequest.shared().sendDataCollection(editorialTags: nil, platformData: nil, event: nil)
-    }
 
-    public func sendData(editorialTags: [String]?, rxCodes: [String]?, dxCodes: [String]?, event: [String : String]?) {
+    public func sendData(editorialTags: [String]? = nil, rxCodes: [String]? = nil, dxCodes: [String]? = nil, event: [String : String]? = nil) {
         
         if !DocereeMobileAds.collectDataStatus {
             return
         }
-
-        if let tags = editorialTags {
-            DocereeAdRequest.shared().sendDataCollection(editorialTags: tags, platformData: nil, event: event)
-        }
-
-        if rxCodes != nil || dxCodes != nil {
-            let platformData = getPlatformData(rxCodes: rxCodes, dxCodes: dxCodes)
-            DocereeAdRequest.shared().sendDataCollection(editorialTags: nil, platformData: platformData, event: nil)
-        }
-
-        if let event = event {
-            DocereeAdRequest.shared().sendDataCollection(editorialTags: nil, platformData: nil, event: event)
-        }
+           
+        let platformData = getPlatformData(rxCodes: rxCodes, dxCodes: dxCodes)
+        DocereeAdRequest.shared().sendDataCollection(editorialTags: editorialTags, platformData: platformData, event: event)
+        
     }
 
 }
