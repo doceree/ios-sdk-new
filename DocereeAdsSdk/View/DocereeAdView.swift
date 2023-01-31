@@ -245,7 +245,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                 }
                 self.cbId = adResponseData?.CBID?.components(separatedBy: "_")[0]
                 self.docereeAdUnitId = (adResponseData?.DIVID)!
-                self.ctaLink = adResponseData?.ctaLink
+                self.ctaLink = adResponseData?.ctaLink?.replacingOccurrences(of: "DOCEREE_CLICK_URL_UNESC", with: "")
                 let isImpressionLinkNullOrEmpty: Bool = (adResponseData?.impressionLink ?? "").isEmpty
                 if (!isImpressionLinkNullOrEmpty) {
                     self.docereeAdRequest?.sendAdImpression(impressionUrl: (adResponseData?.impressionLink)!)
