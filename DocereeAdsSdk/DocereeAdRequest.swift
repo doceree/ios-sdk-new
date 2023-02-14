@@ -281,7 +281,7 @@ public final class DocereeAdRequest {
         task.resume()
     }
     
-    internal func sendDataCollection() {
+    internal func sendDataCollection(event: [String : String]?) {
         if !DocereeMobileAds.collectDataStatus {
             return
         }
@@ -305,7 +305,7 @@ public final class DocereeAdRequest {
             CollectDataService.platformID.rawValue : platformId,
             CollectDataService.dataSource.rawValue : dataSource,
             CollectDataService.editorialTags.rawValue : DocereeMobileAds.shared().getEditorialTags() as Any,
-            CollectDataService.eventList.rawValue : DocereeMobileAds.shared().getEvents() as Any,
+            CollectDataService.event.rawValue : event as Any,
             CollectDataService.localTimestamp.rawValue : Date.getFormattedDate(),
             CollectDataService.platformData.rawValue : getPlatformData(),
             CollectDataService.partnerData.rawValue : "",
@@ -318,7 +318,7 @@ public final class DocereeAdRequest {
         let session = URLSession(configuration: config)
         var components = URLComponents()
         components.scheme = "https"
-        components.host = "qa-identity.doceree.com" //getDocTrackerHost(type: EnvironmentType.Qa)
+        components.host = getDataCollectionHost(type: DocereeMobileAds.shared().getEnvironment())
         components.path = getPath(methodName: Methods.CollectData)
         let collectDataEndPoint: URL = components.url!
         var request: URLRequest = URLRequest(url: collectDataEndPoint)
@@ -345,14 +345,7 @@ public final class DocereeAdRequest {
             print(urlResponse.statusCode)
         }
         task.resume()
-        
-        
-        if let eventList = DocereeMobileAds.shared().getEvents() {
-            if eventList.count >= 5 {
-                DocereeMobileAds.clearEventsData()
-            }
-        }
-        
+
     }
 }
 

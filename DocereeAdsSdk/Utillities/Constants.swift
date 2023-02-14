@@ -95,7 +95,7 @@ enum CollectDataService: String {
     case platformID = "pl"
     case dataSource = "sr"
     case editorialTags = "mt"
-    case eventList = "el"
+    case event = "el"
     case localTimestamp = "lt"
     case platformData = "pd"
     case partnerData = "qp"
