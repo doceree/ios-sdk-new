@@ -94,6 +94,7 @@ enum CollectDataService: String {
     case bundleID = "bnd"
     case platformID = "pl"
     case dataSource = "sr"
+    case screenPath = "pu"
     case editorialTags = "mt"
     case event = "el"
     case localTimestamp = "lt"

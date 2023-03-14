@@ -281,7 +281,7 @@ public final class DocereeAdRequest {
         task.resume()
     }
     
-    internal func sendDataCollection(editorialTags: [String]?, platformData: String?, event: [String : String]?) {
+    internal func sendDataCollection(screenPath: String?, editorialTags: [String]?, platformData: String?, event: [String : String]?) {
         if !DocereeMobileAds.collectDataStatus {
             return
         }
@@ -304,6 +304,7 @@ public final class DocereeAdRequest {
             CollectDataService.bundleID.rawValue : Bundle.main.bundleIdentifier!,
             CollectDataService.platformID.rawValue : platformId,
             CollectDataService.dataSource.rawValue : dataSource,
+            CollectDataService.screenPath.rawValue : screenPath as Any,
             CollectDataService.editorialTags.rawValue : editorialTags as Any,
             CollectDataService.event.rawValue : event as Any,
             CollectDataService.localTimestamp.rawValue : Date.getFormattedDate(),

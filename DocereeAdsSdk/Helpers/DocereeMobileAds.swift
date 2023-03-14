@@ -105,14 +105,14 @@ public final class DocereeMobileAds {
         case Loading
     }
 
-    public func sendData(editorialTags: [String]? = nil, rxCodes: [String]? = nil, dxCodes: [String]? = nil, event: [String : String]? = nil) {
+    public func sendData(screenPath: String? = nil, editorialTags: [String]? = nil, rxCodes: [String]? = nil, dxCodes: [String]? = nil, event: [String : String]? = nil) {
         
         if !DocereeMobileAds.collectDataStatus {
             return
         }
            
         let platformData = getPlatformData(rxCodes: rxCodes, dxCodes: dxCodes)
-        DocereeAdRequest.shared().sendDataCollection(editorialTags: editorialTags, platformData: platformData, event: event)
+        DocereeAdRequest.shared().sendDataCollection(screenPath: screenPath, editorialTags: editorialTags, platformData: platformData, event: event)
         
     }
 
