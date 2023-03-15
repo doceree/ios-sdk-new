@@ -471,6 +471,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     @objc func onImageTouched(_ sender: UITapGestureRecognizer) {
         if let url = URL(string: "\(ctaLink ?? "")"), !url.absoluteString.isEmpty, UIApplication.shared.canOpenURL(url) {
             DocereeAdView.self.didLeaveAd = true
+            viewportTimer?.stop()
             customTimer?.stop()
             self.sendViewTime(standard: "mrc")
             UIApplication.shared.openURL(url)
@@ -479,6 +480,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     }
     
     @objc func appMovedToBackground() {
+        viewportTimer?.stop()
         customTimer?.stop()
         self.sendViewTime(standard: "mrc")
         if  DocereeAdView.didLeaveAd && delegate != nil {
@@ -502,6 +504,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+        viewportTimer?.stop()
         customTimer?.stop()
         self.sendViewTime(standard: "mrc")
     }
@@ -510,6 +513,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     public override func willMove(toWindow newWindow: UIWindow?) {
         if window != nil {
             NotificationCenter.default.removeObserver(self)
+            viewportTimer?.stop()
             customTimer?.stop()
             self.sendViewTime(standard: "mrc")
         }
