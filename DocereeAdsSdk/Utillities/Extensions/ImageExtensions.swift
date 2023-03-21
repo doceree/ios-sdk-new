@@ -43,21 +43,22 @@ extension UIImage {
         guard let source = sourceImg else {
             return delay
         }
-        
-        let cfProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil)
+        guard let cfProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil) else {
+            return delay
+        }
         let gifProperties: CFDictionary = unsafeBitCast(
             CFDictionaryGetValue(cfProperties,
                                  Unmanaged.passUnretained(kCGImagePropertyGIFDictionary).toOpaque()),
             to: CFDictionary.self)
         
-        let delayObject: AnyObject = unsafeBitCast(
+        var delayObject: AnyObject = unsafeBitCast(
             CFDictionaryGetValue(gifProperties,
                                  Unmanaged.passUnretained(kCGImagePropertyGIFUnclampedDelayTime).toOpaque()),
             to: AnyObject.self)
-//        if delayObject.doubleValue == 0 {
-//            delayObject = unsafeBitCast(CFDictionaryGetValue(gifProperties,
-//                                                             Unmanaged.passUnretained(kCGImagePropertyGIFDelayTime).toOpaque()), to: AnyObject.self)
-//        }
+        if delayObject.doubleValue == 0 {
+            delayObject = unsafeBitCast(CFDictionaryGetValue(gifProperties,
+                                                             Unmanaged.passUnretained(kCGImagePropertyGIFDelayTime).toOpaque()), to: AnyObject.self)
+        }
         
         delay = delayObject as? Double ?? 0.0
         
