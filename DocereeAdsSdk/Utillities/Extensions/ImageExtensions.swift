@@ -50,16 +50,16 @@ extension UIImage {
                                  Unmanaged.passUnretained(kCGImagePropertyGIFDictionary).toOpaque()),
             to: CFDictionary.self)
         
-        var delayObject: AnyObject = unsafeBitCast(
+        let delayObject: AnyObject = unsafeBitCast(
             CFDictionaryGetValue(gifProperties,
                                  Unmanaged.passUnretained(kCGImagePropertyGIFUnclampedDelayTime).toOpaque()),
             to: AnyObject.self)
-        if delayObject.doubleValue == 0 {
-            delayObject = unsafeBitCast(CFDictionaryGetValue(gifProperties,
-                                                             Unmanaged.passUnretained(kCGImagePropertyGIFDelayTime).toOpaque()), to: AnyObject.self)
-        }
+//        if delayObject.doubleValue == 0 {
+//            delayObject = unsafeBitCast(CFDictionaryGetValue(gifProperties,
+//                                                             Unmanaged.passUnretained(kCGImagePropertyGIFDelayTime).toOpaque()), to: AnyObject.self)
+//        }
         
-        delay = delayObject as! Double
+        delay = delayObject as? Double ?? 0.0
         
         if delay < 0.1 {
             delay = 0.1
