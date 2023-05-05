@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'DocereeAdSdk'
-  spec.version      = '1.3.1'
+  spec.version      = '1.3.2'
   spec.license      = { :type => "MIT", :file => "MIT License" }
   spec.description  = <<-DESC
   Doceree iOS SDK for mobile ads is used by our publisher partners to show advertisements being run by our brand partners and record the corresponding actions and impressions being served.
