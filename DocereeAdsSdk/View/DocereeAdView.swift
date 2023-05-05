@@ -29,13 +29,15 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     private var infoImageView: UIImageView?
     private var isRichMediaAd = false
     private var customTimer: CustomTimer?
+    private var viewportTimer: CustomTimer?
     private var adWebView: WKWebView!
     
     static var didLeaveAd: Bool = false
     var adResponseData: AdResponse?
-    var totalViewTime = 0
-    var savedViewPercentage: Float = 0.0
-    var OneSecMrcSent = false
+    private var totalViewTime = 0
+    private var savedViewPercentage: Float = 0.0
+    private var OneSecMrcSent = false
+    private var viewportPercentage: Float = 90
     
     
     lazy var adImageView: UIImageView = {
@@ -141,23 +143,28 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         let height: Int = Int((self.adSize?.getAdSize().height)!)
         let size = "\(width)x\(height)"
         
-        docereeAdRequest.requestAd(self.docereeAdUnitId, size) { (results, isRichMediaAd) in
-            if let data = results.data {
-                self.isRichMediaAd = isRichMediaAd
-                self.createAdUI(data: data, isRichMediaAd: isRichMediaAd)
-                
-                DispatchQueue.main.async {
-                    self.startTimer(adFound: true)
-                }
-                
-            } else {
-                self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
-                self.removeAllViews()
-                
-                DispatchQueue.main.async {
-                    self.startTimer(adFound: false)
+        let viewPercentage = checkViewability(adView: self)
+        if viewPercentage >= viewportPercentage {
+            docereeAdRequest.requestAd(self.docereeAdUnitId, size) { (results, isRichMediaAd) in
+                if let data = results.data {
+                    self.isRichMediaAd = isRichMediaAd
+                    self.createAdUI(data: data, isRichMediaAd: isRichMediaAd)
+                    
+                    DispatchQueue.main.async {
+                        self.startTimer(adFound: true)
+                    }
+                    
+                } else {
+                    self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
+                    self.removeAllViews()
+                    
+                    DispatchQueue.main.async {
+                        self.startTimer(adFound: false)
+                    }
                 }
             }
+        } else {
+            self.viewportTimer(adFound: false)
         }
     }
     
@@ -202,6 +209,20 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         }
         customTimer?.count = 0
         customTimer?.start()
+    }
+    
+    private func viewportTimer(adFound: Bool) {
+
+        viewportTimer?.stop()
+        viewportTimer = CustomTimer { (seconds) in
+            let viewPercentage = checkViewability(adView: self)
+            if viewPercentage >= self.viewportPercentage {
+                self.viewportTimer?.stop()
+                self.refresh()
+            }
+        }
+        viewportTimer?.count = 0
+        viewportTimer?.start()
     }
     
     func sendViewTime(standard: String) {
@@ -450,6 +471,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     @objc func onImageTouched(_ sender: UITapGestureRecognizer) {
         if let url = URL(string: "\(ctaLink ?? "")"), !url.absoluteString.isEmpty, UIApplication.shared.canOpenURL(url) {
             DocereeAdView.self.didLeaveAd = true
+            viewportTimer?.stop()
             customTimer?.stop()
             self.sendViewTime(standard: "mrc")
             UIApplication.shared.openURL(url)
@@ -458,6 +480,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     }
     
     @objc func appMovedToBackground() {
+        viewportTimer?.stop()
         customTimer?.stop()
         self.sendViewTime(standard: "mrc")
         if  DocereeAdView.didLeaveAd && delegate != nil {
@@ -481,6 +504,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+        viewportTimer?.stop()
         customTimer?.stop()
         self.sendViewTime(standard: "mrc")
     }
@@ -489,6 +513,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     public override func willMove(toWindow newWindow: UIWindow?) {
         if window != nil {
             NotificationCenter.default.removeObserver(self)
+            viewportTimer?.stop()
             customTimer?.stop()
             self.sendViewTime(standard: "mrc")
         }
