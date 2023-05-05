@@ -37,25 +37,34 @@ extension UIImage {
         return gifImageWithData(imageData)
     }
 
-    class func delayForImageAtIndex(_ index: Int, source: CGImageSource!) -> Double {
+    class func delayForImageAtIndex(_ index: Int, sourceImg: CGImageSource?) -> Double {
         var delay = 0.1
         
-        let cfProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil)
+        guard let source = sourceImg else {
+            return delay
+        }
+        guard let cfProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil) else {
+            return delay
+        }
         let gifProperties: CFDictionary = unsafeBitCast(
             CFDictionaryGetValue(cfProperties,
                                  Unmanaged.passUnretained(kCGImagePropertyGIFDictionary).toOpaque()),
             to: CFDictionary.self)
         
-        var delayObject: AnyObject = unsafeBitCast(
+        let delayObject: AnyObject? = unsafeBitCast(
             CFDictionaryGetValue(gifProperties,
                                  Unmanaged.passUnretained(kCGImagePropertyGIFUnclampedDelayTime).toOpaque()),
             to: AnyObject.self)
-        if delayObject.doubleValue == 0 {
-            delayObject = unsafeBitCast(CFDictionaryGetValue(gifProperties,
-                                                             Unmanaged.passUnretained(kCGImagePropertyGIFDelayTime).toOpaque()), to: AnyObject.self)
+        if delayObject != nil {
+            let dblValue = Double(delayObject?.doubleValue ?? 0.0)
+            if dblValue == 0.0 {
+                let delayObject: AnyObject? = unsafeBitCast(CFDictionaryGetValue(gifProperties,
+                                                                                 Unmanaged.passUnretained(kCGImagePropertyGIFDelayTime).toOpaque()), to: AnyObject.self)
+                if delayObject != nil {
+                    delay = Double(delayObject as? Double ?? 0.0)
+                }
+            }
         }
-        
-        delay = delayObject as! Double
         
         if delay < 0.1 {
             delay = 0.1
@@ -121,7 +130,7 @@ extension UIImage {
             }
             
             let delaySeconds = UIImage.delayForImageAtIndex(Int(i),
-                                                            source: source)
+                                                            sourceImg: source)
             delays.append(Int(delaySeconds * 1000.0)) // Seconds to ms
         }
         

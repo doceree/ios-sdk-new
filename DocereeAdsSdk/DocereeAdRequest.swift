@@ -357,7 +357,7 @@ func getPlatformData() -> String {
 
     let codes = DocereeMobileAds.shared().getCodes()
     
-    let name = loggedInUser.firstName! + " " + loggedInUser.lastName!
+    let name = (loggedInUser.firstName ?? "") + " " + (loggedInUser.lastName ?? "")
     let dict = ["nm" : name,
                 "em" : loggedInUser.email,
                 "sp" : loggedInUser.specialization,
