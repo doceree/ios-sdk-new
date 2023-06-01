@@ -91,17 +91,20 @@ public enum AdPosition {
 }
 
 enum CollectDataService: String {
-    case bundleID = "bnd"
-    case platformID = "pl"
+    case advertisingId = "uid"
+    case bundleId = "bnd"
+    case platformId = "pl"
+    case hcpId = "hcd"
     case dataSource = "sr"
     case screenPath = "pu"
     case editorialTags = "mt"
-    case event = "el"
     case localTimestamp = "lt"
+    case installedApps = "ia"
+    case privateMode = "pv"
+    case gps = "gps"
+    case event = "el"
     case platformData = "pd"
     case partnerData = "qp"
-    case advertisingID = "uid"
-    case privateMode = "pv"
 }
 
 enum Event: String {
