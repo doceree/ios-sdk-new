@@ -91,7 +91,7 @@ extension Date {
     static func getFormattedDate() -> String {
         let date = Date()
         let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSX"
         let dateString = df.string(from: date)
 
         return dateString
