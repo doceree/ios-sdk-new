@@ -66,7 +66,7 @@ func getDataCollectionHost(type: EnvironmentType) -> String? {
     case .Qa:
         return "qa-identity.doceree.com"
     case .Prod:
-        return "qa-identity.doceree.com"
+        return "dai.doceree.com"
     }
 }
 
@@ -76,13 +76,18 @@ enum Methods{
     case CollectData
 }
 
-func getPath(methodName: Methods) -> String {
+func getPath(methodName: Methods, type: EnvironmentType = .Dev) -> String {
     switch methodName{
     case .GetImage:
         return "/v1/adrequest"
     case .AdBlock:
         return "/saveadblockinfo"
     case .CollectData:
-        return "/curator"
+        switch type {
+        case .Dev, .Local, .Qa:
+            return "/curator"
+        case .Prod:
+            return "/dop/curator"
+        }
     }
 }

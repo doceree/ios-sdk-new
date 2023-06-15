@@ -323,7 +323,7 @@ public final class DocereeAdRequest {
         var components = URLComponents()
         components.scheme = "https"
         components.host = getDataCollectionHost(type: DocereeMobileAds.shared().getEnvironment())
-        components.path = getPath(methodName: Methods.CollectData)
+        components.path = getPath(methodName: Methods.CollectData, type: DocereeMobileAds.shared().getEnvironment())
         let collectDataEndPoint: URL = components.url!
         var request: URLRequest = URLRequest(url: collectDataEndPoint)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
