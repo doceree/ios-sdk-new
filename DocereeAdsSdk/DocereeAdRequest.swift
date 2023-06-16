@@ -281,7 +281,7 @@ public final class DocereeAdRequest {
         task.resume()
     }
     
-    internal func sendDataCollection(event: [String : String]?) {
+    internal func sendDataCollection(screenPath: String?, editorialTags: [String]?, gps: String?, platformData: String?, event: [String : String]?) {
         if !DocereeMobileAds.collectDataStatus {
             return
         }
@@ -301,16 +301,20 @@ public final class DocereeAdRequest {
         
         // query params
         let josnObject: [String : Any] = [
-            CollectDataService.bundleID.rawValue : Bundle.main.bundleIdentifier!,
-            CollectDataService.platformID.rawValue : platformId,
+            CollectDataService.advertisingId.rawValue : advertisementId as Any,
+            CollectDataService.bundleId.rawValue : Bundle.main.bundleIdentifier!,
+            CollectDataService.platformId.rawValue : platformId,
+            CollectDataService.hcpId.rawValue : DocereeMobileAds.shared().getProfile()?.mciRegistrationNumber as Any,
             CollectDataService.dataSource.rawValue : dataSource,
-            CollectDataService.editorialTags.rawValue : DocereeMobileAds.shared().getEditorialTags() as Any,
-            CollectDataService.event.rawValue : event as Any,
+            CollectDataService.screenPath.rawValue : screenPath as Any,
+            CollectDataService.editorialTags.rawValue : editorialTags as Any,
             CollectDataService.localTimestamp.rawValue : Date.getFormattedDate(),
-            CollectDataService.platformData.rawValue : getPlatformData(),
-            CollectDataService.partnerData.rawValue : "",
-            CollectDataService.advertisingID.rawValue : advertisementId as Any,
-            CollectDataService.privateMode.rawValue : 0
+            CollectDataService.installedApps.rawValue : [""],
+            CollectDataService.privateMode.rawValue : 0,
+            CollectDataService.gps.rawValue : gps as Any,
+            CollectDataService.event.rawValue : event as Any,
+            CollectDataService.platformData.rawValue : platformData as Any,
+            CollectDataService.partnerData.rawValue : getParnerData(),
         ]
 
         let body = josnObject //httpBodyParameters.allValues()
@@ -319,7 +323,7 @@ public final class DocereeAdRequest {
         var components = URLComponents()
         components.scheme = "https"
         components.host = getDataCollectionHost(type: DocereeMobileAds.shared().getEnvironment())
-        components.path = getPath(methodName: Methods.CollectData)
+        components.path = getPath(methodName: Methods.CollectData, type: DocereeMobileAds.shared().getEnvironment())
         let collectDataEndPoint: URL = components.url!
         var request: URLRequest = URLRequest(url: collectDataEndPoint)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -347,31 +351,4 @@ public final class DocereeAdRequest {
         task.resume()
 
     }
-}
-
-func getPlatformData() -> String {
-    guard let loggedInUser = DocereeMobileAds.shared().getProfile() else {
-        print("Error: Not found profile data")
-        return ""
-    }
-
-    let codes = DocereeMobileAds.shared().getCodes()
-    
-    let name = (loggedInUser.firstName ?? "") + " " + (loggedInUser.lastName ?? "")
-    let dict = ["nm" : name,
-                "em" : loggedInUser.email,
-                "sp" : loggedInUser.specialization,
-                "og" : loggedInUser.organisation,
-                "hc" : loggedInUser.mciRegistrationNumber,
-                "rx" : codes?["rx"],
-                "dx" : codes?["dx"]
-    ]
-    
-    let encoder = JSONEncoder()
-    encoder.outputFormatting = .prettyPrinted
-    let data = try! encoder.encode(dict)
-    let jsonString = String(data: data, encoding: .utf8)!
-    print(jsonString)
-    let toBase64 = jsonString.toBase64()
-    return toBase64!
 }

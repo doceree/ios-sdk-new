@@ -33,11 +33,11 @@ public final class DocereeMobileAds {
     
     public static func login(with hcp: Hcp){
         NSKeyedArchiver.archiveRootObject(hcp, toFile: ProfileArchivingUrl.path)
+        DocereeMobileAds.shared().sendData()
     }
     
     public static func setApplicationKey(_ key: String){
         NSKeyedArchiver.archiveRootObject(key, toFile: DocereeAdsIdArchivingUrl.path)
-        DocereeMobileAds.shared().sendDefaultData()
     }
 
     public func getProfile() -> Hcp? {
@@ -96,8 +96,6 @@ public final class DocereeMobileAds {
             try FileManager.default.removeItem(at: ProfileArchivingUrl)
             try FileManager.default.removeItem(at: PlatformArchivingUrl)
             try FileManager.default.removeItem(at: DocereeAdsIdArchivingUrl)
-            try FileManager.default.removeItem(at: EditorialTagsArchivingUrl)
-            try FileManager.default.removeItem(at: RxDxCodesArchivingUrl)
         } catch {}
     }
 
@@ -106,51 +104,17 @@ public final class DocereeMobileAds {
         case Failure
         case Loading
     }
-    
-    func sendDefaultData() {
-        DocereeAdRequest.shared().sendDataCollection(event: nil)
-    }
 
-    public func sendData(rxdxCodes: [String : String]?, editorialTags: [String]?, event: [String : String]?) {
-        if let codes = rxdxCodes {
-            NSKeyedArchiver.archiveRootObject(codes, toFile: RxDxCodesArchivingUrl.path)
-        }
-
-        if let tags = editorialTags {
-            NSKeyedArchiver.archiveRootObject(tags, toFile: EditorialTagsArchivingUrl.path)
-        }
-
+    public func sendData(screenPath: String? = nil, editorialTags: [String]? = nil, gps: String? = nil, rxCodes: [String]? = nil, dxCodes: [String]? = nil, event: [String : String]? = nil) {
+        
         if !DocereeMobileAds.collectDataStatus {
             return
         }
+           
+        let platformData = getPlatformData(rxCodes: rxCodes, dxCodes: dxCodes)
+        DocereeAdRequest.shared().sendDataCollection(screenPath: screenPath, editorialTags: editorialTags, gps: gps, platformData: platformData, event: event)
+        
+    }
 
-        if let event = event {
-            DocereeAdRequest.shared().sendDataCollection(event: event)
-        }
-    }
-    
-    public func getEditorialTags() -> [String]? {
-        do {
-            let data = try Data(contentsOf: EditorialTagsArchivingUrl)
-            if let tags = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [String] {
-                return tags
-            }
-        } catch {
-            print("ERROR: \(error.localizedDescription)")
-        }
-        return nil
-    }
-    
-    public func getCodes() -> [String : String]? {
-        do {
-            let data = try Data(contentsOf: RxDxCodesArchivingUrl)
-            if let codes = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [String : String] {
-                return codes
-            }
-        } catch {
-            print("ERROR: \(error.localizedDescription)")
-        }
-        return nil
-    }
 }
 
