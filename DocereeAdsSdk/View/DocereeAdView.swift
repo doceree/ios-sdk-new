@@ -149,7 +149,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                 if let data = results.data {
                     self.isRichMediaAd = isRichMediaAd
                     self.createAdUI(data: data, isRichMediaAd: isRichMediaAd)
-                    
+                    self.docereeAdRequest?.sendPharmaLeads(responseData: self.adResponseData, size: size)
                     DispatchQueue.main.async {
                         self.startTimer(adFound: true)
                     }

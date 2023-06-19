@@ -118,3 +118,25 @@ enum Event: String {
     case erxEncounterID = "enx"
     case scrollPath = "scd"
 }
+
+enum PharmaLeads: String {
+    case date = "date"
+    case time = "time"
+    case name = "name"
+    case mobile = "mobile"
+    case email = "email"
+    case address = "address"
+    case country = "country"
+    case zipcode = "zipcode"
+    case cta = "cta"
+    case subcampaignId = "subcampaignId"
+    case creativeId = "creativeId"
+    case advertiserId = "advertiserId"
+    case brandId = "brandId"
+    case campaignId = "campaignId"
+    case bidRequestId = "bidRequestId"
+    case dimension = "dimension"
+    case codeSnippetId = "codeSnippetId"
+    case platformUid = "platformUid"
+    
+}

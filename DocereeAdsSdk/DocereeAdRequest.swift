@@ -351,4 +351,64 @@ public final class DocereeAdRequest {
         task.resume()
 
     }
+    
+    internal func sendPharmaLeads(responseData: AdResponse?, size: String) {
+
+        self.requestHttpHeaders.add(value: "application/json", forKey: "Content-Type")
+        
+        // query params
+        let josnObject: [String : Any] = [
+            PharmaLeads.date.rawValue : Date.getDateOnly(),
+            PharmaLeads.time.rawValue : Date.getTimeOnly(),
+            PharmaLeads.name.rawValue : Hcp.HcpBuilder().getName(),
+            PharmaLeads.mobile.rawValue : DocereeMobileAds.shared().getProfile()?.mobile as Any,
+            PharmaLeads.email.rawValue : DocereeMobileAds.shared().getProfile()?.email as Any,
+            PharmaLeads.address.rawValue : "",
+            PharmaLeads.country.rawValue : "",
+            PharmaLeads.zipcode.rawValue : DocereeMobileAds.shared().getProfile()?.zipCode as Any,
+            PharmaLeads.cta.rawValue : [responseData?.ctaLink],
+            PharmaLeads.subcampaignId.rawValue : responseData?.subcampaignId() as Any,
+            PharmaLeads.creativeId.rawValue : responseData?.crId as Any,
+            PharmaLeads.advertiserId.rawValue : responseData?.aId as Any,
+            PharmaLeads.brandId.rawValue : responseData?.bId as Any,
+            PharmaLeads.bidRequestId.rawValue : responseData?.guid as Any,
+            PharmaLeads.dimension.rawValue : size,
+            PharmaLeads.codeSnippetId.rawValue : responseData?.DIVID as Any,
+            PharmaLeads.platformUid.rawValue : responseData?.platformUID as Any
+        ]
+
+        let body = josnObject //httpBodyParameters.allValues()
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = getDocTrackerHost(type: DocereeMobileAds.shared().getEnvironment())
+        components.path = getPath(methodName: Methods.PharmaLead, type: DocereeMobileAds.shared().getEnvironment())
+        let collectDataEndPoint: URL = components.url!
+        var request: URLRequest = URLRequest(url: collectDataEndPoint)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // set headers
+        for header in requestHttpHeaders.allValues() {
+            request.setValue(header.value, forHTTPHeaderField: header.key)
+        }
+        
+        request.httpMethod = HttpMethod.post.rawValue
+        
+        let jsonData: Data
+        do {
+            jsonData = try JSONSerialization.data(withJSONObject: body, options: [])
+            request.httpBody = jsonData
+        } catch {
+            return
+        }
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            guard data != nil else { return }
+            let urlResponse = response as! HTTPURLResponse
+            print(urlResponse.statusCode)
+        }
+        task.resume()
+
+    }
 }

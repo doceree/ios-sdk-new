@@ -21,6 +21,11 @@ internal struct AdResponse: Codable {
     let viewLink: String?
     let minViewPercentage: Int?
     let minViewTime: Int?
+    let crId: String?
+    let aId: String?
+    let bId: String?
+    let cId: String?
+    let guid: String?
     
     enum Platformuid: String{
         case platformuid = "platformuid"
@@ -47,6 +52,15 @@ internal struct AdResponse: Codable {
         self.viewLink = try container.decodeIfPresent(String.self, forKey: .viewLink)
         self.minViewPercentage = try container.decodeIfPresent(Int.self, forKey: .minViewPercentage)
         self.minViewTime = try container.decodeIfPresent(Int.self, forKey: .minViewTime)
+        self.crId = try container.decodeIfPresent(String.self, forKey: .crId)
+        self.aId = try container.decodeIfPresent(String.self, forKey: .aId)
+        self.bId = try container.decodeIfPresent(String.self, forKey: .bId)
+        self.cId = try container.decodeIfPresent(String.self, forKey: .cId)
+        self.guid = try container.decodeIfPresent(String.self, forKey: .guid)
+    }
+    
+    func subcampaignId() -> String? {
+        return self.CBID?.components(separatedBy: "__")[0]
     }
     
     internal func isAdRichMedia() -> Bool{

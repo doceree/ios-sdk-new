@@ -74,6 +74,7 @@ enum Methods{
     case GetImage
     case AdBlock
     case CollectData
+    case PharmaLead
 }
 
 func getPath(methodName: Methods, type: EnvironmentType = .Dev) -> String {
@@ -89,5 +90,7 @@ func getPath(methodName: Methods, type: EnvironmentType = .Dev) -> String {
         case .Prod:
             return "/dop/curator"
         }
+    case .PharmaLead:
+        return "/pharma_leads"
     }
 }
