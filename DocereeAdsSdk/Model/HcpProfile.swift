@@ -189,6 +189,23 @@ public final class Hcp: NSObject, NSCoding, Encodable {
             return self
         }
         
+        public func getName() -> String {
+            guard let loggedInUser = DocereeMobileAds.shared().getProfile() else {
+                print("Error: Not found profile data")
+                return ""
+            }
+            
+            var name = ""
+            if let fn = loggedInUser.firstName {
+                name = fn + " "
+            }
+            if let ln = loggedInUser.lastName {
+                name = name + ln
+            }
+                
+            return name
+        }
+        
         public func build() -> Hcp {
             return Hcp(builder: self)
         }
