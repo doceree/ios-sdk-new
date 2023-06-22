@@ -29,23 +29,23 @@ extension UIColor {
         self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
     }
 }
-extension NSData {
-    var imageFormat: ImageFormat {
-        var buffer = [UInt8](repeating: 0, count: 1)
-        self.getBytes(&buffer, range: NSRange(location: 0, length: 1))
-        if buffer == ImageHeaderData.GIF {
-            return .GIF
-        } else if buffer == ImageHeaderData.JPEG {
-            return .JPEG
-        } else if buffer == ImageHeaderData.PNG{
-            return .PNG
-        } else if buffer == ImageHeaderData.TIFF_01 || buffer == ImageHeaderData.TIFF_02 {
-            return .TIFF
-        } else {
-            return .Unknown
-        }
-    }
-}
+//extension NSData {
+//    var imageFormat: ImageFormat {
+//        var buffer = [UInt8](repeating: 0, count: 1)
+//        self.getBytes(&buffer, range: NSRange(location: 0, length: 1))
+//        if buffer == ImageHeaderData.GIF {
+//            return .GIF
+//        } else if buffer == ImageHeaderData.JPEG {
+//            return .JPEG
+//        } else if buffer == ImageHeaderData.PNG{
+//            return .PNG
+//        } else if buffer == ImageHeaderData.TIFF_01 || buffer == ImageHeaderData.TIFF_02 {
+//            return .TIFF
+//        } else {
+//            return .Unknown
+//        }
+//    }
+//}
 
 extension NotificationCenter {
     func setObserver(observer: Any, selector: Selector, name: NSNotification.Name, object: AnyObject?){
@@ -68,22 +68,22 @@ extension UIView {
     }
 }
 
-extension UIView {
-    var lastViewObject: AnyObject? {
-        // Starts from next (As we know self is not a UIViewController).
-        var parentResponder: UIResponder? = self.next
-        var lastObject: AnyObject?
-        while parentResponder != nil {
-            if parentResponder is UIViewController {
-                return lastObject // return last object before viewController
-//                return viewController
-            }
-            lastObject = parentResponder
-            parentResponder = parentResponder?.next
-        }
-        return nil
-    }
-}
+//extension UIView {
+//    var lastViewObject: AnyObject? {
+//        // Starts from next (As we know self is not a UIViewController).
+//        var parentResponder: UIResponder? = self.next
+//        var lastObject: AnyObject?
+//        while parentResponder != nil {
+//            if parentResponder is UIViewController {
+//                return lastObject // return last object before viewController
+////                return viewController
+//            }
+//            lastObject = parentResponder
+//            parentResponder = parentResponder?.next
+//        }
+//        return nil
+//    }
+//}
 
 extension UIView {
     var scrollviewObject: UIScrollView? {
@@ -128,19 +128,19 @@ extension UIView {
 
 }
 
-extension UIView {
-    func getPosition(parent: UIView) -> CGPoint {
-        var originOnWindow: CGPoint { return convert(CGPoint.zero, to: parent) }
-        return originOnWindow
-    }
-}
+//extension UIView {
+//    func getPosition(parent: UIView) -> CGPoint {
+//        var originOnWindow: CGPoint { return convert(CGPoint.zero, to: parent) }
+//        return originOnWindow
+//    }
+//}
 
-extension UITableView {
-    var originOnWindowUT: CGPoint { return convert(contentOffset, to: nil) }
-}
-
-extension UIView {
-    var globalFrame: CGRect {
-        return convert(bounds, to: window)
-    }
-}
+//extension UITableView {
+//    var originOnWindowUT: CGPoint { return convert(contentOffset, to: nil) }
+//}
+//
+//extension UIView {
+//    var globalFrame: CGRect {
+//        return convert(bounds, to: window)
+//    }
+//}

@@ -398,13 +398,8 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         
         // create and add info icon
         if callImageView == nil {
-//            if #available(iOS 13.0, *) {
-//                let lightConfiguration = UIImage.SymbolConfiguration(weight: .light)
-//                self.callImageView = UIImageView(image: UIImage(systemName: "xmark.square", withConfiguration: lightConfiguration))
-//            } else {
             let bundle = Bundle(for: type(of: self))
-                self.callImageView = UIImageView(image: UIImage(named: "call", in: bundle, compatibleWith: nil))
-//            }
+            self.callImageView = UIImageView(image: UIImage(named: "call", in: bundle, compatibleWith: nil))
             callImageView!.frame = CGRect(x: Int(adSize!.width) - (2*iconWidth + 2), y: iconHeight/10, width: iconWidth, height: iconHeight)
             callImageView!.tintColor =  UIColor.init(hexString: "#6C40F7")
             callImageView!.isUserInteractionEnabled = true
