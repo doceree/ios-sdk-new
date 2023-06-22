@@ -6,6 +6,7 @@ class CustomTimer {
     var timer:Timer?
     var count: Int = 0
     var update: Update?
+    var isPaused: Bool = false
 
     init(update:@escaping Update){
         self.update = update
@@ -22,6 +23,10 @@ class CustomTimer {
      * This method must be in the public or scope
      */
     @objc func timerUpdate() {
+        print("Count: \(count)")
+        if isPaused {
+            return
+        }
         count += 1;
         if let update = update {
             update(count)

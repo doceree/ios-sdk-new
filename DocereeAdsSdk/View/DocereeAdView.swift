@@ -27,6 +27,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     private var ctaLink: String?
     private var crossImageView: UIImageView?
     private var infoImageView: UIImageView?
+    private var callImageView: UIImageView?
     private var isRichMediaAd = false
     private var customTimer: CustomTimer?
     private var viewportTimer: CustomTimer?
@@ -383,6 +384,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                 self.crossImageView = UIImageView(image: UIImage(named: "xmark", in: nil, compatibleWith: nil))
             }
             crossImageView!.frame = CGRect(x: Int(adSize!.width) - iconWidth, y: iconHeight/10, width: iconWidth, height: iconHeight)
+            crossImageView?.backgroundColor = .white
             crossImageView!.tintColor =  UIColor.init(hexString: "#6C40F7")
             crossImageView!.isUserInteractionEnabled = true
             let tapOnCrossButton = UITapGestureRecognizer(target: self, action: #selector(openAdConsentView))
@@ -393,7 +395,28 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         } else {
             self.adWebView.addSubview(crossImageView!)
         }
-
+        
+        // create and add info icon
+        if callImageView == nil {
+//            if #available(iOS 13.0, *) {
+//                let lightConfiguration = UIImage.SymbolConfiguration(weight: .light)
+//                self.callImageView = UIImageView(image: UIImage(systemName: "xmark.square", withConfiguration: lightConfiguration))
+//            } else {
+            let bundle = Bundle(for: type(of: self))
+                self.callImageView = UIImageView(image: UIImage(named: "call", in: bundle, compatibleWith: nil))
+//            }
+            callImageView!.frame = CGRect(x: Int(adSize!.width) - (2*iconWidth + 2), y: iconHeight/10, width: iconWidth, height: iconHeight)
+            callImageView!.tintColor =  UIColor.init(hexString: "#6C40F7")
+            callImageView!.isUserInteractionEnabled = true
+            let tap = UITapGestureRecognizer(target: self, action: #selector(openPharmaLeadView))
+            callImageView!.addGestureRecognizer(tap)
+        }
+        if !isRichMediaAd {
+            self.adImageView.addSubview(callImageView!)
+        } else {
+            self.adWebView.addSubview(callImageView!)
+        }
+        
         // create and add info icon
         if infoImageView == nil {
             if #available(iOS 13.0, *) {
@@ -402,7 +425,8 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
             } else {
                 self.infoImageView = UIImageView(image: UIImage(named: "info", in: nil, compatibleWith: nil))
             }
-            infoImageView!.frame = CGRect(x: Int(adSize!.width) - 2*iconWidth, y: iconHeight/10, width: iconWidth, height: iconHeight)
+            infoImageView!.frame = CGRect(x: Int(adSize!.width) - (3*iconWidth + 4), y: iconHeight/10, width: iconWidth, height: iconHeight)
+            infoImageView?.backgroundColor = .white
             infoImageView!.tintColor =  UIColor.init(hexString: "#6C40F7")
             infoImageView!.isUserInteractionEnabled = true
             let tap = UITapGestureRecognizer(target: self, action: #selector(startLabelAnimation))
@@ -413,7 +437,16 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         } else {
             self.adWebView.addSubview(infoImageView!)
         }
-        
+  
+    }
+    
+    @objc func openPharmaLeadView(_ sender: UITapGestureRecognizer) {
+        customTimer?.isPaused = true
+        let newView = customView(frame:CGRectMake(0, 0, 300, 250))
+        newView.delegate = self
+        self.addSubview(newView)
+//        let pharmaView: Display_300_250 = (Bundle.main.loadNibNamed("Display_300_250", owner: self)?.first as? Display_300_250)!
+//        self.adImageView.addSubview(pharmaView)
     }
     
     @objc func startLabelAnimation(_ sender: UITapGestureRecognizer) {
@@ -616,3 +649,9 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
      }
      
  }
+
+extension DocereeAdView: DisplayPlusProtocol {
+    func resumeAd() {
+        customTimer?.isPaused = false
+    }
+}
