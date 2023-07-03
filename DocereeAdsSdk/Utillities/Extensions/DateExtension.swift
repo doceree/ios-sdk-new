@@ -50,18 +50,3 @@ extension Date {
         return dateString
     }
 }
-
-extension Date {
-    static func getDateOnly() -> String {
-        let date = Date()
-        let dateformat = DateFormatter()
-        dateformat.dateFormat =  "yyyy-MM-dd"
-        return dateformat.string(from: date)
-    }
-    static func getTimeOnly() -> String {
-        let date = Date()
-        let dateformat = DateFormatter()
-        dateformat.dateFormat = "HH:mm"
-        return dateformat.string(from: date)
-    }
-}

@@ -138,5 +138,4 @@ enum PharmaLeads: String {
     case dimension = "dimension"
     case codeSnippetId = "codeSnippetId"
     case platformUid = "platformUid"
-    
 }

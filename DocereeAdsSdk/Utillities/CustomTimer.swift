@@ -15,8 +15,8 @@ class CustomTimer {
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerUpdate), userInfo: nil, repeats: true)
     }
     func stop() {
-        if let timer = timer {
-            timer.invalidate()
+        if timer != nil {
+            timer?.invalidate()
         }
     }
     /**

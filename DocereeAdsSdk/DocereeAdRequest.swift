@@ -352,21 +352,21 @@ public final class DocereeAdRequest {
 
     }
     
-    internal func sendPharmaLeads(responseData: AdResponse?, size: String) {
+    internal func sendPharmaLeads(_ responseData: AdResponse?, _ size: String, _ userInput: [String : Any]) {
 
         self.requestHttpHeaders.add(value: "application/json", forKey: "Content-Type")
         
         // query params
         let josnObject: [String : Any] = [
-            PharmaLeads.date.rawValue : Date.getDateOnly(),
-            PharmaLeads.time.rawValue : Date.getTimeOnly(),
-            PharmaLeads.name.rawValue : Hcp.HcpBuilder().getName(),
-            PharmaLeads.mobile.rawValue : DocereeMobileAds.shared().getProfile()?.mobile as Any,
-            PharmaLeads.email.rawValue : DocereeMobileAds.shared().getProfile()?.email as Any,
-            PharmaLeads.address.rawValue : "",
+            PharmaLeads.date.rawValue : userInput["date"] as Any,
+            PharmaLeads.time.rawValue : userInput["time"] as Any,
+            PharmaLeads.name.rawValue : userInput["name"] as Any,
+            PharmaLeads.mobile.rawValue : userInput["mobile"] as Any,
+            PharmaLeads.email.rawValue : userInput["email"] as Any,
+            PharmaLeads.address.rawValue : userInput["address"] as Any,
             PharmaLeads.country.rawValue : "",
-            PharmaLeads.zipcode.rawValue : DocereeMobileAds.shared().getProfile()?.zipCode as Any,
-            PharmaLeads.cta.rawValue : [responseData?.ctaLink],
+            PharmaLeads.zipcode.rawValue : userInput["zip"] as Any,
+            PharmaLeads.cta.rawValue : userInput["cta"] as Any,
             PharmaLeads.subcampaignId.rawValue : responseData?.subcampaignId() as Any,
             PharmaLeads.creativeId.rawValue : responseData?.crId as Any,
             PharmaLeads.advertiserId.rawValue : responseData?.aId as Any,
