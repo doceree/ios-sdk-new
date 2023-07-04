@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension customView {
+extension Display_300x250 {
     func addObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -19,7 +19,7 @@ extension customView {
     }
 }
 
-extension customView {
+extension Display_300x250 {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField
     }
@@ -46,7 +46,7 @@ extension customView {
     }
 }
 
-extension customView {
+extension Display_300x250 {
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
 
@@ -67,7 +67,7 @@ extension customView {
     }
 }
 
-extension customView {
+extension Display_300x250 {
     
     func createJson() -> [String : Any] {
         var dict = [String : Any]()

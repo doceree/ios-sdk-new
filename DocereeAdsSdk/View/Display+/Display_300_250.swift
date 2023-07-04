@@ -7,7 +7,7 @@
 
 import UIKit
 
-class customView: UIView, UITextFieldDelegate {
+class Display_300x250: UIView, UITextFieldDelegate {
     var completionHandler: (([String : Any]) -> Void)?
     var contentView: UIView?
     var activeTextField: UITextField?
@@ -21,6 +21,7 @@ class customView: UIView, UITextFieldDelegate {
     @IBOutlet weak var btnSample: UIButton!
     
     @IBOutlet weak var lblrequiredField: UILabel!
+    @IBOutlet weak var lblrequiredDate: UILabel!
     @IBOutlet weak var lblrequiredTime: UILabel!
     
     @IBOutlet weak var lblDate: UILabel!
@@ -57,13 +58,13 @@ class customView: UIView, UITextFieldDelegate {
 
     internal convenience init(frame: CGRect, completion: @escaping (([String : Any]) -> Void)) {
         self.init(frame: frame)
-        commonInit()
+        commonInit(frame: frame)
         completionHandler = completion
     }
     
-    func commonInit() {
+    func commonInit(frame: CGRect) {
         addObserver()
-        guard let view = loadViewFromNib() else { return }
+        guard let view = loadViewFromNib(frame: frame) else { return }
         view.frame = self.bounds
         self.addSubview(view)
         
@@ -81,10 +82,15 @@ class customView: UIView, UITextFieldDelegate {
          }
     }
     
-    func loadViewFromNib() -> UIView? {
+    func loadViewFromNib(frame: CGRect) -> UIView? {
         let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: "Display_300_250", bundle: bundle)
-        return nib.instantiate(withOwner: self, options: nil).first as? UIView
+        if frame.size.width == 300 {
+            let nib = UINib(nibName: "Display_300_250", bundle: bundle)
+            return nib.instantiate(withOwner: self, options: nil).first as? UIView
+        } else {
+            let nib = UINib(nibName: "Display_728x90", bundle: bundle)
+            return nib.instantiate(withOwner: self, options: nil).first as? UIView
+        }
     }
 
     @IBAction func backBtnHandler(_ sender: Any) {
@@ -137,10 +143,15 @@ class customView: UIView, UITextFieldDelegate {
         if !self.btnRep.isSelected && !self.btnSample.isSelected {
             self.lblrequiredTime.isHidden = true
             return
-        } else if self.lblDate.text == "yyyy-mm-dd" || self.lblTime.text == "h:mm a"{
+        } else if self.lblDate.text == "yyyy-mm-dd" {
+            self.lblrequiredDate.isHidden = false
+            return
+        } else if self.lblTime.text == "h:mm a" {
+            self.lblrequiredDate.isHidden = true
             self.lblrequiredTime.isHidden = false
             return
         }
+        self.lblrequiredDate.isHidden = true
         self.lblrequiredTime.isHidden = true
         self.nextView.isHidden = false
     }
@@ -203,7 +214,7 @@ class customView: UIView, UITextFieldDelegate {
 
 }
 
-extension customView {
+extension Display_300x250 {
     
     func addCalendarPicker() {
         

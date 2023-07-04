@@ -446,7 +446,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     @objc func openPharmaLeadView(_ sender: UITapGestureRecognizer) {
         if docereeAdRequest != nil && self.parentViewController != nil {
             customTimer?.isPaused = true
-            let newView = customView(frame: CGRectMake(0, 0, 300, 250), completion: { dict in
+            let newView = Display_300x250(frame: CGRectMake(0, 0, adSize?.width ?? 0, adSize?.height ?? 0), completion: { dict in
                 self.customTimer?.isPaused = false
                 print("data: \(dict)")
                 self.docereeAdRequest?.sendPharmaLeads(self.adResponseData, "300x250", dict)

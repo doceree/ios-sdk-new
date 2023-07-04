@@ -10,6 +10,7 @@
 		540A941D2A4579D900B00A5E /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540A941C2A4579D900B00A5E /* ViewExtension.swift */; };
 		540A941F2A45C17200B00A5E /* MyDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540A941E2A45C17200B00A5E /* MyDatePicker.swift */; };
 		540A94262A49C2F000B00A5E /* CustomViewExtenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540A94252A49C2F000B00A5E /* CustomViewExtenstion.swift */; };
+		540A94292A54248F00B00A5E /* Display_728x90.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540A94282A54248F00B00A5E /* Display_728x90.xib */; };
 		543ACD332964535A005C47FE /* PlatformData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543ACD322964535A005C47FE /* PlatformData.swift */; };
 		545EC0D02A40374300160EE5 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545EC0CF2A40374300160EE5 /* DateExtension.swift */; };
 		545EC0D32A405CC200160EE5 /* Display_300_250.xib in Resources */ = {isa = PBXBuildFile; fileRef = 545EC0D22A405CC100160EE5 /* Display_300_250.xib */; };
@@ -45,6 +46,7 @@
 		540A941C2A4579D900B00A5E /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		540A941E2A45C17200B00A5E /* MyDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDatePicker.swift; sourceTree = "<group>"; };
 		540A94252A49C2F000B00A5E /* CustomViewExtenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewExtenstion.swift; sourceTree = "<group>"; };
+		540A94282A54248F00B00A5E /* Display_728x90.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Display_728x90.xib; sourceTree = "<group>"; };
 		543ACD322964535A005C47FE /* PlatformData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformData.swift; sourceTree = "<group>"; };
 		545EC0CF2A40374300160EE5 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		545EC0D22A405CC100160EE5 /* Display_300_250.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Display_300_250.xib; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				545EC0D22A405CC100160EE5 /* Display_300_250.xib */,
+				540A94282A54248F00B00A5E /* Display_728x90.xib */,
 				545EC0D42A405CED00160EE5 /* Display_300_250.swift */,
 				540A941E2A45C17200B00A5E /* MyDatePicker.swift */,
 			);
@@ -262,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				545EC0D32A405CC200160EE5 /* Display_300_250.xib in Resources */,
+				540A94292A54248F00B00A5E /* Display_728x90.xib in Resources */,
 				54BD89C6284F563F00DC94A3 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
