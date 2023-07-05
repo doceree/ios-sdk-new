@@ -83,14 +83,10 @@ class Display_300x250: UIView, UITextFieldDelegate {
     }
     
     func loadViewFromNib(frame: CGRect) -> UIView? {
+        let nibN = "Display_\(Int(frame.width))x\(Int(frame.height))"
         let bundle = Bundle(for: type(of: self))
-        if frame.size.width == 300 {
-            let nib = UINib(nibName: "Display_300_250", bundle: bundle)
-            return nib.instantiate(withOwner: self, options: nil).first as? UIView
-        } else {
-            let nib = UINib(nibName: "Display_728x90", bundle: bundle)
-            return nib.instantiate(withOwner: self, options: nil).first as? UIView
-        }
+        let nib = UINib(nibName: nibN, bundle: bundle)
+        return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
 
     @IBAction func backBtnHandler(_ sender: Any) {
