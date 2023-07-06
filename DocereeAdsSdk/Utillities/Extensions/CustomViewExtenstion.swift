@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension Display_300x250 {
+extension DisplayPlusView {
     func addObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -19,26 +19,26 @@ extension Display_300x250 {
     }
 }
 
-extension Display_300x250 {
+extension DisplayPlusView {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == txtFieldName {
+        if textField == tfAddress {
             textField.resignFirstResponder()
-            txtFieldPhone.becomeFirstResponder()
-        } else if textField == txtFieldPhone {
-            txtFieldPhone.resignFirstResponder()
-            txtFieldEmail.becomeFirstResponder()
-        } else if textField == txtFieldEmail {
+            tfZipcode.becomeFirstResponder()
+        } else if textField == tfZipcode {
             textField.resignFirstResponder()
         }
-        
-        if textField == txtFieldAddress {
+
+        if textField == tfName {
             textField.resignFirstResponder()
-            txtFieldPincode.becomeFirstResponder()
-        } else if textField == txtFieldPincode {
+            tfPhone.becomeFirstResponder()
+        } else if textField == tfPhone {
+            textField.resignFirstResponder()
+            tfEmail.becomeFirstResponder()
+        } else if textField == tfEmail {
             textField.resignFirstResponder()
         }
         
@@ -46,7 +46,7 @@ extension Display_300x250 {
     }
 }
 
-extension Display_300x250 {
+extension DisplayPlusView {
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
 
@@ -67,17 +67,17 @@ extension Display_300x250 {
     }
 }
 
-extension Display_300x250 {
+extension DisplayPlusView {
     
     func createJson() -> [String : Any] {
         var dict = [String : Any]()
         dict["date"] = self.lblDate.text
         dict["time"] = self.lblTime.text
-        dict["name"] = self.txtFieldName.text
-        dict["mobile"] = self.txtFieldPhone.text
-        dict["email"] = self.txtFieldEmail.text
-        dict["address"] = self.txtFieldAddress.text
-        dict["zip"] = self.txtFieldPincode.text
+        dict["name"] = self.tfName.text
+        dict["mobile"] = self.tfPhone.text
+        dict["email"] = self.tfEmail.text
+        dict["address"] = self.tfAddress.text
+        dict["zip"] = self.tfZipcode.text
         dict["cta"] = Array(ctas)
         
         return dict

@@ -8,7 +8,7 @@
 import UIKit
 
 @IBDesignable extension UIView {
-    @IBInspectable var borderColor:UIColor? {
+    @IBInspectable var borderColor: UIColor? {
         set {
             layer.borderColor = newValue!.cgColor
         }
@@ -21,7 +21,7 @@ import UIKit
             }
         }
     }
-    @IBInspectable var borderWidth:CGFloat {
+    @IBInspectable var borderWidth: CGFloat {
         set {
             layer.borderWidth = newValue
         }
@@ -29,7 +29,7 @@ import UIKit
             return layer.borderWidth
         }
     }
-    @IBInspectable var cornerRadius:CGFloat {
+    @IBInspectable var cornerRadius: CGFloat {
         set {
             layer.cornerRadius = newValue
             clipsToBounds = newValue > 0

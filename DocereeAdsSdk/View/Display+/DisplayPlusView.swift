@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Display_300x250: UIView, UITextFieldDelegate {
+class DisplayPlusView: UIView, UITextFieldDelegate {
     var completionHandler: (([String : Any]) -> Void)?
     var contentView: UIView?
     var activeTextField: UITextField?
@@ -28,20 +28,23 @@ class Display_300x250: UIView, UITextFieldDelegate {
     @IBOutlet weak var lblTime: UILabel!
    
     @IBOutlet weak var nextView: UIView!
-    @IBOutlet weak var txtFieldName: UITextField!
-    @IBOutlet weak var nameErrorLbl: UILabel!
-    @IBOutlet weak var txtFieldPhone: UITextField!
-    @IBOutlet weak var phoneErrorLbl: UILabel!
-    @IBOutlet weak var txtFieldEmail: UITextField!
-    @IBOutlet weak var emailErrorLbl: UILabel!
+    @IBOutlet weak var tfAddress: UITextField!
+    @IBOutlet weak var lblAddressError: UILabel!
+    @IBOutlet weak var tfCountry: UITextField!
+    @IBOutlet weak var lblCountryError: UILabel!
+    @IBOutlet weak var tfZipcode: UITextField!
+    @IBOutlet weak var lblzipError: UILabel!
     
     @IBOutlet weak var nextView2: UIView!
-    @IBOutlet weak var txtFieldAddress: UITextField!
-    @IBOutlet weak var addressErrorLbl: UILabel!
-    @IBOutlet weak var txtFieldPincode: UITextField!
-    @IBOutlet weak var pincodeErrorLbl: UILabel!
+    @IBOutlet weak var tfName: UITextField!
+    @IBOutlet weak var lblNameError: UILabel!
+    @IBOutlet weak var tfPhone: UITextField!
+    @IBOutlet weak var lblPhoneError: UILabel!
+    @IBOutlet weak var tfEmail: UITextField!
+    @IBOutlet weak var lblEmailError: UILabel!
     @IBOutlet weak var btnCheckbox: UIButton!
-    @IBOutlet weak var checkboxErrorLbl: UILabel!
+    @IBOutlet weak var lblCheckboxError: UILabel!
+    @IBOutlet weak var lblSuccessMsg: UILabel!
     let myPicker: MyDatePicker = {
         let v = MyDatePicker()
         return v
@@ -70,11 +73,12 @@ class Display_300x250: UIView, UITextFieldDelegate {
         
         self.btnRep.isSelected = !self.btnRep.isSelected
 
-        self.txtFieldName.delegate = self
-        self.txtFieldPhone.delegate = self
-        self.txtFieldEmail.delegate = self
-        self.txtFieldAddress.delegate = self
-        self.txtFieldPincode.delegate = self
+        self.tfAddress.delegate = self
+        self.tfCountry.delegate = self
+        self.tfZipcode.delegate = self
+        self.tfName.delegate = self
+        self.tfPhone.delegate = self
+        self.tfEmail.delegate = self
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             //call any function
@@ -158,21 +162,21 @@ class Display_300x250: UIView, UITextFieldDelegate {
     }
     
     @IBAction func nextBtn2Handler(_ sender: Any) {
-        if txtFieldName.text == "" {
-            nameErrorLbl.isHidden = false
+        if tfAddress.text == "" {
+            lblAddressError.isHidden = false
             return
-        } else if txtFieldPhone.text == "" {
-            nameErrorLbl.isHidden = true
-            phoneErrorLbl.isHidden = false
+        } else if tfCountry.text == "" {
+            lblAddressError.isHidden = true
+            lblCountryError.isHidden = false
             return
-        } else if txtFieldEmail.text == "" {
-            phoneErrorLbl.isHidden = true
-            emailErrorLbl.isHidden = false
+        } else if tfZipcode.text == "" {
+            lblCountryError.isHidden = true
+            lblzipError.isHidden = false
             return
         }
-        nameErrorLbl.isHidden = true
-        phoneErrorLbl.isHidden = true
-        emailErrorLbl.isHidden = true
+        lblAddressError.isHidden = true
+        lblCountryError.isHidden = true
+        lblzipError.isHidden = true
         self.nextView2.isHidden = false
     }
     
@@ -185,32 +189,41 @@ class Display_300x250: UIView, UITextFieldDelegate {
     }
     
     @IBAction func submitBtnHandler(_ sender: Any) {
-        if txtFieldAddress.text == "" {
-            addressErrorLbl.isHidden = false
+        if tfName.text == "" {
+            lblNameError.isHidden = false
             return
-        } else if txtFieldPincode.text == "" {
-            addressErrorLbl.isHidden = true
-            pincodeErrorLbl.isHidden = false
+        } else if tfPhone.text == "" {
+            lblNameError.isHidden = true
+            lblPhoneError.isHidden = false
+            return
+        } else if tfEmail.text == "" {
+            lblPhoneError.isHidden = true
+            lblEmailError.isHidden = false
             return
         } else if !self.btnCheckbox.isSelected {
-            pincodeErrorLbl.isHidden = true
-            checkboxErrorLbl.isHidden = false
+            lblEmailError.isHidden = true
+            lblCheckboxError.isHidden = false
             return
         }
-        addressErrorLbl.isHidden = true
-        pincodeErrorLbl.isHidden = true
-        checkboxErrorLbl.isHidden = true
+        lblNameError.isHidden = true
+        lblPhoneError.isHidden = true
+        lblEmailError.isHidden = true
+        lblEmailError.isHidden = true
         
         let dict = createJson()
         
-        self.removeFromSuperview()
-        self.removeObserver()
-        completionHandler!(dict)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+                //call any function
+            self.removeFromSuperview()
+            self.removeObserver()
+            self.completionHandler!(dict)
+         }
+        self.lblSuccessMsg.isHidden = false
     }
 
 }
 
-extension Display_300x250 {
+extension DisplayPlusView {
     
     func addCalendarPicker() {
         
