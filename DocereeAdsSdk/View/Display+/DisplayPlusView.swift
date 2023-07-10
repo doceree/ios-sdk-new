@@ -30,6 +30,7 @@ class DisplayPlusView: UIView, UITextFieldDelegate {
     @IBOutlet weak var nextView: UIView!
     @IBOutlet weak var tfAddress: UITextField!
     @IBOutlet weak var lblAddressError: UILabel!
+    @IBOutlet weak var lblCountryCode: UILabel!
     @IBOutlet weak var tfCountry: UITextField!
     @IBOutlet weak var lblCountryError: UILabel!
     @IBOutlet weak var tfZipcode: UITextField!
@@ -50,6 +51,9 @@ class DisplayPlusView: UIView, UITextFieldDelegate {
         return v
     }()
     var ctas: Set = ["request_call"]
+    var mappedCountries = [String : String]()
+    var selectedCountry: String?
+    var countryList = [String]()
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -83,7 +87,18 @@ class DisplayPlusView: UIView, UITextFieldDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             //call any function
             self.addCalendarPicker()
-         }
+        }
+        createPickerView()
+        dismissPickerView()
+        
+        countries.map { element in
+            let arr = element.components(separatedBy: "_")
+            mappedCountries[arr[0]] = arr[1]
+        }
+        countryList = Array(mappedCountries.keys)
+        countryList = countryList.sorted()
+        
+        print("mapped: \(countryList[0])")
     }
     
     func loadViewFromNib(frame: CGRect) -> UIView? {
@@ -170,6 +185,7 @@ class DisplayPlusView: UIView, UITextFieldDelegate {
             lblCountryError.isHidden = false
             return
         } else if tfZipcode.text == "" {
+            lblAddressError.isHidden = true
             lblCountryError.isHidden = true
             lblzipError.isHidden = false
             return

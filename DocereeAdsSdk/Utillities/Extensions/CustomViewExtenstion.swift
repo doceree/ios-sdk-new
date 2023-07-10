@@ -74,10 +74,11 @@ extension DisplayPlusView {
         dict["date"] = self.lblDate.text
         dict["time"] = self.lblTime.text
         dict["name"] = self.tfName.text
-        dict["mobile"] = self.tfPhone.text
+        dict["mobile"] = self.lblCountryCode.text! + self.tfPhone.text!
         dict["email"] = self.tfEmail.text
         dict["address"] = self.tfAddress.text
         dict["zip"] = self.tfZipcode.text
+        dict["country"] = self.tfCountry.text
         dict["cta"] = Array(ctas)
         
         return dict
