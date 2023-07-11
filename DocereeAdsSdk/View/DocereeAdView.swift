@@ -444,15 +444,20 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     }
     
     @objc func openPharmaLeadView(_ sender: UITapGestureRecognizer) {
-        if docereeAdRequest != nil && self.parentViewController != nil {
-            customTimer?.isPaused = true
-            let newView = DisplayPlusView(frame: CGRectMake(0, 0, adSize?.width ?? 0, adSize?.height ?? 0), completion: { dict in
-                self.customTimer?.isPaused = false
-                print("data: \(dict)")
-                self.docereeAdRequest?.sendPharmaLeads(self.adResponseData, "300x250", dict)
-            })
-            self.addSubview(newView)
+        if let isDisplayFormEnable = adResponseData?.isDisplayFormEnable, isDisplayFormEnable {
+            if docereeAdRequest != nil && self.parentViewController != nil {
+                customTimer?.isPaused = true
+                let newView = DisplayPlusView(frame: CGRectMake(0, 0, adSize?.width ?? 0, adSize?.height ?? 0), completion: { dict in
+                    self.customTimer?.isPaused = false
+                    print("data: \(dict)")
+                    self.docereeAdRequest?.sendPharmaLeads(self.adResponseData, "300x250", dict)
+                })
+                self.addSubview(newView)
+            }
+        } else {
+            callImageView!.alpha = 0.8
         }
+
     }
     
     @objc func startLabelAnimation(_ sender: UITapGestureRecognizer) {
