@@ -91,7 +91,7 @@ class DisplayPlusView: UIView, UITextFieldDelegate {
         createPickerView()
         dismissPickerView()
         
-        countries.map { element in
+        let _ = countries.map { element in
             let arr = element.components(separatedBy: "_")
             mappedCountries[arr[0]] = arr[1]
         }
@@ -268,14 +268,14 @@ extension DisplayPlusView {
         
         // add closures to custom picker view
         myPicker.dismissClosure = { [self, weak parentViewController = self.parentViewController] in
-            guard let self = parentViewController else {
+            guard parentViewController != nil else {
                 return
             }
             myPicker.isHidden = true
             editingDidEnd()
         }
-        myPicker.changeClosure = { [self, weak parentViewController = self.parentViewController] val in
-            guard let self = parentViewController else {
+        myPicker.changeClosure = { [weak parentViewController = self.parentViewController] val in
+            guard parentViewController != nil else {
                 return
             }
             print(val)

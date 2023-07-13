@@ -364,7 +364,7 @@ public final class DocereeAdRequest {
             PharmaLeads.mobile.rawValue : userInput["mobile"] as Any,
             PharmaLeads.email.rawValue : userInput["email"] as Any,
             PharmaLeads.address.rawValue : userInput["address"] as Any,
-            PharmaLeads.country.rawValue : "",
+            PharmaLeads.country.rawValue : userInput["country"] as Any,
             PharmaLeads.zipcode.rawValue : userInput["zip"] as Any,
             PharmaLeads.cta.rawValue : userInput["cta"] as Any,
             PharmaLeads.subcampaignId.rawValue : responseData?.subcampaignId() as Any,

@@ -408,8 +408,15 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                 callImageView!.frame = CGRect(x: Int(adSize!.width) - xPos, y: iconHeight/10, width: iconWidth, height: iconHeight)
                 callImageView!.tintColor =  UIColor.init(hexString: "#6C40F7")
                 callImageView!.isUserInteractionEnabled = true
-                let tap = UITapGestureRecognizer(target: self, action: #selector(openPharmaLeadView))
-                callImageView!.addGestureRecognizer(tap)
+                if let isDisplayFormEnable = adResponseData?.isDisplayFormEnable, isDisplayFormEnable {
+                    let tap = UITapGestureRecognizer(target: self, action: #selector(openPharmaLeadView))
+                    callImageView!.addGestureRecognizer(tap)
+                } else {
+                    let tap = UITapGestureRecognizer(target: self, action: nil) // Add no tap gesture
+                    callImageView!.addGestureRecognizer(tap)
+                    callImageView!.alpha = 0.8
+                }
+
             }
             if !isRichMediaAd {
                 self.adImageView.addSubview(callImageView!)
@@ -444,20 +451,15 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     }
     
     @objc func openPharmaLeadView(_ sender: UITapGestureRecognizer) {
-        if let isDisplayFormEnable = adResponseData?.isDisplayFormEnable, isDisplayFormEnable {
-            if docereeAdRequest != nil && self.parentViewController != nil {
-                customTimer?.isPaused = true
-                let newView = DisplayPlusView(frame: CGRectMake(0, 0, adSize?.width ?? 0, adSize?.height ?? 0), completion: { dict in
-                    self.customTimer?.isPaused = false
-                    print("data: \(dict)")
-                    self.docereeAdRequest?.sendPharmaLeads(self.adResponseData, "300x250", dict)
-                })
-                self.addSubview(newView)
-            }
-        } else {
-            callImageView!.alpha = 0.8
+        if docereeAdRequest != nil && self.parentViewController != nil {
+            customTimer?.isPaused = true
+            let newView = DisplayPlusView(frame: CGRectMake(0, 0, adSize?.width ?? 0, adSize?.height ?? 0), completion: { dict in
+                self.customTimer?.isPaused = false
+                print("data: \(dict)")
+                self.docereeAdRequest?.sendPharmaLeads(self.adResponseData, "300x250", dict)
+            })
+            self.addSubview(newView)
         }
-
     }
     
     @objc func startLabelAnimation(_ sender: UITapGestureRecognizer) {
