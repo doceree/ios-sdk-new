@@ -370,14 +370,12 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     }
 
     private func setupConsentIcons() {
-        let iconWidth = 20
-        let iconHeight = 20
-        var iconCounter = 0
+        let iconWidth: CGFloat = 20.0
+        let iconHeight: CGFloat = 20.0
+        var latestX = iconWidth
         
         // create and set cross icon
         if crossImageView == nil {
-            iconCounter += 1
-            let xPos = iconCounter*iconWidth
             if #available(iOS 13.0, *) {
                 let lightConfiguration = UIImage.SymbolConfiguration(weight: .light)
                 self.crossImageView = UIImageView(image: UIImage(systemName: "xmark.square", withConfiguration: lightConfiguration))
@@ -385,7 +383,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                 // Fallback on earlier versions
                 self.crossImageView = UIImageView(image: UIImage(named: "xmark", in: nil, compatibleWith: nil))
             }
-            crossImageView!.frame = CGRect(x: Int(adSize!.width) - xPos, y: iconHeight/10, width: iconWidth, height: iconHeight)
+            crossImageView!.frame = CGRect(x: CGFloat(adSize!.width) - latestX, y: iconHeight/10, width: iconWidth, height: iconHeight)
             crossImageView?.backgroundColor = .white
             crossImageView!.tintColor =  UIColor.init(hexString: "#6C40F7")
             crossImageView!.isUserInteractionEnabled = true
@@ -397,45 +395,43 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         } else {
             self.adWebView.addSubview(crossImageView!)
         }
+        latestX = crossImageView?.frame.origin.x ?? 0.0
         
         // create and add info icon
         if let isDisplayAd = adResponseData?.isDisplayAd , isDisplayAd {
             if callImageView == nil {
-                iconCounter += 1
-                let xPos = (iconCounter*iconWidth + iconCounter)
                 let bundle = Bundle(for: type(of: self))
                 self.callImageView = UIImageView(image: UIImage(named: "call", in: bundle, compatibleWith: nil))
-                callImageView!.frame = CGRect(x: Int(adSize!.width) - xPos, y: iconHeight/10, width: iconWidth, height: iconHeight)
+                callImageView!.frame = CGRect(x: latestX - (iconWidth + 2), y: iconHeight/10, width: iconWidth, height: iconHeight)
                 callImageView!.tintColor =  UIColor.init(hexString: "#6C40F7")
                 callImageView!.isUserInteractionEnabled = true
-                if let isDisplayFormEnable = adResponseData?.isDisplayFormEnable, isDisplayFormEnable {
-                    let tap = UITapGestureRecognizer(target: self, action: #selector(openPharmaLeadView))
-                    callImageView!.addGestureRecognizer(tap)
-                } else {
-                    let tap = UITapGestureRecognizer(target: self, action: nil) // Add no tap gesture
-                    callImageView!.addGestureRecognizer(tap)
-                    callImageView!.alpha = 0.8
-                }
-
             }
             if !isRichMediaAd {
                 self.adImageView.addSubview(callImageView!)
             } else {
                 self.adWebView.addSubview(callImageView!)
             }
+            
+            if let isDisplayFormEnable = adResponseData?.isDisplayFormEnable, isDisplayFormEnable {
+                let tap = UITapGestureRecognizer(target: self, action: #selector(openPharmaLeadView))
+                callImageView!.addGestureRecognizer(tap)
+            } else {
+                let tap = UITapGestureRecognizer(target: self, action: nil) // Add no tap gesture
+                callImageView!.addGestureRecognizer(tap)
+                callImageView!.alpha = 0.6
+            }
+            latestX = callImageView?.frame.origin.x ?? 0.0
         }
         
         // create and add info icon
         if infoImageView == nil {
-            iconCounter += 1
-            let xPos = (iconCounter*iconWidth + iconCounter)
             if #available(iOS 13.0, *) {
                 let lightConfiguration = UIImage.SymbolConfiguration(weight: .light)
                 self.infoImageView = UIImageView(image: UIImage(systemName: "info.circle", withConfiguration: lightConfiguration))
             } else {
                 self.infoImageView = UIImageView(image: UIImage(named: "info", in: nil, compatibleWith: nil))
             }
-            infoImageView!.frame = CGRect(x: Int(adSize!.width) - xPos, y: iconHeight/10, width: iconWidth, height: iconHeight)
+            infoImageView!.frame = CGRect(x: latestX - (iconWidth + 2), y: iconHeight/10, width: iconWidth, height: iconHeight)
             infoImageView?.backgroundColor = .white
             infoImageView!.tintColor =  UIColor.init(hexString: "#6C40F7")
             infoImageView!.isUserInteractionEnabled = true
@@ -454,9 +450,12 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         if docereeAdRequest != nil && self.parentViewController != nil {
             customTimer?.isPaused = true
             let newView = DisplayPlusView(frame: CGRectMake(0, 0, adSize?.width ?? 0, adSize?.height ?? 0), completion: { dict in
-                self.customTimer?.isPaused = false
+//                self.customTimer?.isPaused = false
                 print("data: \(dict)")
                 self.docereeAdRequest?.sendPharmaLeads(self.adResponseData, "300x250", dict)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
+                    self.refresh()
+                }
             })
             self.addSubview(newView)
         }

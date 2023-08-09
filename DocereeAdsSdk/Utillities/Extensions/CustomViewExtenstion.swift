@@ -25,10 +25,7 @@ extension DisplayPlusView {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == tfAddress {
-            textField.resignFirstResponder()
-            tfZipcode.becomeFirstResponder()
-        } else if textField == tfZipcode {
+        if textField == tfZipcode {
             textField.resignFirstResponder()
         }
 
@@ -42,6 +39,14 @@ extension DisplayPlusView {
             textField.resignFirstResponder()
         }
         
+        return true
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        if textView == tvAddress {
+            textView.resignFirstResponder()
+            tfZipcode.becomeFirstResponder()
+        }
         return true
     }
 }
@@ -74,12 +79,14 @@ extension DisplayPlusView {
         dict["date"] = self.lblDate.text
         dict["time"] = self.lblTime.text
         dict["name"] = self.tfName.text
-        dict["mobile"] = self.lblCountryCode.text! + self.tfPhone.text!
         dict["email"] = self.tfEmail.text
-        dict["address"] = self.tfAddress.text
+        dict["address"] = self.tvAddress.text
         dict["zip"] = self.tfZipcode.text
         dict["country"] = self.tfCountry.text
         dict["cta"] = Array(ctas)
+        if let mobile = self.tfPhone.text, mobile.count > 0 {
+            dict["mobile"] = self.lblCountryCode.text! + mobile
+        }
         
         return dict
     }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DisplayPlusView: UIView, UITextFieldDelegate {
+class DisplayPlusView: UIView, UITextFieldDelegate, UITextViewDelegate {
     var completionHandler: (([String : Any]) -> Void)?
     var contentView: UIView?
     var activeTextField: UITextField?
@@ -28,7 +28,7 @@ class DisplayPlusView: UIView, UITextFieldDelegate {
     @IBOutlet weak var lblTime: UILabel!
    
     @IBOutlet weak var nextView: UIView!
-    @IBOutlet weak var tfAddress: UITextField!
+    @IBOutlet weak var tvAddress: UITextView!
     @IBOutlet weak var lblAddressError: UILabel!
     @IBOutlet weak var lblCountryCode: UILabel!
     @IBOutlet weak var tfCountry: UITextField!
@@ -40,11 +40,9 @@ class DisplayPlusView: UIView, UITextFieldDelegate {
     @IBOutlet weak var tfName: UITextField!
     @IBOutlet weak var lblNameError: UILabel!
     @IBOutlet weak var tfPhone: UITextField!
-    @IBOutlet weak var lblPhoneError: UILabel!
     @IBOutlet weak var tfEmail: UITextField!
     @IBOutlet weak var lblEmailError: UILabel!
     @IBOutlet weak var btnCheckbox: UIButton!
-    @IBOutlet weak var lblCheckboxError: UILabel!
     @IBOutlet weak var lblSuccessMsg: UILabel!
     let myPicker: MyDatePicker = {
         let v = MyDatePicker()
@@ -77,7 +75,7 @@ class DisplayPlusView: UIView, UITextFieldDelegate {
         
         self.btnRep.isSelected = !self.btnRep.isSelected
 
-        self.tfAddress.delegate = self
+        self.tvAddress.delegate = self
         self.tfCountry.delegate = self
         self.tfZipcode.delegate = self
         self.tfName.delegate = self
@@ -97,7 +95,7 @@ class DisplayPlusView: UIView, UITextFieldDelegate {
         }
         countryList = Array(mappedCountries.keys)
         countryList = countryList.sorted()
-        
+        self.btnCheckbox.isSelected = true
         print("mapped: \(countryList[0])")
     }
     
@@ -158,10 +156,10 @@ class DisplayPlusView: UIView, UITextFieldDelegate {
         if !self.btnRep.isSelected && !self.btnSample.isSelected {
             self.lblrequiredTime.isHidden = true
             return
-        } else if self.lblDate.text == "yyyy-mm-dd" {
+        } else if self.lblDate.text == "mm/dd/yyyy" {
             self.lblrequiredDate.isHidden = false
             return
-        } else if self.lblTime.text == "h:mm a" {
+        } else if self.lblTime.text == "--:-- --" {
             self.lblrequiredDate.isHidden = true
             self.lblrequiredTime.isHidden = false
             return
@@ -177,7 +175,7 @@ class DisplayPlusView: UIView, UITextFieldDelegate {
     }
     
     @IBAction func nextBtn2Handler(_ sender: Any) {
-        if tfAddress.text == "" {
+        if tvAddress.text == "" {
             lblAddressError.isHidden = false
             return
         } else if tfCountry.text == "" {
@@ -208,31 +206,24 @@ class DisplayPlusView: UIView, UITextFieldDelegate {
         if tfName.text == "" {
             lblNameError.isHidden = false
             return
-        } else if tfPhone.text == "" {
-            lblNameError.isHidden = true
-            lblPhoneError.isHidden = false
-            return
         } else if tfEmail.text == "" {
-            lblPhoneError.isHidden = true
+            lblNameError.isHidden = true
             lblEmailError.isHidden = false
             return
         } else if !self.btnCheckbox.isSelected {
             lblEmailError.isHidden = true
-            lblCheckboxError.isHidden = false
             return
         }
         lblNameError.isHidden = true
-        lblPhoneError.isHidden = true
         lblEmailError.isHidden = true
         lblEmailError.isHidden = true
         
         let dict = createJson()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-                //call any function
+        self.removeObserver()
+        self.completionHandler!(dict)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
             self.removeFromSuperview()
-            self.removeObserver()
-            self.completionHandler!(dict)
          }
         self.lblSuccessMsg.isHidden = false
     }
@@ -287,7 +278,7 @@ extension DisplayPlusView {
     func editingDidEnd() {
         if self.myPicker.dPicker.datePickerMode == .date {
             let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd"
+            formatter.dateFormat = "mm/dd/yyyy"
             self.lblDate.text = formatter.string(from: self.myPicker.dPicker.date)
         } else {
             let formatter = DateFormatter()

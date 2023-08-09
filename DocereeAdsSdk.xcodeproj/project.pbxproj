@@ -42,6 +42,7 @@
 		54EBB05328366CD800C7B249 /* CustomTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB05228366CD800C7B249 /* CustomTimer.swift */; };
 		54EBB05F28366F6E00C7B249 /* DocereeMobileAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB05E28366F6E00C7B249 /* DocereeMobileAds.swift */; };
 		54EBB061283671AA00C7B249 /* DocereeAdViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB060283671AA00C7B249 /* DocereeAdViewDelegate.swift */; };
+		54F27B1D2A82161300AD384A /* TextFieldWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F27B1C2A82161300AD384A /* TextFieldWithPadding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,7 @@
 		54EBB05228366CD800C7B249 /* CustomTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimer.swift; sourceTree = "<group>"; };
 		54EBB05E28366F6E00C7B249 /* DocereeMobileAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocereeMobileAds.swift; sourceTree = "<group>"; };
 		54EBB060283671AA00C7B249 /* DocereeAdViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocereeAdViewDelegate.swift; sourceTree = "<group>"; };
+		54F27B1C2A82161300AD384A /* TextFieldWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithPadding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 				54EBB00D2832240B00C7B249 /* StringExtensions.swift */,
 				545EC0CF2A40374300160EE5 /* DateExtension.swift */,
 				540A94252A49C2F000B00A5E /* CustomViewExtenstion.swift */,
+				54F27B1C2A82161300AD384A /* TextFieldWithPadding.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				54EBB0112832240B00C7B249 /* Extensions.swift in Sources */,
 				54EBB016283225D200C7B249 /* DocereeRequestError.swift in Sources */,
 				54EBB05F28366F6E00C7B249 /* DocereeMobileAds.swift in Sources */,
+				54F27B1D2A82161300AD384A /* TextFieldWithPadding.swift in Sources */,
 				54EBB0432834F62700C7B249 /* AdConsentUIView.swift in Sources */,
 				54EBAFF9282E855C00C7B249 /* Helpers.swift in Sources */,
 				54EBB0442834F62700C7B249 /* DocereeAdView.swift in Sources */,

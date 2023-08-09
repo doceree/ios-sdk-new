@@ -25,7 +25,6 @@ extension DisplayPlusView: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedCountry = countryList[row]
         tfCountry.text = selectedCountry
-//        tfPhone.text = "+" + mappedCountries[selectedCountry!]! + " "
         lblCountryCode.text = "+" + mappedCountries[selectedCountry!]!
     }
     
