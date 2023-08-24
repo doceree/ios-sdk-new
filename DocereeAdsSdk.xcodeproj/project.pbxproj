@@ -43,6 +43,11 @@
 		54EBB05F28366F6E00C7B249 /* DocereeMobileAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB05E28366F6E00C7B249 /* DocereeMobileAds.swift */; };
 		54EBB061283671AA00C7B249 /* DocereeAdViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB060283671AA00C7B249 /* DocereeAdViewDelegate.swift */; };
 		54F27B1D2A82161300AD384A /* TextFieldWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F27B1C2A82161300AD384A /* TextFieldWithPadding.swift */; };
+		54F27B2E2A8FA21E00AD384A /* PharmaLeadsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F27B2D2A8FA21E00AD384A /* PharmaLeadsService.swift */; };
+		54F27B302A8FA36500AD384A /* DataCollectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F27B2F2A8FA36500AD384A /* DataCollectionService.swift */; };
+		54F27B322A8FA3FA00AD384A /* AdBlockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F27B312A8FA3FA00AD384A /* AdBlockService.swift */; };
+		54F27B342A8FA61100AD384A /* ViewabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F27B332A8FA61100AD384A /* ViewabilityService.swift */; };
+		54F27B362A8FA69B00AD384A /* ImpressionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F27B352A8FA69B00AD384A /* ImpressionService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +88,11 @@
 		54EBB05E28366F6E00C7B249 /* DocereeMobileAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocereeMobileAds.swift; sourceTree = "<group>"; };
 		54EBB060283671AA00C7B249 /* DocereeAdViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocereeAdViewDelegate.swift; sourceTree = "<group>"; };
 		54F27B1C2A82161300AD384A /* TextFieldWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithPadding.swift; sourceTree = "<group>"; };
+		54F27B2D2A8FA21E00AD384A /* PharmaLeadsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharmaLeadsService.swift; sourceTree = "<group>"; };
+		54F27B2F2A8FA36500AD384A /* DataCollectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCollectionService.swift; sourceTree = "<group>"; };
+		54F27B312A8FA3FA00AD384A /* AdBlockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdBlockService.swift; sourceTree = "<group>"; };
+		54F27B332A8FA61100AD384A /* ViewabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewabilityService.swift; sourceTree = "<group>"; };
+		54F27B352A8FA69B00AD384A /* ImpressionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressionService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,8 +109,6 @@
 		545EC0D12A405C8800160EE5 /* Display+ */ = {
 			isa = PBXGroup;
 			children = (
-				545EC0D22A405CC100160EE5 /* Display_300x250.xib */,
-				540A94282A54248F00B00A5E /* Display_728x90.xib */,
 				545EC0D42A405CED00160EE5 /* DisplayPlusView.swift */,
 				540A941E2A45C17200B00A5E /* MyDatePicker.swift */,
 				540A94302A56DF0900B00A5E /* DropdownPicker.swift */,
@@ -127,13 +135,15 @@
 		54EBAFBE282CF30900C7B249 /* DocereeAdsSdk */ = {
 			isa = PBXGroup;
 			children = (
+				54EBB0402834F3F800C7B249 /* View */,
+				54EBAFD7282D014500C7B249 /* Model */,
+				54EBB00C2832240000C7B249 /* Extensions */,
+				54F27B292A8E34C400AD384A /* Networking */,
+				54F27B202A8E2D1100AD384A /* Resources */,
+				54F27B2C2A8F7AC900AD384A /* Nibs */,
 				54EBB05D28366F4100C7B249 /* Helpers */,
 				54EBAFE6282D176000C7B249 /* Utillities */,
-				54EBAFD7282D014500C7B249 /* Model */,
-				54EBB0402834F3F800C7B249 /* View */,
 				54EBAFBF282CF30900C7B249 /* DocereeAdsSdk.h */,
-				54EBB00A283221BE00C7B249 /* DocereeAdRequest.swift */,
-				54BD89C5284F563F00DC94A3 /* Media.xcassets */,
 			);
 			path = DocereeAdsSdk;
 			sourceTree = "<group>";
@@ -153,7 +163,6 @@
 		54EBAFE6282D176000C7B249 /* Utillities */ = {
 			isa = PBXGroup;
 			children = (
-				54EBB00C2832240000C7B249 /* Extensions */,
 				54EBAFEF282E855C00C7B249 /* AdSize.swift */,
 				54EBAFF4282E855C00C7B249 /* Colors.swift */,
 				54EBAFF1282E855C00C7B249 /* Constants.swift */,
@@ -201,6 +210,36 @@
 				54EBB060283671AA00C7B249 /* DocereeAdViewDelegate.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		54F27B202A8E2D1100AD384A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				54BD89C5284F563F00DC94A3 /* Media.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		54F27B292A8E34C400AD384A /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				54EBB00A283221BE00C7B249 /* DocereeAdRequest.swift */,
+				54F27B352A8FA69B00AD384A /* ImpressionService.swift */,
+				54F27B312A8FA3FA00AD384A /* AdBlockService.swift */,
+				54F27B332A8FA61100AD384A /* ViewabilityService.swift */,
+				54F27B2F2A8FA36500AD384A /* DataCollectionService.swift */,
+				54F27B2D2A8FA21E00AD384A /* PharmaLeadsService.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		54F27B2C2A8F7AC900AD384A /* Nibs */ = {
+			isa = PBXGroup;
+			children = (
+				545EC0D22A405CC100160EE5 /* Display_300x250.xib */,
+				540A94282A54248F00B00A5E /* Display_728x90.xib */,
+			);
+			path = Nibs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,6 +328,7 @@
 				540A941D2A4579D900B00A5E /* ViewExtension.swift in Sources */,
 				54EBB005282E87AF00C7B249 /* adBlockRequest.swift in Sources */,
 				54EBAFF7282E855C00C7B249 /* HTTPSupport.swift in Sources */,
+				54F27B362A8FA69B00AD384A /* ImpressionService.swift in Sources */,
 				54EBAFFD282E855C00C7B249 /* Colors.swift in Sources */,
 				54BD8A2E28A2503200DC94A3 /* Viewability.swift in Sources */,
 				543ACD332964535A005C47FE /* PlatformData.swift in Sources */,
@@ -311,11 +351,15 @@
 				54ADD0A829388996004A7182 /* ImageLoader.swift in Sources */,
 				54EBAFF8282E855C00C7B249 /* AdSize.swift in Sources */,
 				54EBAFE8282D177000C7B249 /* PathUtility.swift in Sources */,
+				54F27B342A8FA61100AD384A /* ViewabilityService.swift in Sources */,
 				54EBB0102832240B00C7B249 /* StringExtensions.swift in Sources */,
 				54EBAFD9282D018700C7B249 /* HcpProfile.swift in Sources */,
+				54F27B2E2A8FA21E00AD384A /* PharmaLeadsService.swift in Sources */,
 				54EBB0122832240B00C7B249 /* ImageExtensions.swift in Sources */,
 				54EBB00B283221BE00C7B249 /* DocereeAdRequest.swift in Sources */,
 				540A94262A49C2F000B00A5E /* CustomViewExtenstion.swift in Sources */,
+				54F27B322A8FA3FA00AD384A /* AdBlockService.swift in Sources */,
+				54F27B302A8FA36500AD384A /* DataCollectionService.swift in Sources */,
 				540A942F2A56A93200B00A5E /* Countries.swift in Sources */,
 				54EBAFFA282E855C00C7B249 /* Constants.swift in Sources */,
 			);

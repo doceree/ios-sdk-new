@@ -11,18 +11,18 @@ import SafariServices
 import os.log
 import WebKit
 
-public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDelegate, WKUIDelegate {
-    
-    @IBOutlet public weak var rootViewController: UIViewController?
+public final class DocereeAdView: UIView, UIApplicationDelegate {
     
     //MARK: Properties
+
     public var docereeAdUnitId: String = String.init()
     public var delegate: DocereeAdViewDelegate?
     public var position: AdPosition = .custom
     
     var cbId: String?
     var docereeAdRequest: DocereeAdRequest?
-    
+    var adResponseData: AdResponse?
+
     private var adSize: AdSize?
     private var ctaLink: String?
     private var crossImageView: UIImageView?
@@ -32,20 +32,21 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     private var customTimer: CustomTimer?
     private var viewportTimer: CustomTimer?
     private var adWebView: WKWebView!
-    
-    static var didLeaveAd: Bool = false
-    var adResponseData: AdResponse?
     private var totalViewTime = 0
     private var savedViewPercentage: Float = 0.0
     private var OneSecMrcSent = false
-    private var viewportPercentage: Float = 90
-    
+
+    static var didLeaveAd: Bool = false
     
     lazy var adImageView: UIImageView = {
         let adImageView = UIImageView()
         adImageView.translatesAutoresizingMaskIntoConstraints = false
         return adImageView
     }()
+    
+    private let viewportPercentage: Float = 90
+    
+    @IBOutlet public weak var rootViewController: UIViewController?
     
     // MARK: Initialization
     override init(frame: CGRect) {
@@ -118,7 +119,13 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         return CGSize(width: (adSize?.width)!, height: (adSize?.height)!)
     }
     
+    public override class var requiresConstraintBasedLayout: Bool {
+        return true
+    }
+    
+    
     //MARK: Public methods
+    
     public func load(_ docereeAdRequest: DocereeAdRequest) {
         // check for size existence
         if self.adSize == nil {
@@ -225,7 +232,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         viewportTimer?.start()
     }
     
-    func sendViewTime(standard: String) {
+    private func sendViewTime(standard: String) {
         if totalViewTime > 0 && (savedViewPercentage > 50 || Int(savedViewPercentage) >= (self.adResponseData?.minViewPercentage)!) {
             print("View Time: ", totalViewTime)
             let isViewLinkNullOrEmpty: Bool = (adResponseData?.viewLink ?? "").isEmpty
@@ -243,7 +250,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                     viewLink = viewLink?.replacingOccurrences(of: "_viewPercentage", with: String((self.adResponseData?.minViewPercentage)!))
                 }
                 viewLink = viewLink?.replacingOccurrences(of: "_std", with: standard)
-                self.docereeAdRequest?.sendAdViewability(viewLink: viewLink!)
+                ViewabilityService.init().sendAdViewability(viewLink: viewLink!)
             }
 
             if standard == "mrc" && self.OneSecMrcSent == true {
@@ -269,7 +276,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                 self.ctaLink = adResponseData?.ctaLink?.replacingOccurrences(of: "DOCEREE_CLICK_URL_UNESC", with: "")
                 let isImpressionLinkNullOrEmpty: Bool = (adResponseData?.impressionLink ?? "").isEmpty
                 if (!isImpressionLinkNullOrEmpty) {
-                    self.docereeAdRequest?.sendAdImpression(impressionUrl: (adResponseData?.impressionLink)!)
+                    ImpressionService.init().sendAdImpression(impressionUrl: (adResponseData?.impressionLink)!)
                 }
                 if !isRichMediaAd {
                     createSimpleAd(sourceURL: adResponseData?.sourceURL)
@@ -349,6 +356,11 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         }
     }
     
+    private func createPassbackHTML(passbackTag: String) -> String {
+        let htmlStr = "<html><head><style>html,body{padding:0;margin:0;}</style><meta name='viewport' content='width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'></head><body>\(passbackTag)</body></html>"
+        return htmlStr
+    }
+
     private func handleImageRendering(of imageUrl: URL?) {
         if imageUrl == nil || imageUrl?.absoluteString.count == 0 {
             return
@@ -431,13 +443,13 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
             } else {
                 self.infoImageView = UIImageView(image: UIImage(named: "info", in: nil, compatibleWith: nil))
             }
-            infoImageView!.frame = CGRect(x: latestX - (iconWidth + 2), y: iconHeight/10, width: iconWidth, height: iconHeight)
             infoImageView?.backgroundColor = .white
             infoImageView!.tintColor =  UIColor.init(hexString: "#6C40F7")
             infoImageView!.isUserInteractionEnabled = true
             let tap = UITapGestureRecognizer(target: self, action: #selector(startLabelAnimation))
             infoImageView!.addGestureRecognizer(tap)
         }
+        infoImageView!.frame = CGRect(x: latestX - (iconWidth + 2), y: iconHeight/10, width: iconWidth, height: iconHeight)
         if !isRichMediaAd {
             self.adImageView.addSubview(infoImageView!)
         } else {
@@ -446,13 +458,15 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
   
     }
     
+    //MARK: Actions
+    
     @objc func openPharmaLeadView(_ sender: UITapGestureRecognizer) {
         if docereeAdRequest != nil && self.parentViewController != nil {
             customTimer?.isPaused = true
             let newView = DisplayPlusView(frame: CGRectMake(0, 0, adSize?.width ?? 0, adSize?.height ?? 0), completion: { dict in
 //                self.customTimer?.isPaused = false
                 print("data: \(dict)")
-                self.docereeAdRequest?.sendPharmaLeads(self.adResponseData, "300x250", dict)
+                PharmaLeadsService.init().sendPharmaLeads(self.adResponseData, "300x250", dict)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
                     self.refresh()
                 }
@@ -492,27 +506,14 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     
     private func openAdConsent() {
         let consentUV = AdConsentUIView(with: self.adSize!, frame: self.frame, rootVC: self.rootViewController, adView: self, isRichMedia: false)
-        if !isRichMediaAd {
-            self.adImageView.removeFromSuperview()
-        } else {
-            self.adWebView.removeFromSuperview()
-        }
+//        if !isRichMediaAd {
+//            self.adImageView.removeFromSuperview()
+//        } else {
+//            self.adWebView.removeFromSuperview()
+//        }
         self.addSubview(consentUV!)
     }
-    
-    public override class var requiresConstraintBasedLayout: Bool {
-        return true
-    }
-    
-    private func removeAllViews() {
-        DispatchQueue.main.async {
-            for v in self.subviews {
-                v.removeFromSuperview()
-            }
-        }
-    }
-    
-    //Mark: Action method
+
     @objc func onImageTouched(_ sender: UITapGestureRecognizer) {
         if let url = URL(string: "\(ctaLink ?? "")"), !url.absoluteString.isEmpty, UIApplication.shared.canOpenURL(url) {
             DocereeAdView.self.didLeaveAd = true
@@ -554,6 +555,14 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         self.sendViewTime(standard: "mrc")
     }
     
+    private func removeAllViews() {
+        DispatchQueue.main.async {
+            for v in self.subviews {
+                v.removeFromSuperview()
+            }
+        }
+    }
+
     //will call on dismiss view
     public override func willMove(toWindow newWindow: UIWindow?) {
         if window != nil {
@@ -575,10 +584,19 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     // MARK: Rich Media Setup
     private func initializeRichAds(frame: CGRect?, body: String?) {
         initWebView(frame: frame!)
-        let url = URL(fileURLWithPath: "https://adbserver.doceree.com/")
+        let url = URL(fileURLWithPath: WebAPI.myURL)
         adWebView.loadHTMLString(body!, baseURL: url)
         setupConsentIcons()
     }
+
+}
+
+
+//MARK: - Extensions
+
+//MARK: - Webview
+
+extension DocereeAdView: WKNavigationDelegate, WKUIDelegate  {
     
     // MARK: initialize webView
     private func initWebView(frame: CGRect) {
@@ -612,14 +630,6 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         self.addConstraints(webViewSizeConstraints)
     }
 
-    private func createPassbackHTML(passbackTag: String) -> String {
-        let htmlStr = "<html><head><style>html,body{padding:0;margin:0;}</style><meta name='viewport' content='width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'></head><body>\(passbackTag)</body></html>"
-        return htmlStr
-    }
-
-}
-
- extension DocereeAdView {
      /* Handle HTTP requests from the webview */
      public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
          if navigationAction.navigationType == .linkActivated  {

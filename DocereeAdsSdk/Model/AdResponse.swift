@@ -63,6 +63,13 @@ internal struct AdResponse: Codable {
         self.isDisplayFormEnable = try container.decodeIfPresent(Bool.self, forKey: .isDisplayFormEnable)
     }
     
+    func isNewPlatformUid() -> Bool {
+        if let count = self.newPlatformUid?.count, count > 0 {
+            return true
+        }
+        return false
+    }
+    
     func subcampaignId() -> String? {
         return self.CBID?.components(separatedBy: "__")[0]
     }

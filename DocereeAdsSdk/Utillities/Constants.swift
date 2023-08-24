@@ -65,7 +65,7 @@ enum QueryParamsForGetImage: String {
     case appKey = "appKey"
 }
 
-enum AdBlockService: String {
+enum AdBlock: String {
     case advertiserCampID = "advertiserCampID"
     case publisherACSID = "publisherACSID"
     case blockLevel = "blockLevel"
@@ -138,4 +138,9 @@ enum PharmaLeads: String {
     case dimension = "dimension"
     case codeSnippetId = "codeSnippetId"
     case platformUid = "platformUid"
+    case isNewPlatformUid = "isNewPlatformUid"
+}
+
+struct WebAPI {
+   static let myURL: String = "https://adbserver.doceree.com/"
 }
