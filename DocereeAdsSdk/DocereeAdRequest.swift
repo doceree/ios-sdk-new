@@ -79,14 +79,14 @@ public final class DocereeAdRequest {
             //        var loggedInUser = DataController.shared.getLoggedInUser()
             let jsonEncoder = JSONEncoder()
             jsonEncoder.outputFormatting = .prettyPrinted
-            let jsonData = try? jsonEncoder.encode(loggedInUser)
-            let json = String(data: jsonData!, encoding: .utf8)!
-            let data: Data = json.data(using: .utf8)!
-            let json_string = String(data: data, encoding: .utf8)!.replacingOccurrences(of: "\n", with: "")
+//            let jsonData = try? jsonEncoder.encode(loggedInUser)
+//            let json = String(data: jsonData!, encoding: .utf8)!
+//            let data: Data = json.data(using: .utf8)!
+//            let json_string = String(data: data, encoding: .utf8)!.replacingOccurrences(of: "\n", with: "")
             let ua = UAString.init().UAString()
             
             //header
-            //            self.requestHttpHeaders.add(value: "application/json", forKey: "Content-Type")
+            self.requestHttpHeaders.add(value: "application/json", forKey: "Content-Type")
             self.requestHttpHeaders.add(value: ua, forKey: Header.header_user_agent.rawValue)
             self.requestHttpHeaders.add(value: advertisementId!, forKey: Header.header_advertising_id.rawValue)
             self.requestHttpHeaders.add(value: self.isVendorId ? "1" : "0", forKey: Header.is_vendor_id.rawValue)
@@ -95,56 +95,80 @@ public final class DocereeAdRequest {
             self.requestHttpHeaders.add(value: Bundle.main.bundleIdentifier!, forKey: Header.header_app_bundle.rawValue)
             self.requestHttpHeaders.add(value: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String, forKey: Header.header_app_version.rawValue)
             self.requestHttpHeaders.add(value: sdkVersion, forKey: Header.header_lib_version.rawValue)
+            self.requestHttpHeaders.add(value: "https://sufiyan.doceree.us/", forKey: Header.header_origin.rawValue)
+            self.requestHttpHeaders.add(value: "https://sufiyan.doceree.us/qa-india/8/", forKey: Header.header_refer.rawValue)
             
             // query params
-            self.urlQueryParameters.add(value: appKey, forKey: QueryParamsForGetImage.appKey.rawValue) // DocereeAdsIdentifier
-            self.urlQueryParameters.add(value: slotId, forKey: QueryParamsForGetImage.id.rawValue)
-            self.urlQueryParameters.add(value: size, forKey: QueryParamsForGetImage.size.rawValue)
-            self.urlQueryParameters.add(value: "mobileApp", forKey: QueryParamsForGetImage.platformType.rawValue)
+//            self.urlQueryParameters.add(value: appKey, forKey: QueryParamsForGetImage.appKey.rawValue) // DocereeAdsIdentifier
+//            self.urlQueryParameters.add(value: slotId, forKey: QueryParamsForGetImage.id.rawValue)
+//            self.urlQueryParameters.add(value: size, forKey: QueryParamsForGetImage.size.rawValue)
+//            self.urlQueryParameters.add(value: "mobileApp", forKey: QueryParamsForGetImage.platformType.rawValue)
             
-            if let platformuid = NSKeyedUnarchiver.unarchiveObject(withFile: PlatformArchivingUrl.path) as? String {
-                var data: Dictionary<String, String?>
-                if loggedInUser.npi != nil {
-                    data = Dictionary()
-                    data = ["platformUid": platformuid]
-                } else {
-                    data = Dictionary()
-                    data = ["platformUid": platformuid,
-                            "city": loggedInUser.city,
-                            "specialization": loggedInUser.specialization]
-                    if let email = loggedInUser.email {
-                        data["email"] = email
-                    }
-                    if let hashedEmail = loggedInUser.hashedEmail {
-                        data["hashedEmail"] = hashedEmail
-                    }
-                    if let gmc = loggedInUser.gmc {
-                        data["gmc"] = gmc
-                    }
-                    if let hashedGMC = loggedInUser.hashedGMC {
-                        data["hashedGMC"] = hashedGMC
-                    }
-                        
-                }
-                let jsonData = try? JSONSerialization.data(withJSONObject: data, options: [])
-                let jsonString = String(data: jsonData!, encoding: .utf8)?.toBase64() // encode to base64
-                self.urlQueryParameters.add(value: jsonString!, forKey: QueryParamsForGetImage.loggedInUser.rawValue)
-                self.isPlatformUidPresent = true
-            } else{
-                self.urlQueryParameters.add(value: json_string.toBase64()!, forKey: QueryParamsForGetImage.loggedInUser.rawValue)
-                self.isPlatformUidPresent = false
-            }
+            // query params
+            let josnObject: [String : Any] = [
+                QueryParamsForAdRequest.userid.rawValue : advertisementId as Any,
+                QueryParamsForAdRequest.email.rawValue : loggedInUser.email ?? "",
+                QueryParamsForAdRequest.firstName.rawValue : loggedInUser.firstName ?? "",
+                QueryParamsForAdRequest.lastName.rawValue : loggedInUser.lastName ?? "",
+                QueryParamsForAdRequest.specialization.rawValue : loggedInUser.specialization ?? "",
+                QueryParamsForAdRequest.hcpId.rawValue : loggedInUser.mciRegistrationNumber ?? "",
+                QueryParamsForAdRequest.gender.rawValue : loggedInUser.gender ?? "",
+                QueryParamsForAdRequest.city.rawValue : loggedInUser.city ?? "",
+                QueryParamsForAdRequest.state.rawValue : "",
+                QueryParamsForAdRequest.zipCode.rawValue : loggedInUser.zipCode ?? "",
+                QueryParamsForAdRequest.hashedNPI.rawValue : loggedInUser.hashedNPI ?? "",
+                QueryParamsForAdRequest.adUnit.rawValue : slotId ?? "",
+                QueryParamsForAdRequest.br.rawValue : "",
+                QueryParamsForAdRequest.cdt.rawValue : "",
+                QueryParamsForAdRequest.privacyConsent.rawValue: 1
+            ]
+            
+            
+            
+//            if let platformuid = NSKeyedUnarchiver.unarchiveObject(withFile: PlatformArchivingUrl.path) as? String {
+//                var data: Dictionary<String, String?>
+//                if loggedInUser.npi != nil {
+//                    data = Dictionary()
+//                    data = ["platformUid": platformuid]
+//                } else {
+//                    data = Dictionary()
+//                    data = ["platformUid": platformuid,
+//                            "city": loggedInUser.city,
+//                            "specialization": loggedInUser.specialization]
+//                    if let email = loggedInUser.email {
+//                        data["email"] = email
+//                    }
+//                    if let hashedEmail = loggedInUser.hashedEmail {
+//                        data["hashedEmail"] = hashedEmail
+//                    }
+//                    if let gmc = loggedInUser.gmc {
+//                        data["gmc"] = gmc
+//                    }
+//                    if let hashedGMC = loggedInUser.hashedGMC {
+//                        data["hashedGMC"] = hashedGMC
+//                    }
+//
+//                }
+//                let jsonData = try? JSONSerialization.data(withJSONObject: data, options: [])
+//                let jsonString = String(data: jsonData!, encoding: .utf8)?.toBase64() // encode to base64
+//                self.urlQueryParameters.add(value: jsonString!, forKey: QueryParamsForGetImage.loggedInUser.rawValue)
+//                self.isPlatformUidPresent = true
+//            } else{
+//                self.urlQueryParameters.add(value: json_string.toBase64()!, forKey: QueryParamsForGetImage.loggedInUser.rawValue)
+//                self.isPlatformUidPresent = false
+//            }
+            let body = josnObject
             let config = URLSessionConfiguration.default
             let session = URLSession(configuration: config)
             var components = URLComponents()
             components.scheme = "https"
             components.host = getHost(type: DocereeMobileAds.shared().getEnvironment())
             components.path = getPath(methodName: Methods.GetImage)
-            var queryItems: [URLQueryItem] = []
-            for (key, value) in self.urlQueryParameters.allValues(){
-                queryItems.append(URLQueryItem(name: key, value: value))
-            }
-            components.queryItems = queryItems
+//            var queryItems: [URLQueryItem] = []
+//            for (key, value) in self.urlQueryParameters.allValues(){
+//                queryItems.append(URLQueryItem(name: key, value: value))
+//            }
+//            components.queryItems = queryItems
             var urlRequest = URLRequest(url: (components.url)!)
             
             // set headers
@@ -152,15 +176,24 @@ public final class DocereeAdRequest {
                 urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
             }
             
-            urlRequest.httpMethod = HttpMethod.get.rawValue
+            urlRequest.httpMethod = HttpMethod.post.rawValue
+            let jsonData: Data
+            do {
+                jsonData = try JSONSerialization.data(withJSONObject: body, options: [])
+                urlRequest.httpBody = jsonData
+            } catch{
+                return
+            }
             let task = session.dataTask(with: urlRequest) {(data, response, error) in
                 guard let data = data else { return }
+                data.printJSON()
                 let urlResponse = response as! HTTPURLResponse
                 if urlResponse.statusCode == 200 {
                     print("Test: Ad Request")
                     do {
+                        
                         let adResponseData: AdResponse = try JSONDecoder().decode(AdResponse.self, from: data)
-                        print("Ad Response: \(adResponseData)")
+//                        print("Ad Response: \(adResponseData)")
                         if adResponseData.errMessage != nil && adResponseData.errMessage!.count > 0 {
                             completion(Results(withData: nil, response: response as? HTTPURLResponse, error: DocereeAdRequestError.failedToCreateRequest), adResponseData.isAdRichMedia())
                             return
@@ -186,22 +219,19 @@ public final class DocereeAdRequest {
             }
         }
     }
+
     
     internal func sendAdImpression(impressionUrl: String) {
-        let updatedUrl: String? = impressionUrl
-        let url: URL = URL(string: updatedUrl!)!
+        
+        let url: URL = URL(string: impressionUrl)!
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = HttpMethod.get.rawValue
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
-        
-        // set headers
-//        for header in requestHttpHeaders.allValues() {
-//            urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
-//        }
-        
+
         let task = session.dataTask(with: urlRequest){ (data, response, error) in
             guard data != nil else { return }
+            data?.printJSON()
             let urlResponse = response as! HTTPURLResponse
             print("impression sent. Http Status code is \(urlResponse.statusCode)")
         }
@@ -216,12 +246,7 @@ public final class DocereeAdRequest {
         urlRequest.httpMethod = HttpMethod.get.rawValue
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
-        
-        // set headers
-//        for header in requestHttpHeaders.allValues() {
-//            urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
-//        }
-        
+
         let task = session.dataTask(with: urlRequest){ (data, response, error) in
             guard data != nil else { return }
             let urlResponse = response as! HTTPURLResponse
@@ -231,9 +256,10 @@ public final class DocereeAdRequest {
     }
     
     internal func sendAdBlockRequest(_ advertiserCampID: String?, _ blockLevel: String?, _ platformUid: String?, _ publisherACSID: String?){
-        if ((advertiserCampID ?? "").isEmpty || (blockLevel ?? "").isEmpty || (platformUid ?? "").isEmpty || (publisherACSID ?? "").isEmpty) {
-            return
-        }
+//        if ((advertiserCampID ?? "").isEmpty || (blockLevel ?? "").isEmpty || (platformUid ?? "").isEmpty || (publisherACSID ?? "").isEmpty) {
+//            return
+//        }
+        
         let ua: String = UAString.init().UAString()
         // headers
         self.requestHttpHeaders.add(value: "application/json", forKey: "Content-Type")
@@ -241,10 +267,10 @@ public final class DocereeAdRequest {
         
         // query params
         var httpBodyParameters = RestEntity()
-        httpBodyParameters.add(value: advertiserCampID!, forKey: AdBlockService.advertiserCampID.rawValue)
-        httpBodyParameters.add(value: blockLevel!, forKey: AdBlockService.blockLevel.rawValue)
-        httpBodyParameters.add(value: platformUid!, forKey: AdBlockService.platformUid.rawValue)
-        httpBodyParameters.add(value: publisherACSID!, forKey: AdBlockService.publisherACSID.rawValue)
+        httpBodyParameters.add(value: advertiserCampID ?? "", forKey: AdBlockService.advertiserCampID.rawValue)
+        httpBodyParameters.add(value: blockLevel ?? "", forKey: AdBlockService.blockLevel.rawValue)
+        httpBodyParameters.add(value: platformUid ?? "", forKey: AdBlockService.platformUid.rawValue)
+        httpBodyParameters.add(value: publisherACSID ?? "", forKey: AdBlockService.publisherACSID.rawValue)
         
         let body = httpBodyParameters.allValues()
 //        print("AdBlock request passed is \(body)")
@@ -350,5 +376,16 @@ public final class DocereeAdRequest {
         }
         task.resume()
 
+    }
+}
+
+extension Data
+{
+    func printJSON()
+    {
+        if let JSONString = String(data: self, encoding: String.Encoding.utf8)
+        {
+            print(JSONString)
+        }
     }
 }

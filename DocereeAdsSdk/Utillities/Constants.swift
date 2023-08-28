@@ -55,14 +55,26 @@ enum Header: String {
     case header_app_version = "app-version"
     case header_lib_version = "lib-version"
     case header_app_bundle = "app-bundle"
+    case header_origin = "origin"
+    case header_refer = "refer"
 }
 
-enum QueryParamsForGetImage: String {
-    case id = "id"
-    case size = "size"
-    case loggedInUser = "loggedInUser"
-    case platformType = "platformType"
-    case appKey = "appKey"
+enum QueryParamsForAdRequest: String {
+    case userid = "userid"
+    case email = "email"
+    case firstName = "firstname"
+    case lastName = "lastname"
+    case specialization = "specialization"
+    case hcpId = "hcpid"
+    case gender = "gender"
+    case city = "city"
+    case state = "state"
+    case zipCode = "zipcode"
+    case hashedNPI = "hashedNPI"
+    case adUnit = "adunit"
+    case br = "br"
+    case cdt = "cdt"
+    case privacyConsent = "privacyConsent"
 }
 
 enum AdBlockService: String {

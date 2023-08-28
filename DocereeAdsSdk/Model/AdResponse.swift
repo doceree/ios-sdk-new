@@ -1,6 +1,86 @@
 
 import Foundation
 
+// MARK: - AlertListResponseElement
+struct AdResponseNew: Codable {
+    let sourceURL: String?
+    let CBID: String?
+    let DIVID: String?
+    let ctaLink: String?
+    let newPlatformUid: String?
+    let height: String?
+    let width: String?
+    let platformUID: String?
+    let debugMessage: String?
+    let version: String?
+    let maxAge: Int?
+    let passbackTag: String?
+    let impressionLink: String?
+    let IntegrationType: String?
+    let creativeType: String?
+    let errMessage: String?
+    let viewLink: String?
+    let minViewPercentage: Int?
+    let minViewTime: Int?
+    let script: String?
+    let adRenderURL: String?
+    let adViewedURL: String?
+
+    enum CodingKeys: String, CodingKey {
+        case sourceURL
+        case CBID
+        case DIVID
+        case ctaLink
+        case newPlatformUid
+        case height
+        case width
+        case platformUID
+        case debugMessage
+        case version
+        case maxAge
+        case passbackTag
+        case impressionLink
+        case IntegrationType
+        case creativeType
+        case errMessage
+        case viewLink
+        case minViewPercentage
+        case minViewTime
+        case script
+        case adRenderURL
+        case adViewedURL
+    }
+    
+    internal func isAdRichMedia() -> Bool{
+        return true
+        let givenType = self.creativeType
+        let html = "html"
+        let custom_html = "custom_html"
+        let text_ad = "text_ad"
+        return compareIfSame(presentValue: givenType!, expectedValue: html) || compareIfSame(presentValue: givenType!, expectedValue: custom_html) || compareIfSame(presentValue: givenType!, expectedValue: text_ad)
+    }
+    internal func standard() -> String {
+        if minViewTime == 0 {
+            return "mrc"
+        } else {
+            return "custom"
+        }
+        
+    }
+    func compareIfSame(presentValue: String, expectedValue: String) -> Bool {
+        return presentValue.caseInsensitiveCompare(expectedValue) == ComparisonResult.orderedSame
+    }
+}
+
+struct AdResponseMain: Codable {
+    let response: [AdResponseNew]
+
+    enum CodingKeys: String, CodingKey {
+        case response
+    }
+}
+
+
 internal struct AdResponse: Codable {
     let sourceURL: String?
     let CBID: String?
@@ -21,6 +101,7 @@ internal struct AdResponse: Codable {
     let viewLink: String?
     let minViewPercentage: Int?
     let minViewTime: Int?
+    let script: String?
     
     enum Platformuid: String{
         case platformuid = "platformuid"
@@ -47,9 +128,11 @@ internal struct AdResponse: Codable {
         self.viewLink = try container.decodeIfPresent(String.self, forKey: .viewLink)
         self.minViewPercentage = try container.decodeIfPresent(Int.self, forKey: .minViewPercentage)
         self.minViewTime = try container.decodeIfPresent(Int.self, forKey: .minViewTime)
+        self.script = try container.decodeIfPresent(String.self, forKey: .script)
     }
     
     internal func isAdRichMedia() -> Bool{
+        return true
         let givenType = self.creativeType
         let html = "html"
         let custom_html = "custom_html"
