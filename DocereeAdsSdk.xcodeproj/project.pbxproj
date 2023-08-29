@@ -33,6 +33,7 @@
 		54EBB05328366CD800C7B249 /* CustomTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB05228366CD800C7B249 /* CustomTimer.swift */; };
 		54EBB05F28366F6E00C7B249 /* DocereeMobileAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB05E28366F6E00C7B249 /* DocereeMobileAds.swift */; };
 		54EBB061283671AA00C7B249 /* DocereeAdViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB060283671AA00C7B249 /* DocereeAdViewDelegate.swift */; };
+		54F27B772A98E53D00AD384A /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F27B762A98E53D00AD384A /* DateExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,7 @@
 		54EBB05228366CD800C7B249 /* CustomTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimer.swift; sourceTree = "<group>"; };
 		54EBB05E28366F6E00C7B249 /* DocereeMobileAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocereeMobileAds.swift; sourceTree = "<group>"; };
 		54EBB060283671AA00C7B249 /* DocereeAdViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocereeAdViewDelegate.swift; sourceTree = "<group>"; };
+		54F27B762A98E53D00AD384A /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				54EBB00E2832240B00C7B249 /* Extensions.swift */,
+				54F27B762A98E53D00AD384A /* DateExtension.swift */,
 				54EBB00F2832240B00C7B249 /* ImageExtensions.swift */,
 				54EBB00D2832240B00C7B249 /* StringExtensions.swift */,
 			);
@@ -257,6 +260,7 @@
 				54EBB007282E87AF00C7B249 /* AdResponse.swift in Sources */,
 				54EBB0112832240B00C7B249 /* Extensions.swift in Sources */,
 				54EBB016283225D200C7B249 /* DocereeRequestError.swift in Sources */,
+				54F27B772A98E53D00AD384A /* DateExtension.swift in Sources */,
 				54EBB05F28366F6E00C7B249 /* DocereeMobileAds.swift in Sources */,
 				54EBB0432834F62700C7B249 /* AdConsentUIView.swift in Sources */,
 				54EBAFF9282E855C00C7B249 /* Helpers.swift in Sources */,
@@ -415,7 +419,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 5.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.doceree.DocereeAdsSdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -445,7 +449,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 5.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.doceree.DocereeAdsSdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

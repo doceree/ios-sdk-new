@@ -19,6 +19,7 @@ public final class Hcp: NSObject, NSCoding, Encodable {
     var npi: String?
     var hashedNPI: String?
     var hashedEmail: String?
+    var state: String?
 
     private init(builder: HcpBuilder) {
         self.firstName = builder.firstName
@@ -36,9 +37,10 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         self.npi = builder.npi
         self.hashedEmail = builder.hashedEmail
         self.hashedNPI = builder.hashedNPI
+        self.state = builder.state
     }
     
-    private init(firstName: String?, lastName: String?, specialization: String?, organisation: String?, gender: String?, city: String?, zipCode: String?, email: String?, mobile: String?, mciRegistrationNumber: String?,  gmc: String?, hashedGMC: String?, npi: String?, hashedNPI: String?, hashedEmail: String?) {
+    private init(firstName: String?, lastName: String?, specialization: String?, organisation: String?, gender: String?, city: String?, zipCode: String?, email: String?, mobile: String?, mciRegistrationNumber: String?,  gmc: String?, hashedGMC: String?, npi: String?, hashedNPI: String?, hashedEmail: String?, state: String?) {
         self.firstName = firstName
         self.lastName = lastName
         self.specialization = specialization
@@ -54,6 +56,7 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         self.npi = npi
         self.hashedEmail = hashedEmail
         self.hashedNPI = hashedNPI
+        self.state = state
     }
     
     public func encode(with coder: NSCoder) {
@@ -72,6 +75,7 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         coder.encode(npi, forKey: HcpProfile.npi)
         coder.encode(hashedNPI, forKey: HcpProfile.hashedNPI)
         coder.encode(hashedEmail, forKey: HcpProfile.hashedEmail)
+        coder.encode(state, forKey: HcpProfile.state)
     }
     
     required convenience public init?(coder aDecoder: NSCoder) {
@@ -90,8 +94,9 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         let npi = aDecoder.decodeObject(forKey: HcpProfile.npi) as? String
         let hashedNPI = aDecoder.decodeObject(forKey: HcpProfile.hashedNPI) as? String
         let hashedEmail = aDecoder.decodeObject(forKey: HcpProfile.hashedEmail) as? String
+        let state = aDecoder.decodeObject(forKey: HcpProfile.state) as? String
        
-        self.init(firstName: firstName, lastName: lastName, specialization: specialization, organisation: organisation, gender: gender, city: city, zipCode: zipcode, email: email, mobile: mobile, mciRegistrationNumber: mciRegistrationNumber, gmc: gmc, hashedGMC: hashedGMC, npi: npi, hashedNPI: hashedNPI, hashedEmail: hashedEmail)
+        self.init(firstName: firstName, lastName: lastName, specialization: specialization, organisation: organisation, gender: gender, city: city, zipCode: zipcode, email: email, mobile: mobile, mciRegistrationNumber: mciRegistrationNumber, gmc: gmc, hashedGMC: hashedGMC, npi: npi, hashedNPI: hashedNPI, hashedEmail: hashedEmail, state: state)
     }
     
     public class HcpBuilder {
@@ -113,6 +118,7 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         var npi: String?
         var hashedNPI: String?
         var hashedEmail: String?
+        var state: String?
         
         public func setFirstName(firstName: String?) -> HcpBuilder {
             self.firstName = firstName
@@ -189,6 +195,11 @@ public final class Hcp: NSObject, NSCoding, Encodable {
             return self
         }
         
+        public func setState(state: String?) -> HcpBuilder {
+            self.state = state
+            return self
+        }
+        
         public func getName() -> String {
             guard let loggedInUser = DocereeMobileAds.shared().getProfile() else {
                 print("Error: Not found profile data")
@@ -228,4 +239,5 @@ struct HcpProfile {
     static let npi = "npi"
     static let hashedNPI = "hashedNPI"
     static let hashedEmail = "hashedEmail"
+    static let state = "state"
 }

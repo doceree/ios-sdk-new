@@ -33,7 +33,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     private var adWebView: WKWebView!
     
     static var didLeaveAd: Bool = false
-    var adResponseData: AdResponse?
+    var adResponseData: AdResponseNew?
     private var totalViewTime = 0
     private var savedViewPercentage: Float = 0.0
     private var OneSecMrcSent = false
@@ -145,7 +145,11 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         
         let viewPercentage = checkViewability(adView: self)
         if viewPercentage >= viewportPercentage {
-            docereeAdRequest.requestAd(self.docereeAdUnitId, size) { (results, isRichMediaAd) in
+            var uId: String? = nil
+            if let userId = adResponseData?.userId {
+                uId = userId
+            }
+            docereeAdRequest.requestAd(uId, self.docereeAdUnitId, size) { (results, isRichMediaAd) in
                 if let data = results.data {
                     self.isRichMediaAd = isRichMediaAd
                     self.createAdUI(data: data, isRichMediaAd: isRichMediaAd)
@@ -175,7 +179,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         customTimer?.stop()
         customTimer = CustomTimer { (seconds) in
 
-            let isViewLinkNullOrEmpty: Bool = (self.adResponseData?.viewLink ?? "").isEmpty
+            let isViewLinkNullOrEmpty: Bool = (self.adResponseData?.adViewedURL ?? "").isEmpty
             let isPassbackEmpty: Bool = (self.adResponseData?.passbackTag ?? "").isEmpty
             if adFound && (!isViewLinkNullOrEmpty) && isPassbackEmpty {
                 let viewPercentage = checkViewability(adView: self)
@@ -228,22 +232,21 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     func sendViewTime(standard: String) {
         if totalViewTime > 0 && (savedViewPercentage > 50 || Int(savedViewPercentage) >= (self.adResponseData?.minViewPercentage)!) {
             print("View Time: ", totalViewTime)
-            let isViewLinkNullOrEmpty: Bool = (adResponseData?.viewLink ?? "").isEmpty
-            if (!isViewLinkNullOrEmpty) {
-                var viewLink = adResponseData?.viewLink
+            if var viewLink = adResponseData?.adViewedURL, !viewLink.isEmpty {
+                viewLink = viewLink.replacingOccurrences(of: "{{EVENT_CLIENT_TIME}}", with: Date.currentTimeMillis())
                 if standard == "mrc" {
                     if totalViewTime == 1 {
-                        viewLink = viewLink?.replacingOccurrences(of: "_viewTime", with: String(1))
+                        viewLink = viewLink.replacingOccurrences(of: "{{VIEWED_TIME}}", with: String(1))
                     } else {
-                        viewLink = viewLink?.replacingOccurrences(of: "_viewTotalTime", with: String(totalViewTime))
+                        viewLink = viewLink.replacingOccurrences(of: "{{VIEWED_TIME}}", with: String(totalViewTime))
                     }
-                    viewLink = viewLink?.replacingOccurrences(of: "_viewPercentage", with: String(50))
+                    viewLink = viewLink.replacingOccurrences(of: "{{VIEWED_PERCENTAGE}}", with: String(50))
                 } else {
-                    viewLink = viewLink?.replacingOccurrences(of: "_viewTime", with: String((self.adResponseData?.minViewTime)!))
-                    viewLink = viewLink?.replacingOccurrences(of: "_viewPercentage", with: String((self.adResponseData?.minViewPercentage)!))
+                    viewLink = viewLink.replacingOccurrences(of: "{{VIEWED_TIME}}", with: String((self.adResponseData?.minViewTime)!))
+                    viewLink = viewLink.replacingOccurrences(of: "{{VIEWED_PERCENTAGE}}", with: String((self.adResponseData?.minViewPercentage)!))
                 }
-                viewLink = viewLink?.replacingOccurrences(of: "_std", with: standard)
-                self.docereeAdRequest?.sendAdViewability(viewLink: viewLink!)
+                viewLink = viewLink.replacingOccurrences(of: "_std", with: standard)
+                self.docereeAdRequest?.sendAdViewability(viewLink: viewLink)
             }
 
             if standard == "mrc" && self.OneSecMrcSent == true {
@@ -256,25 +259,25 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     private func createAdUI(data: Data, isRichMediaAd: Bool) {
         let decoder = JSONDecoder()
         do {
-            adResponseData = try decoder.decode(AdResponse.self, from: data)
+            let rs = try decoder.decode(AdResponseMain.self, from: data)
+            adResponseData = rs.response[0]//try decoder.decode(AdResponse.self, from: data)
             if let tag = adResponseData?.passbackTag, !tag.isEmpty {
                 createPassbackAd(tag: tag)
             } else {
-                if (adResponseData?.sourceURL ?? "").isEmpty {
-                    self.removeAllViews()
-                    return
-                }
                 self.cbId = adResponseData?.CBID?.components(separatedBy: "_")[0]
-                self.docereeAdUnitId = (adResponseData?.DIVID)!
-                self.ctaLink = adResponseData?.ctaLink?.replacingOccurrences(of: "DOCEREE_CLICK_URL_UNESC", with: "")
-                let isImpressionLinkNullOrEmpty: Bool = (adResponseData?.impressionLink ?? "").isEmpty
-                if (!isImpressionLinkNullOrEmpty) {
-                    self.docereeAdRequest?.sendAdImpression(impressionUrl: (adResponseData?.impressionLink)!)
+                self.docereeAdUnitId = adResponseData?.adUnit ?? ""
+                self.ctaLink = adResponseData?.clickURL?.replacingOccurrences(of: "DOCEREE_CLICK_URL_UNESC", with: "")
+                if var adRenderURL = adResponseData?.adRenderURL, !adRenderURL.isEmpty {
+                    adRenderURL = adRenderURL.replacingOccurrences(of: "{{EVENT_CLIENT_TIME}}", with: Date.currentTimeMillis())
+                        self.docereeAdRequest?.sendAdImpression(impressionUrl: adRenderURL)
                 }
+
                 if !isRichMediaAd {
-                    createSimpleAd(sourceURL: adResponseData?.sourceURL)
+                    createSimpleAd(imagePath: adResponseData?.imagePath)
                 } else {
-                    createRichMediaAd(sourceURL: adResponseData?.sourceURL)
+                    if let script = adResponseData?.script {
+                        createRichMediaAd(script: script)
+                    }
                 }
             }
         } catch {
@@ -283,8 +286,8 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         }
     }
     
-    private func createSimpleAd(sourceURL: String?) {
-        if let urlString = sourceURL, urlString.count > 0 {
+    private func createSimpleAd(imagePath: String?) {
+        if let urlString = imagePath, urlString.count > 0 {
             DispatchQueue.main.async {
                 NotificationCenter.default.setObserver(observer: self, selector: #selector(self.appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
                 NotificationCenter.default.setObserver(observer: self, selector: #selector(self.willMoveToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
@@ -301,38 +304,17 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         }
     }
     
-    private func createRichMediaAd(sourceURL: String?) {
+    private func createRichMediaAd(script: String?) {
         // Handle Rich media ads here
         // Show mraid banner
         // get source url and download html body
-        if let urlString = sourceURL, urlString.count > 0 {
-            if let url = URL(string: urlString) {
-                do {
-                    let htmlContent = try String(contentsOf: url)
-                    var refinedHtmlContent = htmlContent.withReplacedCharacter("<head>", by: "<head><style>html,body{padding:0;margin:0;}</style><base href=" + (urlString.components(separatedBy: "unzip")[0]) + "unzip/" + "target=\"_blank\">")
-                    if (self.ctaLink != nil && self.ctaLink!.count > 0) {
-                        refinedHtmlContent = refinedHtmlContent.replacingOccurrences(of: "[TRACKING_LINK]", with: self.ctaLink!)
-                    }
-                    let body: String = refinedHtmlContent
-                    if (body.count == 0) {
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        NotificationCenter.default.setObserver(observer: self, selector: #selector(self.appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
-                        NotificationCenter.default.setObserver(observer: self, selector: #selector(self.willMoveToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
-                        NotificationCenter.default.setObserver(observer: self, selector: #selector(self.didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
-                        self.initializeRichAds(frame: self.frame, body: body)
-                        if self.delegate != nil {
-                            self.delegate?.docereeAdViewDidReceiveAd(self)
-                        }
-                    }
-                } catch {
-                    self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
-                    self.removeAllViews()
-                }
-            } else {
-                self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
-                self.removeAllViews()
+        DispatchQueue.main.async {
+            NotificationCenter.default.setObserver(observer: self, selector: #selector(self.appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+            NotificationCenter.default.setObserver(observer: self, selector: #selector(self.willMoveToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+            NotificationCenter.default.setObserver(observer: self, selector: #selector(self.didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+            self.initializeRichAds(frame: self.frame, body: self.createHTMLBody(script: script!))
+            if self.delegate != nil {
+                self.delegate?.docereeAdViewDidReceiveAd(self)
             }
         }
     }
@@ -342,7 +324,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
             NotificationCenter.default.setObserver(observer: self, selector: #selector(self.appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
             NotificationCenter.default.setObserver(observer: self, selector: #selector(self.willMoveToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
             NotificationCenter.default.setObserver(observer: self, selector: #selector(self.didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
-            self.initializeRichAds(frame: self.frame, body: self.createPassbackHTML(passbackTag: tag))
+            self.initializeRichAds(frame: self.frame, body: self.createHTMLBody(script: tag))
             if self.delegate != nil {
                 self.delegate?.docereeAdViewDidReceiveAd(self)
             }
@@ -447,11 +429,11 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     
     private func openAdConsent() {
         let consentUV = AdConsentUIView(with: self.adSize!, frame: self.frame, rootVC: self.rootViewController, adView: self, isRichMedia: false)
-        if !isRichMediaAd {
-            self.adImageView.removeFromSuperview()
-        } else {
-            self.adWebView.removeFromSuperview()
-        }
+//        if !isRichMediaAd {
+//            self.adImageView.removeFromSuperview()
+//        } else {
+//            self.adWebView.removeFromSuperview()
+//        }
         self.addSubview(consentUV!)
     }
     
@@ -567,8 +549,8 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         self.addConstraints(webViewSizeConstraints)
     }
 
-    private func createPassbackHTML(passbackTag: String) -> String {
-        let htmlStr = "<html><head><style>html,body{padding:0;margin:0;}</style><meta name='viewport' content='width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'></head><body>\(passbackTag)</body></html>"
+    private func createHTMLBody(script: String) -> String {
+        let htmlStr = "<html><head><style>html,body{padding:0;margin:0;}</style><meta name='viewport' content='width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'></head><body>\(script)</body></html>"
         return htmlStr
     }
 
