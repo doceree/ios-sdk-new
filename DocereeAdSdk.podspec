@@ -8,8 +8,8 @@ Pod::Spec.new do |spec|
   spec.homepage     = 'https://github.com/doceree/ios-sdk-new'
   spec.authors      = { 'Muqeem Ahmad' => 'muqeem.ahmad@doceree.com' }
   spec.summary      = 'Doceree iOS SDK for mobile ads.'
-  spec.platform     = :ios, '11.0'
-  spec.ios.deployment_target = '11.0'
+  spec.platform     = :ios, "11.0"
+  spec.ios.deployment_target = "11.0"
   spec.source       = { :git => 'https://github.com/doceree/ios-sdk-new.git', :tag => spec.version }
   spec.source_files = "DocereeAdsSdk/**/*.{swift}", "DocereeAdsSdk/Utillities/APICall.swift"
   spec.resource_bundles = {'DocereeAdSdk' => 'DocereeAdsSdk/**/*.{png,jpeg,jpg,storyboard,xib,xcassets}'}
