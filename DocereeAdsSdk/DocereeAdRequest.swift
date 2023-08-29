@@ -15,6 +15,7 @@ public final class DocereeAdRequest {
     
     private var size: String?
     private var adUnitId: String?
+    private var userId: String?
     
     // MARK: Properties
     var requestHttpHeaders = RestEntity()
@@ -37,8 +38,9 @@ public final class DocereeAdRequest {
         return sharedObject
     }
     // MARK: Public methods
-    internal func requestAd(_ adUnitId: String!, _ size: String!, completion: @escaping(_ results: Results,
+    internal func requestAd(_ userId: String!, _ adUnitId: String!, _ size: String!, completion: @escaping(_ results: Results,
                                                                                         _ isRichMediaAd: Bool) -> Void) {
+        self.userId = userId
         self.adUnitId = adUnitId
         self.size = size
         setUpImage(self.size!, self.adUnitId!) { (results, isRichMediaAd) in
@@ -60,15 +62,19 @@ public final class DocereeAdRequest {
         }
         
         var advertisementId: String?
-        advertisementId = getIdentifierForAdvertising()
-        if (advertisementId == nil) {
-            if #available(iOS 10.0, *) {
-                os_log("Error: Ad Tracking is disabled . Please re-enable it to view ads", log: .default, type: .error)
-            } else {
-                // Fallback on earlier versions
-                print("Error: Ad Tracking is disabled . Please re-enable it to view ads")
+        if let adId = userId {
+            advertisementId = adId
+        } else {
+            advertisementId = getIdentifierForAdvertising()
+            if (advertisementId == nil) {
+                if #available(iOS 10.0, *) {
+                    os_log("Error: Ad Tracking is disabled . Please re-enable it to view ads", log: .default, type: .error)
+                } else {
+                    // Fallback on earlier versions
+                    print("Error: Ad Tracking is disabled . Please re-enable it to view ads")
+                }
+                return
             }
-            return
         }
         if advertisementId != nil {
             guard let loggedInUser = DocereeMobileAds.shared().getProfile() else {
@@ -95,8 +101,8 @@ public final class DocereeAdRequest {
             self.requestHttpHeaders.add(value: Bundle.main.bundleIdentifier!, forKey: Header.header_app_bundle.rawValue)
             self.requestHttpHeaders.add(value: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String, forKey: Header.header_app_version.rawValue)
             self.requestHttpHeaders.add(value: sdkVersion, forKey: Header.header_lib_version.rawValue)
-            self.requestHttpHeaders.add(value: "https://sufiyan.doceree.us/", forKey: Header.header_origin.rawValue)
-            self.requestHttpHeaders.add(value: "https://sufiyan.doceree.us/qa-india/8/", forKey: Header.header_refer.rawValue)
+//            self.requestHttpHeaders.add(value: "https://sufiyan.doceree.us/", forKey: Header.header_origin.rawValue)
+//            self.requestHttpHeaders.add(value: "https://sufiyan.doceree.us/qa-india/8/", forKey: Header.header_refer.rawValue)
             
             // query params
 //            self.urlQueryParameters.add(value: appKey, forKey: QueryParamsForGetImage.appKey.rawValue) // DocereeAdsIdentifier
@@ -114,7 +120,7 @@ public final class DocereeAdRequest {
                 QueryParamsForAdRequest.hcpId.rawValue : loggedInUser.mciRegistrationNumber ?? "",
                 QueryParamsForAdRequest.gender.rawValue : loggedInUser.gender ?? "",
                 QueryParamsForAdRequest.city.rawValue : loggedInUser.city ?? "",
-                QueryParamsForAdRequest.state.rawValue : "",
+                QueryParamsForAdRequest.state.rawValue : loggedInUser.state ?? "",
                 QueryParamsForAdRequest.zipCode.rawValue : loggedInUser.zipCode ?? "",
                 QueryParamsForAdRequest.hashedNPI.rawValue : loggedInUser.hashedNPI ?? "",
                 QueryParamsForAdRequest.adUnit.rawValue : slotId ?? "",
@@ -191,8 +197,9 @@ public final class DocereeAdRequest {
                 if urlResponse.statusCode == 200 {
                     print("Test: Ad Request")
                     do {
-                        
-                        let adResponseData: AdResponse = try JSONDecoder().decode(AdResponse.self, from: data)
+                        let rs = try JSONDecoder().decode(AdResponseMain.self, from: data)
+                        let adResponseData = rs.response[0]//try decoder.decode(AdResponse.self, from: data)
+//                        let adResponseData: AdResponseNew = try JSONDecoder().decode(AdResponseNew.self, from: data)
 //                        print("Ad Response: \(adResponseData)")
                         if adResponseData.errMessage != nil && adResponseData.errMessage!.count > 0 {
                             completion(Results(withData: nil, response: response as? HTTPURLResponse, error: DocereeAdRequestError.failedToCreateRequest), adResponseData.isAdRichMedia())
@@ -202,6 +209,7 @@ public final class DocereeAdRequest {
                             // MARK check zone tag here later on for US based users' response
                             savePlatformuid(adResponseData.newPlatformUid!)
                         }
+                        self.userId = adResponseData.userId
                         completion(Results(withData: data, response: response as? HTTPURLResponse, error: nil), adResponseData.isAdRichMedia())
                     } catch{
                         completion(Results(withData: nil, response: response as? HTTPURLResponse, error: DocereeAdRequestError.failedToCreateRequest), false)
@@ -222,7 +230,7 @@ public final class DocereeAdRequest {
 
     
     internal func sendAdImpression(impressionUrl: String) {
-        
+        print("sendAdImpression: ", impressionUrl)
         let url: URL = URL(string: impressionUrl)!
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = HttpMethod.get.rawValue

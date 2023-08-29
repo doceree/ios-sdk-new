@@ -145,7 +145,11 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         
         let viewPercentage = checkViewability(adView: self)
         if viewPercentage >= viewportPercentage {
-            docereeAdRequest.requestAd(self.docereeAdUnitId, size) { (results, isRichMediaAd) in
+            var uId: String? = nil
+            if let userId = adResponseData?.userId {
+                uId = userId
+            }
+            docereeAdRequest.requestAd(uId, self.docereeAdUnitId, size) { (results, isRichMediaAd) in
                 if let data = results.data {
                     self.isRichMediaAd = isRichMediaAd
                     self.createAdUI(data: data, isRichMediaAd: isRichMediaAd)
@@ -261,15 +265,15 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                 createPassbackAd(tag: tag)
             } else {
                 self.cbId = adResponseData?.CBID?.components(separatedBy: "_")[0]
-                self.docereeAdUnitId = adResponseData?.DIVID ?? ""
-                self.ctaLink = adResponseData?.ctaLink?.replacingOccurrences(of: "DOCEREE_CLICK_URL_UNESC", with: "")
+                self.docereeAdUnitId = adResponseData?.adUnit ?? ""
+                self.ctaLink = adResponseData?.clickURL?.replacingOccurrences(of: "DOCEREE_CLICK_URL_UNESC", with: "")
                 if var adRenderURL = adResponseData?.adRenderURL, !adRenderURL.isEmpty {
                     adRenderURL = adRenderURL.replacingOccurrences(of: "{{EVENT_CLIENT_TIME}}", with: Date.currentTimeMillis())
                         self.docereeAdRequest?.sendAdImpression(impressionUrl: adRenderURL)
                 }
 
                 if !isRichMediaAd {
-                    createSimpleAd(sourceURL: adResponseData?.sourceURL)
+                    createSimpleAd(imagePath: adResponseData?.imagePath)
                 } else {
                     if let script = adResponseData?.script {
                         createRichMediaAd(script: script)
@@ -282,8 +286,8 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         }
     }
     
-    private func createSimpleAd(sourceURL: String?) {
-        if let urlString = sourceURL, urlString.count > 0 {
+    private func createSimpleAd(imagePath: String?) {
+        if let urlString = imagePath, urlString.count > 0 {
             DispatchQueue.main.async {
                 NotificationCenter.default.setObserver(observer: self, selector: #selector(self.appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
                 NotificationCenter.default.setObserver(observer: self, selector: #selector(self.willMoveToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
@@ -425,11 +429,11 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     
     private func openAdConsent() {
         let consentUV = AdConsentUIView(with: self.adSize!, frame: self.frame, rootVC: self.rootViewController, adView: self, isRichMedia: false)
-        if !isRichMediaAd {
-            self.adImageView.removeFromSuperview()
-        } else {
-            self.adWebView.removeFromSuperview()
-        }
+//        if !isRichMediaAd {
+//            self.adImageView.removeFromSuperview()
+//        } else {
+//            self.adWebView.removeFromSuperview()
+//        }
         self.addSubview(consentUV!)
     }
     

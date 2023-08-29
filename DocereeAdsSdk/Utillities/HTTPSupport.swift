@@ -40,7 +40,7 @@ func getHost(type: EnvironmentType) -> String? {
     case .Qa:
         return "qa-ad-test.doceree.com"
     case .Prod:
-        return "drs-service.doceree.com"
+        return "dai.doceree.com"
     }
 }
 
@@ -53,7 +53,7 @@ func getDocTrackerHost(type: EnvironmentType) -> String? {
     case .Qa:
         return "qa-ad-test.doceree.com"
     case .Prod:
-        return "drs-service.doceree.com"
+        return "dai.doceree.com"
     }
 }
 

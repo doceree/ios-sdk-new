@@ -390,8 +390,9 @@ class AdConsentUIView: UIView {
     
     @objc func backButtonClicked(_ sender: UITapGestureRecognizer) {
         // back button pressed
-        self.docereeAdView?.refresh()
+//        self.docereeAdView?.refresh()
         // remove this view and refresh ad
+        consentView?.removeFromSuperview()
     }
     
     private func removeAllViews() {
