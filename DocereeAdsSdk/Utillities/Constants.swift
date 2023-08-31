@@ -60,12 +60,14 @@ enum Header: String {
 }
 
 enum QueryParamsForAdRequest: String {
-    case userid = "userid"
+    case appKey = "appkey"
+    case userId = "userid"
     case email = "email"
     case firstName = "firstname"
     case lastName = "lastname"
     case specialization = "specialization"
     case hcpId = "hcpid"
+    case hashedHcpId = "hashedhcpid"
     case gender = "gender"
     case city = "city"
     case state = "state"
