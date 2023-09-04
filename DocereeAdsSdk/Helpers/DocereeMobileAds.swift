@@ -31,7 +31,7 @@ public final class DocereeMobileAds {
         return environmentType
     }
     
-    public static func login(with hcp: Hcp){
+    public static func login(with hcp: Hcp) {
         NSKeyedArchiver.archiveRootObject(hcp, toFile: ProfileArchivingUrl.path)
         DocereeMobileAds.shared().sendData()
     }

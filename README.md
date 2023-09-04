@@ -9,7 +9,7 @@
 The simplest way of adding the SDK to your project is via cocoapods. Open your pod file and add these lines to your app’s Pod file. 
 
 ```sh
-pod 'DocereeAdSdk', '~> 2.0.0'
+pod 'DocereeAdSdk', '~> 5.0.1'
 ```
 
 
