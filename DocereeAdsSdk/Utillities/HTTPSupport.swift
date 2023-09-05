@@ -81,7 +81,7 @@ func getPath(methodName: Methods, type: EnvironmentType = .Dev) -> String {
     case .GetImage:
         return "/drs/quest"
     case .AdBlock:
-        return "/saveAdBlockInfo"
+        return "/drs/saveAdBlockInfo"
     case .CollectData:
         switch type {
         case .Dev, .Local, .Qa:

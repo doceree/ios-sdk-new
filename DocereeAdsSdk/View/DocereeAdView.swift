@@ -70,7 +70,6 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         adSize = getAdSize(for: size)
         if adSize is Invalid {
             if #available(iOS 10.0, *) {
-                print("adSize:", adSize as Any)
                 os_log("Error: Please provide a valid size!", log: .default, type: .error)
             } else {
                 // Fallback on earlier versions
@@ -183,7 +182,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
             let isPassbackEmpty: Bool = (self.adResponseData?.passbackTag ?? "").isEmpty
             if adFound && (!isViewLinkNullOrEmpty) && isPassbackEmpty {
                 let viewPercentage = checkViewability(adView: self)
-                print("final percentage: ", viewPercentage)
+//                print("final percentage: ", viewPercentage)
                 
                 // for standard: mcr
                 if viewPercentage >= 50 {
@@ -231,7 +230,9 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     
     func sendViewTime(standard: String) {
         if totalViewTime > 0 && (savedViewPercentage > 50 || Int(savedViewPercentage) >= (self.adResponseData?.minViewPercentage)!) {
-            print("View Time: ", totalViewTime)
+            #if DEBUG
+                print("View Time: ", totalViewTime)
+            #endif
             if var viewLink = adResponseData?.adViewedURL, !viewLink.isEmpty {
                 viewLink = viewLink.replacingOccurrences(of: "{{EVENT_CLIENT_TIME}}", with: Date.currentTimeMillis())
                 if standard == "mrc" {
@@ -456,7 +457,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
             viewportTimer?.stop()
             customTimer?.stop()
             self.sendViewTime(standard: "mrc")
-            UIApplication.shared.openURL(url)
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
             self.removeAllViews()
         }
     }
@@ -583,7 +584,6 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
          if navigationAction.targetFrame == nil || navigationAction.targetFrame?.isMainFrame == false {
              if let url = navigationAction.request.url {
                  if UIApplication.shared.canOpenURL(url) {
-                     print("click two: ")
                      DocereeAdView.didLeaveAd = true
                      if #available(iOS 10.0, *) {
                          UIApplication.shared.open(url)

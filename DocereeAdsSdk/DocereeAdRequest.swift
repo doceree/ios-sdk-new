@@ -123,10 +123,9 @@ public final class DocereeAdRequest {
             }
             let task = session.dataTask(with: urlRequest) {(data, response, error) in
                 guard let data = data else { return }
-                data.printJSON()
+//                data.printJSON()
                 let urlResponse = response as! HTTPURLResponse
                 if urlResponse.statusCode == 200 {
-                    print("Test: Ad Request")
                     do {
                         let rs = try JSONDecoder().decode(AdResponseMain.self, from: data)
                         let adResponseData = rs.response[0]//try decoder.decode(AdResponse.self, from: data)
@@ -158,7 +157,7 @@ public final class DocereeAdRequest {
 
     
     internal func sendAdImpression(impressionUrl: String) {
-        print("sendAdImpression: ", impressionUrl)
+//        print("sendAdImpression: ", impressionUrl)
         let url: URL = URL(string: impressionUrl)!
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = HttpMethod.get.rawValue
@@ -169,13 +168,15 @@ public final class DocereeAdRequest {
             guard data != nil else { return }
             data?.printJSON()
             let urlResponse = response as! HTTPURLResponse
-            print("impression sent. Http Status code is \(urlResponse.statusCode)")
+            #if DEBUG
+                print("impression sent. Http Status code is \(urlResponse.statusCode)")
+            #endif
         }
         task.resume()
     }
     
     internal func sendAdViewability(viewLink: String) {
-        print("sendAdViewability: ", viewLink)
+//        print("sendAdViewability: ", viewLink)
         let updatedUrl: String? = viewLink
         let url: URL = URL(string: updatedUrl!)!
         var urlRequest = URLRequest(url: url)
@@ -186,7 +187,9 @@ public final class DocereeAdRequest {
         let task = session.dataTask(with: urlRequest){ (data, response, error) in
             guard data != nil else { return }
             let urlResponse = response as! HTTPURLResponse
-            print("viewability sent. Http Status code is \(urlResponse.statusCode)")
+            #if DEBUG
+                print("viewability sent. Http Status code is \(urlResponse.statusCode)")
+            #endif
         }
         task.resume()
     }
@@ -209,7 +212,6 @@ public final class DocereeAdRequest {
         httpBodyParameters.add(value: publisherACSID ?? "", forKey: AdBlockService.publisherACSID.rawValue)
         
         let body = httpBodyParameters.allValues()
-//        print("AdBlock request passed is \(body)")
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         var components = URLComponents()
@@ -237,8 +239,9 @@ public final class DocereeAdRequest {
         let task = session.dataTask(with: request){(data, response, error) in
             guard data != nil else { return }
             let urlResponse = response as! HTTPURLResponse
-            print("Test: Send Block")
-            print(urlResponse.statusCode)
+            #if DEBUG
+                print("Send Block:", urlResponse.statusCode)
+            #endif
         }
         task.resume()
     }
@@ -308,7 +311,9 @@ public final class DocereeAdRequest {
         let task = session.dataTask(with: request) { (data, response, error) in
             guard data != nil else { return }
             let urlResponse = response as! HTTPURLResponse
-            print(urlResponse.statusCode)
+            #if DEBUG
+                print("Data collection: ",urlResponse.statusCode)
+            #endif
         }
         task.resume()
 

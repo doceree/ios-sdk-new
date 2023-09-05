@@ -31,7 +31,6 @@ struct PartnerData: Codable {
 
 func getPlatformData(rxCodes: [String]?, dxCodes: [String]?) -> String {
     guard let loggedInUser = DocereeMobileAds.shared().getProfile() else {
-        print("Error: Not found profile data")
         return ""
     }
 
@@ -43,14 +42,12 @@ func getPlatformData(rxCodes: [String]?, dxCodes: [String]?) -> String {
     encoder.outputFormatting = .prettyPrinted
     let data = try! encoder.encode(pd)
     let jsonString = String(data: data, encoding: .utf8)!
-    print(jsonString)
     let toBase64 = jsonString.toBase64()
     return toBase64!
 }
 
 func getParnerData() -> String {
     guard let loggedInUser = DocereeMobileAds.shared().getProfile() else {
-        print("Error: Not found profile data")
         return ""
     }
 
@@ -62,7 +59,6 @@ func getParnerData() -> String {
     encoder.outputFormatting = .prettyPrinted
     let data = try! encoder.encode(pd)
     let jsonString = String(data: data, encoding: .utf8)!
-    print(jsonString)
     let toBase64 = jsonString.toBase64()
     return toBase64!
 }
