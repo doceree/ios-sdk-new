@@ -6,6 +6,8 @@ extension DocereeAdRequestError: LocalizedError {
     public var localizedDescription: String {
         switch self {
         case .failedToCreateRequest: return NSLocalizedString("Failed to load ad. Please contact support@doceree.com", comment: "")
+        case .adNotFound:
+            return NSLocalizedString("Ad not found", comment: "")
         }
     }
 }
