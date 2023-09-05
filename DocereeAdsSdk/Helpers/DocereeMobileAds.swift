@@ -44,7 +44,7 @@ public final class DocereeMobileAds {
         do {
             let data = try Data(contentsOf: ProfileArchivingUrl)
             if let profile = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? Hcp {
-                print(profile)
+//                print(profile)
                 return profile
             }
         } catch {

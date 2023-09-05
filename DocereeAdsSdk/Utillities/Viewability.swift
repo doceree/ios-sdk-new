@@ -3,13 +3,12 @@ import UIKit
 
 func checkViewability(adView: UIView) -> Float {
     if let parentView = adView.scrollviewObject {
-        print("ScrollView found")
+//        print("ScrollView found")
         let viewPercentage = viewabilityPercentageScrollView(adView: adView, scrollView: parentView)
         return Float(viewPercentage)
     } else {
         let parentVC = adView.parentViewController
         let frame = parentVC?.view.getConvertedFrame(fromSubview: adView)
-        print("bounds", frame as Any)
         if let vFrame = frame {
             let viewPercentage = viewabilityPercentage(viewFrame: vFrame)
             return Float(viewPercentage)
@@ -28,23 +27,23 @@ func viewabilityPercentage(viewFrame: CGRect) -> CGFloat {
         let visibleHeight = viewFrame.height - abs(viewFrame.minY)
         if visibleHeight > 0 {
             verticalPercentage = (visibleHeight / viewFrame.height) * 100
-            print("bottom portion percentage: ", verticalPercentage)
+//            print("bottom portion percentage: ", verticalPercentage)
         } else {
-            print("hidden at top")
+//            print("hidden at top")
             return 0.0
         }
     } else if viewFrame.minY > screenSize.maxY {
-        print("hidden at bottom")
+//        print("hidden at bottom")
         return 0.0
     } else {
         if viewFrame.maxY > screenSize.maxY {
             let hiddenHeight = viewFrame.maxY - screenSize.maxY
             let visibleHeight = viewFrame.height - hiddenHeight
             verticalPercentage = (visibleHeight / viewFrame.height) * 100
-            print("top portion percentage: ", verticalPercentage)
+//            print("top portion percentage: ", verticalPercentage)
         } else {
             verticalPercentage = 100.0
-            print("Full add vertically")
+//            print("Full add vertically")
         }
     }
 

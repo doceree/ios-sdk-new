@@ -365,12 +365,7 @@ class AdConsentUIView: UIView {
         }) { [self] _ in
             self.docereeAdView?.refresh()
             do {
-//                let rawdata = try Data(contentsOf: URL(fileURLWithPath: PlatformArchivingUrl.path))
-//                if let plaformUid = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(rawdata) as! String? {
-                    self.docereeAdView?.docereeAdRequest?.sendAdBlockRequest(self.docereeAdView!.cbId, adblockLevel, nil, self.docereeAdView!.docereeAdUnitId)
-//                }
-            } catch {
-                print("Couldn't read file")
+                self.docereeAdView?.docereeAdRequest?.sendAdBlockRequest(self.docereeAdView!.cbId, adblockLevel, nil, self.docereeAdView!.docereeAdUnitId)
             }
         }
     }
@@ -379,7 +374,7 @@ class AdConsentUIView: UIView {
         DocereeAdView.self.didLeaveAd = true
         let whyThisLink = "https://support.doceree.com/hc/en-us/articles/360050646094-Why-this-Ad-"
         if let url = URL(string: "\(whyThisLink)"), !url.absoluteString.isEmpty {
-            UIApplication.shared.openURL(url)
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
     
