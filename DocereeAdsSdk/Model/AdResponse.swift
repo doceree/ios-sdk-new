@@ -3,6 +3,7 @@ import Foundation
 
 // MARK: - AlertListResponseElement
 struct AdResponseNew: Codable {
+    let status: Int?
     let CBID: String?
     let DIVID: String?
     let clickURL: String?
@@ -29,6 +30,7 @@ struct AdResponseNew: Codable {
     let imagePath: String?
 
     enum CodingKeys: String, CodingKey {
+        case status
         case CBID
         case DIVID
         case clickURL

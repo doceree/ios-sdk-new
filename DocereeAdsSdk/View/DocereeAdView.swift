@@ -149,9 +149,21 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                 uId = userId
             }
             docereeAdRequest.requestAd(uId, self.docereeAdUnitId, size) { (results, isRichMediaAd) in
+                self.isRichMediaAd = isRichMediaAd
                 if let data = results.data {
-                    self.isRichMediaAd = isRichMediaAd
-                    self.createAdUI(data: data, isRichMediaAd: isRichMediaAd)
+                    do {
+                        let rs = try JSONDecoder().decode(AdResponseMain.self, from: data)
+                        self.adResponseData = rs.response[0]
+                        if (self.adResponseData?.status == -1) {
+                            self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.adNotFound)
+                            self.removeAllViews()
+                        } else {
+                            self.createAdUI()
+                        }
+                    } catch {
+                        self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
+                        self.removeAllViews()
+                    }
                     
                     DispatchQueue.main.async {
                         self.startTimer(adFound: true)
@@ -257,33 +269,25 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         }
     }
     
-    private func createAdUI(data: Data, isRichMediaAd: Bool) {
-        let decoder = JSONDecoder()
-        do {
-            let rs = try decoder.decode(AdResponseMain.self, from: data)
-            adResponseData = rs.response[0]//try decoder.decode(AdResponse.self, from: data)
-            if let tag = adResponseData?.passbackTag, !tag.isEmpty {
-                createPassbackAd(tag: tag)
-            } else {
-                self.cbId = adResponseData?.CBID?.components(separatedBy: "_")[0]
-                self.docereeAdUnitId = adResponseData?.adUnit ?? ""
-                self.ctaLink = adResponseData?.clickURL?.replacingOccurrences(of: "DOCEREE_CLICK_URL_UNESC", with: "")
-                if var adRenderURL = adResponseData?.adRenderURL, !adRenderURL.isEmpty {
-                    adRenderURL = adRenderURL.replacingOccurrences(of: "{{EVENT_CLIENT_TIME}}", with: Date.currentTimeMillis())
-                        self.docereeAdRequest?.sendAdImpression(impressionUrl: adRenderURL)
-                }
+    private func createAdUI() {
+        if let tag = adResponseData?.passbackTag, !tag.isEmpty {
+            createPassbackAd(tag: tag)
+        } else {
+            self.cbId = adResponseData?.CBID?.components(separatedBy: "_")[0]
+            self.docereeAdUnitId = adResponseData?.adUnit ?? ""
+            self.ctaLink = adResponseData?.clickURL?.replacingOccurrences(of: "DOCEREE_CLICK_URL_UNESC", with: "")
+            if var adRenderURL = adResponseData?.adRenderURL, !adRenderURL.isEmpty {
+                adRenderURL = adRenderURL.replacingOccurrences(of: "{{EVENT_CLIENT_TIME}}", with: Date.currentTimeMillis())
+                    self.docereeAdRequest?.sendAdImpression(impressionUrl: adRenderURL)
+            }
 
-                if !isRichMediaAd {
-                    createSimpleAd(imagePath: adResponseData?.imagePath)
-                } else {
-                    if let script = adResponseData?.script {
-                        createRichMediaAd(script: script)
-                    }
+            if !isRichMediaAd {
+                createSimpleAd(imagePath: adResponseData?.imagePath)
+            } else {
+                if let script = adResponseData?.script {
+                    createRichMediaAd(script: script)
                 }
             }
-        } catch {
-            self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
-            self.removeAllViews()
         }
     }
     
