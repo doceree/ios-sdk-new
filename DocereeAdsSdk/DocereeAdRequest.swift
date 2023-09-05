@@ -237,8 +237,7 @@ public final class DocereeAdRequest {
         let task = session.dataTask(with: request){(data, response, error) in
             guard data != nil else { return }
             let urlResponse = response as! HTTPURLResponse
-            print("Test: Send Block")
-            print(urlResponse.statusCode)
+            print("Test: Send Block:", urlResponse.statusCode)
         }
         task.resume()
     }
