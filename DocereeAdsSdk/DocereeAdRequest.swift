@@ -91,6 +91,7 @@ public final class DocereeAdRequest {
                 QueryParamsForAdRequest.gender.rawValue : loggedInUser.gender ?? "",
                 QueryParamsForAdRequest.city.rawValue : loggedInUser.city ?? "",
                 QueryParamsForAdRequest.state.rawValue : loggedInUser.state ?? "",
+                QueryParamsForAdRequest.country.rawValue : loggedInUser.country ?? "",
                 QueryParamsForAdRequest.zipCode.rawValue : loggedInUser.zipCode ?? "",
                 QueryParamsForAdRequest.adUnit.rawValue : adUnitId ?? "",
                 QueryParamsForAdRequest.br.rawValue : "",
