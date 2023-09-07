@@ -379,7 +379,7 @@ class AdConsentUIView: UIView {
         DocereeAdView.self.didLeaveAd = true
         let whyThisLink = "https://support.doceree.com/hc/en-us/articles/360050646094-Why-this-Ad-"
         if let url = URL(string: "\(whyThisLink)"), !url.absoluteString.isEmpty {
-            UIApplication.shared.openURL(url)
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
     

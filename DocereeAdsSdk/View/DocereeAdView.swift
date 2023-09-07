@@ -520,7 +520,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
             viewportTimer?.stop()
             customTimer?.stop()
             self.sendViewTime(standard: "mrc")
-            UIApplication.shared.openURL(url)
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
             self.removeAllViews()
         }
     }
