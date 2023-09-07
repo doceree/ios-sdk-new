@@ -20,6 +20,7 @@ public final class Hcp: NSObject, NSCoding, Encodable {
     var hashedNPI: String?
     var hashedEmail: String?
     var state: String?
+    var country: String?
     var hcpId: String?
     var hashedHcpId: String?
     
@@ -41,11 +42,12 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         self.hashedEmail = builder.hashedEmail
         self.hashedNPI = builder.hashedNPI
         self.state = builder.state
+        self.country = builder.country
         self.hcpId = builder.hcpId
         self.hashedHcpId = builder.hashedHcpId
     }
     
-    private init(firstName: String?, lastName: String?, specialization: String?, organisation: String?, gender: String?, city: String?, zipCode: String?, email: String?, mobile: String?, mciRegistrationNumber: String?,  gmc: String?, hashedGMC: String?, npi: String?, hashedNPI: String?, hashedEmail: String?, state: String?, hcpId: String?, hashedHcpId: String?) {
+    private init(firstName: String?, lastName: String?, specialization: String?, organisation: String?, gender: String?, city: String?, zipCode: String?, email: String?, mobile: String?, mciRegistrationNumber: String?,  gmc: String?, hashedGMC: String?, npi: String?, hashedNPI: String?, hashedEmail: String?, state: String?, country: String?, hcpId: String?, hashedHcpId: String?) {
         self.firstName = firstName
         self.lastName = lastName
         self.specialization = specialization
@@ -61,6 +63,7 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         self.npi = npi
         self.hashedEmail = hashedEmail
         self.hashedNPI = hashedNPI
+        self.country = country
         self.state = state
         self.hcpId = hcpId
         self.hashedHcpId = hashedHcpId
@@ -83,6 +86,7 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         coder.encode(hashedNPI, forKey: HcpProfile.hashedNPI)
         coder.encode(hashedEmail, forKey: HcpProfile.hashedEmail)
         coder.encode(state, forKey: HcpProfile.state)
+        coder.encode(country, forKey: HcpProfile.country)
         coder.encode(hcpId, forKey: HcpProfile.hcpId)
         coder.encode(hashedHcpId, forKey: HcpProfile.hashedHcpId)
     }
@@ -104,10 +108,11 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         let hashedNPI = aDecoder.decodeObject(forKey: HcpProfile.hashedNPI) as? String
         let hashedEmail = aDecoder.decodeObject(forKey: HcpProfile.hashedEmail) as? String
         let state = aDecoder.decodeObject(forKey: HcpProfile.state) as? String
+        let country = aDecoder.decodeObject(forKey: HcpProfile.country) as? String
         let hcpId = aDecoder.decodeObject(forKey: HcpProfile.hcpId) as? String
         let hashedHcpId = aDecoder.decodeObject(forKey: HcpProfile.hashedHcpId) as? String
        
-        self.init(firstName: firstName, lastName: lastName, specialization: specialization, organisation: organisation, gender: gender, city: city, zipCode: zipcode, email: email, mobile: mobile, mciRegistrationNumber: mciRegistrationNumber, gmc: gmc, hashedGMC: hashedGMC, npi: npi, hashedNPI: hashedNPI, hashedEmail: hashedEmail, state: state, hcpId: hcpId, hashedHcpId: hashedHcpId)
+        self.init(firstName: firstName, lastName: lastName, specialization: specialization, organisation: organisation, gender: gender, city: city, zipCode: zipcode, email: email, mobile: mobile, mciRegistrationNumber: mciRegistrationNumber, gmc: gmc, hashedGMC: hashedGMC, npi: npi, hashedNPI: hashedNPI, hashedEmail: hashedEmail, state: state, country: country, hcpId: hcpId, hashedHcpId: hashedHcpId)
     }
     
     public class HcpBuilder {
@@ -130,6 +135,7 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         var hashedNPI: String?
         var hashedEmail: String?
         var state: String?
+        var country: String?
         var hcpId: String?
         var hashedHcpId: String?
         
@@ -213,6 +219,11 @@ public final class Hcp: NSObject, NSCoding, Encodable {
             return self
         }
         
+        public func setCountry(country: String?) -> HcpBuilder {
+            self.country = country
+            return self
+        }
+        
         public func setHcpId(hcpId: String?) -> HcpBuilder {
             self.hcpId = hcpId
             return self
@@ -263,6 +274,7 @@ struct HcpProfile {
     static let hashedNPI = "hashedNPI"
     static let hashedEmail = "hashedEmail"
     static let state = "state"
+    static let country = "country"
     static let hcpId = "hcpId"
     static let hashedHcpId = "hashedHcpId"
 }
