@@ -24,6 +24,7 @@
                 <outlet property="lblDate" destination="czO-6d-ED5" id="Bu1-Pp-xG8"/>
                 <outlet property="lblEmailError" destination="c7N-5G-Si4" id="NJc-1V-5OF"/>
                 <outlet property="lblNameError" destination="SXf-Ai-zpS" id="ncz-Oo-qHD"/>
+                <outlet property="lblRequestASample" destination="oj5-NN-b3i" id="qWj-ZK-d1k"/>
                 <outlet property="lblSuccessMsg" destination="agp-m3-3G4" id="rwS-kI-5r9"/>
                 <outlet property="lblTime" destination="bCa-2k-lHX" id="h9f-Q4-Jir"/>
                 <outlet property="lblrequiredDate" destination="VbP-6e-ZYy" id="atT-YW-YhP"/>
@@ -133,10 +134,10 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Request a sample" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oj5-NN-b3i">
-                            <rect key="frame" x="55" y="0.0" width="58" height="34"/>
+                            <rect key="frame" x="55" y="0.0" width="70" height="34"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="34" id="8nE-Ob-HJI"/>
-                                <constraint firstAttribute="width" constant="58" id="Ac9-J3-biH"/>
+                                <constraint firstAttribute="width" constant="70" id="Ac9-J3-biH"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="11"/>
                             <color key="textColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -853,7 +854,7 @@
     </objects>
     <designables>
         <designable name="2dE-fh-fJe">
-            <size key="intrinsicContentSize" width="144" height="34"/>
+            <size key="intrinsicContentSize" width="122" height="34"/>
         </designable>
     </designables>
     <resources>

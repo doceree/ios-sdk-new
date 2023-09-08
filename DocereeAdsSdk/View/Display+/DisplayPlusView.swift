@@ -19,6 +19,7 @@ class DisplayPlusView: UIView, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet weak var imgSampleCheck: UIImageView!
     @IBOutlet weak var imgSamplePlus: UIImageView!
     @IBOutlet weak var btnSample: UIButton!
+    @IBOutlet weak var lblRequestASample: UILabel!
     
     @IBOutlet weak var lblrequiredField: UILabel!
     @IBOutlet weak var lblrequiredDate: UILabel!
@@ -52,6 +53,7 @@ class DisplayPlusView: UIView, UITextFieldDelegate, UITextViewDelegate {
     var mappedCountries = [String : String]()
     var selectedCountry: String?
     var countryList = [String]()
+    var displayCtaType = ""
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -61,8 +63,9 @@ class DisplayPlusView: UIView, UITextFieldDelegate, UITextViewDelegate {
         super.init(coder: aDecoder)
     }
 
-    internal convenience init(frame: CGRect, completion: @escaping (([String : Any]) -> Void)) {
+    internal convenience init(frame: CGRect, displayCtaType: String, completion: @escaping (([String : Any]) -> Void)) {
         self.init(frame: frame)
+        self.displayCtaType = displayCtaType
         commonInit(frame: frame)
         completionHandler = completion
     }
@@ -81,6 +84,7 @@ class DisplayPlusView: UIView, UITextFieldDelegate, UITextViewDelegate {
         self.tfName.delegate = self
         self.tfPhone.delegate = self
         self.tfEmail.delegate = self
+        self.lblRequestASample.text = displayCtaType.breakString()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             //call any function
@@ -137,11 +141,11 @@ class DisplayPlusView: UIView, UITextFieldDelegate, UITextViewDelegate {
         self.btnSample.isSelected = !self.btnSample.isSelected
         let bundle = Bundle(for: type(of: self))
         if self.btnSample.isSelected {
-            ctas.insert("request_sample")
+            ctas.insert(displayCtaType)
             self.imgSampleCheck.image = UIImage(named: "checkbox_purple", in: bundle, compatibleWith: nil)
             self.imgSamplePlus.image = UIImage(named: "plus_purple", in: bundle, compatibleWith: nil)
         } else {
-            ctas.remove("request_sample")
+            ctas.remove(displayCtaType)
             self.imgSampleCheck.image = UIImage(named: "checkbox", in: bundle, compatibleWith: nil)
             self.imgSamplePlus.image = UIImage(named: "plus", in: bundle, compatibleWith: nil)
         }
@@ -207,9 +211,16 @@ class DisplayPlusView: UIView, UITextFieldDelegate, UITextViewDelegate {
             lblNameError.isHidden = false
             return
         } else if tfEmail.text == "" {
+            lblEmailError.text = "This is a required field."
             lblNameError.isHidden = true
             lblEmailError.isHidden = false
             return
+        } else if tfEmail.text!.count > 0 {
+            if let email = tfEmail.text, !email.isValidEmail() {
+                lblEmailError.text = "Please enter a valid email."
+                lblEmailError.isHidden = false
+                return
+            }
         } else if !self.btnCheckbox.isSelected {
             lblEmailError.isHidden = true
             return

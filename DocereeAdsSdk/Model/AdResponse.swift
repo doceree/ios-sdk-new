@@ -28,6 +28,7 @@ internal struct AdResponse: Codable {
     let guid: String?
     let isDisplayAd: Bool?
     let isDisplayFormEnable: Bool?
+    let displayCtaType: String?
     
     enum Platformuid: String{
         case platformuid = "platformuid"
@@ -61,6 +62,7 @@ internal struct AdResponse: Codable {
         self.guid = try container.decodeIfPresent(String.self, forKey: .guid)
         self.isDisplayAd = try container.decodeIfPresent(Bool.self, forKey: .isDisplayAd)
         self.isDisplayFormEnable = try container.decodeIfPresent(Bool.self, forKey: .isDisplayFormEnable)
+        self.displayCtaType = try container.decodeIfPresent(String.self, forKey: .displayCtaType)
     }
     
     func isNewPlatformUid() -> Bool {

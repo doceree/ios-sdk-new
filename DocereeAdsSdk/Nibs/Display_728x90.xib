@@ -24,6 +24,7 @@
                 <outlet property="lblDate" destination="czO-6d-ED5" id="Bu1-Pp-xG8"/>
                 <outlet property="lblEmailError" destination="aqc-Qf-jDf" id="UMf-sf-ZxD"/>
                 <outlet property="lblNameError" destination="SXf-Ai-zpS" id="L3h-K3-wXb"/>
+                <outlet property="lblRequestASample" destination="oj5-NN-b3i" id="VTo-km-VYM"/>
                 <outlet property="lblSuccessMsg" destination="cGD-rM-vje" id="gaS-pI-M2N"/>
                 <outlet property="lblTime" destination="bCa-2k-lHX" id="h9f-Q4-Jir"/>
                 <outlet property="lblrequiredDate" destination="De9-cu-6gS" id="BmO-Pc-VDc"/>
@@ -856,7 +857,7 @@
     </objects>
     <designables>
         <designable name="Lba-fj-Rrl">
-            <size key="intrinsicContentSize" width="144" height="34"/>
+            <size key="intrinsicContentSize" width="122" height="34"/>
         </designable>
     </designables>
     <resources>

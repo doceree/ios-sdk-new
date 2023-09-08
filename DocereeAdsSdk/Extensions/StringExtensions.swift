@@ -17,6 +17,13 @@ extension String {
         case phone = "^\\s*(?:\\+?(\\d{1,3}))?([-. (]*(\\d{3})[-. )]*)?((\\d{3})[-. ]*(\\d{2,4})(?:[-.x ]*(\\d+))?)\\s*$"
     }
     
+    func isValidEmail() -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: self)
+    }
+    
     func isValid(regex: RegularExpressions) -> Bool {
         return isValid(regex: regex.rawValue)
     }
@@ -29,6 +36,11 @@ extension String {
     func onlyDigits() -> String {
         let filtredUnicodeScalars = unicodeScalars.filter{CharacterSet.decimalDigits.contains($0)}
         return String(String.UnicodeScalarView(filtredUnicodeScalars))
+    }
+    
+    func breakString() -> String {
+        let result = self.split(separator: "_")
+        return result.joined(separator: " ").capitalized
     }
     
     func call() {

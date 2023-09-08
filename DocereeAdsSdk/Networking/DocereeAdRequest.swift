@@ -153,6 +153,7 @@ public final class DocereeAdRequest {
             urlRequest.httpMethod = HttpMethod.get.rawValue
             let task = session.dataTask(with: urlRequest) {(data, response, error) in
                 guard let data = data else { return }
+                data.printJSON()
                 let urlResponse = response as! HTTPURLResponse
                 if urlResponse.statusCode == 200 {
                     print("Test: Ad Request")
