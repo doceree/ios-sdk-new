@@ -47,14 +47,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Wr-2n-vzr">
-                    <rect key="frame" x="10" y="10" width="25" height="15"/>
+                    <rect key="frame" x="10" y="10" width="20" height="15"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="25" id="Pwx-Gs-hD9"/>
+                        <constraint firstAttribute="width" constant="20" id="Pwx-Gs-hD9"/>
                         <constraint firstAttribute="height" constant="15" id="bAH-4B-Cxg"/>
                     </constraints>
                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" image="arrow.backward" catalog="system">
+                    <state key="normal" image="backarrow">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <connections>
@@ -859,6 +859,7 @@
     </designables>
     <resources>
         <image name="arrow.backward" catalog="system" width="128" height="95"/>
+        <image name="backarrow" width="24" height="19"/>
         <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="checkbox" width="19.299999237060547" height="19.299999237060547"/>
         <image name="checkbox_purple" width="18.399999618530273" height="18.399999618530273"/>
