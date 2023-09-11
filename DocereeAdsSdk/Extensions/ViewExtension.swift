@@ -8,16 +8,17 @@
 import UIKit
 
 @IBDesignable extension UIView {
-    @IBInspectable var borderColor: UIColor? {
+    @IBInspectable var borderColor: UIColor {
         set {
-            layer.borderColor = newValue!.cgColor
+            layer.borderColor = newValue.cgColor
         }
         get {
             if let color = layer.borderColor {
                 return UIColor(cgColor:color)
             }
             else {
-                return nil
+                // set some default color
+                return UIColor(ciColor: .gray)
             }
         }
     }

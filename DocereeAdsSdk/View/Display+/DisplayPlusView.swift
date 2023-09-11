@@ -54,6 +54,7 @@ class DisplayPlusView: UIView, UITextFieldDelegate, UITextViewDelegate {
     var selectedCountry: String?
     var countryList = [String]()
     var displayCtaType = ""
+    var isRequestSubmitted = false
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -232,7 +233,10 @@ class DisplayPlusView: UIView, UITextFieldDelegate, UITextViewDelegate {
         let dict = createJson()
         
         self.removeObserver()
-        self.completionHandler!(dict)
+        if !isRequestSubmitted {
+            isRequestSubmitted = true
+            self.completionHandler!(dict)
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
             self.removeFromSuperview()
          }

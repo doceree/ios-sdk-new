@@ -156,7 +156,6 @@ public final class DocereeAdRequest {
                 data.printJSON()
                 let urlResponse = response as! HTTPURLResponse
                 if urlResponse.statusCode == 200 {
-                    print("Test: Ad Request")
                     do {
                         let adResponseData: AdResponse = try JSONDecoder().decode(AdResponse.self, from: data)
                         print("Ad Response: \(adResponseData)")
