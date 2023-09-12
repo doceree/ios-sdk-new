@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -383,14 +383,14 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VXP-fK-2ek">
-                            <rect key="frame" x="10" y="10" width="25" height="15"/>
+                            <rect key="frame" x="10" y="10" width="20" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="15" id="Lpi-9u-rga"/>
-                                <constraint firstAttribute="width" constant="25" id="QXb-nc-U0x"/>
+                                <constraint firstAttribute="width" constant="20" id="QXb-nc-U0x"/>
                             </constraints>
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" image="arrow.backward" catalog="system">
+                            <state key="normal" image="backarrow">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
@@ -586,14 +586,14 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="de6-Pg-Edz">
-                            <rect key="frame" x="10" y="5" width="25" height="15"/>
+                            <rect key="frame" x="10" y="5" width="20" height="15"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="25" id="OYP-z4-HUn"/>
+                                <constraint firstAttribute="width" constant="20" id="OYP-z4-HUn"/>
                                 <constraint firstAttribute="height" constant="15" id="az8-yi-dwb"/>
                             </constraints>
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" image="arrow.backward" catalog="system">
+                            <state key="normal" image="backarrow">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
@@ -858,7 +858,6 @@
         </designable>
     </designables>
     <resources>
-        <image name="arrow.backward" catalog="system" width="128" height="95"/>
         <image name="backarrow" width="24" height="19"/>
         <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="checkbox" width="19.299999237060547" height="19.299999237060547"/>

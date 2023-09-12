@@ -162,7 +162,7 @@ class AdConsentUIView: UIView {
         verticalStackView.addArrangedSubview(stackView)
         consentView!.addSubview(verticalStackView)
         
-        verticalStackView.topAnchor.constraint(equalTo: consentView!.topAnchor, constant: 0).isActive = true
+        verticalStackView.topAnchor.constraint(equalTo: consentView!.topAnchor, constant: 5).isActive = true
         verticalStackView.bottomAnchor.constraint(equalTo: consentView!.bottomAnchor, constant: self.isMediumRectangle ? -self.adViewFrame!.height * 0.25 : 0).isActive = true
         verticalStackView.leadingAnchor.constraint(equalTo: consentView!.leadingAnchor, constant: 0).isActive = true
         verticalStackView.trailingAnchor.constraint(equalTo: consentView!.trailingAnchor, constant: 0).isActive = true

@@ -216,12 +216,10 @@ class DisplayPlusView: UIView, UITextFieldDelegate, UITextViewDelegate {
             lblNameError.isHidden = true
             lblEmailError.isHidden = false
             return
-        } else if tfEmail.text!.count > 0 {
-            if let email = tfEmail.text, !email.isValidEmail() {
+        } else if let email = tfEmail.text, !email.isValidEmail() {
                 lblEmailError.text = "Please enter a valid email."
                 lblEmailError.isHidden = false
                 return
-            }
         } else if !self.btnCheckbox.isSelected {
             lblEmailError.isHidden = true
             return
