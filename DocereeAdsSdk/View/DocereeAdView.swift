@@ -410,7 +410,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
         latestX = crossImageView?.frame.origin.x ?? 0.0
         
         // create and add info icon
-        if let isDisplayAd = adResponseData?.isDisplayAd , isDisplayAd {
+//        if let isDisplayAd = adResponseData?.isDisplayAd , isDisplayAd {
             if callImageView == nil {
                 let bundle = Bundle(for: type(of: self))
                 self.callImageView = UIImageView(image: UIImage(named: "call", in: bundle, compatibleWith: nil))
@@ -424,16 +424,16 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
                 self.adWebView.addSubview(callImageView!)
             }
             
-            if let isDisplayFormEnable = adResponseData?.isDisplayFormEnable, isDisplayFormEnable {
+//            if let isDisplayFormEnable = adResponseData?.isDisplayFormEnable, isDisplayFormEnable {
                 let tap = UITapGestureRecognizer(target: self, action: #selector(openPharmaLeadView))
                 callImageView!.addGestureRecognizer(tap)
-            } else {
-                let tap = UITapGestureRecognizer(target: self, action: nil) // Add no tap gesture
-                callImageView!.addGestureRecognizer(tap)
-                callImageView!.alpha = 0.6
-            }
+//            } else {
+//                let tap = UITapGestureRecognizer(target: self, action: nil) // Add no tap gesture
+//                callImageView!.addGestureRecognizer(tap)
+//                callImageView!.alpha = 0.6
+//            }
             latestX = callImageView?.frame.origin.x ?? 0.0
-        }
+//        }
         
         // create and add info icon
         if infoImageView == nil {
@@ -464,11 +464,14 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
         if docereeAdRequest != nil && self.parentViewController != nil {
             customTimer?.isPaused = true
             let newView = DisplayPlusView(frame: CGRectMake(0, 0, adSize?.width ?? 0, adSize?.height ?? 0), displayCtaType: adResponseData?.displayCtaType ?? "", completion: { dict in
-//                self.customTimer?.isPaused = false
                 print("data: \(dict)")
-                PharmaLeadsService.init().sendPharmaLeads(self.adResponseData, "300x250", dict)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
-                    self.refresh()
+                if dict.count > 0 {
+                    PharmaLeadsService.init().sendPharmaLeads(self.adResponseData, "300x250", dict)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
+                        self.refresh()
+                    }
+                } else {
+                    self.customTimer?.isPaused = false
                 }
             })
             self.addSubview(newView)

@@ -7,21 +7,13 @@
 
 import UIKit
 
-class DisplayPlusView: UIView, UITextFieldDelegate, UITextViewDelegate {
+class DisplayPlusView: UIView, UITextFieldDelegate {
     var completionHandler: (([String : Any]) -> Void)?
     var contentView: UIView?
     var activeTextField: UITextField?
+
+    @IBOutlet weak var instructionView: UIView!
     
-    @IBOutlet weak var imgRepCheck: UIImageView!
-    @IBOutlet weak var imgRepProfile: UIImageView!
-    @IBOutlet weak var btnRep: UIButton!
-    
-    @IBOutlet weak var imgSampleCheck: UIImageView!
-    @IBOutlet weak var imgSamplePlus: UIImageView!
-    @IBOutlet weak var btnSample: UIButton!
-    @IBOutlet weak var lblRequestASample: UILabel!
-    
-    @IBOutlet weak var lblrequiredField: UILabel!
     @IBOutlet weak var lblrequiredDate: UILabel!
     @IBOutlet weak var lblrequiredTime: UILabel!
     
@@ -76,16 +68,16 @@ class DisplayPlusView: UIView, UITextFieldDelegate, UITextViewDelegate {
         guard let view = loadViewFromNib(frame: frame) else { return }
         view.frame = self.bounds
         self.addSubview(view)
+ 
+        tvAddress.text = "Address"
+        tvAddress.textColor = UIColor.lightGray
         
-        self.btnRep.isSelected = !self.btnRep.isSelected
-
         self.tvAddress.delegate = self
         self.tfCountry.delegate = self
         self.tfZipcode.delegate = self
         self.tfName.delegate = self
         self.tfPhone.delegate = self
         self.tfEmail.delegate = self
-        self.lblRequestASample.text = displayCtaType.breakString()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             //call any function
@@ -116,83 +108,53 @@ class DisplayPlusView: UIView, UITextFieldDelegate, UITextViewDelegate {
         self.removeObserver()
         completionHandler!([:])
     }
-    
+
     @IBAction func btnHandlerCallRep(_ sender: Any) {
-        
         addCalendarPicker()
-        self.btnRep.isSelected = !self.btnRep.isSelected
-        let bundle = Bundle(for: type(of: self))
-        if self.btnRep.isSelected {
-            ctas.insert("request_call")
-            self.imgRepCheck.image = UIImage(named: "checkbox_purple", in: bundle, compatibleWith: nil)
-            self.imgRepProfile.image = UIImage(named: "profile_purple", in: bundle, compatibleWith: nil)
-        } else {
-            ctas.remove("request_call")
-            self.imgRepCheck.image = UIImage(named: "checkbox", in: bundle, compatibleWith: nil)
-            self.imgRepProfile.image = UIImage(named: "profile", in: bundle, compatibleWith: nil)
-        }
-        if !self.btnRep.isSelected && !self.btnSample.isSelected {
-            self.lblrequiredField.isHidden = false
-        } else {
-            self.lblrequiredField.isHidden = true
-        }
-    }
-    
-    @IBAction func btnHandlerReqSample(_ sender: Any) {
-        self.btnSample.isSelected = !self.btnSample.isSelected
-        let bundle = Bundle(for: type(of: self))
-        if self.btnSample.isSelected {
-            ctas.insert(displayCtaType)
-            self.imgSampleCheck.image = UIImage(named: "checkbox_purple", in: bundle, compatibleWith: nil)
-            self.imgSamplePlus.image = UIImage(named: "plus_purple", in: bundle, compatibleWith: nil)
-        } else {
-            ctas.remove(displayCtaType)
-            self.imgSampleCheck.image = UIImage(named: "checkbox", in: bundle, compatibleWith: nil)
-            self.imgSamplePlus.image = UIImage(named: "plus", in: bundle, compatibleWith: nil)
-        }
-        if !self.btnRep.isSelected && !self.btnSample.isSelected {
-            self.lblrequiredField.isHidden = false
-        } else {
-            self.lblrequiredField.isHidden = true
-        }
     }
 
     @IBAction func nextBtnHandler(_ sender: Any) {
-        if !self.btnRep.isSelected && !self.btnSample.isSelected {
-            self.lblrequiredTime.isHidden = true
-            return
-        } else if self.lblDate.text == "mm/dd/yyyy" {
+        
+        self.nextView.isHidden = false
+    }
+    
+    
+    @IBAction func backBtn2Handler(_ sender: Any) {
+//        self.nextView.isHidden = true
+        self.removeFromSuperview()
+        self.removeObserver()
+        completionHandler!([:])
+    }
+    
+    @IBAction func nextBtn2Handler(_ sender: Any) {
+        if self.lblDate.text == "mm/dd/yyyy" {
             self.lblrequiredDate.isHidden = false
             return
         } else if self.lblTime.text == "--:-- --" {
             self.lblrequiredDate.isHidden = true
             self.lblrequiredTime.isHidden = false
             return
-        }
-        self.lblrequiredDate.isHidden = true
-        self.lblrequiredTime.isHidden = true
-        self.nextView.isHidden = false
-    }
-    
-    
-    @IBAction func backBtn2Handler(_ sender: Any) {
-        self.nextView.isHidden = true
-    }
-    
-    @IBAction func nextBtn2Handler(_ sender: Any) {
-        if tvAddress.text == "" {
+        } else if tvAddress.text == "" || tvAddress.text == "Address" {
+            self.lblrequiredDate.isHidden = true
+            self.lblrequiredTime.isHidden = true
             lblAddressError.isHidden = false
             return
         } else if tfCountry.text == "" {
+            self.lblrequiredDate.isHidden = true
+            self.lblrequiredTime.isHidden = true
             lblAddressError.isHidden = true
             lblCountryError.isHidden = false
             return
         } else if tfZipcode.text == "" {
+            self.lblrequiredDate.isHidden = true
+            self.lblrequiredTime.isHidden = true
             lblAddressError.isHidden = true
             lblCountryError.isHidden = true
             lblzipError.isHidden = false
             return
         }
+        self.lblrequiredDate.isHidden = true
+        self.lblrequiredTime.isHidden = true
         lblAddressError.isHidden = true
         lblCountryError.isHidden = true
         lblzipError.isHidden = true
@@ -252,7 +214,8 @@ extension DisplayPlusView {
             self.parentViewController?.view.addSubview(v)
         }
         if #available(iOS 11.0, *) {
-            let g = self.parentViewController!.view.safeAreaLayoutGuide
+            guard let vc = self.parentViewController else { return }
+            let g = vc.view.safeAreaLayoutGuide
             
             NSLayoutConstraint.activate([
                 
@@ -311,4 +274,19 @@ extension DisplayPlusView {
         self.myPicker.isHidden = false
     }
     
+}
+
+extension DisplayPlusView: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor(hexString: "747474")
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Address"
+            textView.textColor = UIColor.lightGray
+        }
+    }
 }
