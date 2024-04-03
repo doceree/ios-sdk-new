@@ -71,6 +71,7 @@ enum QueryParamsForAdRequest: String {
     case gender = "gender"
     case city = "city"
     case state = "state"
+    case country = "country"
     case zipCode = "zipcode"
     case hashedNPI = "hashedNPI"
     case adUnit = "adunit"
