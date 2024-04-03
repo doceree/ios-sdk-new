@@ -319,6 +319,80 @@ public final class DocereeAdRequest {
         task.resume()
 
     }
+    
+    internal func getHcpSelfValidation(_ userId: String!) {
+
+        var advertisementId: String?
+        if let adId = userId {
+            advertisementId = adId
+        } else {
+            advertisementId = getIdentifierForAdvertising()
+            if (advertisementId == nil) {
+                if #available(iOS 10.0, *) {
+                    os_log("Error: Ad Tracking is disabled . Please re-enable it to view ads", log: .default, type: .error)
+                } else {
+                    // Fallback on earlier versions
+                    print("Error: Ad Tracking is disabled . Please re-enable it to view ads")
+                }
+                return
+            }
+        }
+        
+        self.requestHttpHeaders.add(value: "application/json", forKey: "Content-Type")
+        
+        // query params
+        let josnObject: [String : Any] = [
+            GetHcpValidation.bundleId.rawValue : Bundle.main.bundleIdentifier!,
+            GetHcpValidation.uuid.rawValue : advertisementId as Any,
+        ]
+
+        let body = josnObject //httpBodyParameters.allValues()
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = getDataCollectionHost(type: DocereeMobileAds.shared().getEnvironment())
+        components.path = getPath(methodName: Methods.HcpValidation, type: DocereeMobileAds.shared().getEnvironment())
+        let collectDataEndPoint: URL = components.url!
+        var request: URLRequest = URLRequest(url: collectDataEndPoint)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // set headers
+        for header in requestHttpHeaders.allValues() {
+            request.setValue(header.value, forHTTPHeaderField: header.key)
+        }
+        
+        request.httpMethod = HttpMethod.post.rawValue
+        
+        let jsonData: Data
+        do {
+            jsonData = try JSONSerialization.data(withJSONObject: body, options: [])
+            request.httpBody = jsonData
+        } catch {
+            return
+        }
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            guard data != nil else { return }
+            let urlResponse = response as! HTTPURLResponse
+
+            if urlResponse.statusCode == 200 {
+                do {
+                    let rs = try JSONDecoder().decode(HcpValidation.self, from: data!)
+                    let hcpValidationData = rs.data//try decoder.decode(AdResponse.self, from: data)
+                    #if DEBUG
+                    print("HCP validation: ",hcpValidationData.script?.fromBase64())
+                    #endif
+                } catch {
+                    #if DEBUG
+                        print("HCP Error")
+                    #endif
+                }
+            }
+        }
+        task.resume()
+
+    }
 }
 
 extension Data

@@ -9,6 +9,7 @@ import Foundation
 #if canImport(AdSupport) && canImport(AppTrackingTransparency)
 import AppTrackingTransparency
 import AdSupport
+import UIKit
 #endif
 
 public final class DocereeMobileAds {
@@ -116,5 +117,10 @@ public final class DocereeMobileAds {
         
     }
 
+//    public func hcpValidationView() -> UIView {
+//        let hcpView = HcpValidationView()
+//        hcpView.loadData(hcpValidationRequest: HcpValidationRequest())
+//        return hcpView
+//    }
 }
 
