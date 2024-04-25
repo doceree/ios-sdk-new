@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		543ACD332964535A005C47FE /* PlatformData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543ACD322964535A005C47FE /* PlatformData.swift */; };
+		54874D262BBAAB860018A882 /* HcpValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54874D252BBAAB860018A882 /* HcpValidation.swift */; };
+		54874D282BBAC2F60018A882 /* HcpValidationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54874D272BBAC2F60018A882 /* HcpValidationView.swift */; };
+		54874D2A2BBAC5920018A882 /* HcpValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54874D292BBAC5920018A882 /* HcpValidationRequest.swift */; };
+		54874D2C2BBC05C90018A882 /* DocereeHcpViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54874D2B2BBC05C90018A882 /* DocereeHcpViewDelegate.swift */; };
+		54874D2E2BBC2DAE0018A882 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54874D2D2BBC2DAE0018A882 /* UserDefaultsManager.swift */; };
+		54874D302BBC30810018A882 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54874D2F2BBC30810018A882 /* Enums.swift */; };
 		54ADD0A829388996004A7182 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ADD0A729388996004A7182 /* ImageLoader.swift */; };
 		54BD89C6284F563F00DC94A3 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54BD89C5284F563F00DC94A3 /* Media.xcassets */; };
 		54BD8A2E28A2503200DC94A3 /* Viewability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BD8A2D28A2503200DC94A3 /* Viewability.swift */; };
@@ -38,6 +44,12 @@
 
 /* Begin PBXFileReference section */
 		543ACD322964535A005C47FE /* PlatformData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformData.swift; sourceTree = "<group>"; };
+		54874D252BBAAB860018A882 /* HcpValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HcpValidation.swift; sourceTree = "<group>"; };
+		54874D272BBAC2F60018A882 /* HcpValidationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HcpValidationView.swift; sourceTree = "<group>"; };
+		54874D292BBAC5920018A882 /* HcpValidationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HcpValidationRequest.swift; sourceTree = "<group>"; };
+		54874D2B2BBC05C90018A882 /* DocereeHcpViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocereeHcpViewDelegate.swift; sourceTree = "<group>"; };
+		54874D2D2BBC2DAE0018A882 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		54874D2F2BBC30810018A882 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		54ADD0A729388996004A7182 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		54BD89C5284F563F00DC94A3 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		54BD8A2D28A2503200DC94A3 /* Viewability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Viewability.swift; sourceTree = "<group>"; };
@@ -103,6 +115,7 @@
 				54EBB0402834F3F800C7B249 /* View */,
 				54EBAFBF282CF30900C7B249 /* DocereeAdsSdk.h */,
 				54EBB00A283221BE00C7B249 /* DocereeAdRequest.swift */,
+				54874D292BBAC5920018A882 /* HcpValidationRequest.swift */,
 				54BD89C5284F563F00DC94A3 /* Media.xcassets */,
 			);
 			path = DocereeAdsSdk;
@@ -116,6 +129,7 @@
 				54EBB004282E87AF00C7B249 /* AdResponse.swift */,
 				54EBAFD8282D018700C7B249 /* HcpProfile.swift */,
 				543ACD322964535A005C47FE /* PlatformData.swift */,
+				54874D252BBAAB860018A882 /* HcpValidation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -135,6 +149,8 @@
 				54EBB015283225D200C7B249 /* DocereeRequestError.swift */,
 				54BD8A2D28A2503200DC94A3 /* Viewability.swift */,
 				54ADD0A729388996004A7182 /* ImageLoader.swift */,
+				54874D2D2BBC2DAE0018A882 /* UserDefaultsManager.swift */,
+				54874D2F2BBC30810018A882 /* Enums.swift */,
 			);
 			path = Utillities;
 			sourceTree = "<group>";
@@ -155,6 +171,7 @@
 			children = (
 				54EBB0412834F62700C7B249 /* AdConsentUIView.swift */,
 				54EBB0422834F62700C7B249 /* DocereeAdView.swift */,
+				54874D272BBAC2F60018A882 /* HcpValidationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -164,6 +181,7 @@
 			children = (
 				54EBB05E28366F6E00C7B249 /* DocereeMobileAds.swift */,
 				54EBB060283671AA00C7B249 /* DocereeAdViewDelegate.swift */,
+				54874D2B2BBC05C90018A882 /* DocereeHcpViewDelegate.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -260,17 +278,23 @@
 				54EBB007282E87AF00C7B249 /* AdResponse.swift in Sources */,
 				54EBB0112832240B00C7B249 /* Extensions.swift in Sources */,
 				54EBB016283225D200C7B249 /* DocereeRequestError.swift in Sources */,
+				54874D282BBAC2F60018A882 /* HcpValidationView.swift in Sources */,
 				54F27B772A98E53D00AD384A /* DateExtension.swift in Sources */,
 				54EBB05F28366F6E00C7B249 /* DocereeMobileAds.swift in Sources */,
+				54874D302BBC30810018A882 /* Enums.swift in Sources */,
 				54EBB0432834F62700C7B249 /* AdConsentUIView.swift in Sources */,
 				54EBAFF9282E855C00C7B249 /* Helpers.swift in Sources */,
+				54874D2A2BBAC5920018A882 /* HcpValidationRequest.swift in Sources */,
 				54EBB0442834F62700C7B249 /* DocereeAdView.swift in Sources */,
 				54EBB05328366CD800C7B249 /* CustomTimer.swift in Sources */,
 				54ADD0A829388996004A7182 /* ImageLoader.swift in Sources */,
+				54874D262BBAAB860018A882 /* HcpValidation.swift in Sources */,
 				54EBAFF8282E855C00C7B249 /* AdSize.swift in Sources */,
+				54874D2C2BBC05C90018A882 /* DocereeHcpViewDelegate.swift in Sources */,
 				54EBAFE8282D177000C7B249 /* PathUtility.swift in Sources */,
 				54EBB0102832240B00C7B249 /* StringExtensions.swift in Sources */,
 				54EBAFD9282D018700C7B249 /* HcpProfile.swift in Sources */,
+				54874D2E2BBC2DAE0018A882 /* UserDefaultsManager.swift in Sources */,
 				54EBB0122832240B00C7B249 /* ImageExtensions.swift in Sources */,
 				54EBB00B283221BE00C7B249 /* DocereeAdRequest.swift in Sources */,
 				54EBAFFA282E855C00C7B249 /* Constants.swift in Sources */,

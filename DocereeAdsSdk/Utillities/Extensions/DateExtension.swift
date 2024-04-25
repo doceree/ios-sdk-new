@@ -22,4 +22,7 @@ extension Date {
     static func currentTimeMillis() -> String {
         return "\(Int64(Date().timeIntervalSince1970 * 1000))"
     }
+    static func currentTimeInterval() -> TimeInterval {
+        return TimeInterval(Date().timeIntervalSince1970 * 1000)
+    }
 }
