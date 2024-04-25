@@ -48,7 +48,7 @@ public class HcpValidationView: UIView, WKNavigationDelegate, WKUIDelegate, WKSc
     func saveTimeInterval(duration: TimeInterval) {
         let manager = UserDefaultsManager.shared
 
-        manager.setUserDefaults(ExpirationDuration.seconds20)
+        manager.setUserDefaults(duration)
 
         // Retrieve user defaults
         if let userData = manager.getUserDefaults() {
