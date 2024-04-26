@@ -87,12 +87,17 @@ public class HcpValidationView: UIView, WKNavigationDelegate, WKUIDelegate, WKSc
                 do {
                     let response = try JSONDecoder().decode(HcpValidation.self, from: result)
                     let data: HcpValidationData = response.data
-                    let script = data.script
                     DispatchQueue.main.async {
-                        self.backgroundColor = UIColor.lightGray.withAlphaComponent(0.6)
-                        print("body: ", self.createHTMLBody(script: (script?.fromBase64())!))
-                        self.initializeRichAds(body: self.createHTMLBody(script: (script?.fromBase64())!))
-                        self.delegate?.hcpValidationViewSuccess(self)
+                        if let script = data.script {
+                            self.backgroundColor = UIColor.lightGray.withAlphaComponent(0.6)
+                            print("body: ", self.createHTMLBody(script: (script.fromBase64())!))
+                            self.initializeRichAds(body: self.createHTMLBody(script: (script.fromBase64())!))
+                            self.delegate?.hcpValidationViewSuccess(self)
+                        }
+                        else {
+                            self.removeFromSuperview()
+                            print("No script found")
+                        }
                     }
                 } catch {
 //                    self.delegate?.hcpValidationView(self, didFailToReceiveHcpWithError: HcpRequestError.parsingError)
