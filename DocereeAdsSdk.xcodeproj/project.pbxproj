@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		543346172BDB853400975997 /* KetchSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 543346162BDB853400975997 /* KetchSDK */; };
+		543346202BDBB06A00975997 /* MyKetchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5433461F2BDBB06A00975997 /* MyKetchView.swift */; };
 		543ACD332964535A005C47FE /* PlatformData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543ACD322964535A005C47FE /* PlatformData.swift */; };
 		54874D262BBAAB860018A882 /* HcpValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54874D252BBAAB860018A882 /* HcpValidation.swift */; };
 		54874D282BBAC2F60018A882 /* HcpValidationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54874D272BBAC2F60018A882 /* HcpValidationView.swift */; };
@@ -43,6 +45,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5433461F2BDBB06A00975997 /* MyKetchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyKetchView.swift; sourceTree = "<group>"; };
 		543ACD322964535A005C47FE /* PlatformData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformData.swift; sourceTree = "<group>"; };
 		54874D252BBAAB860018A882 /* HcpValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HcpValidation.swift; sourceTree = "<group>"; };
 		54874D272BBAC2F60018A882 /* HcpValidationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HcpValidationView.swift; sourceTree = "<group>"; };
@@ -84,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				543346172BDB853400975997 /* KetchSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +176,7 @@
 				54EBB0412834F62700C7B249 /* AdConsentUIView.swift */,
 				54EBB0422834F62700C7B249 /* DocereeAdView.swift */,
 				54874D272BBAC2F60018A882 /* HcpValidationView.swift */,
+				5433461F2BDBB06A00975997 /* MyKetchView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -214,6 +219,9 @@
 			dependencies = (
 			);
 			name = DocereeAdsSdk;
+			packageProductDependencies = (
+				543346162BDB853400975997 /* KetchSDK */,
+			);
 			productName = DocereeAdsSdk;
 			productReference = 54EBAFBC282CF30900C7B249 /* DocereeAdsSdk.framework */;
 			productType = "com.apple.product-type.framework";
@@ -242,6 +250,9 @@
 				Base,
 			);
 			mainGroup = 54EBAFB2282CF30900C7B249;
+			packageReferences = (
+				543346152BDB853400975997 /* XCRemoteSwiftPackageReference "ketch-ios" */,
+			);
 			productRefGroup = 54EBAFBD282CF30900C7B249 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -271,6 +282,7 @@
 				54EBAFF7282E855C00C7B249 /* HTTPSupport.swift in Sources */,
 				54EBAFFD282E855C00C7B249 /* Colors.swift in Sources */,
 				54BD8A2E28A2503200DC94A3 /* Viewability.swift in Sources */,
+				543346202BDBB06A00975997 /* MyKetchView.swift in Sources */,
 				543ACD332964535A005C47FE /* PlatformData.swift in Sources */,
 				54EBAFFF282E855C00C7B249 /* UAString.swift in Sources */,
 				54EBB061283671AA00C7B249 /* DocereeAdViewDelegate.swift in Sources */,
@@ -442,7 +454,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -476,7 +488,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -515,6 +527,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		543346152BDB853400975997 /* XCRemoteSwiftPackageReference "ketch-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ketch-com/ketch-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		543346162BDB853400975997 /* KetchSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 543346152BDB853400975997 /* XCRemoteSwiftPackageReference "ketch-ios" */;
+			productName = KetchSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 54EBAFB3282CF30900C7B249 /* Project object */;
 }
