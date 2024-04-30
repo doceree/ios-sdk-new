@@ -9,6 +9,7 @@ public enum DocereeAdRequestError: String, Error {
 public enum HcpRequestError: String, Error {
     case apiFailed = "Api Failed"
     case parsingError = "Parsing Error"
+    case noScriptFound = "No script found"
 }
 
 //public enum HcpRequestError: Error {

@@ -11,7 +11,6 @@ import WebKit
 public class HcpValidationView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler  {
 
     private var adWebView: WKWebView!
-//    var hcpValidationRequest: HcpValidationRequest?
     
     var containerView: UIView!
     public var delegate: HcpValidationViewDelegate?
@@ -89,22 +88,24 @@ public class HcpValidationView: UIView, WKNavigationDelegate, WKUIDelegate, WKSc
                     let data: HcpValidationData = response.data
                     DispatchQueue.main.async {
                         if let script = data.script {
+                            self.delegate?.hcpValidationViewSuccess(self)
                             self.backgroundColor = UIColor.lightGray.withAlphaComponent(0.6)
                             print("body: ", self.createHTMLBody(script: (script.fromBase64())!))
                             self.initializeRichAds(body: self.createHTMLBody(script: (script.fromBase64())!))
                             self.delegate?.hcpValidationViewSuccess(self)
                         }
                         else {
+                            self.delegate?.hcpValidationView(self, didFailToReceiveHcpWithError: HcpRequestError.noScriptFound)
                             self.removeFromSuperview()
-                            print("No script found")
                         }
                     }
                 } catch {
-//                    self.delegate?.hcpValidationView(self, didFailToReceiveHcpWithError: HcpRequestError.parsingError)
+                    self.delegate?.hcpValidationView(self, didFailToReceiveHcpWithError: HcpRequestError.parsingError)
                     self.removeFromSuperview()
                 }
                 
             } else {
+                self.delegate?.hcpValidationView(self, didFailToReceiveHcpWithError: HcpRequestError.parsingError)
                 self.removeFromSuperview()
             }
         }
