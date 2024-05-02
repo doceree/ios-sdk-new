@@ -45,6 +45,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		541997752BE3D1E3006EBD1B /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		5433461F2BDBB06A00975997 /* MyKetchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyKetchView.swift; sourceTree = "<group>"; };
 		543ACD322964535A005C47FE /* PlatformData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformData.swift; sourceTree = "<group>"; };
 		54874D252BBAAB860018A882 /* HcpValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HcpValidation.swift; sourceTree = "<group>"; };
@@ -97,6 +98,7 @@
 		54EBAFB2282CF30900C7B249 = {
 			isa = PBXGroup;
 			children = (
+				541997752BE3D1E3006EBD1B /* Package.swift */,
 				54EBAFBE282CF30900C7B249 /* DocereeAdsSdk */,
 				54EBAFBD282CF30900C7B249 /* Products */,
 			);
