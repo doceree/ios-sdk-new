@@ -7,6 +7,7 @@
 
 import UIKit
 import WebKit
+import KetchSDK
 
 public class HcpValidationView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler  {
 

@@ -1,0 +1,23 @@
+PODS:
+  - DocereeAdSdk (5.0.2):
+    - KetchSDK (= 4.0.3)
+  - KetchSDK (4.0.3)
+
+DEPENDENCIES:
+  - DocereeAdSdk (from `/Users/muqeem.ahmad/Documents/Projects/docereeiosmainnew/ios-sdk-new/DocereeAdSdk.podspec`)
+
+SPEC REPOS:
+  trunk:
+    - KetchSDK
+
+EXTERNAL SOURCES:
+  DocereeAdSdk:
+    :path: "/Users/muqeem.ahmad/Documents/Projects/docereeiosmainnew/ios-sdk-new/DocereeAdSdk.podspec"
+
+SPEC CHECKSUMS:
+  DocereeAdSdk: 6cf9c4c0127e9cea3512b5ea06dc505092317e36
+  KetchSDK: 8aafe383bab66b06e6628bdb3aafe2ee5cae68d3
+
+PODFILE CHECKSUM: 6fb30cf851082701971661e984ab5d9f9089598b
+
+COCOAPODS: 1.15.2
