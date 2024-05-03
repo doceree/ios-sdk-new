@@ -14,4 +14,5 @@ Pod::Spec.new do |spec|
   spec.source_files = "DocereeAdsSdk/**/*.{swift}"
   spec.resource_bundles = {'DocereeAdSdk' => 'DocereeAdsSdk/**/*.{png,jpeg,jpg,storyboard,xib,xcassets}'}
   spec.swift_version    = '5.0'
+  spec.dependency 'KetchSDK', '4.0.3'
 end

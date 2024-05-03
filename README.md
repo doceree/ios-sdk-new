@@ -6,12 +6,16 @@
 - Create an account on Doceree
 
 ## Adding Doceree SDK to your Project
-The simplest way of adding the SDK to your project is via cocoapods. Open your pod file and add these lines to your app’s Pod file. 
+DocereeAdSdk is available through [CocoaPods](https://cocoapods.org). To install
+it, simply add the following line to your Podfile:
 
 ```sh
 pod 'DocereeAdSdk', '~> 5.0.1'
 ```
 
+## Author
+
+Muqeem Ahmad, muqeem.ahmad@doceree.com
 
 ## License
 This code is distributed under the terms and conditions of the [MIT license](https://github.com/doceree/ios-sdk/blob/master/MIT%20License).

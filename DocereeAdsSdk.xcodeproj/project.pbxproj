@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		543346172BDB853400975997 /* KetchSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 543346162BDB853400975997 /* KetchSDK */; };
+		541997C22BE4EE81006EBD1B /* DocereeAdSdk.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 541997C12BE4EE81006EBD1B /* DocereeAdSdk.podspec */; };
+		541997C52BE4EEBB006EBD1B /* MIT License in Resources */ = {isa = PBXBuildFile; fileRef = 541997C32BE4EEBB006EBD1B /* MIT License */; };
+		541997C62BE4EEBB006EBD1B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 541997C42BE4EEBB006EBD1B /* README.md */; };
 		543346202BDBB06A00975997 /* MyKetchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5433461F2BDBB06A00975997 /* MyKetchView.swift */; };
 		543ACD332964535A005C47FE /* PlatformData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543ACD322964535A005C47FE /* PlatformData.swift */; };
 		54874D262BBAAB860018A882 /* HcpValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54874D252BBAAB860018A882 /* HcpValidation.swift */; };
@@ -45,6 +47,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		541997C12BE4EE81006EBD1B /* DocereeAdSdk.podspec */ = {isa = PBXFileReference; lastKnownFileType = file; path = DocereeAdSdk.podspec; sourceTree = SOURCE_ROOT; };
+		541997C32BE4EEBB006EBD1B /* MIT License */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "MIT License"; sourceTree = SOURCE_ROOT; };
+		541997C42BE4EEBB006EBD1B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		5433461F2BDBB06A00975997 /* MyKetchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyKetchView.swift; sourceTree = "<group>"; };
 		543ACD322964535A005C47FE /* PlatformData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformData.swift; sourceTree = "<group>"; };
 		54874D252BBAAB860018A882 /* HcpValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HcpValidation.swift; sourceTree = "<group>"; };
@@ -87,16 +92,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				543346172BDB853400975997 /* KetchSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		541997C02BE4EE68006EBD1B /* Podspec Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				541997C12BE4EE81006EBD1B /* DocereeAdSdk.podspec */,
+				541997C42BE4EEBB006EBD1B /* README.md */,
+				541997C32BE4EEBB006EBD1B /* MIT License */,
+			);
+			path = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
 		54EBAFB2282CF30900C7B249 = {
 			isa = PBXGroup;
 			children = (
+				541997C02BE4EE68006EBD1B /* Podspec Metadata */,
 				54EBAFBE282CF30900C7B249 /* DocereeAdsSdk */,
 				54EBAFBD282CF30900C7B249 /* Products */,
 			);
@@ -220,7 +235,6 @@
 			);
 			name = DocereeAdsSdk;
 			packageProductDependencies = (
-				543346162BDB853400975997 /* KetchSDK */,
 			);
 			productName = DocereeAdsSdk;
 			productReference = 54EBAFBC282CF30900C7B249 /* DocereeAdsSdk.framework */;
@@ -251,7 +265,6 @@
 			);
 			mainGroup = 54EBAFB2282CF30900C7B249;
 			packageReferences = (
-				543346152BDB853400975997 /* XCRemoteSwiftPackageReference "ketch-ios" */,
 			);
 			productRefGroup = 54EBAFBD282CF30900C7B249 /* Products */;
 			projectDirPath = "";
@@ -267,6 +280,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				541997C22BE4EE81006EBD1B /* DocereeAdSdk.podspec in Resources */,
+				541997C52BE4EEBB006EBD1B /* MIT License in Resources */,
+				541997C62BE4EEBB006EBD1B /* README.md in Resources */,
 				54BD89C6284F563F00DC94A3 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -527,25 +543,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		543346152BDB853400975997 /* XCRemoteSwiftPackageReference "ketch-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ketch-com/ketch-ios.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		543346162BDB853400975997 /* KetchSDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 543346152BDB853400975997 /* XCRemoteSwiftPackageReference "ketch-ios" */;
-			productName = KetchSDK;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 54EBAFB3282CF30900C7B249 /* Project object */;
 }
