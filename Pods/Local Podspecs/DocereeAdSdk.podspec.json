@@ -1,6 +1,6 @@
 {
   "name": "DocereeAdSdk",
-  "version": "5.0.2",
+  "version": "5.0.3-alpha.2",
   "license": {
     "type": "MIT",
     "file": "MIT License"
@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/doceree/ios-sdk-new.git",
-    "tag": "5.0.2"
+    "tag": "5.0.3-alpha.2"
   },
   "source_files": "DocereeAdsSdk/**/*.{swift}",
   "resource_bundles": {
