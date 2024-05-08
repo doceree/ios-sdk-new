@@ -11,9 +11,9 @@ import WebKit
 public class HcpValidationView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler  {
 
     private var adWebView: WKWebView!
-//    var hcpValidationRequest: HcpValidationRequest?
-    
+    var hcpResponseData: HcpValidation?
     var containerView: UIView!
+    var hcpValidationRequest: HcpValidationRequest?
     public var delegate: HcpValidationViewDelegate?
     
     // MARK: Initialization
@@ -29,20 +29,24 @@ public class HcpValidationView: UIView, WKNavigationDelegate, WKUIDelegate, WKSc
         print("Button clicked with ID: \(buttonId)")
         var duration: TimeInterval
         var action: PopupAction
+        var actionUrl: String = ""
         switch(buttonId) {
         case "cookie-accept-btn":
             duration = ExpirationDuration.year1
             action = .accept
+            actionUrl = hcpResponseData?.acceptUrl ?? ""
         case "cookie-decline-btn":
             duration = ExpirationDuration.days15
             action = .reject
+            actionUrl = hcpResponseData?.closeUrl ?? ""
         default:
             duration = ExpirationDuration.hours6
             action = .close
         }
         
         saveTimeInterval(duration: duration)
-        self.delegate?.hcpPopupAction(action)
+        self.delegate?.hcpPopupAction(action, actionUrl)
+        updateHcpValidaiton(hcpStatus: action.rawValue)
     }
     
     func saveTimeInterval(duration: TimeInterval) {
@@ -72,8 +76,12 @@ public class HcpValidationView: UIView, WKNavigationDelegate, WKUIDelegate, WKSc
         }
     }
 
+    internal func updateHcpValidaiton(hcpStatus: String) {
+        hcpValidationRequest?.updateHcpSelfValidation(hcpStatus, nil)
+    }
+    
     public func loadData(hcpValidationRequest: HcpValidationRequest) {
-
+        self.hcpValidationRequest = hcpValidationRequest
         if (!getInterval()) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 // code to remove your view
@@ -85,26 +93,28 @@ public class HcpValidationView: UIView, WKNavigationDelegate, WKUIDelegate, WKSc
         hcpValidationRequest.getHcpSelfValidation("uId") { (results) in
             if let result = results.data {
                 do {
-                    let response = try JSONDecoder().decode(HcpValidation.self, from: result)
-                    let data: HcpValidationData = response.data
+                    self.hcpResponseData = try JSONDecoder().decode(HcpValidation.self, from: result)
+                    guard let data = self.hcpResponseData?.data else { return }
                     DispatchQueue.main.async {
                         if let script = data.script {
+                            self.delegate?.hcpValidationViewSuccess(self)
                             self.backgroundColor = UIColor.lightGray.withAlphaComponent(0.6)
                             print("body: ", self.createHTMLBody(script: (script.fromBase64())!))
                             self.initializeRichAds(body: self.createHTMLBody(script: (script.fromBase64())!))
                             self.delegate?.hcpValidationViewSuccess(self)
                         }
                         else {
+                            self.delegate?.hcpValidationView(self, didFailToReceiveHcpWithError: HcpRequestError.noScriptFound)
                             self.removeFromSuperview()
-                            print("No script found")
                         }
                     }
                 } catch {
-//                    self.delegate?.hcpValidationView(self, didFailToReceiveHcpWithError: HcpRequestError.parsingError)
+                    self.delegate?.hcpValidationView(self, didFailToReceiveHcpWithError: HcpRequestError.parsingError)
                     self.removeFromSuperview()
                 }
                 
             } else {
+                self.delegate?.hcpValidationView(self, didFailToReceiveHcpWithError: HcpRequestError.parsingError)
                 self.removeFromSuperview()
             }
         }
