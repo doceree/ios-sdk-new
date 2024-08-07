@@ -69,14 +69,14 @@ public final class DocereeAdRequest {
 
             //header
             self.requestHttpHeaders.add(value: "application/json", forKey: "Content-Type")
-            self.requestHttpHeaders.add(value: UAString.init().UAString(), forKey: Header.header_user_agent.rawValue)
-            self.requestHttpHeaders.add(value: advertisementId!, forKey: Header.header_advertising_id.rawValue)
-            self.requestHttpHeaders.add(value: self.isVendorId ? "1" : "0", forKey: Header.is_vendor_id.rawValue)
-            self.requestHttpHeaders.add(value: DocereeMobileAds.trackingStatus, forKey: Header.header_is_ad_tracking_enabled.rawValue)
-            self.requestHttpHeaders.add(value: Bundle.main.displayName!, forKey: Header.header_app_name.rawValue)
-            self.requestHttpHeaders.add(value: Bundle.main.bundleIdentifier!, forKey: Header.header_app_bundle.rawValue)
-            self.requestHttpHeaders.add(value: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String, forKey: Header.header_app_version.rawValue)
-            self.requestHttpHeaders.add(value: sdkVersion, forKey: Header.header_lib_version.rawValue)
+            self.requestHttpHeaders.add(value: UAString.init().UAString(), forKey: HeaderEnum.header_user_agent.rawValue)
+            self.requestHttpHeaders.add(value: advertisementId!, forKey: HeaderEnum.header_advertising_id.rawValue)
+            self.requestHttpHeaders.add(value: self.isVendorId ? "1" : "0", forKey: HeaderEnum.is_vendor_id.rawValue)
+            self.requestHttpHeaders.add(value: DocereeMobileAds.trackingStatus, forKey: HeaderEnum.header_is_ad_tracking_enabled.rawValue)
+            self.requestHttpHeaders.add(value: Bundle.main.displayName!, forKey: HeaderEnum.header_app_name.rawValue)
+            self.requestHttpHeaders.add(value: Bundle.main.bundleIdentifier!, forKey: HeaderEnum.header_app_bundle.rawValue)
+            self.requestHttpHeaders.add(value: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String, forKey: HeaderEnum.header_app_version.rawValue)
+            self.requestHttpHeaders.add(value: sdkVersion, forKey: HeaderEnum.header_lib_version.rawValue)
 
             // query params
             let josnObject: [String : Any] = [
@@ -94,11 +94,12 @@ public final class DocereeAdRequest {
                 QueryParamsForAdRequest.country.rawValue : loggedInUser.country ?? "",
                 QueryParamsForAdRequest.zipCode.rawValue : loggedInUser.zipCode ?? "",
                 QueryParamsForAdRequest.adUnit.rawValue : adUnitId ?? "",
-                QueryParamsForAdRequest.br.rawValue : "",
+                QueryParamsForAdRequest.br.rawValue : PatientSession().getBr(),
                 QueryParamsForAdRequest.cdt.rawValue : "",
                 QueryParamsForAdRequest.privacyConsent.rawValue: 1
             ]
 
+            print("josnObject: ", josnObject)
             let body = josnObject
             let config = URLSessionConfiguration.default
             let session = URLSession(configuration: config)
@@ -203,7 +204,7 @@ public final class DocereeAdRequest {
         let ua: String = UAString.init().UAString()
         // headers
         self.requestHttpHeaders.add(value: "application/json", forKey: "Content-Type")
-        self.requestHttpHeaders.add(value: UAString.init().UAString(), forKey: Header.header_user_agent.rawValue)
+        self.requestHttpHeaders.add(value: UAString.init().UAString(), forKey: HeaderEnum.header_user_agent.rawValue)
         
         // query params
         var httpBodyParameters = RestEntity()
@@ -221,7 +222,7 @@ public final class DocereeAdRequest {
         components.path = getPath(methodName: Methods.AdBlock)
         let adBlockEndPoint: URL = components.url!
         var request: URLRequest = URLRequest(url: adBlockEndPoint)
-        request.setValue(ua, forHTTPHeaderField: Header.header_user_agent.rawValue)
+        request.setValue(ua, forHTTPHeaderField: HeaderEnum.header_user_agent.rawValue)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         // set headers

@@ -32,15 +32,15 @@ public class HcpValidationView: UIView, WKNavigationDelegate, WKUIDelegate, WKSc
         var actionUrl: String = ""
         switch(buttonId) {
         case "cookie-accept-btn":
-            duration = ExpirationDuration.year1
+            duration = ExpirationDuration.minutes10
             action = .accept
-            actionUrl = hcpResponseData?.acceptUrl ?? ""
+            actionUrl = hcpResponseData?.data.acceptUrl ?? ""
         case "cookie-decline-btn":
-            duration = ExpirationDuration.days15
+            duration = ExpirationDuration.minutes5
             action = .reject
-            actionUrl = hcpResponseData?.closeUrl ?? ""
+            actionUrl = hcpResponseData?.data.closeUrl ?? ""
         default:
-            duration = ExpirationDuration.hours6
+            duration = ExpirationDuration.minutes2
             action = .close
         }
         
@@ -77,7 +77,7 @@ public class HcpValidationView: UIView, WKNavigationDelegate, WKUIDelegate, WKSc
     }
 
     internal func updateHcpValidaiton(hcpStatus: String) {
-        hcpValidationRequest?.updateHcpSelfValidation(hcpStatus, nil)
+        hcpValidationRequest?.updateHcpSelfValidation(hcpStatus)
     }
     
     public func loadData(hcpValidationRequest: HcpValidationRequest) {
@@ -90,7 +90,7 @@ public class HcpValidationView: UIView, WKNavigationDelegate, WKUIDelegate, WKSc
             return
         }
         
-        hcpValidationRequest.getHcpSelfValidation("uId") { (results) in
+        hcpValidationRequest.getHcpSelfValidation() { (results) in
             if let result = results.data {
                 do {
                     self.hcpResponseData = try JSONDecoder().decode(HcpValidation.self, from: result)
