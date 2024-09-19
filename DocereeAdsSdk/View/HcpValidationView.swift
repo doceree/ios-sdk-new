@@ -29,23 +29,25 @@ public class HcpValidationView: UIView, WKNavigationDelegate, WKUIDelegate, WKSc
         print("Button clicked with ID: \(buttonId)")
         var duration: TimeInterval
         var action: PopupAction
-        var actionUrl: String = ""
+        var actionUrl: String?
         switch(buttonId) {
         case "cookie-accept-btn":
             duration = ExpirationDuration.minutes10
             action = .accept
-            actionUrl = hcpResponseData?.data.acceptUrl ?? ""
+            actionUrl = hcpResponseData?.data.acceptUrl
         case "cookie-decline-btn":
             duration = ExpirationDuration.minutes5
             action = .reject
-            actionUrl = hcpResponseData?.data.closeUrl ?? ""
+            actionUrl = hcpResponseData?.data.closeUrl
         default:
             duration = ExpirationDuration.minutes2
             action = .close
         }
         
+        if actionUrl != nil {
+            self.delegate?.hcpPopupAction(action, actionUrl!)
+        }
         saveTimeInterval(duration: duration)
-        self.delegate?.hcpPopupAction(action, actionUrl)
         updateHcpValidaiton(hcpStatus: action.rawValue)
     }
     
@@ -179,13 +181,22 @@ public class HcpValidationView: UIView, WKNavigationDelegate, WKUIDelegate, WKSc
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         let jsCode = """
+            // Detect the close button and add an event listener
+            var closeButton = document.getElementById('doc-close-btn');
+            if (closeButton) {
+                closeButton.addEventListener('click', function() {
+                    window.webkit.messageHandlers.buttonClicked.postMessage(closeButton.id);
+                });
+            }
+
+            // Detect the accept and decline buttons and add event listeners
             var buttons = document.querySelectorAll('.doc-action-btn');
             buttons.forEach(function(button) {
                 button.addEventListener('click', function() {
                     window.webkit.messageHandlers.buttonClicked.postMessage(button.id);
                 });
             });
-        """
+        """;
         adWebView.evaluateJavaScript(jsCode, completionHandler: nil)
         
             // Resize the web view based on its content size
