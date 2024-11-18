@@ -120,68 +120,112 @@ public class PatientBuilder {
     }
 
     public func add(key: String, value: Any) -> PatientBuilder {
-            switch key {
-            case "sessionId":
-                patient.sessionId = value as? String ?? ""
-            case "age":
-                patient.age = value as? String ?? ""
-            case "gender":
-                patient.gender = value as? String ?? ""
-            case "insurance":
-                patient.insurance = value as? String ?? ""
-            case "insuranceType":
-                patient.insuranceType = JsonUtility.unEscapeArray(value as? String ?? "") ?? []
-            case "insuranceName":
-                patient.insuranceName = JsonUtility.unEscapeArray(value as? String ?? "") ?? []
-            case "temperature":
-                patient.temperature = JsonUtility.unEscapeDictionary(escapedJSONString: value as? String ?? "") ?? [:]
-            case "bp":
-                patient.bp = value as? String ?? ""
-            case "pulse":
-                patient.pulse = value as? String ?? ""
-            case "respiration":
-                patient.respiration = value as? String ?? ""
-            case "labTest":
-                patient.labTest = JsonUtility.unEscapeArray(value as? String ?? "") ?? []
-            case "diagnosis":
-                patient.diagnosis = JsonUtility.unEscapeArray(value as? String ?? "") ?? []
-            case "prescription":
-                patient.prescription = JsonUtility.unEscapeArray(value as? String ?? "") ?? []
-            case "pharmacy":
-                patient.pharmacy = JsonUtility.unEscapeArray(value as? String ?? "") ?? []
-            case "labTestHistory":
-                if let jsonArray = JsonUtility.convertEscapedJSONStringToArray(value as! String) {
-                    print(jsonArray)
-                    patient.labTestHistory = jsonArray
-                } else {
-                    print("Failed to convert JSON string")
-                }
-            case "diagnosisHistory":
-                if let jsonArray = JsonUtility.convertEscapedJSONStringToArray(value as! String) {
-                    print(jsonArray)
-                    patient.diagnosisHistory = jsonArray
-                } else {
-                    print("Failed to convert JSON string")
-                }
-            case "prescriptionHistory":
-                if let jsonArray = JsonUtility.convertEscapedJSONStringToArray(value as! String) {
-                    print(jsonArray)
-                    patient.prescriptionHistory = jsonArray
-                } else {
-                    print("Failed to convert JSON string")
-                }
-            case "pharmacyHistory":
-                if let jsonArray = JsonUtility.convertEscapedJSONStringToArray(value as! String) {
-                    print(jsonArray)
-                    patient.pharmacyHistory = jsonArray
-                } else {
-                    print("Failed to convert JSON string")
-                }
-            default:
-                break
-            }
-            return self
+        switch key {
+        case "sessionId":
+            patient.sessionId = value as? String ?? ""
+        case "age":
+            patient.age = value as? String ?? ""
+        case "gender":
+            patient.gender = value as? String ?? ""
+        case "insurance":
+            patient.insurance = value as? String ?? ""
+        case "insuranceType":
+            patient.insuranceType = value as? [String] ?? []
+        case "insuranceName":
+            patient.insuranceName = value as? [String] ?? []
+        case "temperature":
+            patient.temperature = value as? [String: Any] ?? [:]
+        case "bp":
+            patient.bp = value as? String ?? ""
+        case "pulse":
+            patient.pulse = value as? String ?? ""
+        case "respiration":
+            patient.respiration = value as? String ?? ""
+        case "labTest":
+            patient.labTest = value as? [String] ?? []
+        case "diagnosis":
+            patient.diagnosis = value as? [String] ?? []
+        case "prescription":
+            patient.prescription = value as? [String] ?? []
+        case "pharmacy":
+            patient.pharmacy = value as? [String] ?? []
+        case "labTestHistory":
+            patient.labTestHistory = value as? [[String: Any]] ?? []
+        case "diagnosisHistory":
+            patient.diagnosisHistory = value as? [[String: Any]] ?? []
+        case "prescriptionHistory":
+            patient.prescriptionHistory = value as? [[String: Any]] ?? []
+        case "pharmacyHistory":
+            patient.pharmacyHistory = value as? [[String: Any]] ?? []
+        default:
+            break
         }
+        return self
+    }
+    
+//    public func add(key: String, value: Any) -> PatientBuilder {
+//            switch key {
+//            case "sessionId":
+//                patient.sessionId = value as? String ?? ""
+//            case "age":
+//                patient.age = value as? String ?? ""
+//            case "gender":
+//                patient.gender = value as? String ?? ""
+//            case "insurance":
+//                patient.insurance = value as? String ?? ""
+//            case "insuranceType":
+//                patient.insuranceType = JsonUtility.unEscapeArray(value as? String ?? "") ?? []
+//            case "insuranceName":
+//                patient.insuranceName = JsonUtility.unEscapeArray(value as? String ?? "") ?? []
+//            case "temperature":
+//                patient.temperature = JsonUtility.unEscapeDictionary(escapedJSONString: value as? String ?? "") ?? [:]
+//            case "bp":
+//                patient.bp = value as? String ?? ""
+//            case "pulse":
+//                patient.pulse = value as? String ?? ""
+//            case "respiration":
+//                patient.respiration = value as? String ?? ""
+//            case "labTest":
+//                patient.labTest = JsonUtility.unEscapeArray(value as? String ?? "") ?? []
+//            case "diagnosis":
+//                patient.diagnosis = JsonUtility.unEscapeArray(value as? String ?? "") ?? []
+//            case "prescription":
+//                patient.prescription = JsonUtility.unEscapeArray(value as? String ?? "") ?? []
+//            case "pharmacy":
+//                patient.pharmacy = JsonUtility.unEscapeArray(value as? String ?? "") ?? []
+//            case "labTestHistory":
+//                if let jsonArray = JsonUtility.convertEscapedJSONStringToArray(value as! String) {
+//                    print(jsonArray)
+//                    patient.labTestHistory = jsonArray
+//                } else {
+//                    print("Failed to convert JSON string")
+//                }
+//            case "diagnosisHistory":
+//                if let jsonArray = JsonUtility.convertEscapedJSONStringToArray(value as! String) {
+//                    print(jsonArray)
+//                    patient.diagnosisHistory = jsonArray
+//                } else {
+//                    print("Failed to convert JSON string")
+//                }
+//            case "prescriptionHistory":
+//                if let jsonArray = JsonUtility.convertEscapedJSONStringToArray(value as! String) {
+//                    print(jsonArray)
+//                    patient.prescriptionHistory = jsonArray
+//                } else {
+//                    print("Failed to convert JSON string")
+//                }
+//            case "pharmacyHistory":
+//                if let jsonArray = JsonUtility.convertEscapedJSONStringToArray(value as! String) {
+//                    print(jsonArray)
+//                    patient.pharmacyHistory = jsonArray
+//                } else {
+//                    print("Failed to convert JSON string")
+//                }
+//            default:
+//                break
+//            }
+//            return self
+//        }
     
     func unEscapeArrayDictionary(escapedJSONString: String) -> [String: String]? {
         // Convert escaped JSON string to Data
