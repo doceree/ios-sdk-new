@@ -88,9 +88,9 @@ public struct MyKetchView: View {
     
     @State var selectedExperienceToShow: KetchUI.ExperienceOption.ExperienceToShow = .consent
     @State var selectedTab: KetchUI.ExperienceOption.PreferencesTab?
-    @State var lang = "EN"
-    @State var jurisdiction = "default"
-    @State var region = "US"
+    @State var lang = "HI"
+    @State var jurisdiction = "australia"
+    @State var region = "AUS"
     @State var tabsExpanded = false
     @State var selectedTabs = KetchUI.ExperienceOption.PreferencesTab.allCases
     
@@ -145,7 +145,7 @@ public struct MyKetchView: View {
                     VStack {
                         Text("Language:")
                         Picker("Language", selection: $lang) {
-                            ForEach(["EN", "FR"], id: \.self) {
+                            ForEach(["EN", "HI"], id: \.self) {
                                 Text($0)
                             }
                         }
@@ -153,7 +153,7 @@ public struct MyKetchView: View {
                         
                         Text("Jurisdiction:")
                         Picker("Jurisdiction", selection: $jurisdiction) {
-                            ForEach(["default", "gdpr"], id: \.self) {
+                            ForEach(["default", "australia", "china_test"], id: \.self) {
                                 Text($0)
                             }
                         }
@@ -162,7 +162,7 @@ public struct MyKetchView: View {
                         
                         Text("Region:")
                         Picker("Region", selection: $region) {
-                            ForEach(["US", "FR", "GB"], id: \.self) {
+                            ForEach(["US", "AUS", "CH"], id: \.self) {
                                 Text($0)
                             }
                         }
