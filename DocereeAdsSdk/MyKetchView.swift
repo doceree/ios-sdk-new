@@ -127,46 +127,43 @@ public struct MyKetchView: View {
                             }
                         }
                         
-                        if !selectedTabs.isEmpty {
-                            HStack {
-                                Text("Active tab:")
-                                
-                                Picker("Active tab:", selection: $selectedTab) {
-                                    Text("none").tag(nil as KetchUI.ExperienceOption.PreferencesTab?)
-                                    
-                                    ForEach(selectedTabs, id: \.self) { tab in
-                                        Text(tab.rawValue.replacingOccurrences(of: "Tab", with: "")).tag(tab as KetchUI.ExperienceOption.PreferencesTab?)
-                                    }
-                                }
-                                .pickerStyle(.menu)
-                            }
-                        }
+//                        if !selectedTabs.isEmpty {
+//                            HStack {
+//                                Text("Active tab:")
+//                                
+//                                Picker("Active tab:", selection: $selectedTab) {
+//                                    Text("none").tag(nil as KetchUI.ExperienceOption.PreferencesTab?)
+//                                    
+//                                    ForEach(selectedTabs, id: \.self) { tab in
+//                                        Text(tab.rawValue.replacingOccurrences(of: "Tab", with: "")).tag(tab as KetchUI.ExperienceOption.PreferencesTab?)
+//                                    }
+//                                }
+//                                .pickerStyle(.menu)
+//                            }
+//                        }
                     }
                     VStack {
-                        Text("Language:")
-                        Picker("Language", selection: $lang) {
-                            ForEach(["EN", "HI"], id: \.self) {
-                                Text($0)
-                            }
+                        HStack {
+                            Text("Language:")
+                            TextField("Language", text: $lang)
+                                .padding()
+                                .textFieldStyle(RoundedBorderTextFieldStyle()) // Styling
                         }
-                        .pickerStyle(.segmented)
-                        
-                        Text("Jurisdiction:")
-                        Picker("Jurisdiction", selection: $jurisdiction) {
-                            ForEach(["default", "australia", "china_test"], id: \.self) {
-                                Text($0)
-                            }
+
+                        HStack {
+                            Text("Jurisdiction:")
+                            TextField("Jurisdiction", text: $jurisdiction)
+                                .padding()
+                                .textFieldStyle(RoundedBorderTextFieldStyle()) // Styling
                         }
-                        .pickerStyle(.segmented)
-                        
-                        
-                        Text("Region:")
-                        Picker("Region", selection: $region) {
-                            ForEach(["US", "AUS", "CH"], id: \.self) {
-                                Text($0)
-                            }
+
+                        HStack {
+                            Text("Region:")
+                            TextField("Region", text: $region)
+                                .padding()
+                                .textFieldStyle(RoundedBorderTextFieldStyle()) // Styling
                         }
-                        .pickerStyle(.segmented)
+
                     }
 
                     
@@ -201,9 +198,9 @@ public struct MyKetchView: View {
                     
                     Spacer()
                     
-                    Button("Log local privacy strings") {
-                        showPrivacyStrings()
-                    }
+//                    Button("Log local privacy strings") {
+//                        showPrivacyStrings()
+//                    }
                 }
                 .padding()
             }
