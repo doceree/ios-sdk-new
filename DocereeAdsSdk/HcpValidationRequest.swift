@@ -17,22 +17,17 @@ public final class HcpValidationRequest {
     public init() {
     }
     
-    internal func getHcpSelfValidation(_ userId: String!, completion: @escaping(_ results: Results) -> Void) {
+    internal func getHcpSelfValidation(completion: @escaping(_ results: Results) -> Void) {
 
-        var advertisementId: String?
-        if let adId = userId {
-            advertisementId = adId
-        } else {
-            advertisementId = getIdentifierForAdvertising()
-            if (advertisementId == nil) {
-                if #available(iOS 10.0, *) {
-                    os_log("Error: Ad Tracking is disabled . Please re-enable it to view ads", log: .default, type: .error)
-                } else {
-                    // Fallback on earlier versions
-                    print("Error: Ad Tracking is disabled . Please re-enable it to view ads")
-                }
-                return
+        let advertisementId = getIdentifierForAdvertising()
+        if (advertisementId == nil) {
+            if #available(iOS 10.0, *) {
+                os_log("Error: Ad Tracking is disabled . Please re-enable it to view ads", log: .default, type: .error)
+            } else {
+                // Fallback on earlier versions
+                print("Error: Ad Tracking is disabled . Please re-enable it to view ads")
             }
+            return
         }
         
         self.requestHttpHeaders.add(value: "application/json", forKey: "Content-Type")
@@ -41,6 +36,7 @@ public final class HcpValidationRequest {
         let josnObject: [String : Any] = [
             GetHcpValidation.bundleId.rawValue : Bundle.main.bundleIdentifier!,
             GetHcpValidation.uuid.rawValue : advertisementId as Any,
+            GetHcpValidation.userId.rawValue : advertisementId as Any,
         ]
 
         let body = josnObject //httpBodyParameters.allValues()
@@ -93,22 +89,17 @@ public final class HcpValidationRequest {
 
     }
     
-    internal func updateHcpSelfValidation(_ hcpStatus: String, _ userId: String!) {
+    internal func updateHcpSelfValidation(_ hcpStatus: String) {
 
-        var advertisementId: String?
-        if let adId = userId {
-            advertisementId = adId
-        } else {
-            advertisementId = getIdentifierForAdvertising()
-            if (advertisementId == nil) {
-                if #available(iOS 10.0, *) {
-                    os_log("Error: Ad Tracking is disabled . Please re-enable it to view ads", log: .default, type: .error)
-                } else {
-                    // Fallback on earlier versions
-                    print("Error: Ad Tracking is disabled . Please re-enable it to view ads")
-                }
-                return
+        let advertisementId = getIdentifierForAdvertising()
+        if (advertisementId == nil) {
+            if #available(iOS 10.0, *) {
+                os_log("Error: Ad Tracking is disabled . Please re-enable it to view ads", log: .default, type: .error)
+            } else {
+                // Fallback on earlier versions
+                print("Error: Ad Tracking is disabled . Please re-enable it to view ads")
             }
+            return
         }
         
         self.requestHttpHeaders.add(value: "application/json", forKey: "Content-Type")
