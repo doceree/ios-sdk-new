@@ -99,3 +99,8 @@ extension Bundle {
         return self.infoDictionary?["CFBundleVersion"] as? String
     }
 }
+
+/// ✅ Checks if the device is an iPad or has a large screen
+func isLargeScreen() -> Bool {
+    return UIScreen.main.bounds.width > 600
+}

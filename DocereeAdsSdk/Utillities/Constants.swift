@@ -133,3 +133,12 @@ enum Event: String {
     case erxEncounterID = "enx"
     case scrollPath = "scd"
 }
+
+enum Popup {
+    static let title = "Are you a Healthcare Professional?"
+    static let description = """
+        This content is intended for Healthcare professionals only. By accessing this, you are confirming that you are a healthcare professional. This site may contain promotional information about pharma products.
+        """
+    static let noButtonText = "No, visit the public website"
+    static let yesButtonText = "Yes"
+}

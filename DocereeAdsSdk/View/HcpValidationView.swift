@@ -6,23 +6,245 @@
 //
 
 import UIKit
-import WebKit
 
-public class HcpValidationView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler  {
-
-    private var adWebView: WKWebView!
+public class HcpValidationView: UIView  {
+    
+    // MARK: - Properties
     var hcpResponseData: HcpValidation?
     var containerView: UIView!
     var hcpValidationRequest: HcpValidationRequest?
     public var delegate: HcpValidationViewDelegate?
-    
+    private var downloadedFont: UIFont? // ✅ Store the font globally once downloaded
+
     // MARK: Initialization
     override init(frame: CGRect) {
-        super.init(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, UIScreen.main.bounds.height))
+        super.init(frame: UIScreen.main.bounds)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    // MARK: - Setup View
+    private func setupView() {
+
+        backgroundColor = UIColor(white: 0, alpha: 0.6) // Semi-transparent background
+        
+        // Create the main popup container
+        let popupContainer = UIView()
+        popupContainer.backgroundColor = .white
+        popupContainer.layer.cornerRadius = 12
+        popupContainer.clipsToBounds = true
+        addSubview(popupContainer)
+        
+        popupContainer.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            popupContainer.centerXAnchor.constraint(equalTo: centerXAnchor),
+            popupContainer.centerYAnchor.constraint(equalTo: centerYAnchor),
+            popupContainer.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.85)
+        ])
+        // Get template ID and configure the UI accordingly
+        guard let templateId = hcpResponseData?.data.templateId else {
+            print("Unknown templateId")
+            return
+        }
+        configureTemplate(in: popupContainer, templateId: 2)
+    }
+
+    // MARK: - Templates
+    private func configureTemplate(in container: UIView, templateId: Int) {
+        
+        let titleLabel = createTitleLabel()
+        let closeButton = createCloseButton()
+        let titleStack = createTitleStackView(titleLabel: titleLabel, closeButton: closeButton)
+        container.addSubview(titleStack)
+        NSLayoutConstraint.activate([
+            titleStack.topAnchor.constraint(equalTo: container.topAnchor, constant: 16),
+            titleStack.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16),
+            titleStack.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16)
+        ])
+        let descriptionLabel = createDescriptionLabel()
+        container.addSubview(descriptionLabel)
+
+        applyFontsSequentially(to: titleLabel, descriptionLabel: descriptionLabel)
+        
+        var buttonTopConstraint: NSLayoutConstraint?
+        var buttonLeftConstraint: NSLayoutConstraint?
+        
+        let buttonStack = createButtonStack()
+        container.addSubview(buttonStack)
+
+        if templateId == 2 || templateId == 3 {
+            let iconImageView = createIconImageView(templateId: templateId)
+            container.addSubview(iconImageView)
+            
+            NSLayoutConstraint.activate([
+                iconImageView.topAnchor.constraint(equalTo: titleStack.bottomAnchor, constant: 10),
+                iconImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16)
+            ])
+
+            
+            NSLayoutConstraint.activate([
+                descriptionLabel.topAnchor.constraint(equalTo: titleStack.bottomAnchor, constant: 10),
+                descriptionLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 16),
+                descriptionLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16)
+            ])
+
+            // ✅ Buttons should be to the left of the icon and aligned to the bottom
+            let leading: CGFloat = isLargeScreen() ? 16 + 100 : 16
+            buttonTopConstraint = buttonStack.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10)
+            buttonLeftConstraint = buttonStack.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: leading)
+
+            
+        } else {
+            NSLayoutConstraint.activate([
+                descriptionLabel.topAnchor.constraint(equalTo: titleStack.bottomAnchor, constant: 10),
+                descriptionLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16),
+                descriptionLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16)
+            ])
+            
+            buttonTopConstraint = buttonStack.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10)
+            buttonLeftConstraint = buttonStack.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16)
+
+        }
+
+        NSLayoutConstraint.activate([
+            buttonTopConstraint!,
+            buttonLeftConstraint!,
+            buttonStack.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16),
+            buttonStack.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -20),
+            buttonStack.heightAnchor.constraint(equalToConstant: 35)
+        ])
+    }
+
+    // MARK: - Create UI Components
+    private func createTitleLabel() -> UILabel {
+        let titleLabel = UILabel()
+        titleLabel.text = Popup.title
+        titleLabel.textColor = UIColor(hexString: hcpResponseData?.data.fontColour ?? "000000")
+        titleLabel.textAlignment = .center
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        return titleLabel
+    }
+    
+    private func createCloseButton() -> UIImageView {
+        let closeButton: UIImageView
+        
+        if #available(iOS 13.0, *) {
+            closeButton = UIImageView(image: UIImage(systemName: "xmark"))
+        } else {
+            closeButton = UIImageView(image: UIImage(named: "close_icon")) // Provide a custom image for older iOS
+        }
+        
+        closeButton.tintColor = .black
+        closeButton.isUserInteractionEnabled = true
+        closeButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeButtonTapped)))
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            closeButton.widthAnchor.constraint(equalToConstant: 16),
+            closeButton.heightAnchor.constraint(equalToConstant: 20)
+        ])
+        
+        return closeButton
+    }
+    
+    private func createTitleStackView(titleLabel: UILabel, closeButton: UIImageView) -> UIStackView {
+        let titleStack = UIStackView(arrangedSubviews: [titleLabel, closeButton])
+        titleStack.axis = .horizontal
+        titleStack.spacing = 8
+        titleStack.alignment = .fill
+        titleStack.distribution = .fillProportionally
+        titleStack.translatesAutoresizingMaskIntoConstraints = false
+        return titleStack
+    }
+    
+    private func createDescriptionStackView(descriptionLabel: UILabel, iconImageView: UIImageView?) -> UIStackView {
+        if let iconImageView {
+            let descriptionStack = UIStackView(arrangedSubviews: [iconImageView, descriptionLabel])
+            descriptionStack.axis = .horizontal
+            descriptionStack.spacing = 8
+            descriptionStack.alignment = .top
+            descriptionStack.translatesAutoresizingMaskIntoConstraints = false
+            return descriptionStack
+        } else {
+            let descriptionStack = UIStackView(arrangedSubviews: [descriptionLabel])
+            descriptionStack.axis = .horizontal
+            descriptionStack.spacing = 8
+            descriptionStack.alignment = .top
+            descriptionStack.translatesAutoresizingMaskIntoConstraints = false
+            return descriptionStack
+        }
+    }
+    
+    private func createDescriptionLabel() -> UILabel {
+            let label = UILabel()
+            label.text = Popup.description
+            label.font = UIFont.systemFont(ofSize: 14)
+            label.textColor = UIColor(hexString: hcpResponseData?.data.fontColour ?? "000000")
+            label.textAlignment = .left
+            label.numberOfLines = 0
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }
+        
+        private func createIconImageView(templateId: Int) -> UIImageView {
+            let iconImageView = UIImageView()
+            let imageName = templateId == 2 ? "doc1" : "doc2"
+            if let bundleURL = Bundle(for: HcpValidationView.self).url(forResource: "DocereeAdsSdk", withExtension: "bundle"),
+               let bundle = Bundle(url: bundleURL) {
+                iconImageView.image = UIImage(named: imageName, in: bundle, compatibleWith: nil)
+            }
+            iconImageView.contentMode = .scaleAspectFit
+            iconImageView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                iconImageView.widthAnchor.constraint(equalToConstant: 100),
+                iconImageView.heightAnchor.constraint(equalToConstant: 100)
+            ])
+            return iconImageView
+        }
+        
+        private func createButtonStack() -> UIStackView {
+            let rejectButton = createButton(title: "No, visit the public website", backgroundColor: .white, textColor: .black, borderWidth: 1.0, buttonId: "cookie-decline-btn")
+            let acceptButton = createButton(title: "Yes", backgroundColor: UIColor(hexString: "4778ef"), textColor: .white, borderWidth: 0.0, buttonId: "cookie-accept-btn")
+            
+            let buttonStack = UIStackView(arrangedSubviews: [rejectButton, acceptButton])
+            buttonStack.axis = .horizontal
+            buttonStack.spacing = 12
+            buttonStack.alignment = .fill
+            buttonStack.distribution = .fillProportionally
+            buttonStack.translatesAutoresizingMaskIntoConstraints = false
+            return buttonStack
+        }
+
+    private func createButton(title: String, backgroundColor: UIColor, textColor: UIColor, borderWidth: CGFloat , buttonId: String) -> UIButton {
+            let button = UIButton(type: .system)
+            button.setTitle(title, for: .normal)
+            button.setTitleColor(textColor, for: .normal)
+            button.backgroundColor = backgroundColor
+            button.layer.cornerRadius = 17.5
+            button.accessibilityIdentifier = buttonId  // ✅ Assign Button ID
+            button.layer.borderWidth = borderWidth
+            button.layer.borderColor = UIColor(hexString: "888888").cgColor
+            button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+            return button
+        }
+    
+
+}
+
+// MARK: - Button Actions
+extension HcpValidationView {
+
+    /// ✅ **Handles All Button Clicks and Calls `onClickButton` with Button ID**
+    @objc private func buttonTapped(_ sender: UIButton) {
+        guard let buttonId = sender.accessibilityIdentifier else { return }
+        onClickButton(buttonId: buttonId)
+    }
+    
+    @objc private func closeButtonTapped() {
+        removeFromSuperview()
+        onClickButton(buttonId: "")
     }
     
     func onClickButton(buttonId: String) {
@@ -34,11 +256,11 @@ public class HcpValidationView: UIView, WKNavigationDelegate, WKUIDelegate, WKSc
         case "cookie-accept-btn":
             duration = ExpirationDuration.year1
             action = .accept
-            actionUrl = hcpResponseData?.acceptUrl ?? ""
+            actionUrl = hcpResponseData?.data.acceptUrl ?? ""
         case "cookie-decline-btn":
             duration = ExpirationDuration.days15
             action = .reject
-            actionUrl = hcpResponseData?.closeUrl ?? ""
+            actionUrl = hcpResponseData?.data.closeUrl ?? ""
         default:
             duration = ExpirationDuration.hours6
             action = .close
@@ -47,6 +269,58 @@ public class HcpValidationView: UIView, WKNavigationDelegate, WKUIDelegate, WKSc
         saveTimeInterval(duration: duration)
         self.delegate?.hcpPopupAction(action, actionUrl)
         updateHcpValidaiton(hcpStatus: action.rawValue)
+        removeFromSuperview()
+    }
+}
+
+// MARK: - Networking & Data Handling
+extension HcpValidationView {
+    
+    public func loadData(hcpValidationRequest: HcpValidationRequest) {
+        self.hcpValidationRequest = hcpValidationRequest
+        
+        if (!getInterval()) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.removeFromSuperview()
+            }
+            return
+        }
+        
+        hcpValidationRequest.getHcpSelfValidation("uId") { (results) in
+            if let result = results.data {
+                do {
+                    self.hcpResponseData = try JSONDecoder().decode(HcpValidation.self, from: result)
+                    guard (self.hcpResponseData?.data) != nil else { return }
+                    DispatchQueue.main.async {
+                        if self.hcpResponseData?.code == 200 {
+                            self.delegate?.hcpValidationViewSuccess(self)
+                            self.setupView()
+                        }
+                        else {
+                            self.delegate?.hcpValidationView(self, didFailToReceiveHcpWithError: HcpRequestError.noScriptFound)
+                            DispatchQueue.main.async {
+                                self.removeFromSuperview()
+                            }
+                        }
+                    }
+                } catch {
+                    self.delegate?.hcpValidationView(self, didFailToReceiveHcpWithError: HcpRequestError.parsingError)
+                    DispatchQueue.main.async {
+                        self.removeFromSuperview()
+                    }
+                }
+                
+            } else {
+                DispatchQueue.main.async {
+                    self.removeFromSuperview()
+                }
+            }
+        }
+    }
+    
+    private func getInterval() -> Bool {
+        let manager = UserDefaultsManager.shared
+        return manager.getUserDefaults() == nil
     }
     
     func saveTimeInterval(duration: TimeInterval) {
@@ -62,199 +336,53 @@ public class HcpValidationView: UIView, WKNavigationDelegate, WKUIDelegate, WKSc
         }
         self.removeFromSuperview()
     }
-    
-    func getInterval() -> Bool {
-        let manager = UserDefaultsManager.shared
-        manager.expirationDuration = ExpirationDuration.minutes10
-        // Retrieve user defaults
-        if let userData = manager.getUserDefaults() {
-            print("User defaults exist for :", userData)
-            return false
-        } else {
-            print("User defaults expired or not set.")
-            return true
-        }
-    }
 
     internal func updateHcpValidaiton(hcpStatus: String) {
         hcpValidationRequest?.updateHcpSelfValidation(hcpStatus, nil)
     }
     
-    public func loadData(hcpValidationRequest: HcpValidationRequest) {
-        self.hcpValidationRequest = hcpValidationRequest
-        if (!getInterval()) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                // code to remove your view
-                self.removeFromSuperview()
-            }
-            return
-        }
-        
-        hcpValidationRequest.getHcpSelfValidation("uId") { (results) in
-            if let result = results.data {
-                do {
-                    self.hcpResponseData = try JSONDecoder().decode(HcpValidation.self, from: result)
-                    guard let data = self.hcpResponseData?.data else { return }
-                    DispatchQueue.main.async {
-                        if let script = data.script {
-                            self.delegate?.hcpValidationViewSuccess(self)
-                            self.backgroundColor = UIColor.lightGray.withAlphaComponent(0.6)
-                            print("body: ", self.createHTMLBody(script: (script.fromBase64())!))
-                            self.initializeRichAds(body: self.createHTMLBody(script: (script.fromBase64())!))
-                            self.delegate?.hcpValidationViewSuccess(self)
-                        }
-                        else {
-                            self.delegate?.hcpValidationView(self, didFailToReceiveHcpWithError: HcpRequestError.noScriptFound)
-                            self.removeFromSuperview()
-                        }
-                    }
-                } catch {
-                    self.delegate?.hcpValidationView(self, didFailToReceiveHcpWithError: HcpRequestError.parsingError)
-                    self.removeFromSuperview()
-                }
-                
-            } else {
-                self.delegate?.hcpValidationView(self, didFailToReceiveHcpWithError: HcpRequestError.parsingError)
-                self.removeFromSuperview()
-            }
-        }
-    }
-    
-    // MARK: Rich Media Setup
-    private func initializeRichAds(body: String?) {
-        initWebView(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, UIScreen.main.bounds.height))
-        let url = URL(fileURLWithPath: "https://adbserver.doceree.com/")
-        adWebView.loadHTMLString(body!, baseURL: url)
-    }
-    
-    // MARK: initialize webView
-    private func initWebView(frame: CGRect) {
-        
-        containerView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width - 40, height: 0))
-        containerView.layer.cornerRadius = 10
-        containerView.layer.borderWidth = 1
-        containerView.layer.borderColor = UIColor.lightGray.cgColor
-        containerView.layer.masksToBounds = true
-        containerView.backgroundColor = .white
-        self.addSubview(containerView)
-        
-        
-        let webConfiguration = WKWebViewConfiguration()
-                let userContentController = WKUserContentController()
-                userContentController.add(self, name: "buttonClicked")
-                webConfiguration.userContentController = userContentController
-        
-        // Fix Fullscreen mode for video and autoplay
-//        webConfiguration.preferences.javaScriptEnabled = true
-//        webConfiguration.mediaPlaybackRequiresUserAction = false
-        webConfiguration.allowsInlineMediaPlayback = true
-        adWebView = WKWebView(frame: CGRect(x: containerView.bounds.origin.x, y: containerView.bounds.origin.y, width: containerView.bounds.width, height: 0), configuration: webConfiguration)
-        adWebView.configuration.allowsInlineMediaPlayback = true
-        adWebView.navigationDelegate = self
-        adWebView.uiDelegate = self
-        adWebView.translatesAutoresizingMaskIntoConstraints = false
-        adWebView.scrollView.isScrollEnabled = false
-        adWebView.isOpaque = true
-        adWebView.isUserInteractionEnabled = true
-        containerView.addSubview(adWebView)
-        
-    }
-    
-    // webview should always be the same size as the main view
-    private func setInitialConstraints() {
-        let webViewSizeConstraints = [
-            NSLayoutConstraint(item: self as Any, attribute: .width, relatedBy: .equal, toItem: adWebView, attribute: .width, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: self as Any, attribute: .height, relatedBy: .equal, toItem: adWebView, attribute: .height, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: self as Any, attribute: .centerX, relatedBy: .equal, toItem: adWebView, attribute: .centerX, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: self as Any, attribute: .centerY, relatedBy: .equal, toItem: adWebView, attribute: .centerY, multiplier: 1.0, constant: 0),
-        ]
-        self.addConstraints(webViewSizeConstraints)
-    }
+//    func getInterval() -> Bool {
+//        let manager = UserDefaultsManager.shared
+//        manager.expirationDuration = ExpirationDuration.minutes10
+//        // Retrieve user defaults
+//        if let userData = manager.getUserDefaults() {
+//            print("User defaults exist for :", userData)
+//            return false
+//        } else {
+//            print("User defaults expired or not set.")
+//            return true
+//        }
+//    }
+}
 
-    private func createHTMLBody(script: String) -> String {
-        let htmlStr = "<html><head><style>html,body{padding:0;margin:0;}</style><meta name='viewport' content='width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'></head><body>\(script)</body></html>"
-        return htmlStr
-    }
-    
-    
-    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        let jsCode = """
-            var buttons = document.querySelectorAll('.doc-action-btn');
-            buttons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                    window.webkit.messageHandlers.buttonClicked.postMessage(button.id);
-                });
-            });
-        """
-        adWebView.evaluateJavaScript(jsCode, completionHandler: nil)
-        
-            // Resize the web view based on its content size
-            webView.evaluateJavaScript("document.readyState", completionHandler: { (complete, error) in
-                if complete != nil {
-                    webView.evaluateJavaScript("document.body.scrollHeight", completionHandler: { (height, error) in
-                        if let height = height as? CGFloat {
-                            var frame = webView.frame
-                            frame.size.height = height
-                            
-                            // Update the height of the container view to match the content size
-                            self.containerView.frame.size.height = height + 20
-                            self.containerView.center = self.center
-                            
-//                            self.adWebView.frame.origin.y = 25
-                            self.adWebView.frame.size.height = height
-                        }
-                    })
-                }
-            })
-        }
-    
-    // Handle messages from JavaScript
-    public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        if message.name == "buttonClicked" {
-            if let buttonId = message.body as? String {
-                // Handle button click here
-                onClickButton(buttonId: buttonId)
-            }
-        }
-    }
-    
-    /* Handle HTTP requests from the webview */
-    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if navigationAction.navigationType == .linkActivated  {
-            if let url = navigationAction.request.url,
-               let host = url.host, !host.hasPrefix("www.google.com"),
-               UIApplication.shared.canOpenURL(url) {
-                DocereeAdView.didLeaveAd = true
-                if #available(iOS 10, *) {
-                    UIApplication.shared.open(url)
-                } else {
-                    // Fallback on earlier versions
-                    UIApplication.shared.openURL(url)
-                }
-                decisionHandler(.cancel)
-            } else {
-                decisionHandler(.allow)
-            }
+extension HcpValidationView {
+
+    private func loadFontIfNeeded(completion: @escaping (UIFont?) -> Void) {
+        if let font = downloadedFont {
+            completion(font) // ✅ Use cached font
         } else {
-            decisionHandler(.allow)
-        }
-    }
+            let fontName = hcpResponseData?.data.font ?? "Helvetica"
+            let googleFontURL = "https://fonts.googleapis.com/css2?family=\(fontName):wght@400;700"
 
-    public func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-        if navigationAction.targetFrame == nil || navigationAction.targetFrame?.isMainFrame == false {
-            if let url = navigationAction.request.url {
-                if UIApplication.shared.canOpenURL(url) {
-                    DocereeAdView.didLeaveAd = true
-                    if #available(iOS 10.0, *) {
-                        UIApplication.shared.open(url)
-                    } else {
-                        // Fallback on earlier versions
-                        UIApplication.shared.openURL(url)
-                    }
+            GoogleFontLoader.loadFont(fontName: fontName, googleFontURL: googleFontURL, fontSize: 18.0) { font in
+                if let font = font {
+                    self.downloadedFont = font // ✅ Store it for reuse
                 }
+                completion(font)
             }
         }
-        return nil
     }
     
+    private func applyFontsSequentially(to titleLabel: UILabel, descriptionLabel: UILabel) {
+        loadFontIfNeeded { font in
+            guard let font = font else {
+                print("❌ Font loading failed for title label")
+                return
+            }
+            titleLabel.font = font
+
+            // ✅ Once title font is set, apply the same font to description
+            descriptionLabel.font = font
+        }
+    }
 }

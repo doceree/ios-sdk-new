@@ -30,7 +30,15 @@ extension UIColor {
         }
         self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
     }
+//    convenience init(hex: String) {
+//        let hexValue = Int(hex, radix: 16) ?? 0
+//        let red = CGFloat((hexValue >> 16) & 0xFF) / 255.0
+//        let green = CGFloat((hexValue >> 8) & 0xFF) / 255.0
+//        let blue = CGFloat(hexValue & 0xFF) / 255.0
+//        self.init(red: red, green: green, blue: blue, alpha: 1.0)
+//    }
 }
+
 extension NSData {
     var imageFormat: ImageFormat {
         var buffer = [UInt8](repeating: 0, count: 1)
