@@ -74,14 +74,14 @@ public class MyKetchUIKitViewController: UIViewController {
     private var region = "AUS"
     private var selectedTabs = KetchUI.ExperienceOption.PreferencesTab.allCases
     
-    public init(orgCode: String, idfa: String) {
+    public init() {
         // Initialize KetchSDK
         let ketch = KetchSDK.create(
-            organizationCode: orgCode,
+            organizationCode: "doceree",
             propertyCode: "ios",
             environmentCode: "production",
             identities: [
-                Ketch.Identity(key: "idfa", value: idfa)
+                Ketch.Identity(key: "idfa", value: getIdentifierForAdvertising() ?? "")
             ]
         )
         

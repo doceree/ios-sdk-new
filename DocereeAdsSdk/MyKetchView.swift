@@ -63,14 +63,14 @@ public struct MyKetchView: View {
     // Define listener as a property of MyKetchView
     let listener = MyKetchEventListener()
     
-    public init(orgCode: String, idfa: String) {
+    public init() {
         // Create the KetchSDK object
         let ketch = KetchSDK.create(
-            organizationCode: orgCode,
+            organizationCode: "doceree",
             propertyCode: "ios",
             environmentCode: "production",
             identities: [
-                Ketch.Identity(key: "idfa", value: idfa)
+                Ketch.Identity(key: "idfa", value: getIdentifierForAdvertising() ?? "")
             ]
         )
         

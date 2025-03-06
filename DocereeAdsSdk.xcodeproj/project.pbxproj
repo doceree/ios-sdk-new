@@ -18,6 +18,7 @@
 		54ADD0A829388996004A7182 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ADD0A729388996004A7182 /* ImageLoader.swift */; };
 		54BD89C6284F563F00DC94A3 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54BD89C5284F563F00DC94A3 /* Media.xcassets */; };
 		54BD8A2E28A2503200DC94A3 /* Viewability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BD8A2D28A2503200DC94A3 /* Viewability.swift */; };
+		54BE7C192D71EF8300BFCE0D /* CreateCMPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE7C182D71EF8300BFCE0D /* CreateCMPView.swift */; };
 		54E61C8C2D0B173C00F4CB24 /* MyKetchViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E61C8B2D0B173C00F4CB24 /* MyKetchViewUIKit.swift */; };
 		54EBAFC0282CF30900C7B249 /* DocereeAdsSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 54EBAFBF282CF30900C7B249 /* DocereeAdsSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54EBAFD9282D018700C7B249 /* HcpProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBAFD8282D018700C7B249 /* HcpProfile.swift */; };
@@ -58,6 +59,7 @@
 		54ADD0A729388996004A7182 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		54BD89C5284F563F00DC94A3 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		54BD8A2D28A2503200DC94A3 /* Viewability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Viewability.swift; sourceTree = "<group>"; };
+		54BE7C182D71EF8300BFCE0D /* CreateCMPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCMPView.swift; sourceTree = "<group>"; };
 		54E61C8B2D0B173C00F4CB24 /* MyKetchViewUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyKetchViewUIKit.swift; sourceTree = "<group>"; };
 		54EBAFBC282CF30900C7B249 /* DocereeAdsSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DocereeAdsSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54EBAFBF282CF30900C7B249 /* DocereeAdsSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DocereeAdsSdk.h; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				54EBB00A283221BE00C7B249 /* DocereeAdRequest.swift */,
 				543F3CFC2BE5693C00860203 /* MyKetchView.swift */,
 				54E61C8B2D0B173C00F4CB24 /* MyKetchViewUIKit.swift */,
+				54BE7C182D71EF8300BFCE0D /* CreateCMPView.swift */,
 				54874D292BBAC5920018A882 /* HcpValidationRequest.swift */,
 				54BD89C5284F563F00DC94A3 /* Media.xcassets */,
 			);
@@ -334,6 +337,7 @@
 				54EBAFFF282E855C00C7B249 /* UAString.swift in Sources */,
 				54EBB061283671AA00C7B249 /* DocereeAdViewDelegate.swift in Sources */,
 				54EBB006282E87AF00C7B249 /* AdRequest.swift in Sources */,
+				54BE7C192D71EF8300BFCE0D /* CreateCMPView.swift in Sources */,
 				54EBB007282E87AF00C7B249 /* AdResponse.swift in Sources */,
 				54EBB0112832240B00C7B249 /* Extensions.swift in Sources */,
 				54EBB016283225D200C7B249 /* DocereeRequestError.swift in Sources */,
