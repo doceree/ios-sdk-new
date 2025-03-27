@@ -1,3 +1,5 @@
+
+
 //
 //  HcpValidation.swift
 //  DocereeAdsSdk
@@ -11,24 +13,27 @@ import Foundation
 struct HcpValidationData: Codable {
     let siteId: Int?
     let script: String?
+    let acceptUrl: String?
+    let closeUrl: String?
+    let templateId: Int?
+    let font: String?
+    let fontColour: String?
+    let fontUrl: String?
     let platformType: Int?
     let consentPositionId: Int?
-    let font: String?
-    let fontUrl: String?
-    let fontColour: String?
-    let closeUrl: String?
-    let acceptUrl: String?
     let valStatus: Int?
+
     enum CodingKeys: String, CodingKey {
         case siteId
-        case script     
+        case script
+        case acceptUrl
+        case closeUrl
+        case templateId
+        case font
+        case fontColour
+        case fontUrl
         case platformType
         case consentPositionId
-        case font
-        case fontUrl
-        case fontColour
-        case closeUrl
-        case acceptUrl
         case valStatus
     }
 
@@ -49,3 +54,5 @@ struct HcpValidation: Codable {
         case data
     }
 }
+
+

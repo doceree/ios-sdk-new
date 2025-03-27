@@ -94,7 +94,7 @@ public final class DocereeAdRequest {
                 QueryParamsForAdRequest.country.rawValue : loggedInUser.country ?? "",
                 QueryParamsForAdRequest.zipCode.rawValue : loggedInUser.zipCode ?? "",
                 QueryParamsForAdRequest.adUnit.rawValue : adUnitId ?? "",
-                QueryParamsForAdRequest.br.rawValue : PatientSession().getBr(),
+//                QueryParamsForAdRequest.br.rawValue : PatientSession().getBr(),
                 QueryParamsForAdRequest.cdt.rawValue : "",
                 QueryParamsForAdRequest.privacyConsent.rawValue: 1
             ]
