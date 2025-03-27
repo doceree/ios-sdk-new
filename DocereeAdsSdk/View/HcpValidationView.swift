@@ -41,7 +41,7 @@ public class HcpValidationView: UIView  {
         NSLayoutConstraint.activate([
             popupContainer.centerXAnchor.constraint(equalTo: centerXAnchor),
             popupContainer.centerYAnchor.constraint(equalTo: centerYAnchor),
-            popupContainer.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.85)
+            popupContainer.widthAnchor.constraint(equalTo: widthAnchor, multiplier: isLargeScreen() ?  0.85 : 0.90)
         ])
         // Get template ID and configure the UI accordingly
         guard let templateId = hcpResponseData?.data.templateId else {
@@ -80,20 +80,21 @@ public class HcpValidationView: UIView  {
             
             NSLayoutConstraint.activate([
                 iconImageView.topAnchor.constraint(equalTo: titleStack.bottomAnchor, constant: 10),
-                iconImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16)
+                iconImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
+                iconImageView.widthAnchor.constraint(equalToConstant: templateId == 2 ? 100 : 140)
             ])
 
             
             NSLayoutConstraint.activate([
                 descriptionLabel.topAnchor.constraint(equalTo: titleStack.bottomAnchor, constant: 10),
-                descriptionLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 16),
-                descriptionLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16)
+                descriptionLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10),
+                descriptionLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -10)
             ])
 
             // ✅ Buttons should be to the left of the icon and aligned to the bottom
-            let leading: CGFloat = isLargeScreen() ? 16 + 100 : 16
+//            let leading: CGFloat = isLargeScreen() ? 100 : 0
             buttonTopConstraint = buttonStack.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10)
-            buttonLeftConstraint = buttonStack.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: leading)
+            buttonLeftConstraint = buttonStack.leadingAnchor.constraint(equalTo: descriptionLabel.leadingAnchor, constant: 0)
 
             
         } else {
@@ -113,7 +114,7 @@ public class HcpValidationView: UIView  {
             buttonLeftConstraint!,
             buttonStack.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16),
             buttonStack.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -20),
-            buttonStack.heightAnchor.constraint(equalToConstant: 35)
+            buttonStack.heightAnchor.constraint(equalToConstant: isLargeScreen() ? 40 : 30)
         ])
     }
 
@@ -205,12 +206,12 @@ public class HcpValidationView: UIView  {
         }
         
         private func createButtonStack() -> UIStackView {
-            let rejectButton = createButton(title: "No, visit the public website", backgroundColor: .white, textColor: .black, borderWidth: 1.0, buttonId: "cookie-decline-btn")
-            let acceptButton = createButton(title: "Yes", backgroundColor: UIColor(hexString: "4778ef"), textColor: .white, borderWidth: 0.0, buttonId: "cookie-accept-btn")
+            let rejectButton = createButton(title: Popup.noButtonText, backgroundColor: .white, textColor: .black, borderWidth: 1.0, buttonId: "cookie-decline-btn")
+            let acceptButton = createButton(title: Popup.yesButtonText, backgroundColor: UIColor(hexString: "4778ef"), textColor: .white, borderWidth: 0.0, buttonId: "cookie-accept-btn")
             
             let buttonStack = UIStackView(arrangedSubviews: [rejectButton, acceptButton])
             buttonStack.axis = .horizontal
-            buttonStack.spacing = 12
+            buttonStack.spacing = isLargeScreen() ? 12 : 8
             buttonStack.alignment = .fill
             buttonStack.distribution = .fillProportionally
             buttonStack.translatesAutoresizingMaskIntoConstraints = false
@@ -222,11 +223,12 @@ public class HcpValidationView: UIView  {
             button.setTitle(title, for: .normal)
             button.setTitleColor(textColor, for: .normal)
             button.backgroundColor = backgroundColor
-            button.layer.cornerRadius = 17.5
+            button.layer.cornerRadius = 10
             button.accessibilityIdentifier = buttonId  // ✅ Assign Button ID
             button.layer.borderWidth = borderWidth
             button.layer.borderColor = UIColor(hexString: "888888").cgColor
             button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: isLargeScreen() ? 18 : 12, weight: .medium)
             return button
         }
     
@@ -292,7 +294,7 @@ extension HcpValidationView {
                     self.hcpResponseData = try JSONDecoder().decode(HcpValidation.self, from: result)
                     guard (self.hcpResponseData?.data) != nil else { return }
                     DispatchQueue.main.async {
-                        if self.hcpResponseData?.code == 200 {
+                        if self.hcpResponseData?.code == 200 && self.hcpResponseData?.data.valStatus == 0 && self.hcpResponseData?.data.templateId != 0 {
                             self.delegate?.hcpValidationViewSuccess(self)
                             self.setupView()
                         }
@@ -364,7 +366,7 @@ extension HcpValidationView {
             let fontName = hcpResponseData?.data.font ?? "Helvetica"
             let googleFontURL = "https://fonts.googleapis.com/css2?family=\(fontName):wght@400;700"
 
-            GoogleFontLoader.loadFont(fontName: fontName, googleFontURL: googleFontURL, fontSize: 18.0) { font in
+            GoogleFontLoader.loadFont(fontName: fontName, googleFontURL: googleFontURL, fontSize: 15.0) { font in
                 if let font = font {
                     self.downloadedFont = font // ✅ Store it for reuse
                 }
@@ -379,10 +381,10 @@ extension HcpValidationView {
                 print("❌ Font loading failed for title label")
                 return
             }
-            titleLabel.font = font
+            titleLabel.font = font.withSize(isLargeScreen() ? 20 : 15)
 
             // ✅ Once title font is set, apply the same font to description
-            descriptionLabel.font = font
+            descriptionLabel.font = font.withSize(isLargeScreen() ? 16 : 12)
         }
     }
 }
