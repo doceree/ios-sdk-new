@@ -341,7 +341,7 @@ extension HcpValidationView {
     }
 
     internal func updateHcpValidaiton(hcpStatus: String) {
-        hcpValidationRequest?.updateHcpSelfValidation(hcpStatus, nil)
+        hcpValidationRequest?.updateHcpSelfValidation(hcpStatus)
     }
 
 //    func getInterval() -> Bool {
