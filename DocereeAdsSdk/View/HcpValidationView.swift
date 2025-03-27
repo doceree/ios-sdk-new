@@ -253,23 +253,25 @@ extension HcpValidationView {
         print("Button clicked with ID: \(buttonId)")
         var duration: TimeInterval
         var action: PopupAction
-        var actionUrl: String = ""
+        var actionUrl: String?
         switch(buttonId) {
         case "cookie-accept-btn":
-            duration = ExpirationDuration.year1
+            duration = ExpirationDuration.minutes10
             action = .accept
             actionUrl = hcpResponseData?.data.acceptUrl ?? ""
         case "cookie-decline-btn":
-            duration = ExpirationDuration.days15
+            duration = ExpirationDuration.minutes5
             action = .reject
             actionUrl = hcpResponseData?.data.closeUrl ?? ""
         default:
-            duration = ExpirationDuration.hours6
+            duration = ExpirationDuration.minutes2
             action = .close
         }
         
+        if actionUrl != nil {
+            self.delegate?.hcpPopupAction(action, actionUrl!)
+        }
         saveTimeInterval(duration: duration)
-        self.delegate?.hcpPopupAction(action, actionUrl)
         updateHcpValidaiton(hcpStatus: action.rawValue)
         removeFromSuperview()
     }
@@ -277,7 +279,6 @@ extension HcpValidationView {
 
 // MARK: - Networking & Data Handling
 extension HcpValidationView {
-    
     public func loadData(hcpValidationRequest: HcpValidationRequest) {
         self.hcpValidationRequest = hcpValidationRequest
         
@@ -288,7 +289,7 @@ extension HcpValidationView {
             return
         }
         
-        hcpValidationRequest.getHcpSelfValidation("uId") { (results) in
+        hcpValidationRequest.getHcpSelfValidation() { (results) in
             if let result = results.data {
                 do {
                     self.hcpResponseData = try JSONDecoder().decode(HcpValidation.self, from: result)
@@ -342,7 +343,7 @@ extension HcpValidationView {
     internal func updateHcpValidaiton(hcpStatus: String) {
         hcpValidationRequest?.updateHcpSelfValidation(hcpStatus, nil)
     }
-    
+
 //    func getInterval() -> Bool {
 //        let manager = UserDefaultsManager.shared
 //        manager.expirationDuration = ExpirationDuration.minutes10

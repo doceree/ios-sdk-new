@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		543ACD332964535A005C47FE /* PlatformData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543ACD322964535A005C47FE /* PlatformData.swift */; };
+		545D18E02C08859B003DA8E1 /* PatientSessionApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18DF2C08859B003DA8E1 /* PatientSessionApi.swift */; };
+		545D18E22C08866C003DA8E1 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E12C08866C003DA8E1 /* Header.swift */; };
+		545D18E42C088769003DA8E1 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E32C088769003DA8E1 /* AppInfo.swift */; };
+		545D18E62C088FB7003DA8E1 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E52C088FB7003DA8E1 /* StorageManager.swift */; };
+		545D18E82C089024003DA8E1 /* PatientSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E72C089024003DA8E1 /* PatientSession.swift */; };
+		545D18EA2C08948D003DA8E1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E92C08948D003DA8E1 /* Utils.swift */; };
+		545D18EC2C08B440003DA8E1 /* PatientBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18EB2C08B440003DA8E1 /* PatientBuilder.swift */; };
 		54874D262BBAAB860018A882 /* HcpValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54874D252BBAAB860018A882 /* HcpValidation.swift */; };
 		54874D282BBAC2F60018A882 /* HcpValidationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54874D272BBAC2F60018A882 /* HcpValidationView.swift */; };
 		54874D2A2BBAC5920018A882 /* HcpValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54874D292BBAC5920018A882 /* HcpValidationRequest.swift */; };
@@ -41,11 +48,20 @@
 		54EBB05328366CD800C7B249 /* CustomTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB05228366CD800C7B249 /* CustomTimer.swift */; };
 		54EBB05F28366F6E00C7B249 /* DocereeMobileAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB05E28366F6E00C7B249 /* DocereeMobileAds.swift */; };
 		54EBB061283671AA00C7B249 /* DocereeAdViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB060283671AA00C7B249 /* DocereeAdViewDelegate.swift */; };
+		54EDF0602C512FE200351DEF /* PatientData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EDF05F2C512FE200351DEF /* PatientData.swift */; };
+		54EDF0622C53E5FC00351DEF /* JsonUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EDF0612C53E5FC00351DEF /* JsonUtility.swift */; };
 		54F27B772A98E53D00AD384A /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F27B762A98E53D00AD384A /* DateExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		543ACD322964535A005C47FE /* PlatformData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformData.swift; sourceTree = "<group>"; };
+		545D18DF2C08859B003DA8E1 /* PatientSessionApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSessionApi.swift; sourceTree = "<group>"; };
+		545D18E12C08866C003DA8E1 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		545D18E32C088769003DA8E1 /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
+		545D18E52C088FB7003DA8E1 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		545D18E72C089024003DA8E1 /* PatientSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSession.swift; sourceTree = "<group>"; };
+		545D18E92C08948D003DA8E1 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		545D18EB2C08B440003DA8E1 /* PatientBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientBuilder.swift; sourceTree = "<group>"; };
 		54874D252BBAAB860018A882 /* HcpValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HcpValidation.swift; sourceTree = "<group>"; };
 		54874D272BBAC2F60018A882 /* HcpValidationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HcpValidationView.swift; sourceTree = "<group>"; };
 		54874D292BBAC5920018A882 /* HcpValidationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HcpValidationRequest.swift; sourceTree = "<group>"; };
@@ -80,6 +96,8 @@
 		54EBB05228366CD800C7B249 /* CustomTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimer.swift; sourceTree = "<group>"; };
 		54EBB05E28366F6E00C7B249 /* DocereeMobileAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocereeMobileAds.swift; sourceTree = "<group>"; };
 		54EBB060283671AA00C7B249 /* DocereeAdViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocereeAdViewDelegate.swift; sourceTree = "<group>"; };
+		54EDF05F2C512FE200351DEF /* PatientData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientData.swift; sourceTree = "<group>"; };
+		54EDF0612C53E5FC00351DEF /* JsonUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonUtility.swift; sourceTree = "<group>"; };
 		54F27B762A98E53D00AD384A /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,6 +112,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		545D18DE2C08858C003DA8E1 /* api */ = {
+			isa = PBXGroup;
+			children = (
+				545D18DF2C08859B003DA8E1 /* PatientSessionApi.swift */,
+				545D18E12C08866C003DA8E1 /* Header.swift */,
+				545D18E52C088FB7003DA8E1 /* StorageManager.swift */,
+				545D18E92C08948D003DA8E1 /* Utils.swift */,
+				545D18EB2C08B440003DA8E1 /* PatientBuilder.swift */,
+				545D18E72C089024003DA8E1 /* PatientSession.swift */,
+			);
+			path = api;
+			sourceTree = "<group>";
+		};
 		54EBAFB2282CF30900C7B249 = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +144,7 @@
 		54EBAFBE282CF30900C7B249 /* DocereeAdsSdk */ = {
 			isa = PBXGroup;
 			children = (
+				545D18DE2C08858C003DA8E1 /* api */,
 				54EBB05D28366F4100C7B249 /* Helpers */,
 				54EBAFE6282D176000C7B249 /* Utillities */,
 				54EBAFD7282D014500C7B249 /* Model */,
@@ -131,6 +163,7 @@
 			children = (
 				54EBB002282E87AF00C7B249 /* adBlockRequest.swift */,
 				54EBB003282E87AF00C7B249 /* AdRequest.swift */,
+				54EDF05F2C512FE200351DEF /* PatientData.swift */,
 				54EBB004282E87AF00C7B249 /* AdResponse.swift */,
 				54EBAFD8282D018700C7B249 /* HcpProfile.swift */,
 				543ACD322964535A005C47FE /* PlatformData.swift */,
@@ -145,6 +178,8 @@
 			children = (
 				54EBB00C2832240000C7B249 /* Extensions */,
 				54EBAFEF282E855C00C7B249 /* AdSize.swift */,
+				545D18E32C088769003DA8E1 /* AppInfo.swift */,
+				54EDF0612C53E5FC00351DEF /* JsonUtility.swift */,
 				54EBAFF4282E855C00C7B249 /* Colors.swift */,
 				54EBAFF1282E855C00C7B249 /* Constants.swift */,
 				54EBAFF0282E855C00C7B249 /* Helpers.swift */,
@@ -279,13 +314,20 @@
 				54EBAFFD282E855C00C7B249 /* Colors.swift in Sources */,
 				54BD8A2E28A2503200DC94A3 /* Viewability.swift in Sources */,
 				543ACD332964535A005C47FE /* PlatformData.swift in Sources */,
+				545D18E62C088FB7003DA8E1 /* StorageManager.swift in Sources */,
+				545D18E82C089024003DA8E1 /* PatientSession.swift in Sources */,
+				545D18E02C08859B003DA8E1 /* PatientSessionApi.swift in Sources */,
 				54EBAFFF282E855C00C7B249 /* UAString.swift in Sources */,
+				54EDF0602C512FE200351DEF /* PatientData.swift in Sources */,
 				54EBB061283671AA00C7B249 /* DocereeAdViewDelegate.swift in Sources */,
 				54EBB006282E87AF00C7B249 /* AdRequest.swift in Sources */,
+				545D18EC2C08B440003DA8E1 /* PatientBuilder.swift in Sources */,
 				54EBB007282E87AF00C7B249 /* AdResponse.swift in Sources */,
+				545D18E22C08866C003DA8E1 /* Header.swift in Sources */,
 				54EBB0112832240B00C7B249 /* Extensions.swift in Sources */,
 				54EBB016283225D200C7B249 /* DocereeRequestError.swift in Sources */,
 				54874D282BBAC2F60018A882 /* HcpValidationView.swift in Sources */,
+				545D18E42C088769003DA8E1 /* AppInfo.swift in Sources */,
 				54F27B772A98E53D00AD384A /* DateExtension.swift in Sources */,
 				54EBB05F28366F6E00C7B249 /* DocereeMobileAds.swift in Sources */,
 				54874D302BBC30810018A882 /* Enums.swift in Sources */,
@@ -294,6 +336,8 @@
 				54EBAFF9282E855C00C7B249 /* Helpers.swift in Sources */,
 				54874D2A2BBAC5920018A882 /* HcpValidationRequest.swift in Sources */,
 				54EBB0442834F62700C7B249 /* DocereeAdView.swift in Sources */,
+				54EDF0622C53E5FC00351DEF /* JsonUtility.swift in Sources */,
+				545D18EA2C08948D003DA8E1 /* Utils.swift in Sources */,
 				54EBB05328366CD800C7B249 /* CustomTimer.swift in Sources */,
 				54ADD0A829388996004A7182 /* ImageLoader.swift in Sources */,
 				54874D262BBAAB860018A882 /* HcpValidation.swift in Sources */,

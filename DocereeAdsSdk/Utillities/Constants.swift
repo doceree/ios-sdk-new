@@ -46,7 +46,7 @@ enum BlockLevel {
     }
 }
 
-enum Header: String {
+enum HeaderEnum: String {
     case header_user_agent = "User-Agent"
     case header_advertising_id = "doceree-device-id"
     case is_vendor_id = "is_doceree_iOS_sdk_vendor_id"
