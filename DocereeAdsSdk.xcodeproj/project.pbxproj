@@ -21,6 +21,8 @@
 		54874D2C2BBC05C90018A882 /* DocereeHcpViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54874D2B2BBC05C90018A882 /* DocereeHcpViewDelegate.swift */; };
 		54874D2E2BBC2DAE0018A882 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54874D2D2BBC2DAE0018A882 /* UserDefaultsManager.swift */; };
 		54874D302BBC30810018A882 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54874D2F2BBC30810018A882 /* Enums.swift */; };
+		5497DE482D5CC76200D566BB /* PopupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5497DE472D5CC75E00D566BB /* PopupModel.swift */; };
+		5497DE4E2D5E299300D566BB /* DocereeAdsSdk.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5497DE4D2D5E299300D566BB /* DocereeAdsSdk.bundle */; };
 		54ADD0A829388996004A7182 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ADD0A729388996004A7182 /* ImageLoader.swift */; };
 		54BD89C6284F563F00DC94A3 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54BD89C5284F563F00DC94A3 /* Media.xcassets */; };
 		54BD8A2E28A2503200DC94A3 /* Viewability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BD8A2D28A2503200DC94A3 /* Viewability.swift */; };
@@ -66,6 +68,8 @@
 		54874D2B2BBC05C90018A882 /* DocereeHcpViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocereeHcpViewDelegate.swift; sourceTree = "<group>"; };
 		54874D2D2BBC2DAE0018A882 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		54874D2F2BBC30810018A882 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		5497DE472D5CC75E00D566BB /* PopupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupModel.swift; sourceTree = "<group>"; };
+		5497DE4D2D5E299300D566BB /* DocereeAdsSdk.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DocereeAdsSdk.bundle; sourceTree = "<group>"; };
 		54ADD0A729388996004A7182 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		54BD89C5284F563F00DC94A3 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		54BD8A2D28A2503200DC94A3 /* Viewability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Viewability.swift; sourceTree = "<group>"; };
@@ -149,6 +153,7 @@
 				54EBB00A283221BE00C7B249 /* DocereeAdRequest.swift */,
 				54874D292BBAC5920018A882 /* HcpValidationRequest.swift */,
 				54BD89C5284F563F00DC94A3 /* Media.xcassets */,
+				5497DE4D2D5E299300D566BB /* DocereeAdsSdk.bundle */,
 			);
 			path = DocereeAdsSdk;
 			sourceTree = "<group>";
@@ -162,6 +167,7 @@
 				54EBB004282E87AF00C7B249 /* AdResponse.swift */,
 				54EBAFD8282D018700C7B249 /* HcpProfile.swift */,
 				543ACD322964535A005C47FE /* PlatformData.swift */,
+				5497DE472D5CC75E00D566BB /* PopupModel.swift */,
 				54874D252BBAAB860018A882 /* HcpValidation.swift */,
 			);
 			path = Model;
@@ -291,6 +297,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5497DE4E2D5E299300D566BB /* DocereeAdsSdk.bundle in Resources */,
 				54BD89C6284F563F00DC94A3 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,6 +332,7 @@
 				54EBB05F28366F6E00C7B249 /* DocereeMobileAds.swift in Sources */,
 				54874D302BBC30810018A882 /* Enums.swift in Sources */,
 				54EBB0432834F62700C7B249 /* AdConsentUIView.swift in Sources */,
+				5497DE482D5CC76200D566BB /* PopupModel.swift in Sources */,
 				54EBAFF9282E855C00C7B249 /* Helpers.swift in Sources */,
 				54874D2A2BBAC5920018A882 /* HcpValidationRequest.swift in Sources */,
 				54EBB0442834F62700C7B249 /* DocereeAdView.swift in Sources */,

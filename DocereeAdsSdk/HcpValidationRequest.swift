@@ -5,8 +5,9 @@
 //  Created by Muqeem Ahmad on 01/04/24.
 //
 
-import Foundation
+import UIKit
 import os.log
+import CoreText
 
 public final class HcpValidationRequest {
     
@@ -68,6 +69,7 @@ public final class HcpValidationRequest {
         let task = session.dataTask(with: request) { (data, response, error) in
             guard data != nil else { return }
             let urlResponse = response as! HTTPURLResponse
+//            data?.printJSON()
 
             if urlResponse.statusCode == 200 {
                 do {
@@ -156,5 +158,100 @@ public final class HcpValidationRequest {
         }
         task.resume()
 
+    }
+}
+
+
+
+public class GoogleFontLoader {
+    
+    private static var fontCache: [String: UIFont] = [:] // ✅ Font cache to store loaded fonts
+    
+    /// Loads a Google Font dynamically and applies it to a UILabel
+    public static func loadFont(fontName: String, googleFontURL: String, fontSize: CGFloat, completion: @escaping (UIFont?) -> Void) {
+        // ✅ If the font is already downloaded, return it from cache
+        if let cachedFont = fontCache[fontName] {
+            completion(cachedFont)
+            return
+        }
+
+        fetchGoogleFontCSS(from: googleFontURL) { fontFileURL in
+            guard let fontFileURL = fontFileURL else {
+                completion(nil)
+                return
+            }
+
+            downloadAndRegisterFont(from: fontFileURL, fontName: fontName) { success in
+                DispatchQueue.main.async {
+                    if success {
+                        let font = UIFont(name: fontName, size: fontSize) ?? UIFont.systemFont(ofSize: fontSize)
+                        fontCache[fontName] = font // ✅ Store font in cache
+                        completion(font)
+                    } else {
+                        completion(nil)
+                    }
+                }
+            }
+        }
+    }
+    
+    private static func fetchGoogleFontCSS(from urlString: String, completion: @escaping (String?) -> Void) {
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil, let cssString = String(data: data, encoding: .utf8) else {
+                completion(nil)
+                return
+            }
+            completion(extractFontFileURL(from: cssString))
+        }
+        task.resume()
+    }
+
+    private static func extractFontFileURL(from css: String) -> String? {
+        let pattern = "url\\((https:[^)]*\\.ttf)\\)"
+        let regex = try? NSRegularExpression(pattern: pattern, options: [])
+        let range = NSRange(css.startIndex..., in: css)
+
+        if let match = regex?.firstMatch(in: css, options: [], range: range),
+           let ttfRange = Range(match.range(at: 1), in: css) {
+            return String(css[ttfRange])
+        }
+        return nil
+    }
+
+    private static func downloadAndRegisterFont(from urlString: String, fontName: String, completion: @escaping (Bool) -> Void) {
+        guard let fontURL = URL(string: urlString) else {
+            completion(false)
+            return
+        }
+
+        let task = URLSession.shared.downloadTask(with: fontURL) { location, response, error in
+            guard let location = location, error == nil else {
+                completion(false)
+                return
+            }
+
+            let fontData = try? Data(contentsOf: location)
+            guard let dataProvider = CGDataProvider(data: fontData! as CFData),
+                  let font = CGFont(dataProvider) else {
+                completion(false)
+                return
+            }
+
+            var errorRef: Unmanaged<CFError>?
+            if !CTFontManagerRegisterGraphicsFont(font, &errorRef) {
+                completion(false)
+                return
+            }
+
+            DispatchQueue.main.async {
+                completion(true)
+            }
+        }
+        task.resume()
     }
 }
