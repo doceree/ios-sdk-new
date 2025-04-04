@@ -10,7 +10,7 @@ import ImageIO
 import SafariServices
 import os.log
 import WebKit
-
+import OMSDK_Doceree
 public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDelegate, WKUIDelegate {
     
     @IBOutlet public weak var rootViewController: UIViewController?
