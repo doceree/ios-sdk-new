@@ -64,6 +64,10 @@ func getIdentifierForAdvertising() -> String? {
     }
 }
 
+func getUUID() -> String? {
+    return UIDevice.current.identifierForVendor?.uuidString
+}
+
 struct RestEntity {
     private var values: [String: String] = [:]
     

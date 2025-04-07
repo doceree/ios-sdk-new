@@ -48,7 +48,7 @@ public class HcpValidationView: UIView  {
             print("Unknown templateId")
             return
         }
-        configureTemplate(in: popupContainer, templateId: 2)
+        configureTemplate(in: popupContainer, templateId: templateId)
     }
 
     // MARK: - Templates
@@ -341,7 +341,7 @@ extension HcpValidationView {
     }
 
     internal func updateHcpValidaiton(hcpStatus: String) {
-        hcpValidationRequest?.updateHcpSelfValidation(hcpStatus, nil)
+        hcpValidationRequest?.updateHcpSelfValidation(hcpStatus)
     }
 
 //    func getInterval() -> Bool {
