@@ -36,13 +36,9 @@ public final class DocereeAdRequest {
     // MARK: internal methods
     internal func requestAd(_ userId: String!, _ adUnitId: String!, _ size: String!, completion: @escaping(_ results: Results,
                                                                                         _ isRichMediaAd: Bool) -> Void) {
-        guard let appKey = NSKeyedUnarchiver.unarchiveObject(withFile: DocereeAdsIdArchivingUrl.path) as? String else {
-            if #available(iOS 10.0, *) {
-                os_log("Error: Missing DocereeIdentifier key!", log: .default, type: .error)
-            } else {
-                // Fallback on earlier versions
-                print("Error: Missing DocereeIdentifier key!")
-            }
+       
+        guard let appKey = DocereeMobileAds().loadDocereeIdentifier(from: DocereeAdsIdArchivingUrl) else {
+            // Handle missing key
             return
         }
 
