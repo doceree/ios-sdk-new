@@ -48,7 +48,7 @@ public class HcpValidationView: UIView  {
             print("Unknown templateId")
             return
         }
-        configureTemplate(in: popupContainer, templateId: 2)
+        configureTemplate(in: popupContainer, templateId: templateId)
     }
 
     // MARK: - Templates
@@ -245,7 +245,7 @@ extension HcpValidationView {
     }
     
     @objc private func closeButtonTapped() {
-        removeFromSuperview()
+        removeView()
         onClickButton(buttonId: "")
     }
     
@@ -273,18 +273,36 @@ extension HcpValidationView {
         }
         saveTimeInterval(duration: duration)
         updateHcpValidaiton(hcpStatus: action.rawValue)
-        removeFromSuperview()
+        removeView()
     }
 }
 
 // MARK: - Networking & Data Handling
 extension HcpValidationView {
+    func isHcpExist() -> Bool {
+        guard let loggedInUser = DocereeMobileAds.shared().getProfile() else {
+            print("Error: Not found profile data")
+            return false
+        }
+        return (loggedInUser.specialization != nil) || (loggedInUser.hcpId != nil)
+    }
+    
+    func removeView() {
+        self.removeFromSuperview()
+        self.delegate = nil
+    }
+    
     public func loadData(hcpValidationRequest: HcpValidationRequest) {
+        if isHcpExist() {
+            removeView()
+            return
+        }
+        
         self.hcpValidationRequest = hcpValidationRequest
         
         if (!getInterval()) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.removeFromSuperview()
+                self.removeView()
             }
             return
         }
@@ -296,26 +314,30 @@ extension HcpValidationView {
                     guard (self.hcpResponseData?.data) != nil else { return }
                     DispatchQueue.main.async {
                         if self.hcpResponseData?.code == 200 && self.hcpResponseData?.data.valStatus == 0 && self.hcpResponseData?.data.templateId != 0 {
+                            if self.isHcpExist() {
+                                self.removeView()
+                                return
+                            }
                             self.delegate?.hcpValidationViewSuccess(self)
                             self.setupView()
                         }
                         else {
                             self.delegate?.hcpValidationView(self, didFailToReceiveHcpWithError: HcpRequestError.noScriptFound)
                             DispatchQueue.main.async {
-                                self.removeFromSuperview()
+                                self.removeView()
                             }
                         }
                     }
                 } catch {
                     self.delegate?.hcpValidationView(self, didFailToReceiveHcpWithError: HcpRequestError.parsingError)
                     DispatchQueue.main.async {
-                        self.removeFromSuperview()
+                        self.removeView()
                     }
                 }
                 
             } else {
                 DispatchQueue.main.async {
-                    self.removeFromSuperview()
+                    self.removeView()
                 }
             }
         }
@@ -337,7 +359,7 @@ extension HcpValidationView {
         } else {
             print("User defaults expired or not set.")
         }
-        self.removeFromSuperview()
+        removeView()
     }
 
     internal func updateHcpValidaiton(hcpStatus: String) {

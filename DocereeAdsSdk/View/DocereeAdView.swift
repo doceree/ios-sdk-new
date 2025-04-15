@@ -9,7 +9,7 @@ import UIKit
 import ImageIO
 import SafariServices
 import os.log
-import WebKit
+@preconcurrency import WebKit
 
 public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDelegate, WKUIDelegate {
     
