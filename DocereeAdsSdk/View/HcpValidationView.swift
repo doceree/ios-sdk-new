@@ -256,15 +256,15 @@ extension HcpValidationView {
         var actionUrl: String?
         switch(buttonId) {
         case "cookie-accept-btn":
-            duration = ExpirationDuration.minutes10
+            duration = ExpirationDuration.year1
             action = .accept
             actionUrl = hcpResponseData?.data.acceptUrl ?? ""
         case "cookie-decline-btn":
-            duration = ExpirationDuration.minutes5
+            duration = ExpirationDuration.days15
             action = .reject
             actionUrl = hcpResponseData?.data.closeUrl ?? ""
         default:
-            duration = ExpirationDuration.minutes2
+            duration = ExpirationDuration.hours6
             action = .close
         }
         
