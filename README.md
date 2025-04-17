@@ -2,14 +2,14 @@
 
 ## Requirements
 - Use Xcode 11 or higher
-- Target iOS 9.0 or higher
+- Target iOS 13.0 or higher
 - Create an account on Doceree
 
 ## Adding Doceree SDK to your Project
 The simplest way of adding the SDK to your project is via cocoapods. Open your pod file and add these lines to your app’s Pod file. 
 
 ```sh
-pod 'DocereeAdSdk', '~> 5.0.1'
+pod 'DocereeAdSdk', '~> 5.0.4'
 ```
 
 
