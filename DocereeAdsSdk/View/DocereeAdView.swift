@@ -31,6 +31,8 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     private var customTimer: CustomTimer?
     private var viewportTimer: CustomTimer?
     private var adWebView: WKWebView!
+    private var webViewInitialNavigation: WKNavigation?
+    var sessionInteractor: OMIDSessionInteractor?
     
     static var didLeaveAd: Bool = false
     var adResponseData: AdResponseNew?
@@ -241,6 +243,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     }
     
     func sendViewTime(standard: String) {
+        sessionInteractor?.stopSession()
         if totalViewTime > 0 && (savedViewPercentage > 50 || Int(savedViewPercentage) >= (self.adResponseData?.minViewPercentage)!) {
             #if DEBUG
                 print("View Time: ", totalViewTime)
@@ -518,7 +521,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     private func initializeRichAds(frame: CGRect?, body: String?) {
         initWebView(frame: frame!)
         let url = URL(fileURLWithPath: "https://adbserver.doceree.com/")
-        adWebView.loadHTMLString(body!, baseURL: url)
+        webViewInitialNavigation = adWebView.loadHTMLString(body!, baseURL: url)
         setupConsentIcons()
     }
     
@@ -556,9 +559,17 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
 
     private func createHTMLBody(script: String) -> String {
         let htmlStr = "<html><head><style>html,body{padding:0;margin:0;}</style><meta name='viewport' content='width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'></head><body>\(script)</body></html>"
-        return htmlStr
+        return injectOMID(intoHTML: htmlStr)
     }
-
+    
+    func injectOMID(intoHTML HTML: String) -> String {
+        do {
+            let creativeWithOMID = try OMIDDocereeScriptInjector.injectScriptContent(OMIDSessionInteractor.omidJSService, intoHTML:HTML)
+            return creativeWithOMID
+        } catch {
+            fatalError("Unable to inject OMID JS into ad creative: \(error)")
+        }
+    }
 }
 
  extension DocereeAdView {
@@ -602,3 +613,28 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
      }
      
  }
+
+// MARK: - WKScriptMessageHandler
+extension DocereeAdView {
+   
+    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        if navigation === webViewInitialNavigation {
+            print("WebView did finish loading creative")
+
+            // This is an equivalent of listening to DOMContentLoaded event in JS
+            // OMID JS service is not guaranteed to handle any events prior to this point and you
+            // should avoid executing native impression event (registered in presentAd()) until DOM
+            // is loaded completely. If you're pre-rendering webviews, then waiting for window.onload
+            // event is also an option)
+
+            // OMID JS service is now fully operational and it's safe to display the webview and
+            // register impression
+            sessionInteractor = OMIDSessionInteractor(adUnit: .HTMLDisplay, webCreative: webView)
+//            sessionInteractor?.addCloseButtonObstruction(closeButton)
+            
+            sessionInteractor?.startSession()
+            //Don't need to fire the loaded event from native code as this should happen from the webview
+//            presentAd()
+        }
+    }
+}

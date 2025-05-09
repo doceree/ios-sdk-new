@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		541F832E2DCE28A600F82FD0 /* OMIDSessionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541F832D2DCE28A600F82FD0 /* OMIDSessionInteractor.swift */; };
+		541F83302DCE297000F82FD0 /* AdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541F832F2DCE297000F82FD0 /* AdUnit.swift */; };
 		543ACD332964535A005C47FE /* PlatformData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543ACD322964535A005C47FE /* PlatformData.swift */; };
 		545D18E02C08859B003DA8E1 /* PatientSessionApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18DF2C08859B003DA8E1 /* PatientSessionApi.swift */; };
 		545D18E22C08866C003DA8E1 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E12C08866C003DA8E1 /* Header.swift */; };
@@ -70,6 +72,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		541F832D2DCE28A600F82FD0 /* OMIDSessionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMIDSessionInteractor.swift; sourceTree = "<group>"; };
+		541F832F2DCE297000F82FD0 /* AdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdUnit.swift; sourceTree = "<group>"; };
 		543ACD322964535A005C47FE /* PlatformData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformData.swift; sourceTree = "<group>"; };
 		545D18DF2C08859B003DA8E1 /* PatientSessionApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSessionApi.swift; sourceTree = "<group>"; };
 		545D18E12C08866C003DA8E1 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
@@ -130,6 +134,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		541F832C2DCE287600F82FD0 /* OM */ = {
+			isa = PBXGroup;
+			children = (
+				541F832D2DCE28A600F82FD0 /* OMIDSessionInteractor.swift */,
+				541F832F2DCE297000F82FD0 /* AdUnit.swift */,
+			);
+			path = OM;
+			sourceTree = "<group>";
+		};
 		545D18DE2C08858C003DA8E1 /* api */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +184,7 @@
 		54EBAFBE282CF30900C7B249 /* DocereeAdsSdk */ = {
 			isa = PBXGroup;
 			children = (
+				541F832C2DCE287600F82FD0 /* OM */,
 				545D18DE2C08858C003DA8E1 /* api */,
 				54EBB05D28366F4100C7B249 /* Helpers */,
 				54EBAFE6282D176000C7B249 /* Utillities */,
@@ -345,6 +359,7 @@
 				545D18E62C088FB7003DA8E1 /* StorageManager.swift in Sources */,
 				545D18E82C089024003DA8E1 /* PatientSession.swift in Sources */,
 				545D18E02C08859B003DA8E1 /* PatientSessionApi.swift in Sources */,
+				541F832E2DCE28A600F82FD0 /* OMIDSessionInteractor.swift in Sources */,
 				54EBAFFF282E855C00C7B249 /* UAString.swift in Sources */,
 				54EDF0602C512FE200351DEF /* PatientData.swift in Sources */,
 				54EBB061283671AA00C7B249 /* DocereeAdViewDelegate.swift in Sources */,
@@ -367,6 +382,7 @@
 				54EDF0622C53E5FC00351DEF /* JsonUtility.swift in Sources */,
 				545D18EA2C08948D003DA8E1 /* Utils.swift in Sources */,
 				54EBB05328366CD800C7B249 /* CustomTimer.swift in Sources */,
+				541F83302DCE297000F82FD0 /* AdUnit.swift in Sources */,
 				54ADD0A829388996004A7182 /* ImageLoader.swift in Sources */,
 				54874D262BBAAB860018A882 /* HcpValidation.swift in Sources */,
 				54EBAFF8282E855C00C7B249 /* AdSize.swift in Sources */,
