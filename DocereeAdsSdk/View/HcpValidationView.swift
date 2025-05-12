@@ -10,15 +10,17 @@ import UIKit
 public class HcpValidationView: UIView  {
     
     // MARK: - Properties
-    var hcpResponseData: HcpValidation?
+    private var hcpResponseData: HcpValidation?
     var containerView: UIView!
-    var hcpValidationRequest: HcpValidationRequest?
+    private var hcpValidationRequest: HcpValidationRequest?
     public var delegate: HcpValidationViewDelegate?
     private var downloadedFont: UIFont? // ✅ Store the font globally once downloaded
 
     // MARK: Initialization
-    override init(frame: CGRect) {
+    public override init(frame: CGRect = .zero) {
         super.init(frame: UIScreen.main.bounds)
+        hcpValidationRequest = HcpValidationRequest()
+        loadData()
     }
     
     required init?(coder: NSCoder) {
@@ -292,14 +294,12 @@ extension HcpValidationView {
         self.delegate = nil
     }
     
-    public func loadData(hcpValidationRequest: HcpValidationRequest) {
+    public func loadData() {
         if isHcpExist() {
             removeView()
             return
         }
-        
-        self.hcpValidationRequest = hcpValidationRequest
-        
+
         if (!getInterval()) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.removeView()
@@ -307,7 +307,7 @@ extension HcpValidationView {
             return
         }
         
-        hcpValidationRequest.getHcpSelfValidation() { (results) in
+        hcpValidationRequest?.getHcpSelfValidation() { (results) in
             if let result = results.data {
                 do {
                     self.hcpResponseData = try JSONDecoder().decode(HcpValidation.self, from: result)
