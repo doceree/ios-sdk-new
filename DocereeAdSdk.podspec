@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'DocereeAdSdk'
-  spec.version      = '6.0.0-beta.1'
+  spec.version      = '6.0.0-beta.2'
   spec.license      = { :type => "MIT", :file => "MIT License" }
   spec.description  = <<-DESC
   Doceree iOS SDK for mobile ads is used by our publisher partners to show advertisements being run by our brand partners and record the corresponding actions and impressions being served.
@@ -12,7 +12,7 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target = "15.0"
   spec.source       = { :git => 'https://github.com/doceree/ios-sdk-new.git', :tag => spec.version }
   spec.source_files = "DocereeAdsSdk/**/*.{swift}"
-  spec.resource_bundles = {'DocereeAdsSdk' => 'DocereeAdsSdk/**/*.{png, jpeg, jpg, storyboard, xib, xcassets, bundle}'}
+  spec.resource_bundles = {'DocereeAdsSdk' => 'DocereeAdsSdk/**/*.{png, jpeg, jpg, storyboard, xib, xcassets, bundle, js}'}
   spec.swift_version    = '5.0'
 
   # Properly include the OMSDK_Doceree.xcframework
