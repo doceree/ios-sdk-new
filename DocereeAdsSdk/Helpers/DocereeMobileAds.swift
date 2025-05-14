@@ -43,9 +43,19 @@ public final class DocereeMobileAds {
             
             // Send the data (assuming DocereeMobileAds is correctly set up)
             DocereeMobileAds.shared().sendData()
-            
+
         } catch {
             print("ERROR: \(error.localizedDescription)")
+        }
+    }
+
+    func loadAppConfiguration() async {
+        do {
+            let appId = getBundleIdentifier()
+            let config = try await ConfigurationService.shared.fetchAppConfiguration(appId: appId)
+            print("Fetched Config:", config?.data as Any)
+        } catch {
+            print("Error:", error)
         }
     }
 
@@ -59,6 +69,11 @@ public final class DocereeMobileAds {
             
         } catch {
             print("ERROR: \(error.localizedDescription)")
+        }
+        
+        // Load app config
+        Task(priority: .userInitiated) {
+            await DocereeMobileAds().loadAppConfiguration()
         }
     }
 

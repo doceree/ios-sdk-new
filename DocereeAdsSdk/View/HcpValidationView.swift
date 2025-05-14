@@ -20,7 +20,9 @@ public class HcpValidationView: UIView  {
     public override init(frame: CGRect = .zero) {
         super.init(frame: UIScreen.main.bounds)
         hcpValidationRequest = HcpValidationRequest()
-        loadData()
+        Task {
+            await loadData()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -294,7 +296,7 @@ extension HcpValidationView {
         self.delegate = nil
     }
     
-    public func loadData() {
+    public func loadData() async {
         if isHcpExist() {
             removeView()
             return
@@ -307,7 +309,7 @@ extension HcpValidationView {
             return
         }
         
-        hcpValidationRequest?.getHcpSelfValidation() { (results) in
+        await hcpValidationRequest?.getHcpSelfValidation() { (results) in
             if let result = results.data {
                 do {
                     self.hcpResponseData = try JSONDecoder().decode(HcpValidation.self, from: result)

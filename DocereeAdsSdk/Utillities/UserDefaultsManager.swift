@@ -39,4 +39,25 @@ class UserDefaultsManager {
         // Optionally, reset lastSetTime to nil or another appropriate value
         saveTimeWithInterval = nil
     }
+    
+    func saveAppConfigurationToDefaults(_ config: AppConfigurationData) {
+        do {
+            let data = try JSONEncoder().encode(config)
+            UserDefaults.standard.set(data, forKey: "AppConfiguration")
+        } catch {
+            print("Failed to encode AppConfigurationData:", error)
+        }
+    }
+
+    func loadAppConfigurationFromDefaults() -> AppConfigurationData? {
+        if let data = UserDefaults.standard.data(forKey: "AppConfiguration") {
+            do {
+                return try JSONDecoder().decode(AppConfigurationData.self, from: data)
+            } catch {
+                print("Failed to decode AppConfigurationData:", error)
+            }
+        }
+        return nil
+    }
+
 }
