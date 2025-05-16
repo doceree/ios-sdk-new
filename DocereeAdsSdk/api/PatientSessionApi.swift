@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct Constants {
-    static let HcpData = "HcpData"
-}
-
 struct Strings {
     static let CONSTANT = Constants()
 }
