@@ -8,6 +8,7 @@
 import Foundation
 import AdSupport
 import UIKit
+import AppTrackingTransparency
 
 class Header {
 
@@ -37,17 +38,32 @@ class Header {
 
     func getAdvertisingId() async throws -> Advertisement {
         return try await withCheckedThrowingContinuation { continuation in
-            let manager = ASIdentifierManager.shared()
-            if manager.isAdvertisingTrackingEnabled {
-                let adId = manager.advertisingIdentifier.uuidString
-                let advertisement = Advertisement(advertisingId: adId, adTrackingEnabled: true)
-                continuation.resume(returning: advertisement)
+            if #available(iOS 14, *) {
+                ATTrackingManager.requestTrackingAuthorization { status in
+                    if status == .authorized {
+                        let manager = ASIdentifierManager.shared()
+                        let adId = manager.advertisingIdentifier.uuidString
+                        let advertisement = Advertisement(advertisingId: adId, adTrackingEnabled: true)
+                        continuation.resume(returning: advertisement)
+                    } else {
+                        let advertisement = Advertisement(advertisingId: "", adTrackingEnabled: false)
+                        continuation.resume(returning: advertisement)
+                    }
+                }
             } else {
-                let advertisement = Advertisement(advertisingId: "", adTrackingEnabled: false)
-                continuation.resume(returning: advertisement)
+                let manager = ASIdentifierManager.shared()
+                if manager.isAdvertisingTrackingEnabled {
+                    let adId = manager.advertisingIdentifier.uuidString
+                    let advertisement = Advertisement(advertisingId: adId, adTrackingEnabled: true)
+                    continuation.resume(returning: advertisement)
+                } else {
+                    let advertisement = Advertisement(advertisingId: "", adTrackingEnabled: false)
+                    continuation.resume(returning: advertisement)
+                }
             }
         }
     }
+
 
     func getAppInfo() async throws -> AppInfo {
         return try await withCheckedThrowingContinuation { continuation in
