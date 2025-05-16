@@ -537,10 +537,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PODS_ROOT)/OMSDK_Doceree.xcframework/**",
-					"$(PROJECT_DIR)/Frameworks/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/**";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -579,10 +576,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PODS_ROOT)/OMSDK_Doceree.xcframework/**",
-					"$(PROJECT_DIR)/Frameworks/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/**";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
