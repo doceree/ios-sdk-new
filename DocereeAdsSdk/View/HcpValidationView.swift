@@ -10,15 +10,17 @@ import UIKit
 public class HcpValidationView: UIView  {
     
     // MARK: - Properties
-    var hcpResponseData: HcpValidation?
+    private var hcpResponseData: HcpValidation?
     var containerView: UIView!
-    var hcpValidationRequest: HcpValidationRequest?
+    private var hcpValidationRequest: HcpValidationRequest?
     public var delegate: HcpValidationViewDelegate?
     private var downloadedFont: UIFont? // ✅ Store the font globally once downloaded
 
     // MARK: Initialization
-    override init(frame: CGRect) {
+    public override init(frame: CGRect = .zero) {
         super.init(frame: UIScreen.main.bounds)
+        hcpValidationRequest = HcpValidationRequest()
+        loadData()
     }
     
     required init?(coder: NSCoder) {
@@ -48,7 +50,7 @@ public class HcpValidationView: UIView  {
             print("Unknown templateId")
             return
         }
-        configureTemplate(in: popupContainer, templateId: 2)
+        configureTemplate(in: popupContainer, templateId: templateId)
     }
 
     // MARK: - Templates
@@ -245,7 +247,7 @@ extension HcpValidationView {
     }
     
     @objc private func closeButtonTapped() {
-        removeFromSuperview()
+        removeView()
         onClickButton(buttonId: "")
     }
     
@@ -256,15 +258,15 @@ extension HcpValidationView {
         var actionUrl: String?
         switch(buttonId) {
         case "cookie-accept-btn":
-            duration = ExpirationDuration.minutes10
+            duration = ExpirationDuration.year1
             action = .accept
             actionUrl = hcpResponseData?.data.acceptUrl ?? ""
         case "cookie-decline-btn":
-            duration = ExpirationDuration.minutes5
+            duration = ExpirationDuration.days15
             action = .reject
             actionUrl = hcpResponseData?.data.closeUrl ?? ""
         default:
-            duration = ExpirationDuration.minutes2
+            duration = ExpirationDuration.hours6
             action = .close
         }
         
@@ -273,49 +275,69 @@ extension HcpValidationView {
         }
         saveTimeInterval(duration: duration)
         updateHcpValidaiton(hcpStatus: action.rawValue)
-        removeFromSuperview()
+        removeView()
     }
 }
 
 // MARK: - Networking & Data Handling
 extension HcpValidationView {
-    public func loadData(hcpValidationRequest: HcpValidationRequest) {
-        self.hcpValidationRequest = hcpValidationRequest
-        
+    func isHcpExist() -> Bool {
+        guard let loggedInUser = DocereeMobileAds.shared().getProfile() else {
+            print("Error: Not found profile data")
+            return false
+        }
+        return (loggedInUser.specialization != nil) || (loggedInUser.hcpId != nil)
+    }
+    
+    func removeView() {
+        self.removeFromSuperview()
+        self.delegate = nil
+    }
+    
+    public func loadData() {
+        if isHcpExist() {
+            removeView()
+            return
+        }
+
         if (!getInterval()) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.removeFromSuperview()
+                self.removeView()
             }
             return
         }
         
-        hcpValidationRequest.getHcpSelfValidation() { (results) in
+        hcpValidationRequest?.getHcpSelfValidation() { (results) in
             if let result = results.data {
                 do {
                     self.hcpResponseData = try JSONDecoder().decode(HcpValidation.self, from: result)
                     guard (self.hcpResponseData?.data) != nil else { return }
                     DispatchQueue.main.async {
                         if self.hcpResponseData?.code == 200 && self.hcpResponseData?.data.valStatus == 0 && self.hcpResponseData?.data.templateId != 0 {
+                            if self.isHcpExist() {
+                                self.removeView()
+                                return
+                            }
                             self.delegate?.hcpValidationViewSuccess(self)
                             self.setupView()
                         }
                         else {
                             self.delegate?.hcpValidationView(self, didFailToReceiveHcpWithError: HcpRequestError.noScriptFound)
                             DispatchQueue.main.async {
-                                self.removeFromSuperview()
+                                self.removeView()
                             }
                         }
                     }
                 } catch {
                     self.delegate?.hcpValidationView(self, didFailToReceiveHcpWithError: HcpRequestError.parsingError)
                     DispatchQueue.main.async {
-                        self.removeFromSuperview()
+                        self.removeView()
                     }
                 }
                 
             } else {
                 DispatchQueue.main.async {
-                    self.removeFromSuperview()
+                    self.removeView()
                 }
             }
         }
@@ -337,7 +359,7 @@ extension HcpValidationView {
         } else {
             print("User defaults expired or not set.")
         }
-        self.removeFromSuperview()
+        removeView()
     }
 
     internal func updateHcpValidaiton(hcpStatus: String) {

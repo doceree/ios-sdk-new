@@ -6,7 +6,7 @@ class UserDefaultsManager {
     private let defaults = UserDefaults.standard
     
     private let defaultsKey = "YourUserDefaultsKey"
-    var expirationDuration: TimeInterval = ExpirationDuration.minutes2
+    var expirationDuration: TimeInterval = ExpirationDuration.hours6
     
     private var saveTimeWithInterval: TimeInterval? {
         get {
