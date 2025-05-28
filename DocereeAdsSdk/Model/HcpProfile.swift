@@ -1,7 +1,7 @@
 
 import Foundation
 
-public final class Hcp: NSObject, NSCoding, Encodable {
+public final class Hcp: NSObject, NSSecureCoding, Encodable {
    
     // MARK: Properties
     var firstName: String?
@@ -113,6 +113,10 @@ public final class Hcp: NSObject, NSCoding, Encodable {
         let hashedHcpId = aDecoder.decodeObject(forKey: HcpProfile.hashedHcpId) as? String
        
         self.init(firstName: firstName, lastName: lastName, specialization: specialization, organisation: organisation, gender: gender, city: city, zipCode: zipcode, email: email, mobile: mobile, mciRegistrationNumber: mciRegistrationNumber, gmc: gmc, hashedGMC: hashedGMC, npi: npi, hashedNPI: hashedNPI, hashedEmail: hashedEmail, state: state, country: country, hcpId: hcpId, hashedHcpId: hashedHcpId)
+    }
+    
+    public static var supportsSecureCoding: Bool {
+        return true
     }
     
     public class HcpBuilder {
