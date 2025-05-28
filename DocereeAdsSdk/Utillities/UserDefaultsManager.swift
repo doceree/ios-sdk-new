@@ -1,63 +1,73 @@
-import Foundation
 
-class UserDefaultsManager {
+final class UserDefaultsManager {
     static let shared = UserDefaultsManager()
-    
     private let defaults = UserDefaults.standard
-    
-    private let defaultsKey = "YourUserDefaultsKey"
-    var expirationDuration: TimeInterval = ExpirationDuration.hours6
-    
-    private var saveTimeWithInterval: TimeInterval? {
-        get {
-            return defaults.object(forKey: "lastSetTime") as? TimeInterval
-        }
-        set {
-            defaults.set(newValue, forKey: "lastSetTime")
-        }
-    }
-    
     private init() {}
-    
-    func setUserDefaults(_ value: TimeInterval) {
-        defaults.set(value, forKey: defaultsKey)
-        saveTimeWithInterval = Date.currentTimeInterval() + (value * 1000) //Date() // Record the time when user defaults were set
+
+    // MARK: - Internal Keys
+    private let configExpirationKey = "configExpirationDate"
+    private let hcpValidationExpirationKey = "hcpValidationExpirationDate"
+    private let appConfigKey = "appConfigData"
+
+    // MARK: - Config Expiration (always 24 hours)
+
+    func saveConfigExpiration() {
+        let expirationDate = Date().addingTimeInterval(24 * 60 * 60) // 24 hours
+        defaults.set(expirationDate, forKey: configExpirationKey)
     }
-    
-    func getUserDefaults() -> Any? {
-        // Check if user defaults have expired
-        if let lastSetTime = saveTimeWithInterval, lastSetTime < Date.currentTimeInterval() {
-            // User defaults have expired, delete them
-            deleteUserDefaults()
-            return nil
+
+    func isConfigValid() -> Bool {
+        guard let expirationDate = defaults.object(forKey: configExpirationKey) as? Date else {
+            return false
         }
-        return defaults.object(forKey: defaultsKey)
+        return Date() < expirationDate
     }
-    
-    func deleteUserDefaults() {
-        defaults.removeObject(forKey: defaultsKey)
-        // Optionally, reset lastSetTime to nil or another appropriate value
-        saveTimeWithInterval = nil
+
+    func clearConfigExpiration() {
+        defaults.removeObject(forKey: configExpirationKey)
     }
+
+    // MARK: - HCP Validation Expiration (variable durations)
+
+    func saveHCPValidationExpiration(duration: TimeInterval) {
+        let expirationDate = Date().addingTimeInterval(duration)
+        defaults.set(expirationDate, forKey: hcpValidationExpirationKey)
+    }
+
+    func isHCPValidationValid() -> Bool {
+        guard let expirationDate = defaults.object(forKey: hcpValidationExpirationKey) as? Date else {
+            return false
+        }
+        return Date() < expirationDate
+    }
+
+    func clearHCPValidationExpiration() {
+        defaults.removeObject(forKey: hcpValidationExpirationKey)
+    }
+   
+    // MARK: - App Config Storage
     
-    func saveAppConfigurationToDefaults(_ config: AppConfigurationData) {
+    func saveConfig(_ config: AppConfigurationData) {
         do {
             let data = try JSONEncoder().encode(config)
-            UserDefaults.standard.set(data, forKey: "AppConfiguration")
+            defaults.set(data, forKey: appConfigKey)
         } catch {
             print("Failed to encode AppConfigurationData:", error)
         }
     }
-
-    func loadAppConfigurationFromDefaults() -> AppConfigurationData? {
-        if let data = UserDefaults.standard.data(forKey: "AppConfiguration") {
-            do {
-                return try JSONDecoder().decode(AppConfigurationData.self, from: data)
-            } catch {
-                print("Failed to decode AppConfigurationData:", error)
-            }
+    
+    func loadConfig() -> AppConfigurationData? {
+        guard let data = defaults.data(forKey: appConfigKey) else { return nil }
+        do {
+            return try JSONDecoder().decode(AppConfigurationData.self, from: data)
+        } catch {
+            print("Failed to decode AppConfigurationData:", error)
+            return nil
         }
-        return nil
+    }
+    
+    func deleteConfig() {
+        defaults.removeObject(forKey: appConfigKey)
     }
 
 }

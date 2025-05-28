@@ -178,3 +178,12 @@ public final class DocereeMobileAds {
 //    }
 }
 
+extension DocereeMobileAds {
+    func isHcpExist() -> Bool {
+        guard let loggedInUser = self.getProfile() else {
+            print("Error: Not found profile data")
+            return false
+        }
+        return (loggedInUser.specialization != nil) || (loggedInUser.hcpId != nil)
+    }
+}

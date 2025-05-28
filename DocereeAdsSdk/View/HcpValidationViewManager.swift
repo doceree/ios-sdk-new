@@ -9,7 +9,7 @@ import UIKit
 
 public class HcpValidationViewManager {
     public static func showIfNeeded(on viewController: UIViewController, delegate: HcpValidationViewDelegate?) {
-        guard let data = UserDefaultsManager.shared.loadAppConfigurationFromDefaults(), data.hcpValidation else {
+        guard let data = UserDefaultsManager.shared.loadConfig(), data.hcpValidation else {
             return
         }
 
