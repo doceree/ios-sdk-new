@@ -69,8 +69,18 @@ func getIdentifierForAdvertising() -> String? {
     }
 }
 
-func getUUID() -> String? {
-    return UIDevice.current.identifierForVendor?.uuidString
+func getUUID() async -> String {
+    return await withCheckedContinuation { continuation in
+        DispatchQueue.main.async {
+            let id = UIDevice.current.identifierForVendor?.uuidString ?? "unknown-device-id"
+            continuation.resume(returning: id)
+        }
+    }
+}
+
+
+func getBundleIdentifier() -> String {
+    return Bundle.main.bundleIdentifier ?? "unknown-bundle-id"
 }
 
 struct RestEntity {

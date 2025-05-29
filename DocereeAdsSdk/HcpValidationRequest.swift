@@ -18,12 +18,12 @@ public final class HcpValidationRequest {
     public init() {
     }
     
-    internal func getHcpSelfValidation(completion: @escaping(_ results: Results) -> Void) {
+    internal func getHcpSelfValidation(completion: @escaping(_ results: Results) -> Void) async {
 
         self.requestHttpHeaders.add(value: "application/json", forKey: "Content-Type")
         
         // query params
-        let josnObject: [String : Any] = [
+        let josnObject: [String : Any] = await [
             GetHcpValidation.bundleId.rawValue : Bundle.main.bundleIdentifier!,
             GetHcpValidation.uuid.rawValue : getUUID() as Any,
             GetHcpValidation.userId.rawValue : getUUID() as Any,
