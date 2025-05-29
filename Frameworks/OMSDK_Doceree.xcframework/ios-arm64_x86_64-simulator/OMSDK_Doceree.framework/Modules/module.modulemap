@@ -1,0 +1,4 @@
+module OMSDK_Doceree {
+    header "Headers/OMIDImports.h"
+    export *
+}
