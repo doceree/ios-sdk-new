@@ -44,6 +44,9 @@ public final class DocereeMobileAds {
             // Send the data (assuming DocereeMobileAds is correctly set up)
             DocereeMobileAds.shared().sendData()
 
+            // OMSDK Initialization
+            DocereeMobileAds.shared().omInitialization()
+
         } catch {
             print("ERROR: \(error.localizedDescription)")
         }
@@ -176,6 +179,17 @@ public final class DocereeMobileAds {
 //        hcpView.loadData(hcpValidationRequest: HcpValidationRequest())
 //        return hcpView
 //    }
+    
+    func omInitialization() {
+        
+        // Activate the OMID SDK at earliest convenience
+        OMIDSessionInteractor.activateOMSDK()
+
+        // Prefetch the OMID JS Library
+        // The hosted javascript should be periodically (automatically) updated to the latest version on the hosting server
+        // This step might not be needed if the consumed Ads are WebView based with server side OMID injection
+        OMIDSessionInteractor.prefetchOMIDSDK()
+    }
 }
 
 extension DocereeMobileAds {
