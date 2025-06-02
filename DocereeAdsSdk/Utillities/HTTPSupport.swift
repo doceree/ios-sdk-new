@@ -77,6 +77,7 @@ enum Methods{
     case GetHcpValidation
     case UpdateHcpValidation
     case PatientSession
+    case AppConfig
 }
 
 func getPath(methodName: Methods, type: EnvironmentType = .Dev) -> String {
@@ -99,5 +100,7 @@ func getPath(methodName: Methods, type: EnvironmentType = .Dev) -> String {
         return "/dop/updateHcpSelfValidation"
     case .PatientSession:
         return "/drs/nEvent"
+    case .AppConfig:
+        return "/dop/settings?version=1"
     }
 }

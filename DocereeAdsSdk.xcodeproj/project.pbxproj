@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		541F832E2DCE28A600F82FD0 /* OMIDSessionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541F832D2DCE28A600F82FD0 /* OMIDSessionInteractor.swift */; };
 		541F83302DCE297000F82FD0 /* AdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541F832F2DCE297000F82FD0 /* AdUnit.swift */; };
+		541F833A2DD1FB2D00F82FD0 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541F83392DD1FB2D00F82FD0 /* AppConfiguration.swift */; };
+		541F83402DD1FDC500F82FD0 /* ConfigurationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541F833F2DD1FDC500F82FD0 /* ConfigurationService.swift */; };
+		541F83442DD3368A00F82FD0 /* HcpValidationViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541F83432DD3368900F82FD0 /* HcpValidationViewManager.swift */; };
 		543ACD332964535A005C47FE /* PlatformData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543ACD322964535A005C47FE /* PlatformData.swift */; };
 		545D18E02C08859B003DA8E1 /* PatientSessionApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18DF2C08859B003DA8E1 /* PatientSessionApi.swift */; };
 		545D18E22C08866C003DA8E1 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E12C08866C003DA8E1 /* Header.swift */; };
@@ -74,6 +77,9 @@
 /* Begin PBXFileReference section */
 		541F832D2DCE28A600F82FD0 /* OMIDSessionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMIDSessionInteractor.swift; sourceTree = "<group>"; };
 		541F832F2DCE297000F82FD0 /* AdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdUnit.swift; sourceTree = "<group>"; };
+		541F83392DD1FB2D00F82FD0 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
+		541F833F2DD1FDC500F82FD0 /* ConfigurationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationService.swift; sourceTree = "<group>"; };
+		541F83432DD3368900F82FD0 /* HcpValidationViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HcpValidationViewManager.swift; sourceTree = "<group>"; };
 		543ACD322964535A005C47FE /* PlatformData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformData.swift; sourceTree = "<group>"; };
 		545D18DF2C08859B003DA8E1 /* PatientSessionApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSessionApi.swift; sourceTree = "<group>"; };
 		545D18E12C08866C003DA8E1 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
@@ -141,6 +147,21 @@
 				541F832F2DCE297000F82FD0 /* AdUnit.swift */,
 			);
 			path = OM;
+		541F833B2DD1FBC900F82FD0 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				541F83392DD1FB2D00F82FD0 /* AppConfiguration.swift */,
+				541F833F2DD1FDC500F82FD0 /* ConfigurationService.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		541F833C2DD1FD8900F82FD0 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				541F833B2DD1FBC900F82FD0 /* Configuration */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		545D18DE2C08858C003DA8E1 /* api */ = {
@@ -185,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				541F832C2DCE287600F82FD0 /* OM */,
+				541F833C2DD1FD8900F82FD0 /* Services */,
 				545D18DE2C08858C003DA8E1 /* api */,
 				54EBB05D28366F4100C7B249 /* Helpers */,
 				54EBAFE6282D176000C7B249 /* Utillities */,
@@ -253,6 +275,7 @@
 			children = (
 				54EBB0412834F62700C7B249 /* AdConsentUIView.swift */,
 				54EBB0422834F62700C7B249 /* DocereeAdView.swift */,
+				541F83432DD3368900F82FD0 /* HcpValidationViewManager.swift */,
 				54874D272BBAC2F60018A882 /* HcpValidationView.swift */,
 			);
 			path = View;
@@ -364,11 +387,13 @@
 				54EDF0602C512FE200351DEF /* PatientData.swift in Sources */,
 				54EBB061283671AA00C7B249 /* DocereeAdViewDelegate.swift in Sources */,
 				54EBB006282E87AF00C7B249 /* AdRequest.swift in Sources */,
+				541F833A2DD1FB2D00F82FD0 /* AppConfiguration.swift in Sources */,
 				545D18EC2C08B440003DA8E1 /* PatientBuilder.swift in Sources */,
 				54EBB007282E87AF00C7B249 /* AdResponse.swift in Sources */,
 				545D18E22C08866C003DA8E1 /* Header.swift in Sources */,
 				54EBB0112832240B00C7B249 /* Extensions.swift in Sources */,
 				54EBB016283225D200C7B249 /* DocereeRequestError.swift in Sources */,
+				541F83442DD3368A00F82FD0 /* HcpValidationViewManager.swift in Sources */,
 				54874D282BBAC2F60018A882 /* HcpValidationView.swift in Sources */,
 				545D18E42C088769003DA8E1 /* AppInfo.swift in Sources */,
 				54F27B772A98E53D00AD384A /* DateExtension.swift in Sources */,
@@ -381,6 +406,7 @@
 				54EBB0442834F62700C7B249 /* DocereeAdView.swift in Sources */,
 				54EDF0622C53E5FC00351DEF /* JsonUtility.swift in Sources */,
 				545D18EA2C08948D003DA8E1 /* Utils.swift in Sources */,
+				541F83402DD1FDC500F82FD0 /* ConfigurationService.swift in Sources */,
 				54EBB05328366CD800C7B249 /* CustomTimer.swift in Sources */,
 				541F83302DCE297000F82FD0 /* AdUnit.swift in Sources */,
 				54ADD0A829388996004A7182 /* ImageLoader.swift in Sources */,

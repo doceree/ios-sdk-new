@@ -20,7 +20,9 @@ public class HcpValidationView: UIView  {
     public override init(frame: CGRect = .zero) {
         super.init(frame: UIScreen.main.bounds)
         hcpValidationRequest = HcpValidationRequest()
-        loadData()
+        Task {
+            await loadData()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -281,40 +283,33 @@ extension HcpValidationView {
 
 // MARK: - Networking & Data Handling
 extension HcpValidationView {
-    func isHcpExist() -> Bool {
-        guard let loggedInUser = DocereeMobileAds.shared().getProfile() else {
-            print("Error: Not found profile data")
-            return false
-        }
-        return (loggedInUser.specialization != nil) || (loggedInUser.hcpId != nil)
-    }
-    
+
     func removeView() {
         self.removeFromSuperview()
         self.delegate = nil
     }
     
-    public func loadData() {
-        if isHcpExist() {
+    public func loadData() async {
+        if DocereeMobileAds.shared().isHcpExist() {
             removeView()
             return
         }
 
-        if (!getInterval()) {
+        if ((UserDefaultsManager.shared.isHCPValidationValid())) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.removeView()
             }
             return
         }
         
-        hcpValidationRequest?.getHcpSelfValidation() { (results) in
+        await hcpValidationRequest?.getHcpSelfValidation() { (results) in
             if let result = results.data {
                 do {
                     self.hcpResponseData = try JSONDecoder().decode(HcpValidation.self, from: result)
                     guard (self.hcpResponseData?.data) != nil else { return }
                     DispatchQueue.main.async {
                         if self.hcpResponseData?.code == 200 && self.hcpResponseData?.data.valStatus == 0 && self.hcpResponseData?.data.templateId != 0 {
-                            if self.isHcpExist() {
+                            if DocereeMobileAds.shared().isHcpExist() {
                                 self.removeView()
                                 return
                             }
@@ -342,23 +337,18 @@ extension HcpValidationView {
             }
         }
     }
-    
-    private func getInterval() -> Bool {
-        let manager = UserDefaultsManager.shared
-        return manager.getUserDefaults() == nil
-    }
-    
+
     func saveTimeInterval(duration: TimeInterval) {
-        let manager = UserDefaultsManager.shared
+        // Set an expiration of 6 hours
+        UserDefaultsManager.shared.saveHCPValidationExpiration(duration: duration)
 
-        manager.setUserDefaults(duration)
-
-        // Retrieve user defaults
-        if let userData = manager.getUserDefaults() {
-            print("User defaults exist for \(duration):", userData)
+        // Check if HCP validation is still valid
+        if UserDefaultsManager.shared.isHCPValidationValid() {
+            print("HCP validation still valid")
         } else {
-            print("User defaults expired or not set.")
+            print("HCP validation expired, refresh needed")
         }
+        
         removeView()
     }
 
