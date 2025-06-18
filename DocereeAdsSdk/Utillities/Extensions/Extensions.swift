@@ -5,9 +5,20 @@ import UIKit
 extension DocereeAdRequestError: LocalizedError {
     public var localizedDescription: String {
         switch self {
-        case .failedToCreateRequest: return NSLocalizedString("Failed to load ad. Please contact support@doceree.com", comment: "")
+        case .failedToCreateRequest:
+            return NSLocalizedString("Failed to load ad. Please contact support@doceree.com", comment: "")
         case .adNotFound:
             return NSLocalizedString("Ad not found", comment: "")
+        case .invalidAppKey:
+            return NSLocalizedString("Invalid App Key", comment: "")
+        case .adTrackingDisabled:
+            return NSLocalizedString("Ad Tracking Disabled", comment: "")
+        case .invalidUserProfile:
+            return NSLocalizedString("Invalid User Profile", comment: "")
+        case .adServerReturnedError:
+            return NSLocalizedString("Ad Server Returned Error", comment: "")
+        case .invalidURL:
+            return NSLocalizedString("Invalid URL", comment: "")
         }
     }
 }

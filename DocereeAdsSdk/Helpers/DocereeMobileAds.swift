@@ -170,7 +170,7 @@ public final class DocereeMobileAds {
         }
            
         let platformData = getPlatformData(rxCodes: rxCodes, dxCodes: dxCodes)
-        DocereeAdRequest.shared().sendDataCollection(screenPath: screenPath, editorialTags: editorialTags, gps: gps, platformData: platformData, event: event)
+        DocereeAdRequest.shared.sendDataCollection(screenPath: screenPath, editorialTags: editorialTags, gps: gps, platformData: platformData, event: event)
         
     }
 

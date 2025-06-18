@@ -150,36 +150,59 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
             if let userId = adResponseData?.userId {
                 uId = userId
             }
-            docereeAdRequest.requestAd(uId, self.docereeAdUnitId, size) { (results, isRichMediaAd) in
-                self.isRichMediaAd = isRichMediaAd
-                if let data = results.data {
-                    do {
-                        let rs = try JSONDecoder().decode(AdResponseMain.self, from: data)
-                        self.adResponseData = rs.response[0]
-                        if (self.adResponseData?.status == -1) {
-                            self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.adNotFound)
-                            self.removeAllViews()
-                        } else {
-                            self.createAdUI()
-                        }
-                    } catch {
-                        self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
+            Task {
+                do {
+                    let (results, isRichMediaAd) = try await docereeAdRequest.requestAd(userId: uId, adUnitId: docereeAdUnitId, size: size)
+                    self.isRichMediaAd = isRichMediaAd
+                    
+                    let rs = try JSONDecoder().decode(AdResponseMain.self, from: results.data!)
+                    self.adResponseData = rs.response.first
+                    
+                    if self.adResponseData?.status == -1 {
+                        self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: .adNotFound)
                         self.removeAllViews()
+                    } else {
+                        self.createAdUI()
                     }
                     
-                    DispatchQueue.main.async {
-                        self.startTimer(adFound: true)
-                    }
+                    self.startTimer(adFound: true)
                     
-                } else {
-                    self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
+                } catch {
+                    self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: error as? DocereeAdRequestError ?? .failedToCreateRequest)
                     self.removeAllViews()
-                    
-                    DispatchQueue.main.async {
-                        self.startTimer(adFound: false)
-                    }
+                    self.startTimer(adFound: false)
                 }
             }
+//            docereeAdRequest.requestAd(uId, self.docereeAdUnitId, size) { (results, isRichMediaAd) in
+//                self.isRichMediaAd = isRichMediaAd
+//                if let data = results.data {
+//                    do {
+//                        let rs = try JSONDecoder().decode(AdResponseMain.self, from: data)
+//                        self.adResponseData = rs.response[0]
+//                        if (self.adResponseData?.status == -1) {
+//                            self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.adNotFound)
+//                            self.removeAllViews()
+//                        } else {
+//                            self.createAdUI()
+//                        }
+//                    } catch {
+//                        self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
+//                        self.removeAllViews()
+//                    }
+//
+//                    DispatchQueue.main.async {
+//                        self.startTimer(adFound: true)
+//                    }
+//
+//                } else {
+//                    self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: DocereeAdRequestError.failedToCreateRequest)
+//                    self.removeAllViews()
+//
+//                    DispatchQueue.main.async {
+//                        self.startTimer(adFound: false)
+//                    }
+//                }
+//            }
         } else {
             self.viewportTimer(adFound: false)
         }
@@ -262,7 +285,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
                     viewLink = viewLink.replacingOccurrences(of: "{{VIEWED_PERCENTAGE}}", with: String((self.adResponseData?.minViewPercentage)!))
                 }
                 viewLink = viewLink.replacingOccurrences(of: "_std", with: standard)
-                self.docereeAdRequest?.sendAdViewability(viewLink: viewLink)
+                self.docereeAdRequest?.sendViewability(to: viewLink)
             }
 
             if standard == "mrc" && self.OneSecMrcSent == true {
@@ -281,7 +304,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
             self.ctaLink = adResponseData?.clickURL?.replacingOccurrences(of: "DOCEREE_CLICK_URL_UNESC", with: "")
             if var adRenderURL = adResponseData?.adRenderURL, !adRenderURL.isEmpty {
                 adRenderURL = adRenderURL.replacingOccurrences(of: "{{EVENT_CLIENT_TIME}}", with: Date.currentTimeMillis())
-                    self.docereeAdRequest?.sendAdImpression(impressionUrl: adRenderURL)
+                self.docereeAdRequest?.sendImpression(to: adRenderURL)
             }
 
             if !isRichMediaAd {

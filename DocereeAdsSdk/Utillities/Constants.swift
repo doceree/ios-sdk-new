@@ -2,10 +2,6 @@
 import Foundation
 import UIKit
 
-let textFontSize12: CGFloat = 12.0
-let textFontSize9: CGFloat = 9.0
-let textFontSize10: CGFloat = 10.0
-let textFontSize8: CGFloat = 8.0
 let sdkVersion = Bundle(for: DocereeAdRequest.self).infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0"
 let platformId = 4 // (#1- web #2- mweb #3- andorid #4- ios #5- amp)"
 let dataSource = 2 // (#1- js, #2- sdk, #3- adservedata, #4- dmd, #5- purplelab, #6- liveintent)
@@ -18,32 +14,6 @@ enum AdType {
     case LARGEBANNER
     case SMALLBANNER
     case INVALID
-}
-
-enum BlockLevel {
-    case AdCoveringContent
-    case AdWasInappropriate
-    case NotInterestedInCampaign
-    case NotInterestedInBrand
-    case NotInterestedInBrandType
-    case NotInterestedInClientType
-    
-    var info: (blockLevelCode: String, blockLevelDesc: String) {
-        switch self{
-        case .AdCoveringContent:
-            return ("overlappingAd", "Ad is covering the content of the website.")
-        case .AdWasInappropriate:
-            return ("inappropriateAd", "Ad was inappropriate.")
-        case .NotInterestedInCampaign:
-            return ("notInterestedInCampaign", "I'm not interested in seeing ads for this product")
-        case .NotInterestedInBrand:
-            return ("notInterestedInBrand", "I'm not interested in seeing ads for this brand.")
-        case .NotInterestedInBrandType:
-            return ("notInterestedInBrandType", "I'm not interested in seeing ads for this category.")
-        case .NotInterestedInClientType:
-            return ("notInterestedInClientType", "I'm not interested in seeing ads from pharmaceutical brands.")
-        }
-    }
 }
 
 enum HeaderEnum: String {

@@ -31,7 +31,7 @@ enum HttpMethod: String {
     case post
 }
 
-func getHost(type: EnvironmentType) -> String? {
+func getHost(type: EnvironmentType) -> String {
     switch type {
     case .Dev:
         return "dev-bidder.doceree.com"
@@ -44,7 +44,7 @@ func getHost(type: EnvironmentType) -> String? {
     }
 }
 
-func getDocTrackerHost(type: EnvironmentType) -> String? {
+func getDocTrackerHost(type: EnvironmentType) -> String {
     switch type {
     case .Dev:
         return "dev-tracking.doceree.com"
@@ -57,7 +57,7 @@ func getDocTrackerHost(type: EnvironmentType) -> String? {
     }
 }
 
-func getDataCollectionHost(type: EnvironmentType) -> String? {
+func getDataCollectionHost(type: EnvironmentType) -> String {
     switch type {
     case .Dev:
         return "qa-identity.doceree.com"
