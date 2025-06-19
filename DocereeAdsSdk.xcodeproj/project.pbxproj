@@ -228,9 +228,9 @@
 		54BA06EC2E01407800E21C45 /* AdConsent */ = {
 			isa = PBXGroup;
 			children = (
+				54EBB0412834F62700C7B249 /* AdConsentUIView.swift */,
 				54BA06EF2E01423300E21C45 /* ConsentModels.swift */,
 				54BA06F32E01449600E21C45 /* ConsentConstants.swift */,
-				54EBB0412834F62700C7B249 /* AdConsentUIView.swift */,
 				54BA06F92E0147A900E21C45 /* AdConsentUIFactory.swift */,
 				54BA06ED2E0140AF00E21C45 /* AdConsentFeedbackHandler.swift */,
 			);

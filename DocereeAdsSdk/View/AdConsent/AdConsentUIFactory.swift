@@ -63,7 +63,7 @@ extension AdConsentUIView {
         btn.backgroundColor = ConsentConstants.white
         btn.titleLabel?.font = .systemFont(ofSize: ConsentConstants.fontSize12)
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: action))
+        btn.addTarget(self, action: action, for: .touchUpInside)
         btn.widthAnchor.constraint(equalToConstant: isMediumRectangle ? frame.width * 0.8 : frame.width * 0.4).isActive = true
         btn.heightAnchor.constraint(equalToConstant: isMediumRectangle ? frame.height * 0.2 : frame.height / 2).isActive = true
 
@@ -78,14 +78,13 @@ extension AdConsentUIView {
         return btn
     }
     
-    func createButtonWithText(_ text: String, action: Selector) -> UIButton {
-        let button = createButtonWithText(text)
-        let tapGesture = UITapGestureRecognizer(target: self, action: action)
-        button.addGestureRecognizer(tapGesture)
+    func makeFeedbackButton(_ text: String, action: Selector) -> UIButton {
+        let button = makeFeedbackButton(text)
+        button.addTarget(self, action: action, for: .touchUpInside)
         return button
     }
     
-    func createButtonWithText(_ text: String) -> UIButton {
+    func makeFeedbackButton(_ text: String) -> UIButton {
         
         let buttonWidth: CGFloat = getButtonSizes().0
         let buttonHeight: CGFloat = getButtonSizes().1

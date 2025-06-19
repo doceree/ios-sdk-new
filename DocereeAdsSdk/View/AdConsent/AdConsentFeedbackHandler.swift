@@ -9,9 +9,10 @@ import UIKit
 
 extension AdConsentUIView {
     func loadAdConsentFeedback(_ adblockLevel: String) {
-        self.removeAllViews()
+        guard let adSize = self.adViewSize else { return }
+        resetConsentView()
         let consentView: UIView = UIView()
-        consentView.frame = CGRect(x: 0.0, y: 0.0, width: self.adViewSize!.width, height: self.adViewSize!.height)
+        consentView.frame = CGRect(x: 0.0, y: 0.0, width: adSize.width, height: adSize.height)
         consentView.backgroundColor = ConsentConstants.backgroundColor
         
         let label = UILabel()
