@@ -22,7 +22,7 @@ extension AdConsentUIView {
             imageView = UIImageView(image: backArrowUIImage)
         }
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = ConsentConstants.purple
+        imageView.tintColor = ConsentConstants.brandPurple
         imageView.widthAnchor.constraint(equalToConstant: iconSize).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: iconSize).isActive = true
         imageView.isUserInteractionEnabled = true
@@ -37,7 +37,7 @@ extension AdConsentUIView {
         let label = UILabel()
         label.text = "Ads by doceree"
         label.font = .systemFont(ofSize: ConsentConstants.fontSize12)
-        label.textColor = ConsentConstants.purple
+        label.textColor = ConsentConstants.brandPurple
         label.widthAnchor.constraint(equalToConstant: self.adViewFrame!.width).isActive = true
         label.heightAnchor.constraint(equalToConstant: titleHeight).isActive = true
         label.textAlignment = .center
@@ -69,7 +69,7 @@ extension AdConsentUIView {
 
         if let iconName = iconName, #available(iOS 13.0, *) {
             let config = UIImage.SymbolConfiguration(pointSize: 15, weight: .light, scale: .small)
-            let icon = UIImage(systemName: iconName, withConfiguration: config)?.withTintColor(ConsentConstants.purple, renderingMode: .alwaysOriginal)
+            let icon = UIImage(systemName: iconName, withConfiguration: config)?.withTintColor(ConsentConstants.brandPurple, renderingMode: .alwaysOriginal)
             btn.setImage(icon, for: .normal)
             btn.semanticContentAttribute = iconOnRight ? .forceRightToLeft : .forceLeftToRight
             btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)

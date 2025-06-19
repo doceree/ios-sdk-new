@@ -9,6 +9,8 @@ public enum DocereeAdRequestError: String, Error {
     case invalidUserProfile
     case adServerReturnedError
     case invalidURL
+    case invalidRequest
+    case invalidResponse
 }
 
 public enum HcpRequestError: String, Error {

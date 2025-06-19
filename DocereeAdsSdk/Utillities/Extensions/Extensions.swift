@@ -19,6 +19,10 @@ extension DocereeAdRequestError: LocalizedError {
             return NSLocalizedString("Ad Server Returned Error", comment: "")
         case .invalidURL:
             return NSLocalizedString("Invalid URL", comment: "")
+        case .invalidRequest:
+            return NSLocalizedString("Inalid Request", comment: "")
+        case .invalidResponse:
+            return NSLocalizedString("Inalid Response", comment: "")
         }
     }
 }

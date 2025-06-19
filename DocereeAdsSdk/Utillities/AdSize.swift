@@ -11,26 +11,34 @@ public protocol AdSize {
 
 // 320 x 50
 struct Banner: AdSize {
-    var width: CGFloat = 320.0
-    
-    var height: CGFloat = 50.0
-    
+    var width: CGFloat
+    var height: CGFloat
+
+    init(width: CGFloat = 320, height: CGFloat = 50) {
+        self.width = width
+        self.height = height
+    }
+
     func getAdSize() -> CGSize {
         return CGSize(width: width, height: height)
     }
-    
+
     func getAdSizeName() -> String {
         return "BANNER"
     }
 }
 
+
 // 468 x 60
 struct FullBanner: AdSize {
+    var width: CGFloat
+    var height: CGFloat
 
-    var height: CGFloat = 60.0
-    
-    var width: CGFloat = 468.0
-    
+    init(width: CGFloat = 468, height: CGFloat = 60) {
+        self.width = width
+        self.height = height
+    }
+
     func getAdSize() -> CGSize {
         return CGSize(width: width, height: height)
     }
@@ -42,11 +50,14 @@ struct FullBanner: AdSize {
 
 // 300 x 250
 struct MediumRectangle : AdSize {
-    
-    var height: CGFloat = 250.0
-    
-    var width: CGFloat = 300.0
-    
+    var width: CGFloat
+    var height: CGFloat
+
+    init(width: CGFloat = 300, height: CGFloat = 250) {
+        self.width = width
+        self.height = height
+    }
+
     func getAdSize() -> CGSize {
         return CGSize(width: width, height: height)
     }
@@ -58,11 +69,14 @@ struct MediumRectangle : AdSize {
 
 // 320 x 100
 struct LargeBanner: AdSize {
-    
-    var height: CGFloat = 100.0
-    
-    var width: CGFloat = 320.0
-    
+    var width: CGFloat
+    var height: CGFloat
+
+    init(width: CGFloat = 320, height: CGFloat = 100) {
+        self.width = width
+        self.height = height
+    }
+
     func getAdSize() -> CGSize {
         return CGSize(width: width, height: height)
     }
@@ -74,11 +88,14 @@ struct LargeBanner: AdSize {
 
 // 728 x 90
 struct LeaderBoard: AdSize {
-    
-    var height: CGFloat = 90.0
-    
-    var width: CGFloat = 728.0
-    
+    var width: CGFloat
+    var height: CGFloat
+
+    init(width: CGFloat = 728, height: CGFloat = 90) {
+        self.width = width
+        self.height = height
+    }
+
     func getAdSize() -> CGSize {
         return CGSize(width: width, height: height)
     }
@@ -90,11 +107,14 @@ struct LeaderBoard: AdSize {
 
 // 300 x 50
 struct SmallBanner: AdSize {
-    
-    var height: CGFloat = 50.0
-    
-    var width: CGFloat = 300.0
-    
+    var width: CGFloat
+    var height: CGFloat
+
+    init(width: CGFloat = 300, height: CGFloat = 50) {
+        self.width = width
+        self.height = height
+    }
+
     func getAdSize() -> CGSize {
         return CGSize(width: width, height: height)
     }
@@ -106,10 +126,14 @@ struct SmallBanner: AdSize {
 
 // Invalid Size
 struct Invalid: AdSize {
-    var height: CGFloat = 0.0
-    
-    var width: CGFloat = 0.0
-    
+    var width: CGFloat
+    var height: CGFloat
+
+    init(width: CGFloat = 0, height: CGFloat = 0) {
+        self.width = width
+        self.height = height
+    }
+
     func getAdSize() -> CGSize {
         return .zero
     }
