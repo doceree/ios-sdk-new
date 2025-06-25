@@ -1,6 +1,0 @@
-framework module DocereeAdSdk {
-  umbrella header "DocereeAdSdk-umbrella.h"
-
-  export *
-  module * { export * }
-}
