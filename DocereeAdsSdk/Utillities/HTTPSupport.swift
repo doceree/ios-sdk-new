@@ -31,7 +31,7 @@ enum HttpMethod: String {
     case post
 }
 
-func getHost(type: EnvironmentType) -> String? {
+func getHost(type: EnvironmentType) -> String {
     switch type {
     case .Dev:
         return "dev-bidder.doceree.com"
@@ -44,7 +44,7 @@ func getHost(type: EnvironmentType) -> String? {
     }
 }
 
-func getDocTrackerHost(type: EnvironmentType) -> String? {
+func getDocTrackerHost(type: EnvironmentType) -> String {
     switch type {
     case .Dev:
         return "dev-tracking.doceree.com"
@@ -57,7 +57,7 @@ func getDocTrackerHost(type: EnvironmentType) -> String? {
     }
 }
 
-func getDataCollectionHost(type: EnvironmentType) -> String? {
+func getDataCollectionHost(type: EnvironmentType) -> String {
     switch type {
     case .Dev:
         return "qa-identity.doceree.com"
@@ -74,10 +74,14 @@ enum Methods{
     case GetImage
     case AdBlock
     case CollectData
-    case HcpValidation
+    case GetHcpValidation
+    case UpdateHcpValidation
+    case PatientSession
+    case AppConfig
 }
 
 func getPath(methodName: Methods, type: EnvironmentType = .Dev) -> String {
+    
     switch methodName{
     case .GetImage:
         return "/drs/quest"
@@ -90,7 +94,13 @@ func getPath(methodName: Methods, type: EnvironmentType = .Dev) -> String {
         case .Prod:
             return "/dop/curator"
     }
-    case .HcpValidation:
+    case .GetHcpValidation:
         return "/dop/getHcpSelfValidation"
+    case .UpdateHcpValidation:
+        return "/dop/updateHcpSelfValidation"
+    case .PatientSession:
+        return "/drs/nEvent"
+    case .AppConfig:
+        return "/dop/settings?version=1"
     }
 }

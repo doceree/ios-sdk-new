@@ -5,9 +5,24 @@ import UIKit
 extension DocereeAdRequestError: LocalizedError {
     public var localizedDescription: String {
         switch self {
-        case .failedToCreateRequest: return NSLocalizedString("Failed to load ad. Please contact support@doceree.com", comment: "")
+        case .failedToCreateRequest:
+            return NSLocalizedString("Failed to load ad. Please contact support@doceree.com", comment: "")
         case .adNotFound:
             return NSLocalizedString("Ad not found", comment: "")
+        case .invalidAppKey:
+            return NSLocalizedString("Invalid App Key", comment: "")
+        case .adTrackingDisabled:
+            return NSLocalizedString("Ad Tracking Disabled", comment: "")
+        case .invalidUserProfile:
+            return NSLocalizedString("Invalid User Profile", comment: "")
+        case .adServerReturnedError:
+            return NSLocalizedString("Ad Server Returned Error", comment: "")
+        case .invalidURL:
+            return NSLocalizedString("Invalid URL", comment: "")
+        case .invalidRequest:
+            return NSLocalizedString("Inalid Request", comment: "")
+        case .invalidResponse:
+            return NSLocalizedString("Inalid Response", comment: "")
         }
     }
 }
@@ -30,7 +45,15 @@ extension UIColor {
         }
         self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
     }
+//    convenience init(hex: String) {
+//        let hexValue = Int(hex, radix: 16) ?? 0
+//        let red = CGFloat((hexValue >> 16) & 0xFF) / 255.0
+//        let green = CGFloat((hexValue >> 8) & 0xFF) / 255.0
+//        let blue = CGFloat(hexValue & 0xFF) / 255.0
+//        self.init(red: red, green: green, blue: blue, alpha: 1.0)
+//    }
 }
+
 extension NSData {
     var imageFormat: ImageFormat {
         var buffer = [UInt8](repeating: 0, count: 1)

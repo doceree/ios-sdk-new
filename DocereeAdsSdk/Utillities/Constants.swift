@@ -2,10 +2,6 @@
 import Foundation
 import UIKit
 
-let textFontSize12: CGFloat = 12.0
-let textFontSize9: CGFloat = 9.0
-let textFontSize10: CGFloat = 10.0
-let textFontSize8: CGFloat = 8.0
 let sdkVersion = Bundle(for: DocereeAdRequest.self).infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0"
 let platformId = 4 // (#1- web #2- mweb #3- andorid #4- ios #5- amp)"
 let dataSource = 2 // (#1- js, #2- sdk, #3- adservedata, #4- dmd, #5- purplelab, #6- liveintent)
@@ -20,33 +16,7 @@ enum AdType {
     case INVALID
 }
 
-enum BlockLevel {
-    case AdCoveringContent
-    case AdWasInappropriate
-    case NotInterestedInCampaign
-    case NotInterestedInBrand
-    case NotInterestedInBrandType
-    case NotInterestedInClientType
-    
-    var info: (blockLevelCode: String, blockLevelDesc: String) {
-        switch self{
-        case .AdCoveringContent:
-            return ("overlappingAd", "Ad is covering the content of the website.")
-        case .AdWasInappropriate:
-            return ("inappropriateAd", "Ad was inappropriate.")
-        case .NotInterestedInCampaign:
-            return ("notInterestedInCampaign", "I'm not interested in seeing ads for this product")
-        case .NotInterestedInBrand:
-            return ("notInterestedInBrand", "I'm not interested in seeing ads for this brand.")
-        case .NotInterestedInBrandType:
-            return ("notInterestedInBrandType", "I'm not interested in seeing ads for this category.")
-        case .NotInterestedInClientType:
-            return ("notInterestedInClientType", "I'm not interested in seeing ads from pharmaceutical brands.")
-        }
-    }
-}
-
-enum Header: String {
+enum HeaderEnum: String {
     case header_user_agent = "User-Agent"
     case header_advertising_id = "doceree-device-id"
     case is_vendor_id = "is_doceree_iOS_sdk_vendor_id"
@@ -133,3 +103,33 @@ enum Event: String {
     case erxEncounterID = "enx"
     case scrollPath = "scd"
 }
+
+enum Popup {
+    static let title = "Are you a Healthcare Professional?"
+    static let description = """
+        This content is intended for Healthcare professionals only. By accessing this, you are confirming that you are a healthcare professional. This site may contain promotional information about pharma products.
+        """
+    static let noButtonText = "No, visit the public website"
+    static let yesButtonText = "Yes"
+}
+
+struct Constants {
+    static let HcpData = "HcpData"
+    
+    static let vendorKey = "iabtechlab.com-omid"
+    
+    static let HTMLAdURL = "https://omsdk-demo-files.s3.us-west-2.amazonaws.com/creatives/html_display_creative.html"
+
+    static let HTMLVideoAdURL = "https://omsdk-demo-files.s3.us-west-2.amazonaws.com/creatives/html_video_creative.html"
+    
+    static let videoAdURL = "https://omsdk-demo-files.s3.us-west-2.amazonaws.com/ra_1.3/IABTL_VAST_Intro_30s.mp4"
+    
+    static let staticImageAdURL = "https://omsdk-demo-files.s3.us-west-2.amazonaws.com/creative/mania.jpeg"
+    
+    static var audioAdURL = "https://omsdk-demo-files.s3.us-west-2.amazonaws.com/ra_1.3/IABTechLab_audio_test_file.mp3"
+
+    static var verificationScriptURL = "https://omsdk-public.herokuapp.com/omid-validation-verification-script-v1.js"
+    
+    static let verificationParameters = ""
+}
+
