@@ -35,4 +35,6 @@ Pod::Spec.new do |spec|
     'VALID_ARCHS' => 'arm64 x86_64'
   }
 
+  spec.dependency 'KetchSDK', '4.0.3'
+
 end
