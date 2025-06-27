@@ -14,6 +14,7 @@
 		542857552E0D68F60000E823 /* CreateCMPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE7C182D71EF8300BFCE0D /* CreateCMPView.swift */; };
 		542857572E0D6BAE0000E823 /* KetchSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542857562E0D6BAE0000E823 /* KetchSDK.framework */; };
 		5428575C2E0D70680000E823 /* MyKetchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5428575B2E0D70680000E823 /* MyKetchView.swift */; };
+		542857652E0E6B920000E823 /* KetchViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542857642E0E6B920000E823 /* KetchViewManager.swift */; };
 		543ACD332964535A005C47FE /* PlatformData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543ACD322964535A005C47FE /* PlatformData.swift */; };
 		545D18E02C08859B003DA8E1 /* PatientSessionApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18DF2C08859B003DA8E1 /* PatientSessionApi.swift */; };
 		545D18E22C08866C003DA8E1 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E12C08866C003DA8E1 /* Header.swift */; };
@@ -97,6 +98,7 @@
 		541F83432DD3368900F82FD0 /* HcpValidationViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HcpValidationViewManager.swift; sourceTree = "<group>"; };
 		542857562E0D6BAE0000E823 /* KetchSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KetchSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5428575B2E0D70680000E823 /* MyKetchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyKetchView.swift; sourceTree = "<group>"; };
+		542857642E0E6B920000E823 /* KetchViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KetchViewManager.swift; sourceTree = "<group>"; };
 		543ACD322964535A005C47FE /* PlatformData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformData.swift; sourceTree = "<group>"; };
 		545D18DF2C08859B003DA8E1 /* PatientSessionApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSessionApi.swift; sourceTree = "<group>"; };
 		545D18E12C08866C003DA8E1 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
@@ -208,6 +210,17 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		542857662E0E73A80000E823 /* KetchView */ = {
+			isa = PBXGroup;
+			children = (
+				54E61C8B2D0B173C00F4CB24 /* MyKetchViewUIKit.swift */,
+				542857642E0E6B920000E823 /* KetchViewManager.swift */,
+				54BE7C182D71EF8300BFCE0D /* CreateCMPView.swift */,
+				5428575B2E0D70680000E823 /* MyKetchView.swift */,
+			);
+			path = KetchView;
+			sourceTree = "<group>";
+		};
 		545D18DE2C08858C003DA8E1 /* api */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,9 +311,6 @@
 				54EBB0402834F3F800C7B249 /* View */,
 				54EBAFBF282CF30900C7B249 /* DocereeAdsSdk.h */,
 				54EBB00A283221BE00C7B249 /* DocereeAdRequest.swift */,
-				54E61C8B2D0B173C00F4CB24 /* MyKetchViewUIKit.swift */,
-				54BE7C182D71EF8300BFCE0D /* CreateCMPView.swift */,
-				5428575B2E0D70680000E823 /* MyKetchView.swift */,
 				54874D292BBAC5920018A882 /* HcpValidationRequest.swift */,
 				54BD89C5284F563F00DC94A3 /* Media.xcassets */,
 				5497DE4D2D5E299300D566BB /* DocereeAdsSdk.bundle */,
@@ -359,6 +369,7 @@
 		54EBB0402834F3F800C7B249 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				542857662E0E73A80000E823 /* KetchView */,
 				54731C982E02AF47000D0B86 /* Adview */,
 				54BA06EC2E01407800E21C45 /* AdConsent */,
 				541F83432DD3368900F82FD0 /* HcpValidationViewManager.swift */,
@@ -493,6 +504,7 @@
 				54BA06E22DEED5F400E21C45 /* OMIDSessionInteractor.swift in Sources */,
 				54BA06FA2E0147A900E21C45 /* AdConsentUIFactory.swift in Sources */,
 				54BA06E32DEED5F400E21C45 /* AdUnit.swift in Sources */,
+				542857652E0E6B920000E823 /* KetchViewManager.swift in Sources */,
 				54EBAFF7282E855C00C7B249 /* HTTPSupport.swift in Sources */,
 				54BD8A2E28A2503200DC94A3 /* Viewability.swift in Sources */,
 				543ACD332964535A005C47FE /* PlatformData.swift in Sources */,
