@@ -29,7 +29,7 @@ class ConfigurationService {
         UserDefaultsManager.shared.deleteConfig()
         UserDefaultsManager.shared.clearConfigExpiration()
         
-        let url = URL(string: "https://\(host ?? "")\(getPath(methodName: Methods.AppConfig))")!
+        let url = URL(string: "https://\(host)\(getPath(methodName: Methods.AppConfig))")!
         print("url: \(url)")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"

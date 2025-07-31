@@ -18,7 +18,6 @@
 		543ACD332964535A005C47FE /* PlatformData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543ACD322964535A005C47FE /* PlatformData.swift */; };
 		545D18E02C08859B003DA8E1 /* PatientSessionApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18DF2C08859B003DA8E1 /* PatientSessionApi.swift */; };
 		545D18E22C08866C003DA8E1 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E12C08866C003DA8E1 /* Header.swift */; };
-		545D18E42C088769003DA8E1 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E32C088769003DA8E1 /* AppInfo.swift */; };
 		545D18E62C088FB7003DA8E1 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E52C088FB7003DA8E1 /* StorageManager.swift */; };
 		545D18E82C089024003DA8E1 /* PatientSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E72C089024003DA8E1 /* PatientSession.swift */; };
 		545D18EA2C08948D003DA8E1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E92C08948D003DA8E1 /* Utils.swift */; };
@@ -62,7 +61,6 @@
 		54EBB006282E87AF00C7B249 /* AdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB003282E87AF00C7B249 /* AdRequest.swift */; };
 		54EBB007282E87AF00C7B249 /* AdResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB004282E87AF00C7B249 /* AdResponse.swift */; };
 		54EBB00B283221BE00C7B249 /* DocereeAdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB00A283221BE00C7B249 /* DocereeAdRequest.swift */; };
-		54EBB0102832240B00C7B249 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB00D2832240B00C7B249 /* StringExtensions.swift */; };
 		54EBB0112832240B00C7B249 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB00E2832240B00C7B249 /* Extensions.swift */; };
 		54EBB0122832240B00C7B249 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB00F2832240B00C7B249 /* ImageExtensions.swift */; };
 		54EBB016283225D200C7B249 /* DocereeRequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB015283225D200C7B249 /* DocereeRequestError.swift */; };
@@ -73,7 +71,6 @@
 		54EBB061283671AA00C7B249 /* DocereeAdViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB060283671AA00C7B249 /* DocereeAdViewDelegate.swift */; };
 		54EDF0602C512FE200351DEF /* PatientData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EDF05F2C512FE200351DEF /* PatientData.swift */; };
 		54EDF0622C53E5FC00351DEF /* JsonUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EDF0612C53E5FC00351DEF /* JsonUtility.swift */; };
-		54F27B772A98E53D00AD384A /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F27B762A98E53D00AD384A /* DateExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -102,7 +99,6 @@
 		543ACD322964535A005C47FE /* PlatformData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformData.swift; sourceTree = "<group>"; };
 		545D18DF2C08859B003DA8E1 /* PatientSessionApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSessionApi.swift; sourceTree = "<group>"; };
 		545D18E12C08866C003DA8E1 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
-		545D18E32C088769003DA8E1 /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
 		545D18E52C088FB7003DA8E1 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		545D18E72C089024003DA8E1 /* PatientSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSession.swift; sourceTree = "<group>"; };
 		545D18E92C08948D003DA8E1 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -148,7 +144,6 @@
 		54EBB003282E87AF00C7B249 /* AdRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdRequest.swift; sourceTree = "<group>"; };
 		54EBB004282E87AF00C7B249 /* AdResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdResponse.swift; sourceTree = "<group>"; };
 		54EBB00A283221BE00C7B249 /* DocereeAdRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocereeAdRequest.swift; sourceTree = "<group>"; };
-		54EBB00D2832240B00C7B249 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		54EBB00E2832240B00C7B249 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		54EBB00F2832240B00C7B249 /* ImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
 		54EBB015283225D200C7B249 /* DocereeRequestError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocereeRequestError.swift; sourceTree = "<group>"; };
@@ -159,7 +154,6 @@
 		54EBB060283671AA00C7B249 /* DocereeAdViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocereeAdViewDelegate.swift; sourceTree = "<group>"; };
 		54EDF05F2C512FE200351DEF /* PatientData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientData.swift; sourceTree = "<group>"; };
 		54EDF0612C53E5FC00351DEF /* JsonUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonUtility.swift; sourceTree = "<group>"; };
-		54F27B762A98E53D00AD384A /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		5732343192416F0013A5C6B6 /* Pods-DocereeAdsSdk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DocereeAdsSdk.debug.xcconfig"; path = "Target Support Files/Pods-DocereeAdsSdk/Pods-DocereeAdsSdk.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -338,7 +332,6 @@
 			children = (
 				54EBB00C2832240000C7B249 /* Extensions */,
 				54EBAFEF282E855C00C7B249 /* AdSize.swift */,
-				545D18E32C088769003DA8E1 /* AppInfo.swift */,
 				54EDF0612C53E5FC00351DEF /* JsonUtility.swift */,
 				54EBAFF1282E855C00C7B249 /* Constants.swift */,
 				54EBAFF0282E855C00C7B249 /* Helpers.swift */,
@@ -359,9 +352,7 @@
 			isa = PBXGroup;
 			children = (
 				54EBB00E2832240B00C7B249 /* Extensions.swift */,
-				54F27B762A98E53D00AD384A /* DateExtension.swift */,
 				54EBB00F2832240B00C7B249 /* ImageExtensions.swift */,
-				54EBB00D2832240B00C7B249 /* StringExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -526,8 +517,6 @@
 				54EBB016283225D200C7B249 /* DocereeRequestError.swift in Sources */,
 				541F83442DD3368A00F82FD0 /* HcpValidationViewManager.swift in Sources */,
 				54874D282BBAC2F60018A882 /* HcpValidationView.swift in Sources */,
-				545D18E42C088769003DA8E1 /* AppInfo.swift in Sources */,
-				54F27B772A98E53D00AD384A /* DateExtension.swift in Sources */,
 				54731C9E2E02C3B1000D0B86 /* DocereeAdView+Timer.swift in Sources */,
 				54731CB62E02DE02000D0B86 /* DocereeAdView+UIHelpers.swift in Sources */,
 				5428575C2E0D70680000E823 /* MyKetchView.swift in Sources */,
@@ -552,7 +541,6 @@
 				54EBAFF8282E855C00C7B249 /* AdSize.swift in Sources */,
 				54874D2C2BBC05C90018A882 /* DocereeHcpViewDelegate.swift in Sources */,
 				54EBAFE8282D177000C7B249 /* PathUtility.swift in Sources */,
-				54EBB0102832240B00C7B249 /* StringExtensions.swift in Sources */,
 				54EBAFD9282D018700C7B249 /* HcpProfile.swift in Sources */,
 				54874D2E2BBC2DAE0018A882 /* UserDefaultsManager.swift in Sources */,
 				54EBB0122832240B00C7B249 /* ImageExtensions.swift in Sources */,

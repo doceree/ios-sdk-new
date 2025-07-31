@@ -18,10 +18,3 @@ public enum HcpRequestError: String, Error {
     case parsingError = "Parsing Error"
     case noScriptFound = "No script found"
 }
-
-//public enum HcpRequestError: Error {
-//    case networkError(Error)
-//    case httpError(Int)
-//    case serializationError(Error)
-//    // Add more error cases as needed
-//}
