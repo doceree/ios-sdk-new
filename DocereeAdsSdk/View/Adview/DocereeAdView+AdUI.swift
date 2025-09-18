@@ -9,17 +9,40 @@ import UIKit
 
 extension DocereeAdView {
     
+//    func createSimpleAd(imagePath: String?) {
+//        if let urlString = imagePath, !urlString.isEmpty {
+//            DispatchQueue.main.async {
+//                self.adImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+//                self.adImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+//                let imageUrl = URL(string: urlString)
+//                self.handleImageRendering(of: imageUrl)
+//                self.prepareAdRendering()
+//            }
+//        }
+//    }
+    
     func createSimpleAd(imagePath: String?) {
         if let urlString = imagePath, !urlString.isEmpty {
             DispatchQueue.main.async {
-                self.adImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-                self.adImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-                let imageUrl = URL(string: urlString)
-                self.handleImageRendering(of: imageUrl)
+                if self.adImageView.superview == nil {
+                    self.addSubview(self.adImageView)
+                    self.adImageView.translatesAutoresizingMaskIntoConstraints = false
+                    
+                    NSLayoutConstraint.activate([
+                        self.adImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+                        self.adImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+                    ])
+                }
+                
+                if let imageUrl = URL(string: urlString) {
+                    self.handleImageRendering(of: imageUrl)
+                }
+                
                 self.prepareAdRendering()
             }
         }
     }
+
     
     func createRichMediaAd(script: String?) {
         // Handle Rich media ads here

@@ -18,7 +18,7 @@ extension DocereeAdView {
             if adFound && (!isViewLinkNullOrEmpty) && isPassbackEmpty {
                 let viewPercentage = checkViewability(adView: self)
 
-                // for standard: mcr
+                // for standard: mrc
                 if viewPercentage >= 50 {
                     self.totalViewTime += 1
                     self.savedViewPercentage = viewPercentage

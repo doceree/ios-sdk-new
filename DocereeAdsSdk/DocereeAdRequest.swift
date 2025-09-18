@@ -33,16 +33,23 @@ public final class DocereeAdRequest: AdServiceProtocol {
             throw DocereeAdRequestError.invalidAppKey
         }
 
-        guard let advertisementId = userId ?? getIdentifierForAdvertising() else {
-            throw DocereeAdRequestError.adTrackingDisabled
+        let id: String?
+        if let userId = userId, !userId.isEmpty {
+            id = userId
+        } else {
+            id = getIdentifierForAdvertising()
         }
+        
+//        guard let advertisementId = userId ?? getIdentifierForAdvertising() else {
+//            throw DocereeAdRequestError.adTrackingDisabled
+//        }
 
         guard let loggedInUser = DocereeMobileAds.shared().getProfile() else {
             throw DocereeAdRequestError.invalidUserProfile
         }
 
-        let body: [String: Any] = makeAdRequestBody(appKey: appKey, userId: advertisementId, user: loggedInUser, adUnitId: adUnitId)
-        let urlRequest = try makeRequest(advertisementId: advertisementId, path: getPath(methodName: Methods.GetImage), host: getHost(type: DocereeMobileAds.shared().getEnvironment()), body: body)
+        let body: [String: Any] = makeAdRequestBody(appKey: appKey, userId: id!, user: loggedInUser, adUnitId: adUnitId)
+        let urlRequest = try makeRequest(advertisementId: id, path: getPath(methodName: Methods.GetImage), host: getHost(type: DocereeMobileAds.shared().getEnvironment()), body: body)
 
         let (data, response) = try await session.data(for: urlRequest)
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
@@ -64,6 +71,7 @@ public final class DocereeAdRequest: AdServiceProtocol {
     }
 
     internal func sendViewability(to url: String) {
+        print("sendViewability: ", url)
         guard let url = URL(string: url) else { return }
         let request = URLRequest(url: url)
         sendBeacon(request, "Viewability")
@@ -104,7 +112,7 @@ public final class DocereeAdRequest: AdServiceProtocol {
             CollectDataService.gps.rawValue: gps ?? "",
             CollectDataService.event.rawValue: event ?? [:],
             CollectDataService.platformData.rawValue: platformData ?? "",
-            CollectDataService.partnerData.rawValue: getParnerData(),
+            CollectDataService.partnerData.rawValue: getParnerData()
         ]
 
         guard let request = try? makeRequest(
@@ -118,6 +126,7 @@ public final class DocereeAdRequest: AdServiceProtocol {
 
     // MARK: - Helper Methods
     private func makeAdRequestBody(appKey: String, userId: String, user: Hcp, adUnitId: String) -> [String: Any] {
+        let consentData = UserDefaultsManager.shared.getConsentData()
         return [
             QueryParamsForAdRequest.appKey.rawValue: appKey,
             QueryParamsForAdRequest.userId.rawValue: userId,
@@ -135,7 +144,10 @@ public final class DocereeAdRequest: AdServiceProtocol {
             QueryParamsForAdRequest.adUnit.rawValue: adUnitId,
             QueryParamsForAdRequest.br.rawValue : PatientSession().getBr(),
             QueryParamsForAdRequest.cdt.rawValue: "",
-            QueryParamsForAdRequest.privacyConsent.rawValue: 1
+            QueryParamsForAdRequest.privacyConsent.rawValue: 1,
+            QueryParamsForAdRequest.userPreference.rawValue: consentData.isPersonalizeAd,
+            QueryParamsForAdRequest.privacyType.rawValue: consentData.privacyComplianceType,
+            QueryParamsForAdRequest.privacyString.rawValue: consentData.privacyString
         ]
     }
 

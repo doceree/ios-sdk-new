@@ -8,6 +8,9 @@ final class UserDefaultsManager {
     private let configExpirationKey = "configExpirationDate"
     private let hcpValidationExpirationKey = "hcpValidationExpirationDate"
     private let appConfigKey = "appConfigData"
+    private let isPersonalizeAdKey = "isPersonalizeAd"
+    private let privacyComplianceTypeKey = "privacyComplianceType"
+    private let privacyStringKey = "privacyString"
 
     // MARK: - Config Expiration (always 24 hours)
 
@@ -68,6 +71,22 @@ final class UserDefaultsManager {
     
     func deleteConfig() {
         defaults.removeObject(forKey: appConfigKey)
+    }
+
+    // MARK: - Privacy Consent
+
+    func setConsentData(isPersonalizeAd: String = "", privacyComplianceType: String = "", privacyString: String = "") {
+        defaults.set(isPersonalizeAd, forKey: isPersonalizeAdKey)
+        defaults.set(privacyComplianceType, forKey: privacyComplianceTypeKey)
+        defaults.set(privacyString, forKey: privacyStringKey)
+    }
+
+    
+    func getConsentData() -> (isPersonalizeAd: String, privacyComplianceType: String, privacyString: String) {
+        let isPersonalizeAd = defaults.string(forKey: isPersonalizeAdKey) ?? ""
+        let privacyComplianceType = defaults.string(forKey: privacyComplianceTypeKey) ?? ""
+        let privacyString = defaults.string(forKey: privacyStringKey) ?? ""
+        return (isPersonalizeAd, privacyComplianceType, privacyString)
     }
 
 }
