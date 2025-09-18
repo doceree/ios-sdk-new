@@ -190,6 +190,19 @@ public final class DocereeMobileAds {
         // This step might not be needed if the consumed Ads are WebView based with server side OMID injection
         OMIDSessionInteractor.prefetchOMIDSDK()
     }
+    
+    // Save consent data
+    public func setConsentData(isPersonalizeAd: String = "",
+                                privacyComplianceType: String = "",
+                                privacyString: String = "") {
+        // Persist in UserDefaults
+        UserDefaultsManager.shared.setConsentData(
+            isPersonalizeAd: isPersonalizeAd,
+            privacyComplianceType: privacyComplianceType,
+            privacyString: privacyString
+        )
+    }
+    
 }
 
 extension DocereeMobileAds {

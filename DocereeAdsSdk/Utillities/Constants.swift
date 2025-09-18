@@ -48,6 +48,9 @@ enum QueryParamsForAdRequest: String {
     case br = "br"
     case cdt = "cdt"
     case privacyConsent = "privacyConsent"
+    case userPreference = "upref"
+    case privacyType = "pcytyp"
+    case privacyString = "pcystr"
 }
 
 enum AdBlockService: String {
