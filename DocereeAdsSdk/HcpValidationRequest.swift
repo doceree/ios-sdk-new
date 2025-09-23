@@ -34,7 +34,7 @@ public final class HcpValidationRequest {
         let session = URLSession(configuration: config)
         var components = URLComponents()
         components.scheme = "https"
-        components.host = getDataCollectionHost(type: DocereeMobileAds.shared().getEnvironment())
+        components.host = getIdentityHost(type: DocereeMobileAds.shared().getEnvironment())
         components.path = getPath(methodName: Methods.GetHcpValidation, type: DocereeMobileAds.shared().getEnvironment())
         let collectDataEndPoint: URL = components.url!
         var request: URLRequest = URLRequest(url: collectDataEndPoint)
@@ -108,7 +108,7 @@ public final class HcpValidationRequest {
         let session = URLSession(configuration: config)
         var components = URLComponents()
         components.scheme = "https"
-        components.host = getDataCollectionHost(type: DocereeMobileAds.shared().getEnvironment())
+        components.host = getIdentityHost(type: DocereeMobileAds.shared().getEnvironment())
         components.path = getPath(methodName: Methods.UpdateHcpValidation, type: DocereeMobileAds.shared().getEnvironment())
         let collectDataEndPoint: URL = components.url!
         var request: URLRequest = URLRequest(url: collectDataEndPoint)

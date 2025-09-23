@@ -40,9 +40,6 @@ public final class DocereeMobileAds {
             
             // Write the data to the file URL
             try data.write(to: ProfileArchivingUrl, options: .atomic)
-            
-            // Send the data (assuming DocereeMobileAds is correctly set up)
-            DocereeMobileAds.shared().sendData()
 
             // OMSDK Initialization
             DocereeMobileAds.shared().omInitialization()
@@ -161,17 +158,6 @@ public final class DocereeMobileAds {
         case Success
         case Failure
         case Loading
-    }
-
-    public func sendData(screenPath: String? = nil, editorialTags: [String]? = nil, gps: String? = nil, rxCodes: [String]? = nil, dxCodes: [String]? = nil, event: [String : String]? = nil) {
-        
-        if !DocereeMobileAds.collectDataStatus {
-            return
-        }
-           
-        let platformData = getPlatformData(rxCodes: rxCodes, dxCodes: dxCodes)
-        DocereeAdRequest.shared.sendDataCollection(screenPath: screenPath, editorialTags: editorialTags, gps: gps, platformData: platformData, event: event)
-        
     }
 
 //    public func hcpValidationView() -> UIView {

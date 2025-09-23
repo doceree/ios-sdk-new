@@ -12,7 +12,6 @@ protocol AdServiceProtocol {
     func sendImpression(to url: String)
     func sendViewability(to url: String)
     func sendAdBlock(advertiserCampID: String?, blockLevel: String?, platformUid: String?, publisherACSID: String?)
-    func sendDataCollection(screenPath: String?, editorialTags: [String]?, gps: String?, platformData: String?, event: [String: String]?)
 }
 
 // MARK: - AdService Implementation
@@ -92,36 +91,6 @@ public final class DocereeAdRequest: AdServiceProtocol {
         ) else { return }
 
         sendBeacon(request, "Ad Block")
-    }
-
-    internal func sendDataCollection(screenPath: String?, editorialTags: [String]?, gps: String?, platformData: String?, event: [String: String]?) {
-        guard DocereeMobileAds.collectDataStatus else { return }
-        guard let advertisementId = getIdentifierForAdvertising() else { return }
-
-        let body: [String: Any] = [
-            CollectDataService.advertisingId.rawValue: advertisementId,
-            CollectDataService.bundleId.rawValue: Bundle.main.bundleIdentifier!,
-            CollectDataService.platformId.rawValue: platformId,
-            CollectDataService.hcpId.rawValue: DocereeMobileAds.shared().getProfile()?.mciRegistrationNumber ?? "",
-            CollectDataService.dataSource.rawValue: dataSource,
-            CollectDataService.screenPath.rawValue: screenPath ?? "",
-            CollectDataService.editorialTags.rawValue: editorialTags ?? [],
-            CollectDataService.localTimestamp.rawValue: Date.getFormattedDate(),
-            CollectDataService.installedApps.rawValue: [""],
-            CollectDataService.privateMode.rawValue: 0,
-            CollectDataService.gps.rawValue: gps ?? "",
-            CollectDataService.event.rawValue: event ?? [:],
-            CollectDataService.platformData.rawValue: platformData ?? "",
-            CollectDataService.partnerData.rawValue: getParnerData()
-        ]
-
-        guard let request = try? makeRequest(
-            advertisementId: nil, path: getPath(methodName: Methods.CollectData, type: DocereeMobileAds.shared().getEnvironment()),
-            host: getDataCollectionHost(type: DocereeMobileAds.shared().getEnvironment()),
-            body: body
-        ) else { return }
-
-        sendBeacon(request, "Data Collection")
     }
 
     // MARK: - Helper Methods

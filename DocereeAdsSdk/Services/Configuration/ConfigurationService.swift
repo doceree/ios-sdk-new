@@ -19,8 +19,8 @@ class ConfigurationService {
             print("Config expired, refresh needed")
         }
         
-//        let host = getHost(type: DocereeMobileAds.shared().getEnvironment())
-        let host = getDataCollectionHost(type: EnvironmentType.Qa)
+//        let host = getIdentityHost(type: DocereeMobileAds.shared().getEnvironment())
+        let host = getIdentityHost(type: EnvironmentType.Qa)
         guard let appKey = DocereeMobileAds().loadDocereeIdentifier(from: DocereeAdsIdArchivingUrl) else {
             // Handle missing key
             return nil

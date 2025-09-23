@@ -57,7 +57,7 @@ func getDocTrackerHost(type: EnvironmentType) -> String {
     }
 }
 
-func getDataCollectionHost(type: EnvironmentType) -> String {
+func getIdentityHost(type: EnvironmentType) -> String {
     switch type {
     case .Dev:
         return "qa-identity.doceree.com"
@@ -73,7 +73,6 @@ func getDataCollectionHost(type: EnvironmentType) -> String {
 enum Methods{
     case GetImage
     case AdBlock
-    case CollectData
     case GetHcpValidation
     case UpdateHcpValidation
     case PatientSession
@@ -87,13 +86,6 @@ func getPath(methodName: Methods, type: EnvironmentType = .Dev) -> String {
         return "/drs/quest"
     case .AdBlock:
         return "/drs/saveAdBlockInfo"
-    case .CollectData:
-        switch type {
-        case .Dev, .Local, .Qa:
-            return "/curator"
-        case .Prod:
-            return "/dop/curator"
-    }
     case .GetHcpValidation:
         return "/dop/getHcpSelfValidation"
     case .UpdateHcpValidation:
