@@ -38,7 +38,7 @@ extension DocereeAdView {
         setupConsentIcons()
     }
 
-    func sendViewTime(standard: String, killSession: Bool = false) {
+    func sendViewTime(standard: String, killSession: Bool = false, adViewed: Bool = false) {
         if let session = sessionInteractor, killSession {
             session.stopSession()
         }
@@ -49,7 +49,7 @@ extension DocereeAdView {
             if var viewLink = adResponseData?.adViewedURL, !viewLink.isEmpty {
                 let time = standard == "mrc" ? totalViewTime : (self.adResponseData?.minViewTime ?? 0)
                 let percentage = standard == "mrc" ? 50 : (self.adResponseData?.minViewPercentage ?? 0)
-                viewLink = populateTokens(in: viewLink, time: time, percent: percentage, standard: standard)
+                viewLink = populateTokens(in: viewLink, time: time, percent: percentage, standard: standard, adViewed: adViewed)
                 self.docereeAdRequest?.sendViewability(to: viewLink)
             }
 
@@ -60,11 +60,17 @@ extension DocereeAdView {
         }
     }
     
-    func populateTokens(in url: String, time: Int, percent: Int, standard: String) -> String {
-        return url
+    func populateTokens(in url: String, time: Int, percent: Int, standard: String, adViewed: Bool) -> String {
+        var result = url
             .replacingOccurrences(of: "{{EVENT_CLIENT_TIME}}", with: Date.currentTimeMillis())
             .replacingOccurrences(of: "{{VIEWED_TIME}}", with: String(time))
             .replacingOccurrences(of: "{{VIEWED_PERCENTAGE}}", with: String(percent))
             .replacingOccurrences(of: "_std", with: standard)
+        
+        if !adViewed {
+            result = result.replacingOccurrences(of: "eType=2", with: "eType=5")
+        }
+        
+        return result
     }
 }

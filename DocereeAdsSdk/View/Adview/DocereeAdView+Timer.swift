@@ -23,7 +23,7 @@ extension DocereeAdView {
                     self.totalViewTime += 1
                     self.savedViewPercentage = viewPercentage
                     if self.oneSecMrcSent == false {
-                        self.sendViewTime(standard: "mrc")
+                        self.sendViewTime(standard: "mrc", adViewed: true)
                         self.oneSecMrcSent = true
                     }
                 } else {
