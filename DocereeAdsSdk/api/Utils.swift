@@ -54,5 +54,12 @@ class Utils {
         return sessionId
     }
 
+    func version() -> String {
+        if let sdkBundle = Bundle(identifier: "com.doceree.DocereeAdsSdk") {
+            return sdkBundle.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0"
+        } else {
+            return "6.2.1" // fallback
+        }
+    }
 }
 

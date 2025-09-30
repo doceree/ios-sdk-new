@@ -2,7 +2,6 @@
 import Foundation
 import UIKit
 
-let sdkVersion = Bundle(for: DocereeAdRequest.self).infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0"
 let platformId = 4 // (#1- web #2- mweb #3- andorid #4- ios #5- amp)"
 let dataSource = 2 // (#1- js, #2- sdk, #3- adservedata, #4- dmd, #5- purplelab, #6- liveintent)
 

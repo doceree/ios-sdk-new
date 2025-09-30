@@ -139,7 +139,7 @@ public final class DocereeAdRequest: AdServiceProtocol {
         self.requestHttpHeaders.add(value: Bundle.main.displayName!, forKey: HeaderEnum.header_app_name.rawValue)
         self.requestHttpHeaders.add(value: Bundle.main.bundleIdentifier!, forKey: HeaderEnum.header_app_bundle.rawValue)
         self.requestHttpHeaders.add(value: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String, forKey: HeaderEnum.header_app_version.rawValue)
-        self.requestHttpHeaders.add(value: sdkVersion, forKey: HeaderEnum.header_lib_version.rawValue)
+        self.requestHttpHeaders.add(value: Utils().version(), forKey: HeaderEnum.header_lib_version.rawValue)
 
         
         for header in requestHttpHeaders.allValues() {
