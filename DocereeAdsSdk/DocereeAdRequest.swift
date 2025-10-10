@@ -26,6 +26,8 @@ public final class DocereeAdRequest: AdServiceProtocol {
     private var requestHttpHeaders = RestEntity()
     var isVendorId: Bool = false
 
+    private let maxRetryCount = 2
+
     // MARK: - Public Methods
     internal func requestAd(userId: String?, adUnitId: String, size: String) async throws -> (Results, Bool) {
         guard let appKey = DocereeMobileAds().loadDocereeIdentifier(from: DocereeAdsIdArchivingUrl) else {
@@ -150,15 +152,32 @@ public final class DocereeAdRequest: AdServiceProtocol {
         return request
     }
 
-    private func sendBeacon(_ request: URLRequest, _ message: String) {
-        session.dataTask(with: request) { data, response, _ in
-            #if DEBUG
+    private func sendBeacon(_ request: URLRequest, _ message: String, retryCount: Int = 0) {
+        var request = request
+        request.timeoutInterval = 5
+
+        session.dataTask(with: request) { _, response, error in
             if let httpResponse = response as? HTTPURLResponse {
+                #if DEBUG
                 print("\(message) Sent with Status: \(httpResponse.statusCode)")
+                #endif
+                
+                if !(200...299).contains(httpResponse.statusCode),
+                   retryCount < self.maxRetryCount {
+                    let delay = retryCount == 0 ? 1.0 : 2.0
+                    DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
+                        self.sendBeacon(request, message, retryCount: retryCount + 1)
+                    }
+                }
+            } else if error != nil, retryCount < self.maxRetryCount {
+                let delay = retryCount == 0 ? 1.0 : 2.0
+                DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
+                    self.sendBeacon(request, message, retryCount: retryCount + 1)
+                }
             }
-            #endif
         }.resume()
     }
+
 }
 
 // MARK: - Extensions
