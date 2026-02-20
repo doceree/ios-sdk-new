@@ -35,6 +35,7 @@ extension DocereeAdView {
     //will call on dismiss view
     public override func willMove(toWindow newWindow: UIWindow?) {
         if window != nil {
+            self.delegate = nil
             NotificationCenter.default.removeObserver(self)
             stopTimersAndSendMRC(killSession: true)
         }

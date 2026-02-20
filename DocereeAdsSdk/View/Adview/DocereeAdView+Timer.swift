@@ -63,6 +63,7 @@ extension DocereeAdView {
     }
     
     private func safeRefresh() {
+        guard (self.delegate != nil) else { return }
         guard !isRefreshing else { return }
         isRefreshing = true
         refresh()
