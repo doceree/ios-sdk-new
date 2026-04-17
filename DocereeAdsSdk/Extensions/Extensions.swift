@@ -101,7 +101,7 @@ extension Data
     {
         if let JSONString = String(data: self, encoding: String.Encoding.utf8)
         {
-            print(JSONString)
+            print("Response: ",JSONString)
         }
     }
 }

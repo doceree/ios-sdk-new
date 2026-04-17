@@ -16,7 +16,7 @@ public final class DocereeMobileAds {
     internal static var trackingStatus: String = "not determined"
     public static var collectDataStatus = true
     
-    private var environmentType = EnvironmentType.Prod
+    private var environmentType = EnvironmentType.Dev
     
     private static var sharedNetworkManager: DocereeMobileAds = {
         var docereeMobileAds = DocereeMobileAds()

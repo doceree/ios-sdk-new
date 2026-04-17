@@ -113,6 +113,12 @@ public final class DocereeAdRequest {
                     if let email = loggedInUser.email {
                         data["email"] = email
                     }
+                    if let state = loggedInUser.state {
+                        data["state"] = state
+                    }
+                    if let country = loggedInUser.country {
+                        data["country"] = country
+                    }
                     if let hashedEmail = loggedInUser.hashedEmail {
                         data["hashedEmail"] = hashedEmail
                     }
@@ -149,7 +155,7 @@ public final class DocereeAdRequest {
             for header in requestHttpHeaders.allValues() {
                 urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
             }
-            
+            print("urlRequest: ", urlRequest)
             urlRequest.httpMethod = HttpMethod.get.rawValue
             let task = session.dataTask(with: urlRequest) {(data, response, error) in
                 guard let data = data else { return }

@@ -23,7 +23,7 @@ class CustomTimer {
      * This method must be in the public or scope
      */
     @objc func timerUpdate() {
-        print("Count: \(count)")
+//        print("Count: \(count)")
         if isPaused {
             return
         }

@@ -34,7 +34,7 @@ enum HttpMethod: String {
 func getHost(type: EnvironmentType) -> String? {
     switch type {
     case .Dev:
-        return "dev-bidder.doceree.com"
+        return "demo-bidder.doceree.com"
     case .Local:
         return "10.0.3.2"
     case .Qa:

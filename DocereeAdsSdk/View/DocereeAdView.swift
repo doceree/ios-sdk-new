@@ -186,7 +186,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
             let isPassbackEmpty: Bool = (self.adResponseData?.passbackTag ?? "").isEmpty
             if adFound && (!isViewLinkNullOrEmpty) && isPassbackEmpty {
                 let viewPercentage = checkViewability(adView: self)
-                print("final percentage: ", viewPercentage)
+//                print("final percentage: ", viewPercentage)
                 
                 // for standard: mcr
                 if viewPercentage >= 50 {
@@ -519,6 +519,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate {
 
     @objc func onImageTouched(_ sender: UITapGestureRecognizer) {
         if let url = URL(string: "\(ctaLink ?? "")"), !url.absoluteString.isEmpty, UIApplication.shared.canOpenURL(url) {
+            print("item clicked: ",url);
             DocereeAdView.self.didLeaveAd = true
             viewportTimer?.stop()
             customTimer?.stop()
@@ -659,7 +660,7 @@ extension DocereeAdView: WKNavigationDelegate, WKUIDelegate  {
          if navigationAction.targetFrame == nil || navigationAction.targetFrame?.isMainFrame == false {
              if let url = navigationAction.request.url {
                  if UIApplication.shared.canOpenURL(url) {
-                     print("click two: ")
+                     print("ad click : ")
                      DocereeAdView.didLeaveAd = true
                      if #available(iOS 10.0, *) {
                          UIApplication.shared.open(url)

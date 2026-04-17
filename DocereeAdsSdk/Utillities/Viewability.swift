@@ -9,7 +9,7 @@ func checkViewability(adView: UIView) -> Float {
     } else {
         let parentVC = adView.parentViewController
         let frame = parentVC?.view.getConvertedFrame(fromSubview: adView)
-        print("bounds", frame as Any)
+//        print("bounds", frame as Any)
         if let vFrame = frame {
             let viewPercentage = viewabilityPercentage(viewFrame: vFrame)
             return Float(viewPercentage)
@@ -44,7 +44,7 @@ func viewabilityPercentage(viewFrame: CGRect) -> CGFloat {
             print("top portion percentage: ", verticalPercentage)
         } else {
             verticalPercentage = 100.0
-            print("Full add vertically")
+//            print("Full add vertically")
         }
     }
 

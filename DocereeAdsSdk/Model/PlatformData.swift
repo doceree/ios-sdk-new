@@ -37,7 +37,7 @@ func getPlatformData(rxCodes: [String]?, dxCodes: [String]?) -> String {
 
     let name = Hcp.HcpBuilder().getName()
 
-    let pd = PlatformData(nm: name, em: loggedInUser.email ?? "", sp: loggedInUser.specialization ?? "", og: loggedInUser.organisation ?? "", hc: loggedInUser.mciRegistrationNumber ?? "", rx: rxCodes ?? [], dx: dxCodes ?? [], gd: loggedInUser.gender ?? "", ag: "", wl: loggedInUser.city ?? "", mo: loggedInUser.mobile ?? "")
+    let pd = PlatformData(nm: name, em: loggedInUser.email ?? "", sp: loggedInUser.specialization ?? "", og: loggedInUser.organisation ?? "", hc: loggedInUser.mciRegistrationNumber ?? loggedInUser.npi ?? "", rx: rxCodes ?? [], dx: dxCodes ?? [], gd: loggedInUser.gender ?? "", ag: "", wl: loggedInUser.city ?? "", mo: loggedInUser.mobile ?? "")
     
     let encoder = JSONEncoder()
     encoder.outputFormatting = .prettyPrinted

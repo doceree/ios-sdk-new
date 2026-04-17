@@ -20,7 +20,7 @@ final class ImpressionService {
         urlRequest.httpMethod = HttpMethod.get.rawValue
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
-
+        print("impression sent: ", url);
         let task = session.dataTask(with: urlRequest){ (data, response, error) in
             guard data != nil else { return }
             let urlResponse = response as! HTTPURLResponse
