@@ -1,0 +1,6 @@
+framework module Pods_DocereeAdsSdk {
+  umbrella header "Pods-DocereeAdsSdk-umbrella.h"
+
+  export *
+  module * { export * }
+}

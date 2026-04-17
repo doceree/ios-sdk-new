@@ -77,14 +77,3 @@ struct AppInfo {
     let version: String
     let bundleId: String
 }
-
-// Usage example:
-// let header = Header()
-// Task {
-//     do {
-//         let headers = try await header.getHeaders()
-//         print(headers)
-//     } catch {
-//         print("Failed to get headers: \(error)")
-//     }
-// }
