@@ -7,277 +7,290 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0151EC6537A45001EEC401D1D94FB452 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95889D3F4AFD499CB75C863F18051BA1 /* ApiRequest.swift */; };
-		01EC70865806EBDF9EECA42643D96DB0 /* HcpValidationViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B84D2743F7409B449C09B56BC1CBBD /* HcpValidationViewManager.swift */; };
-		0478015501D1B6FDC129F344002EE49A /* DocereeMobileAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1EF5CB001340DFA265FF290635657B /* DocereeMobileAds.swift */; };
-		04E5659D722484DA4A446654F497DDF0 /* DocereeAdView+Consent.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD576C2957717515C94ED877DC76392 /* DocereeAdView+Consent.swift */; };
-		08303BD3249D6B64024FC6A3F9DD4ED8 /* KetchSDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EFFA9E74B69871432BA6E1BF12F0B124 /* KetchSDK-dummy.m */; };
-		0C0C2D4E1EB1840CAF4FE97B4C4A42E8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27D41CFC3BC0B334F9F8E1CC5714DEBB /* Foundation.framework */; };
-		0C546EFF703AEB51D17498D54F3851A8 /* PatientSessionApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E54721A47E6CC06DA58B347AB36D641 /* PatientSessionApi.swift */; };
-		0C9FFBDA6ADA0CD30DF1461002F580F3 /* DocereeAdView+AdUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F713572B31E57BB4DC030ACFDB2CEF59 /* DocereeAdView+AdUI.swift */; };
-		0F131558C968875C63BA06E39B14BCEB /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB13D811BAF9CE7B34CCC9F3384FBF2 /* Header.swift */; };
-		0F643D38D397AB5B2D45383994F55ABF /* DocereeAdView+WebViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08956094F687AD837F4CAE2A07E0D695 /* DocereeAdView+WebViewDelegate.swift */; };
-		1A0641E143F6E6C8191B20C7240392EF /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE833C36D41D94AD0F174834AC397647 /* Utils.swift */; };
-		2734EBF8B584FB61DFE6DAE284C5F56F /* KetchSDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 84BFD81200038D0C8BCF9442E3B09F88 /* KetchSDK-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		276C30AEE20C1CAA31ECC0252E90C9B7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1D69B96A308D9E5F511D74185F1650 /* Constants.swift */; };
-		27CFE3E5BDBC443B1B299782A5E0B55E /* KetchLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8929EEBDCF58133FEACC8901DED97F /* KetchLogger.swift */; };
-		2CF55149A5DFAA6E7871355AFDD1518B /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CB2766B8BF5A79EB74E46829012DA7 /* Configuration.swift */; };
-		2E1A454DE58CCA1EAF98ACC2E4C8AD32 /* KetchSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB25725406B8D9B1707CFFC126C436F5 /* KetchSDK.swift */; };
-		358DD72003CBD59E014B47A9B9BB344A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDCB7884A3B4CC2DF3F590AF5AB4830 /* Extensions.swift */; };
-		368128678A8751EC4F7D9FBB951A43CF /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = BBEAEE18AF054311F98FA3F21CB43984 /* index.html */; };
-		37CAB857E62F4977E8418F6C412694B0 /* DocereeAdSdk-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FC17AB234D9F34B939A2FC72C06AF953 /* DocereeAdSdk-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3A4D8A299777BAEE20DCFB6A6F0ED8E4 /* HTTPSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72921794F98572B153FB2DF32A77C446 /* HTTPSupport.swift */; };
-		3C1B1967D51A6BC2E4966D378D1501B9 /* Pods-DocereeAdsSdk-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 05CF6CC6A71D28ADD1CBEEACDE246CD0 /* Pods-DocereeAdsSdk-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3D16649A383F46F55671530D8D848CE6 /* PatientData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B1D978EE15FF4E5390F1EC6D2042E6 /* PatientData.swift */; };
-		3D3171CA9C1E774D10940B8BAAC0376B /* PathUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33D49276553F940613FB688B302E412 /* PathUtility.swift */; };
-		3F601DBCA84EB46E6BC752264EDD2F49 /* CreateCMPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B501EC773BDB7CAB5E79BBD75ADDB29 /* CreateCMPView.swift */; };
-		437B628C62D8991E000BCD1F320AE106 /* AdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CD28076F656E51E931476BB4C07290 /* AdUnit.swift */; };
-		43D88A839C49922A2FFF23C9C50ED52D /* DocereeAdsSdk.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3919DB34F2838340179A0449C31871DD /* DocereeAdsSdk.bundle */; };
-		481DCC445A41D4EE6D3E15D1E15BFD40 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D705FA90AF2970F2AD59BDA2A35F5A73 /* StringExtensions.swift */; };
-		4A064F1444A6DC27EBC545372F37B6B3 /* HcpProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480956F7C1EE655D7C99C9BD46B28CD /* HcpProfile.swift */; };
-		4AB080D1219AE478AAF24438526F6E22 /* Ketch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6DC137DFCD99FDCD512D929345E3B1 /* Ketch.swift */; };
-		4E349F788C250B2F7193CFAEC890DB4E /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D185C7DE23AB704C22059939B42A298 /* Helpers.swift */; };
-		4F98E77A44713D68D536C68C4ADC6D9B /* AdConsentFeedbackHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C46D5631329CD0D04A1EB33898FC3E /* AdConsentFeedbackHandler.swift */; };
-		52667C6B196629F10B5459BDF97A0100 /* AdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C7C35E6EC76722A63C93442B2DFE50 /* AdRequest.swift */; };
-		56AFACC3F43B24639AEAEC86A9752BF9 /* ConsentModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8276E5ABF862E796634FEA8527A8FFCF /* ConsentModels.swift */; };
-		5AAB08830DBB4B1CD6EF238C0C4A5E51 /* JsonUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB051B1EC448A620A723C625A5C90B3 /* JsonUtility.swift */; };
-		5B2F6F59284B4C67723A154E29539CFF /* DocereeAdView+UIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5250986F3ADB4721D4627F0766D97F /* DocereeAdView+UIHelpers.swift */; };
-		5C50330CEC8E33A6B63FE4BBF3DA6F81 /* adBlockRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BDB80A458AB41F5207664C46A68894 /* adBlockRequest.swift */; };
-		5FB6C72C17D466A86A0CACA596B7AE37 /* Consent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E7AC6A8E3A4618180BD90BA98925DE /* Consent.swift */; };
-		6108BE32BCE8502DFF9B8E5DDE1307F7 /* Vendors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12859969BC49FEF7B635AA1A8613A607 /* Vendors.swift */; };
-		62BBADB2FD29EEB63106165A2C6CBD34 /* DocereeRequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CDBB63B207916892BA3ED56EDCC3CA /* DocereeRequestError.swift */; };
-		6421877CABB93301550D9F2DBDA41D43 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2330A74576C91ECCB07B51DC732B95A /* ImageExtensions.swift */; };
-		66D7CFA121B869AA69DB94A027959307 /* DocereeAdView+Lifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58BF0CEB3D555CE0561DB7EEBA94205 /* DocereeAdView+Lifecycle.swift */; };
-		67EA1D3977E422FD0081914C7C055BD4 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F0A2CB071622C3A3E5A09F2FF7CE24 /* ImageLoader.swift */; };
-		6EC9A20E08665C8E4A94CB8A8A188778 /* ConsentConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23407DA417E275643DE6338B0BCD31BE /* ConsentConstants.swift */; };
-		6F09390A7CD35B06607CF83D25F09231 /* doc2.png in Resources */ = {isa = PBXBuildFile; fileRef = 684D1729721A6E29AA9AF6EF03251A47 /* doc2.png */; };
-		6F77B738EA68F4A957D034D70DE47556 /* PolicyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D7F5D6D6A003736D0EEFD6F5BE29A7 /* PolicyProtocol.swift */; };
-		7142E425D18D70173ACF663858C4FA17 /* DocereeAdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146A2244165C2D0526C8062A3CEBE27B /* DocereeAdRequest.swift */; };
-		79B1EF33C1F4519839AA77F3CEC53DF2 /* MyKetchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1764DEB5951CC453B7DE73CA5CFE2DE8 /* MyKetchView.swift */; };
-		7A18A38D2408C9139A2310F0B1DACA2C /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05606084CF54524C8DAB040C81E70B25 /* AppConfiguration.swift */; };
-		7B45720F8704BBE9FE921402F6B6FC37 /* PlatformData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE34C21A023051B55545980EA41DBE2 /* PlatformData.swift */; };
-		7C4937190E07D5CF103155064B08F88F /* CustomTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C262F51DBE03B2010F08B50C453C99A /* CustomTimer.swift */; };
-		7D3A967CE7ABD544AC4B68D0FBF11D21 /* AdResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF336C7ED0768A59644784E90A943E /* AdResponse.swift */; };
-		7E2B194AA2AF0AE08D760106E3153B07 /* RandomAccessCollection+IdentifiableIndices.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3F84C8BB623693E762ECE61DFC168A /* RandomAccessCollection+IdentifiableIndices.swift */; };
-		7F501A959B75CC111CD24DA7A24EFB08 /* AdSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F47D46103537086EC4594D309F3DA0E /* AdSize.swift */; };
+		00D61293DE04FD6BF19FED9BB39B33CC /* doc1.png in Resources */ = {isa = PBXBuildFile; fileRef = 370D664738BF4B3E947DE4FBAAAD506E /* doc1.png */; };
+		09601E39A468E953BDA371B1D2BE04B9 /* DocereeAdView+WebViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C87845344B54D8F883BEE6524AEFA /* DocereeAdView+WebViewDelegate.swift */; };
+		0BC78C974653983CD1C19382ADE89F94 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95889D3F4AFD499CB75C863F18051BA1 /* ApiRequest.swift */; };
+		0E43AA6CAD75D7F03C7421302BDA352A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F0244E515BD490BB6E9AEC022D7C /* Extensions.swift */; };
+		0E6D2D14A5061039D2599272BD5D503F /* PatientData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215F03EDB81B72A5EC00F03C872FAB35 /* PatientData.swift */; };
+		11E3AC45221A2364CCC834D0E445D4D5 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 792360A46AC688BD2DE7C3A261B93320 /* Media.xcassets */; };
+		16C559477522A89F6BC0368810F8FD99 /* MyKetchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048703A3284BA83A01CA3AFE2E2FF1F7 /* MyKetchView.swift */; };
+		19CA78638087FFD4421849EC8FEC174F /* Bundle+KetchUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6467E1F16DCE2DEB7F3744FB48D73B76 /* Bundle+KetchUI.swift */; };
+		19FDC3A56A0B0CE30E08B8B816BA2E7F /* DocereeAdView+UIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E923D0C66F23696E5CC06B945B35DC /* DocereeAdView+UIHelpers.swift */; };
+		1A337921BB11DB4B076003C4829D7383 /* DocereeHcpViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757EC189BA723B6708C705E86975B7F /* DocereeHcpViewDelegate.swift */; };
+		1C8544C65BB9B366A65D4DB54A949B36 /* PatientSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D624554A85E1D7CCCABB3BFBF55A565D /* PatientSession.swift */; };
+		1F4989A1A04497E959E5878A75416903 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27D41CFC3BC0B334F9F8E1CC5714DEBB /* Foundation.framework */; };
+		2954775DCCAC1FE232A0FF73125687ED /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC4A13C86FF091E2D96BC2131845432F /* AdSupport.framework */; };
+		29F88AAC2E7D29D9EAB2CF541FF5F229 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 694B4F351695469DE1C36F0E3EF1785E /* WebKit.framework */; };
+		2C2094AD7124CB346CCFB1C47AC5EFCE /* DocereeAdSdk-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B935EC3E0C419DD59BEB736AA4F2F681 /* DocereeAdSdk-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2D12FA9CF903CDD24A666C0631168088 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27D41CFC3BC0B334F9F8E1CC5714DEBB /* Foundation.framework */; };
+		2E618CC4F22C8906CD33BBC69B3D123F /* PresentationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A07868542F109578B4F18D2B902308 /* PresentationItem.swift */; };
+		30E49CBE3296E9927999C8291F48D3F0 /* AdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC835F010882754CB65F1F2B96158A /* AdRequest.swift */; };
+		311B4DA39FE82AF5394FC61C79E65EC6 /* DocereeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDAB1970FA75E67F28B8C03EAA8911E /* DocereeAdView.swift */; };
+		331253EC6894AA835CFA13978F41D651 /* CreateCMPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8919EE115C44120F107B665633D48888 /* CreateCMPView.swift */; };
+		353AC3A5CAFA0D62C06D8F5ABDF39673 /* DocereeAdSdk-DocereeAdsSdk in Resources */ = {isa = PBXBuildFile; fileRef = A2C13FBE814D54C2851FDEBE51DD664F /* DocereeAdSdk-DocereeAdsSdk */; };
+		38E4BCBE0580D4E9FACD11A2A6F08B35 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CB2766B8BF5A79EB74E46829012DA7 /* Configuration.swift */; };
+		3C1B1967D51A6BC2E4966D378D1501B9 /* Pods-DocereeAdsSdk-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E26604752DB59071E4139622D16A7D3A /* Pods-DocereeAdsSdk-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D49B6A3D20722DAF287C51355261107 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB04836483480576BED086425C47229 /* ImageExtensions.swift */; };
+		3E92A3D651368896CD5EB7CD6D4202EB /* DocereeAdView+Lifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83688F9A4861F13B37218807331F819C /* DocereeAdView+Lifecycle.swift */; };
+		44FB93BBA306A9CFFB51A30E0A943CCF /* index.html in Sources */ = {isa = PBXBuildFile; fileRef = BBEAEE18AF054311F98FA3F21CB43984 /* index.html */; };
+		46A8A182B5AF66177A472D8BAEDDD489 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = BBEAEE18AF054311F98FA3F21CB43984 /* index.html */; };
+		49072E3E49DA08A788E78C43CE8F9542 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3ED4542A9D4724674BAF9FBE55A73E /* AppConfiguration.swift */; };
+		4908FB85ABD138B84DA14D1CF43EA74B /* HcpValidationViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD74067A4D6747D4FAE5BA7FE9ABF46 /* HcpValidationViewManager.swift */; };
+		4927C4E865BD1A6CA9E885F51D2C4656 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA201C57E18B351A7E48F00353169003 /* Helpers.swift */; };
+		49DE62013E0916AB16B935AC5D8269CD /* DocereeAdView+Consent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB1FB09C4E18115A0889ADF7DAA85C /* DocereeAdView+Consent.swift */; };
+		4C8C29ED1E12FD3497F1729FD68D5839 /* KetchUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B8EC494BD7F264F9A7C83ACA3BE044 /* KetchUI.swift */; };
+		5283053490884AE4309C07088619E62E /* PatientSessionApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 053DF58F68B0EE5002D965A61B34B690 /* PatientSessionApi.swift */; };
+		55C199B60DA963825B358034C4839450 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8BADB34B00A1D0AD551C4AE249BF62 /* Constants.swift */; };
+		5E43A7F4FBD8782609DF2FE191018376 /* PresentationItem+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD3E43458176B327626D5C69467543 /* PresentationItem+View.swift */; };
+		615B28992A41F65E3F77F4C8A0508E0E /* PlatformData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DAE75D17705319FD4DEDD1DC890E5A /* PlatformData.swift */; };
+		61B1FB968F937D9D7EC8F6D21683D312 /* KetchApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707E55C051D5624FF632CFBA57A5B445 /* KetchApiRequest.swift */; };
+		62963CFB0E6C5DC3E19150823701B3DA /* AdConsentFeedbackHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404EF07D6829E3E3262F6CC8CDD3C357 /* AdConsentFeedbackHandler.swift */; };
+		649DAFDBB069F0A9E885C8BD6B02CB49 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27D41CFC3BC0B334F9F8E1CC5714DEBB /* Foundation.framework */; };
+		67D8B13BBCC45AD8D1D43958E8F3DB81 /* AdConsentUIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED55E4D057E7524D736D829E873E979F /* AdConsentUIFactory.swift */; };
+		68BEA62A3EE730B9D357EDA5314D82CA /* Vendors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12859969BC49FEF7B635AA1A8613A607 /* Vendors.swift */; };
+		69F937F2D4FBA52F2D4784D90FD1563F /* Pods-DocereeAdsSdkTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4AD22339CF32E8E4E2AE75203BBC766A /* Pods-DocereeAdsSdkTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6C0EAE84A63760FADADAA87D81390ACA /* DocereeAdView+RichMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5506D40EDF6D5E0370B36C12385B6DC /* DocereeAdView+RichMedia.swift */; };
+		6F2439C266CE484F3AE2831C8AD9ECD9 /* HTTPSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60526D9E44BA4451BC061C9A840C3707 /* HTTPSupport.swift */; };
+		71108FABC2F1F9899BBEFD3DC7D8DBAC /* AdResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA0400732486B2A0D5A94E0197E4BA4 /* AdResponse.swift */; };
+		717B1DE55776EDF0929DBF6B9E874C19 /* Consent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E7AC6A8E3A4618180BD90BA98925DE /* Consent.swift */; };
+		72DECFAC0BB4F2BC8990273CF9E9DE7D /* ConfigurationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29B35E27C43DD5B00434E437E43F84E /* ConfigurationService.swift */; };
+		7835430AC7C26F986FCD0AF0D0852AAF /* KetchSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB25725406B8D9B1707CFFC126C436F5 /* KetchSDK.swift */; };
+		78563D3B0AAE5C892770C3353ED87754 /* KetchSDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EFFA9E74B69871432BA6E1BF12F0B124 /* KetchSDK-dummy.m */; };
+		7959EBB99FD9DD24B5DCF86E178F75D0 /* DocereeMobileAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905CA1B5CFF055BA643476E401EEE482 /* DocereeMobileAds.swift */; };
+		79D1B4E42513712171810D3C4E442148 /* String+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5109320AD16EA92C98F383DF5033C682 /* String+Validation.swift */; };
+		7C5163C965367A480E004F26D8CDF89B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04566BBA0246672B91AA3BDAB30C6F3D /* Utils.swift */; };
+		7F9E32CC8924DC2BEAC10DDB236423C5 /* KetchSDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 84BFD81200038D0C8BCF9442E3B09F88 /* KetchSDK-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FE647BB654D08765F8ACE64CD0D1592 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27D41CFC3BC0B334F9F8E1CC5714DEBB /* Foundation.framework */; };
-		80F2D01009DEA6CF788388620655819C /* KetchUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B8EC494BD7F264F9A7C83ACA3BE044 /* KetchUI.swift */; };
-		81770FB2605BA6704F76F796A7E5DD95 /* PopupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D471DD001E5AAF458DE83FD23174B2 /* PopupModel.swift */; };
-		85720F5D3DF852B8B418651008E6C3B8 /* View+KetchViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC354A0C64D3F6D08D7A209C2CA0A63A /* View+KetchViewModifier.swift */; };
-		86A181E051E1D7B4770C00A953687A89 /* InvokeRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0663D96D7A5F6866FD7B3D9A702391A4 /* InvokeRight.swift */; };
-		88E43483AAF185886A0CD92A675D1CF3 /* Pods-DocereeAdsSdk-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 390F6932348CC2154538DDBB4035D67F /* Pods-DocereeAdsSdk-dummy.m */; };
-		9036E0C89D79641FA12D62FEB704B495 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24942459DDA8F15418272F45C07F40F7 /* DateExtension.swift */; };
-		99ADA8C4DD30140A08C743505CFF5EC1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 694B4F351695469DE1C36F0E3EF1785E /* WebKit.framework */; };
-		9AA17036A0172DD69EA485FA149463A8 /* omsdk-v1.js in Resources */ = {isa = PBXBuildFile; fileRef = 60CBBA4CABA30B0E0D995B00C6B1B755 /* omsdk-v1.js */; };
-		9BAA8BE60F999CC3441E08103151D8E0 /* Viewability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D1C5773FCBBDF2B9A186E180E7965E /* Viewability.swift */; };
-		9E562342E9E33B5B89542514B6C11994 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C3403A19906C90E9CC554F471A3107 /* Enums.swift */; };
-		A28A744C7632C036AECDF5CE30CD4A79 /* View+ResponsiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635ED40DCFE05E509CB921CB59559677 /* View+ResponsiveSheet.swift */; };
-		A5B788EA55FB4738499CBD8D91F46F2D /* HcpValidationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C159A127C2D96E19AF23A2D437CFDDDD /* HcpValidationView.swift */; };
-		A6E7722C710E0D2C397A5A830BA5EF8A /* AdConsentUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE577999CE796FAC1B95ECBEBC34E9A9 /* AdConsentUIView.swift */; };
-		AAB2225C3D409216B7864752DF565CEF /* HcpValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9298A3C439395D07118573815E422C /* HcpValidation.swift */; };
-		AB7007F3ED82ACD1922AC3F3E97D66DB /* DocereeHcpViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E155A7741A6EB1EBC44D20CF36DADD /* DocereeHcpViewDelegate.swift */; };
-		B751E4C3F194920BF985FEAD5C1E5839 /* Bundle+KetchUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6467E1F16DCE2DEB7F3744FB48D73B76 /* Bundle+KetchUI.swift */; };
-		BCF33F6B6FE80A67DB1622E3CE3883D9 /* DocereeAdSdk-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 46482BF8E28859D0ED39DEB07D172D82 /* DocereeAdSdk-dummy.m */; };
-		C08040E22E454A7D8AB1340FD652B730 /* HcpValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663046550D8815EE1DAE3055B15BAE9C /* HcpValidationRequest.swift */; };
-		C1C45383B9E906313EA7F9A753AEA7FF /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1899152EE5E87837382CF0B29E285A96 /* KeyboardResponder.swift */; };
-		C34DF5F86541E5447EEDB7E07C496E8D /* String+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5109320AD16EA92C98F383DF5033C682 /* String+Validation.swift */; };
-		C6F4638E5C677EC8710CCBA4C0D6615D /* OMIDSessionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C32D2F50D938908A2254CC569D7799E /* OMIDSessionInteractor.swift */; };
-		C93BD00D2B0EFD8B63FA296FD78A1EC7 /* DocereeAdSdk-DocereeAdsSdk in Resources */ = {isa = PBXBuildFile; fileRef = A2C13FBE814D54C2851FDEBE51DD664F /* DocereeAdSdk-DocereeAdsSdk */; };
-		CB1BB05AD61378E8ABD76658FCD5F26D /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1675B8440A9E746FA9E5530543B412A9 /* Strings.swift */; };
-		CBB16171BFEEF581C7B1A520A635136B /* PresentationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A07868542F109578B4F18D2B902308 /* PresentationItem.swift */; };
-		CCC631AC3B0F28B728F36390F30F6C58 /* PresentationItem+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD3E43458176B327626D5C69467543 /* PresentationItem+View.swift */; };
-		D2CFCD1FDCCC5C85CE4E8149EC993FE0 /* KetchApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707E55C051D5624FF632CFBA57A5B445 /* KetchApiRequest.swift */; };
-		D3429E134B15D29A100597F468867C0E /* DocereeAdViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82532D2003E985CF82CAE2FCE54C50D /* DocereeAdViewDelegate.swift */; };
-		D5DD98904F92FDF2238F321204BFC1D4 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87C10F5E443BFDCD3C2CD4A4ECB3FAE /* StorageManager.swift */; };
-		D68C41BDB9787BA70567AB00E2C58614 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC4A13C86FF091E2D96BC2131845432F /* AdSupport.framework */; };
-		D81112D638E4624CB9298E3120718604 /* DocereeAdView+Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E394A76EF6192A7047480C767D5EB654 /* DocereeAdView+Timer.swift */; };
-		DB2D9274FD830AD170848717EBA1DC90 /* KetchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A4247D8D862BCAA5915205BCA28EA7 /* KetchError.swift */; };
-		DD585242AE043DF6A926C5C962634F88 /* DocereeAdView+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4F55223BC6B3D2B5233B7C63D2C04 /* DocereeAdView+Loading.swift */; };
-		DF2F4351E21ECBC206CAD70A8CA6A64E /* MyKetchViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312484B7E4F7E3CACC16A723C84EFE58 /* MyKetchViewUIKit.swift */; };
-		E010D6A8E971B54EBE78016AE911E77F /* index.html in Sources */ = {isa = PBXBuildFile; fileRef = BBEAEE18AF054311F98FA3F21CB43984 /* index.html */; };
-		E201A95CF7EDACD719446D81CC82553B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27D41CFC3BC0B334F9F8E1CC5714DEBB /* Foundation.framework */; };
-		E6FBFB9C0B5E1264E7CF5A045AC81C06 /* AdConsentUIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35DB52D4C463227DB01C1039B54097A /* AdConsentUIFactory.swift */; };
-		EBA9D642B1DA1DDD414A81128BEA00E0 /* PresentationItem+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCB0D720763006227D2238FD0CB52A1 /* PresentationItem+ViewController.swift */; };
-		EC35C35DB7231CE97C8C92C587D634EA /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE640D6D1A3F6BE2068D8D80AB45B0 /* UserDefaultsManager.swift */; };
-		ECF7DEAEFC6937B0406E5804CC8CA289 /* doc1.png in Resources */ = {isa = PBXBuildFile; fileRef = 25907651AD33D4228D93F13520BD262C /* doc1.png */; };
-		ED13F0C674C8123FD89B3C48F13FE5BF /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6E47B61D1B0A3D303CDBA6CA982BDA4 /* Media.xcassets */; };
-		EE8A3B680885846166F5A8CF349B0D66 /* PatientSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445F02FAC689134B557D1E5D00A41843 /* PatientSession.swift */; };
-		EF4D5DA4A8C8FCE4AD6244E179F007B8 /* DocereeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95C2D082BBAEAE7F0FD7CBE096AF0BE /* DocereeAdView.swift */; };
-		F016EE92E8682CFC4FC038D92B555D7A /* ConfigurationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81270F8BA34E251E67DD8F7DDB46A60 /* ConfigurationService.swift */; };
-		F2973A586EF1B05ECE1D27AB1500E1D9 /* PatientBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABAA6ABE5ED9428168A113DABA4AFEE /* PatientBuilder.swift */; };
-		F4412DB7CFE627DF758DE08F4B3F5D0B /* DocereeAdView+RichMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBB83C41E0AB38B3CC6C759ECBEE27F /* DocereeAdView+RichMedia.swift */; };
-		F446A7208F407D01A773B7BD77AF95DC /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412EF5D43581C8153B37D0A92281FA1A /* AppInfo.swift */; };
-		F95EE8730B423BA338F68FB5FDDACF5A /* UAString.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79BC93A7C4F1349504B7DA684326EF5 /* UAString.swift */; };
-		FE8C5541BE526D81B9E6F616E251A83F /* WebConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0AD8176D5E810387C250984AB4CE00 /* WebConfig.swift */; };
+		8396CA900D6B4C312E6B00C58770043E /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7058BADDF9A2725F411AE690851BD1F9 /* UserDefaultsManager.swift */; };
+		88E43483AAF185886A0CD92A675D1CF3 /* Pods-DocereeAdsSdk-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CF59ED5AF00D63EE69F0EA1E782997 /* Pods-DocereeAdsSdk-dummy.m */; };
+		8A2A939091EEE199AD1DE0CA50B03912 /* PatientBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E99CFCDE40CD093722A0F395D5CF3B /* PatientBuilder.swift */; };
+		8D40EA09D401DE281BFAD4F7BFD9A455 /* CustomTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150206E90DB45D05E89286D1078A1FEE /* CustomTimer.swift */; };
+		8F603142E0506FBB55A2F7717DAE8B67 /* PolicyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D7F5D6D6A003736D0EEFD6F5BE29A7 /* PolicyProtocol.swift */; };
+		967C25DBC54BFE95DA626FDEDC03FCA0 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C90DFBC895791C674F9384EF162ACB /* ImageLoader.swift */; };
+		969F260D200CAED8E983D16432FC5E17 /* KetchViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32B89E8DCA67E70F2006F68CA0E9EFC /* KetchViewManager.swift */; };
+		96D4F4465BF686D8C86A30E20FBD08CF /* PathUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CD5367D0597B54A6F0A33EC2E96C6D /* PathUtility.swift */; };
+		982F2B5426E30B2EED97848BF60B6244 /* AdSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90249E78E0AADA4A28B9D3915E2A26A /* AdSize.swift */; };
+		9852BE651E9723D52A36DDE9096EE697 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CF721F9588F8B93FE913141699088A /* StorageManager.swift */; };
+		99D48FB0D89B5C9531F6909CDD206661 /* AdConsentUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1B115B341BE3E27676188A4B372C31 /* AdConsentUIView.swift */; };
+		9F2F9CEF07118D6136B47D89B0AE7611 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1675B8440A9E746FA9E5530543B412A9 /* Strings.swift */; };
+		A040732ADD105123AEEDFC274B01F1CC /* Ketch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6DC137DFCD99FDCD512D929345E3B1 /* Ketch.swift */; };
+		A1D893EDDE4EDC95D9DCE22285B592B8 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1899152EE5E87837382CF0B29E285A96 /* KeyboardResponder.swift */; };
+		A7153B3B8DDA1DE6E4B41733B25FF0D8 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750BD57AFB2E074E6489C37FD4DD8F2A /* Header.swift */; };
+		A88CCC0269B64BCB0D22C630CFB55A3B /* DocereeAdsSdk.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6E8D9083B5B80EE61828BEC950FA9010 /* DocereeAdsSdk.bundle */; };
+		A8A14AD626DB7C34BDCFA575A9435BCA /* HcpProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74561FD87A86485FF7DEBDC57B062AD6 /* HcpProfile.swift */; };
+		AA92E1C20722892F04D39BDE91C0A175 /* View+KetchViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC354A0C64D3F6D08D7A209C2CA0A63A /* View+KetchViewModifier.swift */; };
+		AAE98255915A899139C09A0F437CD139 /* adBlockRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791D0B7A88245720209B7825538C3133 /* adBlockRequest.swift */; };
+		AD9E7ADB45FE53DA1A5EC5983ACEE4E2 /* DocereeAdView+Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B80ED94E9B935DF929A36C67F21F6C /* DocereeAdView+Timer.swift */; };
+		AE5407E5680D8476231EFF2743BB4C0B /* doc2.png in Resources */ = {isa = PBXBuildFile; fileRef = 39059B9EF99BF071BF1E4FC697B165BF /* doc2.png */; };
+		BCDBC6D5F18F09DC9C6FADD6558B4DED /* UAString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC8C81A91A2CA034054641FF89E47B4 /* UAString.swift */; };
+		BE0DDF197B4770E0691C49A322C2C0E2 /* Pods-DocereeAdsSdkTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 84497549BD37D1199AA60C8421E27A00 /* Pods-DocereeAdsSdkTests-dummy.m */; };
+		BE3DD42519E2228CE96A1E182C60C204 /* DocereeAdSdk-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2C7D08723B60338E88AB7DA7D84473 /* DocereeAdSdk-dummy.m */; };
+		BFAD07EF802B8758D9C51838B43FC672 /* DocereeAdViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3FCB0A1E955C5D5A299AA2E39CD922 /* DocereeAdViewDelegate.swift */; };
+		C28DD9E99C8971AFB66645520328E760 /* JsonUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE0C63E70431F1190591766F4DA5D9 /* JsonUtility.swift */; };
+		C89AC3CD38F0DAEB31727DCB7E3E06F2 /* View+ResponsiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635ED40DCFE05E509CB921CB59559677 /* View+ResponsiveSheet.swift */; };
+		C9FF4C439D00C07D194C611E6303063C /* KetchLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8929EEBDCF58133FEACC8901DED97F /* KetchLogger.swift */; };
+		CA080DD29A69275D7D7506122AB3873E /* Viewability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C669D25BDAF4EFD298A35913EDAB1D /* Viewability.swift */; };
+		CC22218A7E31F1DF043A0876DFC7FB91 /* OMIDSessionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A2523C1D477E228B90808BC98941A0 /* OMIDSessionInteractor.swift */; };
+		CC3C884025BBF94A62CF742BA95A158E /* KetchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A4247D8D862BCAA5915205BCA28EA7 /* KetchError.swift */; };
+		CE874CE5ADE2EBE9D02E0063F1C1ADD7 /* omsdk-v1.js in Resources */ = {isa = PBXBuildFile; fileRef = D9AF15063F60B296E6E1BE6E01CD8650 /* omsdk-v1.js */; };
+		D28D87A6AA94375245ECA4F170DF8782 /* HcpValidationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEE99FBA79238E9335A5E786FB768C1 /* HcpValidationView.swift */; };
+		D33EED785163528502F10B67E30F5BCB /* ConsentConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92234874E9D2AB854B2917784E64979F /* ConsentConstants.swift */; };
+		D4FDFB165513006D50A45526A4264FB4 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062DC44E3FF6EC88901CB8C2F72702F7 /* Enums.swift */; };
+		D604D2A730FCAB7E5297A41D89D76788 /* DocereeAdView+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B05518914783F49A83B4526DDEEC73 /* DocereeAdView+Loading.swift */; };
+		D760E61CFBCAC1672D3C82B824580422 /* WebConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0AD8176D5E810387C250984AB4CE00 /* WebConfig.swift */; };
+		D883DF2C3E656752C5E6AC6C4B65E3AF /* HcpValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1731C05978789DDEA1D5243DE900CE0B /* HcpValidationRequest.swift */; };
+		DBB28CDA54CA6CC05D1986C8169E539C /* DocereeAdView+AdUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FD227E72BBFC8446D6001D63DBFDF /* DocereeAdView+AdUI.swift */; };
+		DD9337804985122B0D5F327269E7582C /* AdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1CACA55273E7D6738E14692F31C8E2 /* AdUnit.swift */; };
+		DE04AC40982289CE3D5E0E68F2773D28 /* InvokeRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0663D96D7A5F6866FD7B3D9A702391A4 /* InvokeRight.swift */; };
+		DE918FD46D1E49C4199D644E59DF084D /* ConsentModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69171F5C4A2E7839EC0A24CBC0B7F129 /* ConsentModels.swift */; };
+		DFD6ACFA8FC7BFA786A27CE7FF5D29EF /* MyKetchViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656F0CDCED98C4D3C8BCE0F25A0D6B6D /* MyKetchViewUIKit.swift */; };
+		E043F8634EC0452FCBF4BC0805797FAC /* DocereeRequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2267A7CDB2A72657484BA10F12B6B95 /* DocereeRequestError.swift */; };
+		E7CC341C06B7FF46EC5985C22A19408C /* RandomAccessCollection+IdentifiableIndices.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3F84C8BB623693E762ECE61DFC168A /* RandomAccessCollection+IdentifiableIndices.swift */; };
+		E9B2CB9728FA7C5FC51BD653D5E13D29 /* DocereeAdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4482E883C8FC621C668488B2A5B45161 /* DocereeAdRequest.swift */; };
+		EAC4C907FFB032424D61DF60E2DA0C73 /* HcpValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5BCC28F7D107A62E8CA83B05B48617 /* HcpValidation.swift */; };
+		EBB17EEDFE4B7DC5CE715C4964B18FE4 /* PopupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A918854A2392081C4C2440E89D2B1E5D /* PopupModel.swift */; };
+		EF99235FD7183974BB31AA624039B9AF /* PresentationItem+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCB0D720763006227D2238FD0CB52A1 /* PresentationItem+ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		1F5883A1B53619BC09E98E7D23ACC014 /* PBXContainerItemProxy */ = {
+		08E604D10D91353483FB2EEC516F8E93 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 7A6F653E76ABCE1988760E341C2F68C8;
 			remoteInfo = DocereeAdSdk;
 		};
-		75D9FCE5B7C1DE5DA69C127980E5F36C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 688F94C8A781975312A010D6D4AD1805;
-			remoteInfo = KetchSDK;
-		};
-		84F507CFCDA19540C2BD863532154401 /* PBXContainerItemProxy */ = {
+		17D240F6157FBA77F08176A0D45B96C0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 0F1FC470CA1799C3CD29347DB313E9C7;
 			remoteInfo = "DocereeAdSdk-DocereeAdsSdk";
 		};
-		C6333D37FBB83D1DC8C702C6DE11100D /* PBXContainerItemProxy */ = {
+		524349E085A7C820AE71206C24B10FA3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 688F94C8A781975312A010D6D4AD1805;
 			remoteInfo = KetchSDK;
 		};
+		9A621EE79FB756814BB9BEEEDDAB7922 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 688F94C8A781975312A010D6D4AD1805;
+			remoteInfo = KetchSDK;
+		};
+		DFED099C3B292E0C8158089655CB6540 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 80BC09374BCD515EC7E24D1333DBE23C;
+			remoteInfo = "Pods-DocereeAdsSdk";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		05606084CF54524C8DAB040C81E70B25 /* AppConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
-		05CF6CC6A71D28ADD1CBEEACDE246CD0 /* Pods-DocereeAdsSdk-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-DocereeAdsSdk-umbrella.h"; sourceTree = "<group>"; };
+		01F0D15250154568B5BF0965C20CD8E4 /* ResourceBundle-DocereeAdsSdk-DocereeAdSdk-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-DocereeAdsSdk-DocereeAdSdk-Info.plist"; sourceTree = "<group>"; };
+		04566BBA0246672B91AA3BDAB30C6F3D /* Utils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		048703A3284BA83A01CA3AFE2E2FF1F7 /* MyKetchView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MyKetchView.swift; sourceTree = "<group>"; };
+		053DF58F68B0EE5002D965A61B34B690 /* PatientSessionApi.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PatientSessionApi.swift; sourceTree = "<group>"; };
+		05B80ED94E9B935DF929A36C67F21F6C /* DocereeAdView+Timer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+Timer.swift"; sourceTree = "<group>"; };
+		062DC44E3FF6EC88901CB8C2F72702F7 /* Enums.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		0663D96D7A5F6866FD7B3D9A702391A4 /* InvokeRight.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = InvokeRight.swift; path = Sources/KetchSDK/Core/Entities/InvokeRight.swift; sourceTree = "<group>"; };
-		08956094F687AD837F4CAE2A07E0D695 /* DocereeAdView+WebViewDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+WebViewDelegate.swift"; sourceTree = "<group>"; };
+		09E9463B728D780F3F2CA7978A271861 /* Pods-DocereeAdsSdkTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-DocereeAdsSdkTests-Info.plist"; sourceTree = "<group>"; };
 		0ECD3E43458176B327626D5C69467543 /* PresentationItem+View.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "PresentationItem+View.swift"; path = "Sources/KetchSDK/UI/PresentationItem/PresentationItem+View.swift"; sourceTree = "<group>"; };
-		0F47D46103537086EC4594D309F3DA0E /* AdSize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdSize.swift; sourceTree = "<group>"; };
+		0F8BADB34B00A1D0AD551C4AE249BF62 /* Constants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		12859969BC49FEF7B635AA1A8613A607 /* Vendors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Vendors.swift; path = Sources/KetchSDK/Core/Entities/Vendors.swift; sourceTree = "<group>"; };
-		146A2244165C2D0526C8062A3CEBE27B /* DocereeAdRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DocereeAdRequest.swift; path = DocereeAdsSdk/DocereeAdRequest.swift; sourceTree = "<group>"; };
 		14A4247D8D862BCAA5915205BCA28EA7 /* KetchError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KetchError.swift; path = Sources/KetchSDK/Core/KetchError.swift; sourceTree = "<group>"; };
+		150206E90DB45D05E89286D1078A1FEE /* CustomTimer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CustomTimer.swift; sourceTree = "<group>"; };
 		1675B8440A9E746FA9E5530543B412A9 /* Strings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Strings.swift; path = Sources/KetchSDK/Core/Entities/Strings.swift; sourceTree = "<group>"; };
-		1764DEB5951CC453B7DE73CA5CFE2DE8 /* MyKetchView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MyKetchView.swift; path = DocereeAdsSdk/MyKetchView.swift; sourceTree = "<group>"; };
+		1731C05978789DDEA1D5243DE900CE0B /* HcpValidationRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HcpValidationRequest.swift; path = DocereeAdsSdk/HcpValidationRequest.swift; sourceTree = "<group>"; };
 		1899152EE5E87837382CF0B29E285A96 /* KeyboardResponder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeyboardResponder.swift; path = Sources/KetchSDK/UI/Extensions/KeyboardResponder.swift; sourceTree = "<group>"; };
-		1FE4F55223BC6B3D2B5233B7C63D2C04 /* DocereeAdView+Loading.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+Loading.swift"; sourceTree = "<group>"; };
-		23407DA417E275643DE6338B0BCD31BE /* ConsentConstants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConsentConstants.swift; sourceTree = "<group>"; };
+		19DAE75D17705319FD4DEDD1DC890E5A /* PlatformData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PlatformData.swift; sourceTree = "<group>"; };
+		1DC8C81A91A2CA034054641FF89E47B4 /* UAString.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UAString.swift; sourceTree = "<group>"; };
+		215F03EDB81B72A5EC00F03C872FAB35 /* PatientData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PatientData.swift; sourceTree = "<group>"; };
+		2395C600C3665C4ACA10B0C10C093A26 /* Pods-DocereeAdsSdkTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-DocereeAdsSdkTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		244BECFBA34004DF435C4D372A07D544 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		24887CC403CBA3E2ADFAE57F8376E228 /* Pods-DocereeAdsSdk */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-DocereeAdsSdk"; path = Pods_DocereeAdsSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		24942459DDA8F15418272F45C07F40F7 /* DateExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
-		25907651AD33D4228D93F13520BD262C /* doc1.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = doc1.png; sourceTree = "<group>"; };
-		26F0A2CB071622C3A3E5A09F2FF7CE24 /* ImageLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		24F7F79BC31EC2FCEE0124769EC0363F /* Pods-DocereeAdsSdk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DocereeAdsSdk.debug.xcconfig"; sourceTree = "<group>"; };
+		26A2523C1D477E228B90808BC98941A0 /* OMIDSessionInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OMIDSessionInteractor.swift; sourceTree = "<group>"; };
+		26C90DFBC895791C674F9384EF162ACB /* ImageLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		26CD5367D0597B54A6F0A33EC2E96C6D /* PathUtility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PathUtility.swift; sourceTree = "<group>"; };
 		27D41CFC3BC0B334F9F8E1CC5714DEBB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		2CB13D811BAF9CE7B34CCC9F3384FBF2 /* Header.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
-		2DEF37D5580B3225E68C53C4A3CF4BB7 /* ResourceBundle-DocereeAdsSdk-DocereeAdSdk-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-DocereeAdsSdk-DocereeAdSdk-Info.plist"; sourceTree = "<group>"; };
-		312484B7E4F7E3CACC16A723C84EFE58 /* MyKetchViewUIKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MyKetchViewUIKit.swift; path = DocereeAdsSdk/MyKetchViewUIKit.swift; sourceTree = "<group>"; };
-		337199CB6D3328AC7A2CD2E5CCEEF398 /* Pods-DocereeAdsSdk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DocereeAdsSdk.release.xcconfig"; sourceTree = "<group>"; };
-		390F6932348CC2154538DDBB4035D67F /* Pods-DocereeAdsSdk-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-DocereeAdsSdk-dummy.m"; sourceTree = "<group>"; };
-		3919DB34F2838340179A0449C31871DD /* DocereeAdsSdk.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = DocereeAdsSdk.bundle; path = DocereeAdsSdk/DocereeAdsSdk.bundle; sourceTree = "<group>"; };
-		3B501EC773BDB7CAB5E79BBD75ADDB29 /* CreateCMPView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CreateCMPView.swift; path = DocereeAdsSdk/CreateCMPView.swift; sourceTree = "<group>"; };
-		412EF5D43581C8153B37D0A92281FA1A /* AppInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
-		42B5B40B927FC997CA0E48731D1E1F11 /* Pods-DocereeAdsSdk-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-DocereeAdsSdk-acknowledgements.markdown"; sourceTree = "<group>"; };
-		445F02FAC689134B557D1E5D00A41843 /* PatientSession.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PatientSession.swift; sourceTree = "<group>"; };
-		46482BF8E28859D0ED39DEB07D172D82 /* DocereeAdSdk-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "DocereeAdSdk-dummy.m"; sourceTree = "<group>"; };
-		48CDBB63B207916892BA3ED56EDCC3CA /* DocereeRequestError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeRequestError.swift; sourceTree = "<group>"; };
+		2CDB1FB09C4E18115A0889ADF7DAA85C /* DocereeAdView+Consent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+Consent.swift"; sourceTree = "<group>"; };
+		2E5BCC28F7D107A62E8CA83B05B48617 /* HcpValidation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HcpValidation.swift; sourceTree = "<group>"; };
+		2EA8B8648512A6736E5B41B76FCBDD68 /* Pods-DocereeAdsSdkTests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-DocereeAdsSdkTests"; path = Pods_DocereeAdsSdkTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EF3B7BE021EF3266E75645B4428A3F6 /* DocereeAdSdk-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "DocereeAdSdk-Info.plist"; sourceTree = "<group>"; };
+		2FAE34DBE4D310026FA7E050183E32FA /* MIT License */ = {isa = PBXFileReference; includeInIndex = 1; path = "MIT License"; sourceTree = "<group>"; };
+		319CD48EF96DDB38740806002EEB57B6 /* Pods-DocereeAdsSdkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DocereeAdsSdkTests.release.xcconfig"; sourceTree = "<group>"; };
+		32CF721F9588F8B93FE913141699088A /* StorageManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		370D664738BF4B3E947DE4FBAAAD506E /* doc1.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = doc1.png; sourceTree = "<group>"; };
+		39059B9EF99BF071BF1E4FC697B165BF /* doc2.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = doc2.png; sourceTree = "<group>"; };
+		3EF636D2A84A32264E29B224B5E5B518 /* Pods-DocereeAdsSdkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DocereeAdsSdkTests.debug.xcconfig"; sourceTree = "<group>"; };
+		404EF07D6829E3E3262F6CC8CDD3C357 /* AdConsentFeedbackHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdConsentFeedbackHandler.swift; sourceTree = "<group>"; };
+		4482E883C8FC621C668488B2A5B45161 /* DocereeAdRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DocereeAdRequest.swift; path = DocereeAdsSdk/DocereeAdRequest.swift; sourceTree = "<group>"; };
+		45CF59ED5AF00D63EE69F0EA1E782997 /* Pods-DocereeAdsSdk-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-DocereeAdsSdk-dummy.m"; sourceTree = "<group>"; };
+		48B79DC90D56BE1BD75FC5B09405BBD9 /* DocereeAdSdk-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DocereeAdSdk-prefix.pch"; sourceTree = "<group>"; };
 		48E42B1BB8D2280C643E2B1708B81D88 /* KetchSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = KetchSDK.debug.xcconfig; sourceTree = "<group>"; };
-		4E54721A47E6CC06DA58B347AB36D641 /* PatientSessionApi.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PatientSessionApi.swift; sourceTree = "<group>"; };
-		5041D3C5E418D6856F4024A49518462C /* Pods-DocereeAdsSdk-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-DocereeAdsSdk-acknowledgements.plist"; sourceTree = "<group>"; };
+		4AD22339CF32E8E4E2AE75203BBC766A /* Pods-DocereeAdsSdkTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-DocereeAdsSdkTests-umbrella.h"; sourceTree = "<group>"; };
+		4EDAB1970FA75E67F28B8C03EAA8911E /* DocereeAdView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeAdView.swift; sourceTree = "<group>"; };
 		5109320AD16EA92C98F383DF5033C682 /* String+Validation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+Validation.swift"; path = "Sources/KetchSDK/UI/Extensions/String+Validation.swift"; sourceTree = "<group>"; };
-		51FE640D6D1A3F6BE2068D8D80AB45B0 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
-		52B84D2743F7409B449C09B56BC1CBBD /* HcpValidationViewManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HcpValidationViewManager.swift; sourceTree = "<group>"; };
-		56CD28076F656E51E931476BB4C07290 /* AdUnit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdUnit.swift; sourceTree = "<group>"; };
-		60CBBA4CABA30B0E0D995B00C6B1B755 /* omsdk-v1.js */ = {isa = PBXFileReference; includeInIndex = 1; path = "omsdk-v1.js"; sourceTree = "<group>"; };
+		5A492AD2E1062C919C627BCAABAE6F92 /* DocereeAdSdk-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "DocereeAdSdk-xcframeworks.sh"; sourceTree = "<group>"; };
+		5BA0400732486B2A0D5A94E0197E4BA4 /* AdResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdResponse.swift; sourceTree = "<group>"; };
+		5CEE99FBA79238E9335A5E786FB768C1 /* HcpValidationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HcpValidationView.swift; sourceTree = "<group>"; };
+		5D7C87845344B54D8F883BEE6524AEFA /* DocereeAdView+WebViewDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+WebViewDelegate.swift"; sourceTree = "<group>"; };
+		60526D9E44BA4451BC061C9A840C3707 /* HTTPSupport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HTTPSupport.swift; sourceTree = "<group>"; };
 		635ED40DCFE05E509CB921CB59559677 /* View+ResponsiveSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "View+ResponsiveSheet.swift"; path = "Sources/KetchSDK/UI/Extensions/View+ResponsiveSheet.swift"; sourceTree = "<group>"; };
-		6376AEE714501953915BAD2CC20E252E /* OMSDK_Doceree.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = OMSDK_Doceree.xcframework; path = Frameworks/OMSDK_Doceree.xcframework; sourceTree = "<group>"; };
 		6467E1F16DCE2DEB7F3744FB48D73B76 /* Bundle+KetchUI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Bundle+KetchUI.swift"; path = "Sources/KetchSDK/UI/Extensions/Bundle+KetchUI.swift"; sourceTree = "<group>"; };
-		663046550D8815EE1DAE3055B15BAE9C /* HcpValidationRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HcpValidationRequest.swift; path = DocereeAdsSdk/HcpValidationRequest.swift; sourceTree = "<group>"; };
-		684D1729721A6E29AA9AF6EF03251A47 /* doc2.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = doc2.png; sourceTree = "<group>"; };
+		656F0CDCED98C4D3C8BCE0F25A0D6B6D /* MyKetchViewUIKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MyKetchViewUIKit.swift; sourceTree = "<group>"; };
+		69171F5C4A2E7839EC0A24CBC0B7F129 /* ConsentModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConsentModels.swift; sourceTree = "<group>"; };
 		694B4F351695469DE1C36F0E3EF1785E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
+		6AAE0C63E70431F1190591766F4DA5D9 /* JsonUtility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JsonUtility.swift; sourceTree = "<group>"; };
+		6C3ED4542A9D4724674BAF9FBE55A73E /* AppConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
+		6CB04836483480576BED086425C47229 /* ImageExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
+		6E8D9083B5B80EE61828BEC950FA9010 /* DocereeAdsSdk.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = DocereeAdsSdk.bundle; path = DocereeAdsSdk/DocereeAdsSdk.bundle; sourceTree = "<group>"; };
+		7058BADDF9A2725F411AE690851BD1F9 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		707E55C051D5624FF632CFBA57A5B445 /* KetchApiRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KetchApiRequest.swift; path = Sources/KetchSDK/Core/KetchApiRequest.swift; sourceTree = "<group>"; };
-		71BBDFDC7B565376F174F216088991E9 /* Pods-DocereeAdsSdk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DocereeAdsSdk.debug.xcconfig"; sourceTree = "<group>"; };
-		72921794F98572B153FB2DF32A77C446 /* HTTPSupport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HTTPSupport.swift; sourceTree = "<group>"; };
+		72D4EAC6037AC7DCDAB3E2B38D208227 /* DocereeAdSdk.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = DocereeAdSdk.modulemap; sourceTree = "<group>"; };
+		74561FD87A86485FF7DEBDC57B062AD6 /* HcpProfile.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HcpProfile.swift; sourceTree = "<group>"; };
+		750BD57AFB2E074E6489C37FD4DD8F2A /* Header.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		76FC835F010882754CB65F1F2B96158A /* AdRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdRequest.swift; sourceTree = "<group>"; };
+		791D0B7A88245720209B7825538C3133 /* adBlockRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = adBlockRequest.swift; sourceTree = "<group>"; };
+		792360A46AC688BD2DE7C3A261B93320 /* Media.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = DocereeAdsSdk/Media.xcassets; sourceTree = "<group>"; };
 		79D7F5D6D6A003736D0EEFD6F5BE29A7 /* PolicyProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PolicyProtocol.swift; path = Sources/KetchSDK/Core/PolicyProtocol.swift; sourceTree = "<group>"; };
-		7B9298A3C439395D07118573815E422C /* HcpValidation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HcpValidation.swift; sourceTree = "<group>"; };
-		7BBB83C41E0AB38B3CC6C759ECBEE27F /* DocereeAdView+RichMedia.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+RichMedia.swift"; sourceTree = "<group>"; };
-		7C32D2F50D938908A2254CC569D7799E /* OMIDSessionInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OMIDSessionInteractor.swift; sourceTree = "<group>"; };
-		7CDCB7884A3B4CC2DF3F590AF5AB4830 /* Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		7CE34C21A023051B55545980EA41DBE2 /* PlatformData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PlatformData.swift; sourceTree = "<group>"; };
-		7E5250986F3ADB4721D4627F0766D97F /* DocereeAdView+UIHelpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+UIHelpers.swift"; sourceTree = "<group>"; };
-		81B492671F7EB576ED721774BB018B73 /* DocereeAdSdk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DocereeAdSdk.release.xcconfig; sourceTree = "<group>"; };
-		8276E5ABF862E796634FEA8527A8FFCF /* ConsentModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConsentModels.swift; sourceTree = "<group>"; };
-		82C7C35E6EC76722A63C93442B2DFE50 /* AdRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdRequest.swift; sourceTree = "<group>"; };
-		8384754E5378CB63B7F3086F6A49CDB8 /* DocereeAdSdk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DocereeAdSdk.debug.xcconfig; sourceTree = "<group>"; };
+		7A1CACA55273E7D6738E14692F31C8E2 /* AdUnit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdUnit.swift; sourceTree = "<group>"; };
+		7CC3920499411411EE2829BCA5891EAC /* DocereeAdSdk.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = DocereeAdSdk.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		83688F9A4861F13B37218807331F819C /* DocereeAdView+Lifecycle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+Lifecycle.swift"; sourceTree = "<group>"; };
+		84497549BD37D1199AA60C8421E27A00 /* Pods-DocereeAdsSdkTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-DocereeAdsSdkTests-dummy.m"; sourceTree = "<group>"; };
 		84BFD81200038D0C8BCF9442E3B09F88 /* KetchSDK-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "KetchSDK-umbrella.h"; sourceTree = "<group>"; };
-		86C3403A19906C90E9CC554F471A3107 /* Enums.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		8919EE115C44120F107B665633D48888 /* CreateCMPView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateCMPView.swift; sourceTree = "<group>"; };
 		89A07868542F109578B4F18D2B902308 /* PresentationItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PresentationItem.swift; path = Sources/KetchSDK/UI/PresentationItem/PresentationItem.swift; sourceTree = "<group>"; };
 		8A587F66731F5F5EE6248233B59B5471 /* KetchSDK */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = KetchSDK; path = KetchSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D185C7DE23AB704C22059939B42A298 /* Helpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		8FCB0D720763006227D2238FD0CB52A1 /* PresentationItem+ViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "PresentationItem+ViewController.swift"; path = "Sources/KetchSDK/UI/PresentationItem/PresentationItem+ViewController.swift"; sourceTree = "<group>"; };
-		91D1C5773FCBBDF2B9A186E180E7965E /* Viewability.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Viewability.swift; sourceTree = "<group>"; };
+		905CA1B5CFF055BA643476E401EEE482 /* DocereeMobileAds.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeMobileAds.swift; sourceTree = "<group>"; };
+		90960B9912A32DCA76CE646EB0EFF464 /* Pods-DocereeAdsSdk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DocereeAdsSdk.release.xcconfig"; sourceTree = "<group>"; };
+		92234874E9D2AB854B2917784E64979F /* ConsentConstants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConsentConstants.swift; sourceTree = "<group>"; };
 		95889D3F4AFD499CB75C863F18051BA1 /* ApiRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ApiRequest.swift; path = Sources/KetchSDK/Core/ApiRequest.swift; sourceTree = "<group>"; };
-		98BB883B30159DF1AB8EE4AAB1AD0FA1 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		9B5C924095ACCDE1E2DC3F37EAFC29D1 /* MIT License */ = {isa = PBXFileReference; includeInIndex = 1; path = "MIT License"; sourceTree = "<group>"; };
-		9BE0EE697235E57962959F1798B352A4 /* Pods-DocereeAdsSdk-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-DocereeAdsSdk-Info.plist"; sourceTree = "<group>"; };
-		9C262F51DBE03B2010F08B50C453C99A /* CustomTimer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CustomTimer.swift; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A2BDB80A458AB41F5207664C46A68894 /* adBlockRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = adBlockRequest.swift; sourceTree = "<group>"; };
 		A2C13FBE814D54C2851FDEBE51DD664F /* DocereeAdSdk-DocereeAdsSdk */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "DocereeAdSdk-DocereeAdsSdk"; path = DocereeAdsSdk.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		A33D49276553F940613FB688B302E412 /* PathUtility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PathUtility.swift; sourceTree = "<group>"; };
-		A7D471DD001E5AAF458DE83FD23174B2 /* PopupModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PopupModel.swift; sourceTree = "<group>"; };
-		A81270F8BA34E251E67DD8F7DDB46A60 /* ConfigurationService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConfigurationService.swift; sourceTree = "<group>"; };
-		A82532D2003E985CF82CAE2FCE54C50D /* DocereeAdViewDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeAdViewDelegate.swift; sourceTree = "<group>"; };
-		AABAA6ABE5ED9428168A113DABA4AFEE /* PatientBuilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PatientBuilder.swift; sourceTree = "<group>"; };
-		ACD576C2957717515C94ED877DC76392 /* DocereeAdView+Consent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+Consent.swift"; sourceTree = "<group>"; };
+		A5506D40EDF6D5E0370B36C12385B6DC /* DocereeAdView+RichMedia.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+RichMedia.swift"; sourceTree = "<group>"; };
+		A8E99CFCDE40CD093722A0F395D5CF3B /* PatientBuilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PatientBuilder.swift; sourceTree = "<group>"; };
+		A918854A2392081C4C2440E89D2B1E5D /* PopupModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PopupModel.swift; sourceTree = "<group>"; };
 		AD6DC137DFCD99FDCD512D929345E3B1 /* Ketch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Ketch.swift; path = Sources/KetchSDK/Core/Ketch.swift; sourceTree = "<group>"; };
+		AE76F65244DB723E12BF52795D4687AC /* Pods-DocereeAdsSdkTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-DocereeAdsSdkTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		AE86B550FD38D3A464AEBBF8EB945FDB /* Pods-DocereeAdsSdk-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-DocereeAdsSdk-acknowledgements.plist"; sourceTree = "<group>"; };
 		AE8929EEBDCF58133FEACC8901DED97F /* KetchLogger.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KetchLogger.swift; path = Sources/KetchSDK/Core/KetchLogger.swift; sourceTree = "<group>"; };
-		AEDF336C7ED0768A59644784E90A943E /* AdResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdResponse.swift; sourceTree = "<group>"; };
+		AFD74067A4D6747D4FAE5BA7FE9ABF46 /* HcpValidationViewManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HcpValidationViewManager.swift; sourceTree = "<group>"; };
+		B29B35E27C43DD5B00434E437E43F84E /* ConfigurationService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConfigurationService.swift; sourceTree = "<group>"; };
 		B2A0F9163D0B3E98AB3589D4E3C37C03 /* KetchSDK.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = KetchSDK.modulemap; sourceTree = "<group>"; };
-		B8ABB0CDD455F173F778825CA086EC1A /* Pods-DocereeAdsSdk.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-DocereeAdsSdk.modulemap"; sourceTree = "<group>"; };
-		B95C2D082BBAEAE7F0FD7CBE096AF0BE /* DocereeAdView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeAdView.swift; sourceTree = "<group>"; };
+		B6B05518914783F49A83B4526DDEEC73 /* DocereeAdView+Loading.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+Loading.swift"; sourceTree = "<group>"; };
+		B757EC189BA723B6708C705E86975B7F /* DocereeHcpViewDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeHcpViewDelegate.swift; sourceTree = "<group>"; };
+		B935EC3E0C419DD59BEB736AA4F2F681 /* DocereeAdSdk-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DocereeAdSdk-umbrella.h"; sourceTree = "<group>"; };
+		BB1B115B341BE3E27676188A4B372C31 /* AdConsentUIView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdConsentUIView.swift; sourceTree = "<group>"; };
 		BBEAEE18AF054311F98FA3F21CB43984 /* index.html */ = {isa = PBXFileReference; includeInIndex = 1; name = index.html; path = Sources/KetchSDK/index.html; sourceTree = "<group>"; };
-		BE577999CE796FAC1B95ECBEBC34E9A9 /* AdConsentUIView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdConsentUIView.swift; sourceTree = "<group>"; };
-		BFB051B1EC448A620A723C625A5C90B3 /* JsonUtility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JsonUtility.swift; sourceTree = "<group>"; };
-		C159A127C2D96E19AF23A2D437CFDDDD /* HcpValidationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HcpValidationView.swift; sourceTree = "<group>"; };
-		C1B1D978EE15FF4E5390F1EC6D2042E6 /* PatientData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PatientData.swift; sourceTree = "<group>"; };
-		C3CD845562D36F9AEAA39A036D2814F8 /* DocereeAdSdk.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = DocereeAdSdk.modulemap; sourceTree = "<group>"; };
-		C3E155A7741A6EB1EBC44D20CF36DADD /* DocereeHcpViewDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeHcpViewDelegate.swift; sourceTree = "<group>"; };
+		BE36A7D2AB33B394EEE0BEBC110062C6 /* Pods-DocereeAdsSdk-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-DocereeAdsSdk-acknowledgements.markdown"; sourceTree = "<group>"; };
+		BE3FCB0A1E955C5D5A299AA2E39CD922 /* DocereeAdViewDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeAdViewDelegate.swift; sourceTree = "<group>"; };
+		C1E923D0C66F23696E5CC06B945B35DC /* DocereeAdView+UIHelpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+UIHelpers.swift"; sourceTree = "<group>"; };
 		C6B8EC494BD7F264F9A7C83ACA3BE044 /* KetchUI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KetchUI.swift; path = Sources/KetchSDK/UI/KetchUI.swift; sourceTree = "<group>"; };
-		C87C10F5E443BFDCD3C2CD4A4ECB3FAE /* StorageManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		CC0AD8176D5E810387C250984AB4CE00 /* WebConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WebConfig.swift; path = Sources/KetchSDK/UI/PresentationItem/WebConfig.swift; sourceTree = "<group>"; };
 		CF3F84C8BB623693E762ECE61DFC168A /* RandomAccessCollection+IdentifiableIndices.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "RandomAccessCollection+IdentifiableIndices.swift"; path = "Sources/KetchSDK/UI/Extensions/RandomAccessCollection+IdentifiableIndices.swift"; sourceTree = "<group>"; };
-		D1ADBB357CEE3FEFC5570BD909703B0A /* DocereeAdSdk-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "DocereeAdSdk-Info.plist"; sourceTree = "<group>"; };
-		D35DB52D4C463227DB01C1039B54097A /* AdConsentUIFactory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdConsentUIFactory.swift; sourceTree = "<group>"; };
-		D480956F7C1EE655D7C99C9BD46B28CD /* HcpProfile.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HcpProfile.swift; sourceTree = "<group>"; };
 		D5CB2766B8BF5A79EB74E46829012DA7 /* Configuration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = Sources/KetchSDK/Core/Entities/Configuration.swift; sourceTree = "<group>"; };
-		D705FA90AF2970F2AD59BDA2A35F5A73 /* StringExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
-		D79BC93A7C4F1349504B7DA684326EF5 /* UAString.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UAString.swift; sourceTree = "<group>"; };
+		D624554A85E1D7CCCABB3BFBF55A565D /* PatientSession.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PatientSession.swift; sourceTree = "<group>"; };
+		D90249E78E0AADA4A28B9D3915E2A26A /* AdSize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdSize.swift; sourceTree = "<group>"; };
+		D9AF15063F60B296E6E1BE6E01CD8650 /* omsdk-v1.js */ = {isa = PBXFileReference; includeInIndex = 1; path = "omsdk-v1.js"; sourceTree = "<group>"; };
+		D9C669D25BDAF4EFD298A35913EDAB1D /* Viewability.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Viewability.swift; sourceTree = "<group>"; };
 		D9E7AC6A8E3A4618180BD90BA98925DE /* Consent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Consent.swift; path = Sources/KetchSDK/Core/Entities/Consent.swift; sourceTree = "<group>"; };
+		DA5B20138396615B454F70C8518513EA /* Pods-DocereeAdsSdkTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-DocereeAdsSdkTests.modulemap"; sourceTree = "<group>"; };
+		DF05F0244E515BD490BB6E9AEC022D7C /* Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E090513A36CC5F8AEECDD8BF440870B5 /* Pods-DocereeAdsSdk-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-DocereeAdsSdk-Info.plist"; sourceTree = "<group>"; };
+		E2267A7CDB2A72657484BA10F12B6B95 /* DocereeRequestError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeRequestError.swift; sourceTree = "<group>"; };
+		E26604752DB59071E4139622D16A7D3A /* Pods-DocereeAdsSdk-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-DocereeAdsSdk-umbrella.h"; sourceTree = "<group>"; };
 		E2C58A890B4B8BF66837E4CB2ACF868A /* KetchSDK-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "KetchSDK-Info.plist"; sourceTree = "<group>"; };
-		E382E1C7E78209BF35522E74EA3770B2 /* DocereeAdSdk.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = DocereeAdSdk.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		E394A76EF6192A7047480C767D5EB654 /* DocereeAdView+Timer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+Timer.swift"; sourceTree = "<group>"; };
-		E58BF0CEB3D555CE0561DB7EEBA94205 /* DocereeAdView+Lifecycle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+Lifecycle.swift"; sourceTree = "<group>"; };
 		E59A21BEE16C4B1B0159E359228EAFB7 /* DocereeAdSdk */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = DocereeAdSdk; path = DocereeAdSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E6E47B61D1B0A3D303CDBA6CA982BDA4 /* Media.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = DocereeAdsSdk/Media.xcassets; sourceTree = "<group>"; };
+		E67192314C5648CD2D9D7296DE9A1EA2 /* DocereeAdSdk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DocereeAdSdk.debug.xcconfig; sourceTree = "<group>"; };
+		E797E7DE02AEDF9871B8471B04F5DE99 /* DocereeAdSdk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DocereeAdSdk.release.xcconfig; sourceTree = "<group>"; };
 		EB25725406B8D9B1707CFFC126C436F5 /* KetchSDK.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KetchSDK.swift; path = Sources/KetchSDK/Core/KetchSDK.swift; sourceTree = "<group>"; };
 		EC354A0C64D3F6D08D7A209C2CA0A63A /* View+KetchViewModifier.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "View+KetchViewModifier.swift"; path = "Sources/KetchSDK/UI/Extensions/View+KetchViewModifier.swift"; sourceTree = "<group>"; };
 		EC4A13C86FF091E2D96BC2131845432F /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
-		ED1D69B96A308D9E5F511D74185F1650 /* Constants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		ED93FD774860087641B5CF2069CF5FCE /* DocereeAdSdk-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "DocereeAdSdk-xcframeworks.sh"; sourceTree = "<group>"; };
+		ED2C7D08723B60338E88AB7DA7D84473 /* DocereeAdSdk-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "DocereeAdSdk-dummy.m"; sourceTree = "<group>"; };
+		ED55E4D057E7524D736D829E873E979F /* AdConsentUIFactory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdConsentUIFactory.swift; sourceTree = "<group>"; };
 		EFFA9E74B69871432BA6E1BF12F0B124 /* KetchSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "KetchSDK-dummy.m"; sourceTree = "<group>"; };
+		F07FD227E72BBFC8446D6001D63DBFDF /* DocereeAdView+AdUI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+AdUI.swift"; sourceTree = "<group>"; };
 		F1D3B556DDEAE4DD38FDBCEDB8CA7FED /* KetchSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = KetchSDK.release.xcconfig; sourceTree = "<group>"; };
-		F2330A74576C91ECCB07B51DC732B95A /* ImageExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
-		F2C46D5631329CD0D04A1EB33898FC3E /* AdConsentFeedbackHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdConsentFeedbackHandler.swift; sourceTree = "<group>"; };
-		F2C4769DF4D24CFAEBD65CB01CF5111C /* DocereeAdSdk-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DocereeAdSdk-prefix.pch"; sourceTree = "<group>"; };
+		F32B89E8DCA67E70F2006F68CA0E9EFC /* KetchViewManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KetchViewManager.swift; sourceTree = "<group>"; };
 		F530DAE3DA146F3E7E2400C316EAE191 /* KetchSDK-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "KetchSDK-prefix.pch"; sourceTree = "<group>"; };
-		F713572B31E57BB4DC030ACFDB2CEF59 /* DocereeAdView+AdUI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+AdUI.swift"; sourceTree = "<group>"; };
-		FC17AB234D9F34B939A2FC72C06AF953 /* DocereeAdSdk-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DocereeAdSdk-umbrella.h"; sourceTree = "<group>"; };
-		FC1EF5CB001340DFA265FF290635657B /* DocereeMobileAds.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeMobileAds.swift; sourceTree = "<group>"; };
-		FE833C36D41D94AD0F174834AC397647 /* Utils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		FA201C57E18B351A7E48F00353169003 /* Helpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		FF1D36ADF96C39EB90D39AA72DDEA4B2 /* OMSDK_Doceree.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = OMSDK_Doceree.xcframework; path = Frameworks/OMSDK_Doceree.xcframework; sourceTree = "<group>"; };
+		FF4A1D793193C072A9A288E29C13185D /* Pods-DocereeAdsSdk.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-DocereeAdsSdk.modulemap"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		20FF1C8ADFB96F0926089C3E85B02E67 /* Frameworks */ = {
+		369F5CDD54ECDC5E980B55807838BCA1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D68C41BDB9787BA70567AB00E2C58614 /* AdSupport.framework in Frameworks */,
-				E201A95CF7EDACD719446D81CC82553B /* Foundation.framework in Frameworks */,
-				99ADA8C4DD30140A08C743505CFF5EC1 /* WebKit.framework in Frameworks */,
+				649DAFDBB069F0A9E885C8BD6B02CB49 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,18 +302,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		81BED5F2A3A04FB1719DC76A58D80949 /* Frameworks */ = {
+		5F88741C01FB9E9C5D61543859674586 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2954775DCCAC1FE232A0FF73125687ED /* AdSupport.framework in Frameworks */,
+				1F4989A1A04497E959E5878A75416903 /* Foundation.framework in Frameworks */,
+				29F88AAC2E7D29D9EAB2CF541FF5F229 /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65089E7E8BDAB7F5B6F5C087E9362E9B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		91EC2F2CC8982774056B746797D665CD /* Frameworks */ = {
+		8BEDD4E9CEFDDDDBD43F03CA444C7FCC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C0C2D4E1EB1840CAF4FE97B4C4A42E8 /* Foundation.framework in Frameworks */,
+				2D12FA9CF903CDD24A666C0631168088 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,35 +338,30 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		1ADBF14166394E3A55BA07BDA3B0B83D /* api */ = {
+		1F1C3C7D68FBD6C94E0BF3B31C744FFB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2CB13D811BAF9CE7B34CCC9F3384FBF2 /* Header.swift */,
-				AABAA6ABE5ED9428168A113DABA4AFEE /* PatientBuilder.swift */,
-				445F02FAC689134B557D1E5D00A41843 /* PatientSession.swift */,
-				4E54721A47E6CC06DA58B347AB36D641 /* PatientSessionApi.swift */,
-				C87C10F5E443BFDCD3C2CD4A4ECB3FAE /* StorageManager.swift */,
-				FE833C36D41D94AD0F174834AC397647 /* Utils.swift */,
+				791D0B7A88245720209B7825538C3133 /* adBlockRequest.swift */,
+				76FC835F010882754CB65F1F2B96158A /* AdRequest.swift */,
+				5BA0400732486B2A0D5A94E0197E4BA4 /* AdResponse.swift */,
+				74561FD87A86485FF7DEBDC57B062AD6 /* HcpProfile.swift */,
+				2E5BCC28F7D107A62E8CA83B05B48617 /* HcpValidation.swift */,
+				215F03EDB81B72A5EC00F03C872FAB35 /* PatientData.swift */,
+				19DAE75D17705319FD4DEDD1DC890E5A /* PlatformData.swift */,
+				A918854A2392081C4C2440E89D2B1E5D /* PopupModel.swift */,
 			);
-			name = api;
-			path = DocereeAdsSdk/api;
+			name = Model;
+			path = DocereeAdsSdk/Model;
 			sourceTree = "<group>";
 		};
-		23CB90481799C730BEB9DC74191CFE65 /* Support Files */ = {
+		231197C002462196D7BD9A432BD6EC9A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C3CD845562D36F9AEAA39A036D2814F8 /* DocereeAdSdk.modulemap */,
-				46482BF8E28859D0ED39DEB07D172D82 /* DocereeAdSdk-dummy.m */,
-				D1ADBB357CEE3FEFC5570BD909703B0A /* DocereeAdSdk-Info.plist */,
-				F2C4769DF4D24CFAEBD65CB01CF5111C /* DocereeAdSdk-prefix.pch */,
-				FC17AB234D9F34B939A2FC72C06AF953 /* DocereeAdSdk-umbrella.h */,
-				ED93FD774860087641B5CF2069CF5FCE /* DocereeAdSdk-xcframeworks.sh */,
-				8384754E5378CB63B7F3086F6A49CDB8 /* DocereeAdSdk.debug.xcconfig */,
-				81B492671F7EB576ED721774BB018B73 /* DocereeAdSdk.release.xcconfig */,
-				2DEF37D5580B3225E68C53C4A3CF4BB7 /* ResourceBundle-DocereeAdsSdk-DocereeAdSdk-Info.plist */,
+				DF05F0244E515BD490BB6E9AEC022D7C /* Extensions.swift */,
+				6CB04836483480576BED086425C47229 /* ImageExtensions.swift */,
 			);
-			name = "Support Files";
-			path = "Pods/Target Support Files/DocereeAdSdk";
+			name = Extensions;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		257689BDD1A36756F01FB9A5F7751496 /* Resources */ = {
@@ -353,16 +371,42 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		25FECDBBE46650C90C26A28FF660E307 /* View */ = {
+		2A71865A868C17A6295D02A91D9DA139 /* Pods-DocereeAdsSdk */ = {
 			isa = PBXGroup;
 			children = (
-				C159A127C2D96E19AF23A2D437CFDDDD /* HcpValidationView.swift */,
-				52B84D2743F7409B449C09B56BC1CBBD /* HcpValidationViewManager.swift */,
-				62E9D03B2D600D0044550E2EC1C01921 /* AdConsent */,
-				E6981C6D2598F7DBCA50AFE3E842FB76 /* Adview */,
+				FF4A1D793193C072A9A288E29C13185D /* Pods-DocereeAdsSdk.modulemap */,
+				BE36A7D2AB33B394EEE0BEBC110062C6 /* Pods-DocereeAdsSdk-acknowledgements.markdown */,
+				AE86B550FD38D3A464AEBBF8EB945FDB /* Pods-DocereeAdsSdk-acknowledgements.plist */,
+				45CF59ED5AF00D63EE69F0EA1E782997 /* Pods-DocereeAdsSdk-dummy.m */,
+				E090513A36CC5F8AEECDD8BF440870B5 /* Pods-DocereeAdsSdk-Info.plist */,
+				E26604752DB59071E4139622D16A7D3A /* Pods-DocereeAdsSdk-umbrella.h */,
+				24F7F79BC31EC2FCEE0124769EC0363F /* Pods-DocereeAdsSdk.debug.xcconfig */,
+				90960B9912A32DCA76CE646EB0EFF464 /* Pods-DocereeAdsSdk.release.xcconfig */,
 			);
-			name = View;
-			path = DocereeAdsSdk/View;
+			name = "Pods-DocereeAdsSdk";
+			path = "Target Support Files/Pods-DocereeAdsSdk";
+			sourceTree = "<group>";
+		};
+		4013C68FBA37E63621EF4C0815C56A39 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D90249E78E0AADA4A28B9D3915E2A26A /* AdSize.swift */,
+				0F8BADB34B00A1D0AD551C4AE249BF62 /* Constants.swift */,
+				150206E90DB45D05E89286D1078A1FEE /* CustomTimer.swift */,
+				E2267A7CDB2A72657484BA10F12B6B95 /* DocereeRequestError.swift */,
+				062DC44E3FF6EC88901CB8C2F72702F7 /* Enums.swift */,
+				FA201C57E18B351A7E48F00353169003 /* Helpers.swift */,
+				60526D9E44BA4451BC061C9A840C3707 /* HTTPSupport.swift */,
+				26C90DFBC895791C674F9384EF162ACB /* ImageLoader.swift */,
+				6AAE0C63E70431F1190591766F4DA5D9 /* JsonUtility.swift */,
+				26CD5367D0597B54A6F0A33EC2E96C6D /* PathUtility.swift */,
+				1DC8C81A91A2CA034054641FF89E47B4 /* UAString.swift */,
+				7058BADDF9A2725F411AE690851BD1F9 /* UserDefaultsManager.swift */,
+				D9C669D25BDAF4EFD298A35913EDAB1D /* Viewability.swift */,
+				231197C002462196D7BD9A432BD6EC9A /* Extensions */,
+			);
+			name = Utilities;
+			path = DocereeAdsSdk/Utilities;
 			sourceTree = "<group>";
 		};
 		47CD86026C634703969A04D8DD195962 /* Support Files */ = {
@@ -414,65 +458,117 @@
 			path = KetchSDK;
 			sourceTree = "<group>";
 		};
-		561C6FB905D6402625495E6F203AE0AA /* Development Pods */ = {
+		4F8C83493A6688A576A93EB31A54ACF7 /* Pods-DocereeAdsSdkTests */ = {
 			isa = PBXGroup;
 			children = (
-				B85BBF241A0778C5D748486791885D48 /* DocereeAdSdk */,
+				DA5B20138396615B454F70C8518513EA /* Pods-DocereeAdsSdkTests.modulemap */,
+				2395C600C3665C4ACA10B0C10C093A26 /* Pods-DocereeAdsSdkTests-acknowledgements.markdown */,
+				AE76F65244DB723E12BF52795D4687AC /* Pods-DocereeAdsSdkTests-acknowledgements.plist */,
+				84497549BD37D1199AA60C8421E27A00 /* Pods-DocereeAdsSdkTests-dummy.m */,
+				09E9463B728D780F3F2CA7978A271861 /* Pods-DocereeAdsSdkTests-Info.plist */,
+				4AD22339CF32E8E4E2AE75203BBC766A /* Pods-DocereeAdsSdkTests-umbrella.h */,
+				3EF636D2A84A32264E29B224B5E5B518 /* Pods-DocereeAdsSdkTests.debug.xcconfig */,
+				319CD48EF96DDB38740806002EEB57B6 /* Pods-DocereeAdsSdkTests.release.xcconfig */,
+			);
+			name = "Pods-DocereeAdsSdkTests";
+			path = "Target Support Files/Pods-DocereeAdsSdkTests";
+			sourceTree = "<group>";
+		};
+		53A04BD1B74B76E2A8B42850D40B37D4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5CEE99FBA79238E9335A5E786FB768C1 /* HcpValidationView.swift */,
+				AFD74067A4D6747D4FAE5BA7FE9ABF46 /* HcpValidationViewManager.swift */,
+				630B84DC8FD0315DDF630AB7DA04E9C7 /* AdConsent */,
+				AF5E76DB3B6124B6575238B219DD2F2A /* Adview */,
+				7B5F8AB3AF7EAE22330CA0FA0F6EED85 /* KetchView */,
+			);
+			name = View;
+			path = DocereeAdsSdk/View;
+			sourceTree = "<group>";
+		};
+		579CA7E624700C46CA9063A993D935B0 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				97B5DAA4FBB46BD92D9F421470D540E0 /* DocereeAdSdk */,
 			);
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		5902BF316154E15211D4EB7A7DDA44EA /* Targets Support Files */ = {
+		5A2C0AFA06E72E97E2205E2AF2EC21FE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				ACCCE6945A72BE42D556F761F962B648 /* Pods-DocereeAdsSdk */,
+				E59A21BEE16C4B1B0159E359228EAFB7 /* DocereeAdSdk */,
+				A2C13FBE814D54C2851FDEBE51DD664F /* DocereeAdSdk-DocereeAdsSdk */,
+				8A587F66731F5F5EE6248233B59B5471 /* KetchSDK */,
+				24887CC403CBA3E2ADFAE57F8376E228 /* Pods-DocereeAdsSdk */,
+				2EA8B8648512A6736E5B41B76FCBDD68 /* Pods-DocereeAdsSdkTests */,
 			);
-			name = "Targets Support Files";
+			name = Products;
 			sourceTree = "<group>";
 		};
-		62E9D03B2D600D0044550E2EC1C01921 /* AdConsent */ = {
+		5C5B21CE263AF80DD2AE35012845522B /* DocereeAdsSdk.bundle */ = {
 			isa = PBXGroup;
 			children = (
-				F2C46D5631329CD0D04A1EB33898FC3E /* AdConsentFeedbackHandler.swift */,
-				D35DB52D4C463227DB01C1039B54097A /* AdConsentUIFactory.swift */,
-				BE577999CE796FAC1B95ECBEBC34E9A9 /* AdConsentUIView.swift */,
-				23407DA417E275643DE6338B0BCD31BE /* ConsentConstants.swift */,
-				8276E5ABF862E796634FEA8527A8FFCF /* ConsentModels.swift */,
+				370D664738BF4B3E947DE4FBAAAD506E /* doc1.png */,
+				39059B9EF99BF071BF1E4FC697B165BF /* doc2.png */,
+				D9AF15063F60B296E6E1BE6E01CD8650 /* omsdk-v1.js */,
+			);
+			name = DocereeAdsSdk.bundle;
+			path = DocereeAdsSdk/DocereeAdsSdk.bundle;
+			sourceTree = "<group>";
+		};
+		60295B4C7DBFC8ABF573F106E17ED39E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FF1D36ADF96C39EB90D39AA72DDEA4B2 /* OMSDK_Doceree.xcframework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		630B84DC8FD0315DDF630AB7DA04E9C7 /* AdConsent */ = {
+			isa = PBXGroup;
+			children = (
+				404EF07D6829E3E3262F6CC8CDD3C357 /* AdConsentFeedbackHandler.swift */,
+				ED55E4D057E7524D736D829E873E979F /* AdConsentUIFactory.swift */,
+				BB1B115B341BE3E27676188A4B372C31 /* AdConsentUIView.swift */,
+				92234874E9D2AB854B2917784E64979F /* ConsentConstants.swift */,
+				69171F5C4A2E7839EC0A24CBC0B7F129 /* ConsentModels.swift */,
 			);
 			name = AdConsent;
 			path = AdConsent;
 			sourceTree = "<group>";
 		};
-		768ADE036AB84583589FBE4FEE918684 /* Utillities */ = {
+		6712E160B2489039D5D9A107F3F2184C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				0F47D46103537086EC4594D309F3DA0E /* AdSize.swift */,
-				412EF5D43581C8153B37D0A92281FA1A /* AppInfo.swift */,
-				ED1D69B96A308D9E5F511D74185F1650 /* Constants.swift */,
-				9C262F51DBE03B2010F08B50C453C99A /* CustomTimer.swift */,
-				48CDBB63B207916892BA3ED56EDCC3CA /* DocereeRequestError.swift */,
-				86C3403A19906C90E9CC554F471A3107 /* Enums.swift */,
-				8D185C7DE23AB704C22059939B42A298 /* Helpers.swift */,
-				72921794F98572B153FB2DF32A77C446 /* HTTPSupport.swift */,
-				26F0A2CB071622C3A3E5A09F2FF7CE24 /* ImageLoader.swift */,
-				BFB051B1EC448A620A723C625A5C90B3 /* JsonUtility.swift */,
-				A33D49276553F940613FB688B302E412 /* PathUtility.swift */,
-				D79BC93A7C4F1349504B7DA684326EF5 /* UAString.swift */,
-				51FE640D6D1A3F6BE2068D8D80AB45B0 /* UserDefaultsManager.swift */,
-				91D1C5773FCBBDF2B9A186E180E7965E /* Viewability.swift */,
-				DE36A9C81F93819661BBCE43D5845890 /* Extensions */,
+				BE3FCB0A1E955C5D5A299AA2E39CD922 /* DocereeAdViewDelegate.swift */,
+				B757EC189BA723B6708C705E86975B7F /* DocereeHcpViewDelegate.swift */,
+				905CA1B5CFF055BA643476E401EEE482 /* DocereeMobileAds.swift */,
 			);
-			name = Utillities;
-			path = DocereeAdsSdk/Utillities;
+			name = Helpers;
+			path = DocereeAdsSdk/Helpers;
 			sourceTree = "<group>";
 		};
-		7A19E964D4BD534ACC1DAD006F81ECFD /* Services */ = {
+		700E0BE39AC567095BCE023EAAE20FC4 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				83C56C94EFA8F126E9E33CA4A2012C80 /* Configuration */,
+				2A71865A868C17A6295D02A91D9DA139 /* Pods-DocereeAdsSdk */,
+				4F8C83493A6688A576A93EB31A54ACF7 /* Pods-DocereeAdsSdkTests */,
 			);
-			name = Services;
-			path = DocereeAdsSdk/Services;
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		7B5F8AB3AF7EAE22330CA0FA0F6EED85 /* KetchView */ = {
+			isa = PBXGroup;
+			children = (
+				8919EE115C44120F107B665633D48888 /* CreateCMPView.swift */,
+				F32B89E8DCA67E70F2006F68CA0E9EFC /* KetchViewManager.swift */,
+				048703A3284BA83A01CA3AFE2E2FF1F7 /* MyKetchView.swift */,
+				656F0CDCED98C4D3C8BCE0F25A0D6B6D /* MyKetchViewUIKit.swift */,
+			);
+			name = KetchView;
+			path = KetchView;
 			sourceTree = "<group>";
 		};
 		81224F9F642132EC146D780C2A096FE3 /* Pods */ = {
@@ -483,49 +579,87 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		83C56C94EFA8F126E9E33CA4A2012C80 /* Configuration */ = {
+		90A4F82378A85A19EFEC313E08B35E11 /* api */ = {
 			isa = PBXGroup;
 			children = (
-				05606084CF54524C8DAB040C81E70B25 /* AppConfiguration.swift */,
-				A81270F8BA34E251E67DD8F7DDB46A60 /* ConfigurationService.swift */,
+				750BD57AFB2E074E6489C37FD4DD8F2A /* Header.swift */,
+				A8E99CFCDE40CD093722A0F395D5CF3B /* PatientBuilder.swift */,
+				D624554A85E1D7CCCABB3BFBF55A565D /* PatientSession.swift */,
+				053DF58F68B0EE5002D965A61B34B690 /* PatientSessionApi.swift */,
+				32CF721F9588F8B93FE913141699088A /* StorageManager.swift */,
+				04566BBA0246672B91AA3BDAB30C6F3D /* Utils.swift */,
+			);
+			name = api;
+			path = DocereeAdsSdk/api;
+			sourceTree = "<group>";
+		};
+		958C97AC9DE9BDACC332F743C6A55692 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				7CC3920499411411EE2829BCA5891EAC /* DocereeAdSdk.podspec */,
+				2FAE34DBE4D310026FA7E050183E32FA /* MIT License */,
+				244BECFBA34004DF435C4D372A07D544 /* README.md */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		97B5DAA4FBB46BD92D9F421470D540E0 /* DocereeAdSdk */ = {
+			isa = PBXGroup;
+			children = (
+				4482E883C8FC621C668488B2A5B45161 /* DocereeAdRequest.swift */,
+				6E8D9083B5B80EE61828BEC950FA9010 /* DocereeAdsSdk.bundle */,
+				1731C05978789DDEA1D5243DE900CE0B /* HcpValidationRequest.swift */,
+				792360A46AC688BD2DE7C3A261B93320 /* Media.xcassets */,
+				90A4F82378A85A19EFEC313E08B35E11 /* api */,
+				5C5B21CE263AF80DD2AE35012845522B /* DocereeAdsSdk.bundle */,
+				60295B4C7DBFC8ABF573F106E17ED39E /* Frameworks */,
+				6712E160B2489039D5D9A107F3F2184C /* Helpers */,
+				1F1C3C7D68FBD6C94E0BF3B31C744FFB /* Model */,
+				BA8AF76C3E9FC6BEA3EE36FF85C0F23B /* OM */,
+				958C97AC9DE9BDACC332F743C6A55692 /* Pod */,
+				9DF697AF0BC5E22FF9AE856A09D7CC88 /* Services */,
+				C4151F43F1F406156591680D180C325A /* Support Files */,
+				4013C68FBA37E63621EF4C0815C56A39 /* Utilities */,
+				53A04BD1B74B76E2A8B42850D40B37D4 /* View */,
+			);
+			name = DocereeAdSdk;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		9C8934DB55482BA7EAA7416BD44BC6DA /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				6C3ED4542A9D4724674BAF9FBE55A73E /* AppConfiguration.swift */,
+				B29B35E27C43DD5B00434E437E43F84E /* ConfigurationService.swift */,
 			);
 			name = Configuration;
 			path = Configuration;
 			sourceTree = "<group>";
 		};
-		8414BBD4110E9B21E2867E80083D89BF /* Frameworks */ = {
+		9DF697AF0BC5E22FF9AE856A09D7CC88 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				6376AEE714501953915BAD2CC20E252E /* OMSDK_Doceree.xcframework */,
+				9C8934DB55482BA7EAA7416BD44BC6DA /* Configuration */,
 			);
-			name = Frameworks;
+			name = Services;
+			path = DocereeAdsSdk/Services;
 			sourceTree = "<group>";
 		};
-		95F5088EC41A0FA3F721E2754A109CED /* DocereeAdsSdk.bundle */ = {
+		AF5E76DB3B6124B6575238B219DD2F2A /* Adview */ = {
 			isa = PBXGroup;
 			children = (
-				25907651AD33D4228D93F13520BD262C /* doc1.png */,
-				684D1729721A6E29AA9AF6EF03251A47 /* doc2.png */,
-				60CBBA4CABA30B0E0D995B00C6B1B755 /* omsdk-v1.js */,
+				4EDAB1970FA75E67F28B8C03EAA8911E /* DocereeAdView.swift */,
+				F07FD227E72BBFC8446D6001D63DBFDF /* DocereeAdView+AdUI.swift */,
+				2CDB1FB09C4E18115A0889ADF7DAA85C /* DocereeAdView+Consent.swift */,
+				83688F9A4861F13B37218807331F819C /* DocereeAdView+Lifecycle.swift */,
+				B6B05518914783F49A83B4526DDEEC73 /* DocereeAdView+Loading.swift */,
+				A5506D40EDF6D5E0370B36C12385B6DC /* DocereeAdView+RichMedia.swift */,
+				05B80ED94E9B935DF929A36C67F21F6C /* DocereeAdView+Timer.swift */,
+				C1E923D0C66F23696E5CC06B945B35DC /* DocereeAdView+UIHelpers.swift */,
+				5D7C87845344B54D8F883BEE6524AEFA /* DocereeAdView+WebViewDelegate.swift */,
 			);
-			name = DocereeAdsSdk.bundle;
-			path = DocereeAdsSdk/DocereeAdsSdk.bundle;
-			sourceTree = "<group>";
-		};
-		ACCCE6945A72BE42D556F761F962B648 /* Pods-DocereeAdsSdk */ = {
-			isa = PBXGroup;
-			children = (
-				B8ABB0CDD455F173F778825CA086EC1A /* Pods-DocereeAdsSdk.modulemap */,
-				42B5B40B927FC997CA0E48731D1E1F11 /* Pods-DocereeAdsSdk-acknowledgements.markdown */,
-				5041D3C5E418D6856F4024A49518462C /* Pods-DocereeAdsSdk-acknowledgements.plist */,
-				390F6932348CC2154538DDBB4035D67F /* Pods-DocereeAdsSdk-dummy.m */,
-				9BE0EE697235E57962959F1798B352A4 /* Pods-DocereeAdsSdk-Info.plist */,
-				05CF6CC6A71D28ADD1CBEEACDE246CD0 /* Pods-DocereeAdsSdk-umbrella.h */,
-				71BBDFDC7B565376F174F216088991E9 /* Pods-DocereeAdsSdk.debug.xcconfig */,
-				337199CB6D3328AC7A2CD2E5CCEEF398 /* Pods-DocereeAdsSdk.release.xcconfig */,
-			);
-			name = "Pods-DocereeAdsSdk";
-			path = "Target Support Files/Pods-DocereeAdsSdk";
+			name = Adview;
+			path = Adview;
 			sourceTree = "<group>";
 		};
 		B02F56FD940769A83F95E641E79608E4 /* iOS */ = {
@@ -538,139 +672,69 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		B585FEC796055964FAE9D36041986972 /* Model */ = {
+		BA8AF76C3E9FC6BEA3EE36FF85C0F23B /* OM */ = {
 			isa = PBXGroup;
 			children = (
-				A2BDB80A458AB41F5207664C46A68894 /* adBlockRequest.swift */,
-				82C7C35E6EC76722A63C93442B2DFE50 /* AdRequest.swift */,
-				AEDF336C7ED0768A59644784E90A943E /* AdResponse.swift */,
-				D480956F7C1EE655D7C99C9BD46B28CD /* HcpProfile.swift */,
-				7B9298A3C439395D07118573815E422C /* HcpValidation.swift */,
-				C1B1D978EE15FF4E5390F1EC6D2042E6 /* PatientData.swift */,
-				7CE34C21A023051B55545980EA41DBE2 /* PlatformData.swift */,
-				A7D471DD001E5AAF458DE83FD23174B2 /* PopupModel.swift */,
-			);
-			name = Model;
-			path = DocereeAdsSdk/Model;
-			sourceTree = "<group>";
-		};
-		B85BBF241A0778C5D748486791885D48 /* DocereeAdSdk */ = {
-			isa = PBXGroup;
-			children = (
-				3B501EC773BDB7CAB5E79BBD75ADDB29 /* CreateCMPView.swift */,
-				146A2244165C2D0526C8062A3CEBE27B /* DocereeAdRequest.swift */,
-				3919DB34F2838340179A0449C31871DD /* DocereeAdsSdk.bundle */,
-				663046550D8815EE1DAE3055B15BAE9C /* HcpValidationRequest.swift */,
-				E6E47B61D1B0A3D303CDBA6CA982BDA4 /* Media.xcassets */,
-				1764DEB5951CC453B7DE73CA5CFE2DE8 /* MyKetchView.swift */,
-				312484B7E4F7E3CACC16A723C84EFE58 /* MyKetchViewUIKit.swift */,
-				1ADBF14166394E3A55BA07BDA3B0B83D /* api */,
-				95F5088EC41A0FA3F721E2754A109CED /* DocereeAdsSdk.bundle */,
-				8414BBD4110E9B21E2867E80083D89BF /* Frameworks */,
-				D44251EBBECA5CC28A22F71CCBECF3B8 /* Helpers */,
-				B585FEC796055964FAE9D36041986972 /* Model */,
-				CA48D91F2BFE01F6FC964905709AD44B /* OM */,
-				C96B79DEE32C8A4DD01072DCD0F331E5 /* Pod */,
-				7A19E964D4BD534ACC1DAD006F81ECFD /* Services */,
-				23CB90481799C730BEB9DC74191CFE65 /* Support Files */,
-				768ADE036AB84583589FBE4FEE918684 /* Utillities */,
-				25FECDBBE46650C90C26A28FF660E307 /* View */,
-			);
-			name = DocereeAdSdk;
-			path = "/Users/muqeem.ahmad/Documents/Projects/docereeiosmainnew/ios-sdk-new";
-			sourceTree = "<absolute>";
-		};
-		C5B763C43FBF51A4954530CA21ECB8EC /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				E59A21BEE16C4B1B0159E359228EAFB7 /* DocereeAdSdk */,
-				A2C13FBE814D54C2851FDEBE51DD664F /* DocereeAdSdk-DocereeAdsSdk */,
-				8A587F66731F5F5EE6248233B59B5471 /* KetchSDK */,
-				24887CC403CBA3E2ADFAE57F8376E228 /* Pods-DocereeAdsSdk */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		C96B79DEE32C8A4DD01072DCD0F331E5 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				E382E1C7E78209BF35522E74EA3770B2 /* DocereeAdSdk.podspec */,
-				9B5C924095ACCDE1E2DC3F37EAFC29D1 /* MIT License */,
-				98BB883B30159DF1AB8EE4AAB1AD0FA1 /* README.md */,
-			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
-		CA48D91F2BFE01F6FC964905709AD44B /* OM */ = {
-			isa = PBXGroup;
-			children = (
-				56CD28076F656E51E931476BB4C07290 /* AdUnit.swift */,
-				7C32D2F50D938908A2254CC569D7799E /* OMIDSessionInteractor.swift */,
+				7A1CACA55273E7D6738E14692F31C8E2 /* AdUnit.swift */,
+				26A2523C1D477E228B90808BC98941A0 /* OMIDSessionInteractor.swift */,
 			);
 			name = OM;
 			path = DocereeAdsSdk/OM;
+			sourceTree = "<group>";
+		};
+		C4151F43F1F406156591680D180C325A /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				72D4EAC6037AC7DCDAB3E2B38D208227 /* DocereeAdSdk.modulemap */,
+				ED2C7D08723B60338E88AB7DA7D84473 /* DocereeAdSdk-dummy.m */,
+				2EF3B7BE021EF3266E75645B4428A3F6 /* DocereeAdSdk-Info.plist */,
+				48B79DC90D56BE1BD75FC5B09405BBD9 /* DocereeAdSdk-prefix.pch */,
+				B935EC3E0C419DD59BEB736AA4F2F681 /* DocereeAdSdk-umbrella.h */,
+				5A492AD2E1062C919C627BCAABAE6F92 /* DocereeAdSdk-xcframeworks.sh */,
+				E67192314C5648CD2D9D7296DE9A1EA2 /* DocereeAdSdk.debug.xcconfig */,
+				E797E7DE02AEDF9871B8471B04F5DE99 /* DocereeAdSdk.release.xcconfig */,
+				01F0D15250154568B5BF0965C20CD8E4 /* ResourceBundle-DocereeAdsSdk-DocereeAdSdk-Info.plist */,
+			);
+			name = "Support Files";
+			path = "Pods/Target Support Files/DocereeAdSdk";
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				561C6FB905D6402625495E6F203AE0AA /* Development Pods */,
+				579CA7E624700C46CA9063A993D935B0 /* Development Pods */,
 				03C5C200A0787E300053CFA8F53CA094 /* Frameworks */,
 				81224F9F642132EC146D780C2A096FE3 /* Pods */,
-				C5B763C43FBF51A4954530CA21ECB8EC /* Products */,
-				5902BF316154E15211D4EB7A7DDA44EA /* Targets Support Files */,
+				5A2C0AFA06E72E97E2205E2AF2EC21FE /* Products */,
+				700E0BE39AC567095BCE023EAAE20FC4 /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		D44251EBBECA5CC28A22F71CCBECF3B8 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				A82532D2003E985CF82CAE2FCE54C50D /* DocereeAdViewDelegate.swift */,
-				C3E155A7741A6EB1EBC44D20CF36DADD /* DocereeHcpViewDelegate.swift */,
-				FC1EF5CB001340DFA265FF290635657B /* DocereeMobileAds.swift */,
-			);
-			name = Helpers;
-			path = DocereeAdsSdk/Helpers;
-			sourceTree = "<group>";
-		};
-		DE36A9C81F93819661BBCE43D5845890 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				24942459DDA8F15418272F45C07F40F7 /* DateExtension.swift */,
-				7CDCB7884A3B4CC2DF3F590AF5AB4830 /* Extensions.swift */,
-				F2330A74576C91ECCB07B51DC732B95A /* ImageExtensions.swift */,
-				D705FA90AF2970F2AD59BDA2A35F5A73 /* StringExtensions.swift */,
-			);
-			name = Extensions;
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		E6981C6D2598F7DBCA50AFE3E842FB76 /* Adview */ = {
-			isa = PBXGroup;
-			children = (
-				B95C2D082BBAEAE7F0FD7CBE096AF0BE /* DocereeAdView.swift */,
-				F713572B31E57BB4DC030ACFDB2CEF59 /* DocereeAdView+AdUI.swift */,
-				ACD576C2957717515C94ED877DC76392 /* DocereeAdView+Consent.swift */,
-				E58BF0CEB3D555CE0561DB7EEBA94205 /* DocereeAdView+Lifecycle.swift */,
-				1FE4F55223BC6B3D2B5233B7C63D2C04 /* DocereeAdView+Loading.swift */,
-				7BBB83C41E0AB38B3CC6C759ECBEE27F /* DocereeAdView+RichMedia.swift */,
-				E394A76EF6192A7047480C767D5EB654 /* DocereeAdView+Timer.swift */,
-				7E5250986F3ADB4721D4627F0766D97F /* DocereeAdView+UIHelpers.swift */,
-				08956094F687AD837F4CAE2A07E0D695 /* DocereeAdView+WebViewDelegate.swift */,
-			);
-			name = Adview;
-			path = Adview;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		845133AB18308409A113132F9861278F /* Headers */ = {
+		216E32066472A69DC4DC2BD3E944AC37 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37CAB857E62F4977E8418F6C412694B0 /* DocereeAdSdk-umbrella.h in Headers */,
+				7F9E32CC8924DC2BEAC10DDB236423C5 /* KetchSDK-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75CB6074E2A9A95908B6D8303A19A0A4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69F937F2D4FBA52F2D4784D90FD1563F /* Pods-DocereeAdsSdkTests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7F1E2658F54733F10C63D4825053A99 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C2094AD7124CB346CCFB1C47AC5EFCE /* DocereeAdSdk-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -682,24 +746,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F2E765F38CD6BAF3A34FE7AE5DC3BD24 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2734EBF8B584FB61DFE6DAE284C5F56F /* KetchSDK-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		0F1FC470CA1799C3CD29347DB313E9C7 /* DocereeAdSdk-DocereeAdsSdk */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D040A11A3BF3123496D9E5A469F71543 /* Build configuration list for PBXNativeTarget "DocereeAdSdk-DocereeAdsSdk" */;
+			buildConfigurationList = CBB7176F01DCFDABC64DFEEADA1FE1AA /* Build configuration list for PBXNativeTarget "DocereeAdSdk-DocereeAdsSdk" */;
 			buildPhases = (
-				C908DB60BC3B17C95A87463BB40C1697 /* Sources */,
-				81BED5F2A3A04FB1719DC76A58D80949 /* Frameworks */,
-				B27CEB4270CAF7C923E162108D8AC87F /* Resources */,
+				EE09C35C1C1B1CFDAD99668E4EC92E1B /* Sources */,
+				65089E7E8BDAB7F5B6F5C087E9362E9B /* Frameworks */,
+				6D8F0B93F37634E312D44A0ABE36EA6A /* Resources */,
 			);
 			buildRules = (
 			);
@@ -712,12 +768,12 @@
 		};
 		688F94C8A781975312A010D6D4AD1805 /* KetchSDK */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 638E03E96B7C8224844DC0E3212DA737 /* Build configuration list for PBXNativeTarget "KetchSDK" */;
+			buildConfigurationList = 6F0D8F52A2F3BC6E71E9E50F832B6570 /* Build configuration list for PBXNativeTarget "KetchSDK" */;
 			buildPhases = (
-				F2E765F38CD6BAF3A34FE7AE5DC3BD24 /* Headers */,
-				945A8A91ECE1D103AE5E6CCF930100BE /* Sources */,
-				91EC2F2CC8982774056B746797D665CD /* Frameworks */,
-				0811608303BD57E9917ED2D12E171965 /* Resources */,
+				216E32066472A69DC4DC2BD3E944AC37 /* Headers */,
+				4C1C568BD1B63F8DF131621EDE76EFFA /* Sources */,
+				8BEDD4E9CEFDDDDBD43F03CA444C7FCC /* Frameworks */,
+				8027DFAE260ED8F71D24C70F319F08B8 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -730,19 +786,19 @@
 		};
 		7A6F653E76ABCE1988760E341C2F68C8 /* DocereeAdSdk */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5FE96DA02673F4CC255E114CF8093C85 /* Build configuration list for PBXNativeTarget "DocereeAdSdk" */;
+			buildConfigurationList = EFE8E7C356E888EF2FFA59375691B87E /* Build configuration list for PBXNativeTarget "DocereeAdSdk" */;
 			buildPhases = (
-				845133AB18308409A113132F9861278F /* Headers */,
-				E6A5A39C598D155A17BE6057794799FF /* [CP] Copy XCFrameworks */,
-				725E3FD0B45B34467AF26D91881A50F9 /* Sources */,
-				20FF1C8ADFB96F0926089C3E85B02E67 /* Frameworks */,
-				276805C16376A8AD8ACEC3F413806A3E /* Resources */,
+				A7F1E2658F54733F10C63D4825053A99 /* Headers */,
+				3BD8D0A59E742A353EC196B39E9B9F3F /* [CP] Copy XCFrameworks */,
+				801991C8FD8F361274FADFBD691C62D3 /* Sources */,
+				5F88741C01FB9E9C5D61543859674586 /* Frameworks */,
+				4F23E5BE216471E09C0A71D00C199BE9 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				ABC8582C80962881E15513FE7E756D4E /* PBXTargetDependency */,
-				23A2A31736320882E9FE40901618CBBA /* PBXTargetDependency */,
+				4E9F9C1D5B660EBAA205F8C11B49E0AC /* PBXTargetDependency */,
+				E52C82E6CF15D970F5971C4C119CDD3C /* PBXTargetDependency */,
 			);
 			name = DocereeAdSdk;
 			productName = DocereeAdSdk;
@@ -761,12 +817,31 @@
 			buildRules = (
 			);
 			dependencies = (
-				38A2CCDA9D86C4A683E7188C02B9D81F /* PBXTargetDependency */,
-				FE02D81ED50CF3F9E211DA5D9B7CBDAB /* PBXTargetDependency */,
+				E50754840C7FA2C18A72A8A7D8D4FB87 /* PBXTargetDependency */,
+				C8A662C21F125866D463ADD3448766BF /* PBXTargetDependency */,
 			);
 			name = "Pods-DocereeAdsSdk";
 			productName = Pods_DocereeAdsSdk;
 			productReference = 24887CC403CBA3E2ADFAE57F8376E228 /* Pods-DocereeAdsSdk */;
+			productType = "com.apple.product-type.framework";
+		};
+		8819ED31A74E3CDB794080EAF0BBDE20 /* Pods-DocereeAdsSdkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FAA8AEB61C2F3655F0A17772E0E52C0C /* Build configuration list for PBXNativeTarget "Pods-DocereeAdsSdkTests" */;
+			buildPhases = (
+				75CB6074E2A9A95908B6D8303A19A0A4 /* Headers */,
+				82E11FEB2ED4C83B4A4DB18F1562C408 /* Sources */,
+				369F5CDD54ECDC5E980B55807838BCA1 /* Frameworks */,
+				4D77B4549010E5DFA10B0ED2143E665F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BF31211D097EEDA6C2A732536916ADEA /* PBXTargetDependency */,
+			);
+			name = "Pods-DocereeAdsSdkTests";
+			productName = Pods_DocereeAdsSdkTests;
+			productReference = 2EA8B8648512A6736E5B41B76FCBDD68 /* Pods-DocereeAdsSdkTests */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -789,7 +864,7 @@
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			minimizedProjectReferenceProxies = 0;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = C5B763C43FBF51A4954530CA21ECB8EC /* Products */;
+			productRefGroup = 5A2C0AFA06E72E97E2205E2AF2EC21FE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -797,19 +872,12 @@
 				0F1FC470CA1799C3CD29347DB313E9C7 /* DocereeAdSdk-DocereeAdsSdk */,
 				688F94C8A781975312A010D6D4AD1805 /* KetchSDK */,
 				80BC09374BCD515EC7E24D1333DBE23C /* Pods-DocereeAdsSdk */,
+				8819ED31A74E3CDB794080EAF0BBDE20 /* Pods-DocereeAdsSdkTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		0811608303BD57E9917ED2D12E171965 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				368128678A8751EC4F7D9FBB951A43CF /* index.html in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		1C1D985678847AD987672709A4F411EF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -817,30 +885,45 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		276805C16376A8AD8ACEC3F413806A3E /* Resources */ = {
+		4D77B4549010E5DFA10B0ED2143E665F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C93BD00D2B0EFD8B63FA296FD78A1EC7 /* DocereeAdSdk-DocereeAdsSdk in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B27CEB4270CAF7C923E162108D8AC87F /* Resources */ = {
+		4F23E5BE216471E09C0A71D00C199BE9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECF7DEAEFC6937B0406E5804CC8CA289 /* doc1.png in Resources */,
-				6F09390A7CD35B06607CF83D25F09231 /* doc2.png in Resources */,
-				43D88A839C49922A2FFF23C9C50ED52D /* DocereeAdsSdk.bundle in Resources */,
-				ED13F0C674C8123FD89B3C48F13FE5BF /* Media.xcassets in Resources */,
-				9AA17036A0172DD69EA485FA149463A8 /* omsdk-v1.js in Resources */,
+				353AC3A5CAFA0D62C06D8F5ABDF39673 /* DocereeAdSdk-DocereeAdsSdk in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D8F0B93F37634E312D44A0ABE36EA6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00D61293DE04FD6BF19FED9BB39B33CC /* doc1.png in Resources */,
+				AE5407E5680D8476231EFF2743BB4C0B /* doc2.png in Resources */,
+				A88CCC0269B64BCB0D22C630CFB55A3B /* DocereeAdsSdk.bundle in Resources */,
+				11E3AC45221A2364CCC834D0E445D4D5 /* Media.xcassets in Resources */,
+				CE874CE5ADE2EBE9D02E0063F1C1ADD7 /* omsdk-v1.js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8027DFAE260ED8F71D24C70F319F08B8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46A8A182B5AF66177A472D8BAEDDD489 /* index.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		E6A5A39C598D155A17BE6057794799FF /* [CP] Copy XCFrameworks */ = {
+		3BD8D0A59E742A353EC196B39E9B9F3F /* [CP] Copy XCFrameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -860,110 +943,109 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		725E3FD0B45B34467AF26D91881A50F9 /* Sources */ = {
+		4C1C568BD1B63F8DF131621EDE76EFFA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C50330CEC8E33A6B63FE4BBF3DA6F81 /* adBlockRequest.swift in Sources */,
-				4F98E77A44713D68D536C68C4ADC6D9B /* AdConsentFeedbackHandler.swift in Sources */,
-				E6FBFB9C0B5E1264E7CF5A045AC81C06 /* AdConsentUIFactory.swift in Sources */,
-				A6E7722C710E0D2C397A5A830BA5EF8A /* AdConsentUIView.swift in Sources */,
-				52667C6B196629F10B5459BDF97A0100 /* AdRequest.swift in Sources */,
-				7D3A967CE7ABD544AC4B68D0FBF11D21 /* AdResponse.swift in Sources */,
-				7F501A959B75CC111CD24DA7A24EFB08 /* AdSize.swift in Sources */,
-				437B628C62D8991E000BCD1F320AE106 /* AdUnit.swift in Sources */,
-				7A18A38D2408C9139A2310F0B1DACA2C /* AppConfiguration.swift in Sources */,
-				F446A7208F407D01A773B7BD77AF95DC /* AppInfo.swift in Sources */,
-				F016EE92E8682CFC4FC038D92B555D7A /* ConfigurationService.swift in Sources */,
-				6EC9A20E08665C8E4A94CB8A8A188778 /* ConsentConstants.swift in Sources */,
-				56AFACC3F43B24639AEAEC86A9752BF9 /* ConsentModels.swift in Sources */,
-				276C30AEE20C1CAA31ECC0252E90C9B7 /* Constants.swift in Sources */,
-				3F601DBCA84EB46E6BC752264EDD2F49 /* CreateCMPView.swift in Sources */,
-				7C4937190E07D5CF103155064B08F88F /* CustomTimer.swift in Sources */,
-				9036E0C89D79641FA12D62FEB704B495 /* DateExtension.swift in Sources */,
-				7142E425D18D70173ACF663858C4FA17 /* DocereeAdRequest.swift in Sources */,
-				BCF33F6B6FE80A67DB1622E3CE3883D9 /* DocereeAdSdk-dummy.m in Sources */,
-				EF4D5DA4A8C8FCE4AD6244E179F007B8 /* DocereeAdView.swift in Sources */,
-				0C9FFBDA6ADA0CD30DF1461002F580F3 /* DocereeAdView+AdUI.swift in Sources */,
-				04E5659D722484DA4A446654F497DDF0 /* DocereeAdView+Consent.swift in Sources */,
-				66D7CFA121B869AA69DB94A027959307 /* DocereeAdView+Lifecycle.swift in Sources */,
-				DD585242AE043DF6A926C5C962634F88 /* DocereeAdView+Loading.swift in Sources */,
-				F4412DB7CFE627DF758DE08F4B3F5D0B /* DocereeAdView+RichMedia.swift in Sources */,
-				D81112D638E4624CB9298E3120718604 /* DocereeAdView+Timer.swift in Sources */,
-				5B2F6F59284B4C67723A154E29539CFF /* DocereeAdView+UIHelpers.swift in Sources */,
-				0F643D38D397AB5B2D45383994F55ABF /* DocereeAdView+WebViewDelegate.swift in Sources */,
-				D3429E134B15D29A100597F468867C0E /* DocereeAdViewDelegate.swift in Sources */,
-				AB7007F3ED82ACD1922AC3F3E97D66DB /* DocereeHcpViewDelegate.swift in Sources */,
-				0478015501D1B6FDC129F344002EE49A /* DocereeMobileAds.swift in Sources */,
-				62BBADB2FD29EEB63106165A2C6CBD34 /* DocereeRequestError.swift in Sources */,
-				9E562342E9E33B5B89542514B6C11994 /* Enums.swift in Sources */,
-				358DD72003CBD59E014B47A9B9BB344A /* Extensions.swift in Sources */,
-				4A064F1444A6DC27EBC545372F37B6B3 /* HcpProfile.swift in Sources */,
-				AAB2225C3D409216B7864752DF565CEF /* HcpValidation.swift in Sources */,
-				C08040E22E454A7D8AB1340FD652B730 /* HcpValidationRequest.swift in Sources */,
-				A5B788EA55FB4738499CBD8D91F46F2D /* HcpValidationView.swift in Sources */,
-				01EC70865806EBDF9EECA42643D96DB0 /* HcpValidationViewManager.swift in Sources */,
-				0F131558C968875C63BA06E39B14BCEB /* Header.swift in Sources */,
-				4E349F788C250B2F7193CFAEC890DB4E /* Helpers.swift in Sources */,
-				3A4D8A299777BAEE20DCFB6A6F0ED8E4 /* HTTPSupport.swift in Sources */,
-				6421877CABB93301550D9F2DBDA41D43 /* ImageExtensions.swift in Sources */,
-				67EA1D3977E422FD0081914C7C055BD4 /* ImageLoader.swift in Sources */,
-				5AAB08830DBB4B1CD6EF238C0C4A5E51 /* JsonUtility.swift in Sources */,
-				79B1EF33C1F4519839AA77F3CEC53DF2 /* MyKetchView.swift in Sources */,
-				DF2F4351E21ECBC206CAD70A8CA6A64E /* MyKetchViewUIKit.swift in Sources */,
-				C6F4638E5C677EC8710CCBA4C0D6615D /* OMIDSessionInteractor.swift in Sources */,
-				3D3171CA9C1E774D10940B8BAAC0376B /* PathUtility.swift in Sources */,
-				F2973A586EF1B05ECE1D27AB1500E1D9 /* PatientBuilder.swift in Sources */,
-				3D16649A383F46F55671530D8D848CE6 /* PatientData.swift in Sources */,
-				EE8A3B680885846166F5A8CF349B0D66 /* PatientSession.swift in Sources */,
-				0C546EFF703AEB51D17498D54F3851A8 /* PatientSessionApi.swift in Sources */,
-				7B45720F8704BBE9FE921402F6B6FC37 /* PlatformData.swift in Sources */,
-				81770FB2605BA6704F76F796A7E5DD95 /* PopupModel.swift in Sources */,
-				D5DD98904F92FDF2238F321204BFC1D4 /* StorageManager.swift in Sources */,
-				481DCC445A41D4EE6D3E15D1E15BFD40 /* StringExtensions.swift in Sources */,
-				F95EE8730B423BA338F68FB5FDDACF5A /* UAString.swift in Sources */,
-				EC35C35DB7231CE97C8C92C587D634EA /* UserDefaultsManager.swift in Sources */,
-				1A0641E143F6E6C8191B20C7240392EF /* Utils.swift in Sources */,
-				9BAA8BE60F999CC3441E08103151D8E0 /* Viewability.swift in Sources */,
+				0BC78C974653983CD1C19382ADE89F94 /* ApiRequest.swift in Sources */,
+				19CA78638087FFD4421849EC8FEC174F /* Bundle+KetchUI.swift in Sources */,
+				38E4BCBE0580D4E9FACD11A2A6F08B35 /* Configuration.swift in Sources */,
+				717B1DE55776EDF0929DBF6B9E874C19 /* Consent.swift in Sources */,
+				44FB93BBA306A9CFFB51A30E0A943CCF /* index.html in Sources */,
+				DE04AC40982289CE3D5E0E68F2773D28 /* InvokeRight.swift in Sources */,
+				A040732ADD105123AEEDFC274B01F1CC /* Ketch.swift in Sources */,
+				61B1FB968F937D9D7EC8F6D21683D312 /* KetchApiRequest.swift in Sources */,
+				CC3C884025BBF94A62CF742BA95A158E /* KetchError.swift in Sources */,
+				C9FF4C439D00C07D194C611E6303063C /* KetchLogger.swift in Sources */,
+				7835430AC7C26F986FCD0AF0D0852AAF /* KetchSDK.swift in Sources */,
+				78563D3B0AAE5C892770C3353ED87754 /* KetchSDK-dummy.m in Sources */,
+				4C8C29ED1E12FD3497F1729FD68D5839 /* KetchUI.swift in Sources */,
+				A1D893EDDE4EDC95D9DCE22285B592B8 /* KeyboardResponder.swift in Sources */,
+				8F603142E0506FBB55A2F7717DAE8B67 /* PolicyProtocol.swift in Sources */,
+				2E618CC4F22C8906CD33BBC69B3D123F /* PresentationItem.swift in Sources */,
+				5E43A7F4FBD8782609DF2FE191018376 /* PresentationItem+View.swift in Sources */,
+				EF99235FD7183974BB31AA624039B9AF /* PresentationItem+ViewController.swift in Sources */,
+				E7CC341C06B7FF46EC5985C22A19408C /* RandomAccessCollection+IdentifiableIndices.swift in Sources */,
+				79D1B4E42513712171810D3C4E442148 /* String+Validation.swift in Sources */,
+				9F2F9CEF07118D6136B47D89B0AE7611 /* Strings.swift in Sources */,
+				68BEA62A3EE730B9D357EDA5314D82CA /* Vendors.swift in Sources */,
+				AA92E1C20722892F04D39BDE91C0A175 /* View+KetchViewModifier.swift in Sources */,
+				C89AC3CD38F0DAEB31727DCB7E3E06F2 /* View+ResponsiveSheet.swift in Sources */,
+				D760E61CFBCAC1672D3C82B824580422 /* WebConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		945A8A91ECE1D103AE5E6CCF930100BE /* Sources */ = {
+		801991C8FD8F361274FADFBD691C62D3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0151EC6537A45001EEC401D1D94FB452 /* ApiRequest.swift in Sources */,
-				B751E4C3F194920BF985FEAD5C1E5839 /* Bundle+KetchUI.swift in Sources */,
-				2CF55149A5DFAA6E7871355AFDD1518B /* Configuration.swift in Sources */,
-				5FB6C72C17D466A86A0CACA596B7AE37 /* Consent.swift in Sources */,
-				E010D6A8E971B54EBE78016AE911E77F /* index.html in Sources */,
-				86A181E051E1D7B4770C00A953687A89 /* InvokeRight.swift in Sources */,
-				4AB080D1219AE478AAF24438526F6E22 /* Ketch.swift in Sources */,
-				D2CFCD1FDCCC5C85CE4E8149EC993FE0 /* KetchApiRequest.swift in Sources */,
-				DB2D9274FD830AD170848717EBA1DC90 /* KetchError.swift in Sources */,
-				27CFE3E5BDBC443B1B299782A5E0B55E /* KetchLogger.swift in Sources */,
-				2E1A454DE58CCA1EAF98ACC2E4C8AD32 /* KetchSDK.swift in Sources */,
-				08303BD3249D6B64024FC6A3F9DD4ED8 /* KetchSDK-dummy.m in Sources */,
-				80F2D01009DEA6CF788388620655819C /* KetchUI.swift in Sources */,
-				C1C45383B9E906313EA7F9A753AEA7FF /* KeyboardResponder.swift in Sources */,
-				6F77B738EA68F4A957D034D70DE47556 /* PolicyProtocol.swift in Sources */,
-				CBB16171BFEEF581C7B1A520A635136B /* PresentationItem.swift in Sources */,
-				CCC631AC3B0F28B728F36390F30F6C58 /* PresentationItem+View.swift in Sources */,
-				EBA9D642B1DA1DDD414A81128BEA00E0 /* PresentationItem+ViewController.swift in Sources */,
-				7E2B194AA2AF0AE08D760106E3153B07 /* RandomAccessCollection+IdentifiableIndices.swift in Sources */,
-				C34DF5F86541E5447EEDB7E07C496E8D /* String+Validation.swift in Sources */,
-				CB1BB05AD61378E8ABD76658FCD5F26D /* Strings.swift in Sources */,
-				6108BE32BCE8502DFF9B8E5DDE1307F7 /* Vendors.swift in Sources */,
-				85720F5D3DF852B8B418651008E6C3B8 /* View+KetchViewModifier.swift in Sources */,
-				A28A744C7632C036AECDF5CE30CD4A79 /* View+ResponsiveSheet.swift in Sources */,
-				FE8C5541BE526D81B9E6F616E251A83F /* WebConfig.swift in Sources */,
+				AAE98255915A899139C09A0F437CD139 /* adBlockRequest.swift in Sources */,
+				62963CFB0E6C5DC3E19150823701B3DA /* AdConsentFeedbackHandler.swift in Sources */,
+				67D8B13BBCC45AD8D1D43958E8F3DB81 /* AdConsentUIFactory.swift in Sources */,
+				99D48FB0D89B5C9531F6909CDD206661 /* AdConsentUIView.swift in Sources */,
+				30E49CBE3296E9927999C8291F48D3F0 /* AdRequest.swift in Sources */,
+				71108FABC2F1F9899BBEFD3DC7D8DBAC /* AdResponse.swift in Sources */,
+				982F2B5426E30B2EED97848BF60B6244 /* AdSize.swift in Sources */,
+				DD9337804985122B0D5F327269E7582C /* AdUnit.swift in Sources */,
+				49072E3E49DA08A788E78C43CE8F9542 /* AppConfiguration.swift in Sources */,
+				72DECFAC0BB4F2BC8990273CF9E9DE7D /* ConfigurationService.swift in Sources */,
+				D33EED785163528502F10B67E30F5BCB /* ConsentConstants.swift in Sources */,
+				DE918FD46D1E49C4199D644E59DF084D /* ConsentModels.swift in Sources */,
+				55C199B60DA963825B358034C4839450 /* Constants.swift in Sources */,
+				331253EC6894AA835CFA13978F41D651 /* CreateCMPView.swift in Sources */,
+				8D40EA09D401DE281BFAD4F7BFD9A455 /* CustomTimer.swift in Sources */,
+				E9B2CB9728FA7C5FC51BD653D5E13D29 /* DocereeAdRequest.swift in Sources */,
+				BE3DD42519E2228CE96A1E182C60C204 /* DocereeAdSdk-dummy.m in Sources */,
+				311B4DA39FE82AF5394FC61C79E65EC6 /* DocereeAdView.swift in Sources */,
+				DBB28CDA54CA6CC05D1986C8169E539C /* DocereeAdView+AdUI.swift in Sources */,
+				49DE62013E0916AB16B935AC5D8269CD /* DocereeAdView+Consent.swift in Sources */,
+				3E92A3D651368896CD5EB7CD6D4202EB /* DocereeAdView+Lifecycle.swift in Sources */,
+				D604D2A730FCAB7E5297A41D89D76788 /* DocereeAdView+Loading.swift in Sources */,
+				6C0EAE84A63760FADADAA87D81390ACA /* DocereeAdView+RichMedia.swift in Sources */,
+				AD9E7ADB45FE53DA1A5EC5983ACEE4E2 /* DocereeAdView+Timer.swift in Sources */,
+				19FDC3A56A0B0CE30E08B8B816BA2E7F /* DocereeAdView+UIHelpers.swift in Sources */,
+				09601E39A468E953BDA371B1D2BE04B9 /* DocereeAdView+WebViewDelegate.swift in Sources */,
+				BFAD07EF802B8758D9C51838B43FC672 /* DocereeAdViewDelegate.swift in Sources */,
+				1A337921BB11DB4B076003C4829D7383 /* DocereeHcpViewDelegate.swift in Sources */,
+				7959EBB99FD9DD24B5DCF86E178F75D0 /* DocereeMobileAds.swift in Sources */,
+				E043F8634EC0452FCBF4BC0805797FAC /* DocereeRequestError.swift in Sources */,
+				D4FDFB165513006D50A45526A4264FB4 /* Enums.swift in Sources */,
+				0E43AA6CAD75D7F03C7421302BDA352A /* Extensions.swift in Sources */,
+				A8A14AD626DB7C34BDCFA575A9435BCA /* HcpProfile.swift in Sources */,
+				EAC4C907FFB032424D61DF60E2DA0C73 /* HcpValidation.swift in Sources */,
+				D883DF2C3E656752C5E6AC6C4B65E3AF /* HcpValidationRequest.swift in Sources */,
+				D28D87A6AA94375245ECA4F170DF8782 /* HcpValidationView.swift in Sources */,
+				4908FB85ABD138B84DA14D1CF43EA74B /* HcpValidationViewManager.swift in Sources */,
+				A7153B3B8DDA1DE6E4B41733B25FF0D8 /* Header.swift in Sources */,
+				4927C4E865BD1A6CA9E885F51D2C4656 /* Helpers.swift in Sources */,
+				6F2439C266CE484F3AE2831C8AD9ECD9 /* HTTPSupport.swift in Sources */,
+				3D49B6A3D20722DAF287C51355261107 /* ImageExtensions.swift in Sources */,
+				967C25DBC54BFE95DA626FDEDC03FCA0 /* ImageLoader.swift in Sources */,
+				C28DD9E99C8971AFB66645520328E760 /* JsonUtility.swift in Sources */,
+				969F260D200CAED8E983D16432FC5E17 /* KetchViewManager.swift in Sources */,
+				16C559477522A89F6BC0368810F8FD99 /* MyKetchView.swift in Sources */,
+				DFD6ACFA8FC7BFA786A27CE7FF5D29EF /* MyKetchViewUIKit.swift in Sources */,
+				CC22218A7E31F1DF043A0876DFC7FB91 /* OMIDSessionInteractor.swift in Sources */,
+				96D4F4465BF686D8C86A30E20FBD08CF /* PathUtility.swift in Sources */,
+				8A2A939091EEE199AD1DE0CA50B03912 /* PatientBuilder.swift in Sources */,
+				0E6D2D14A5061039D2599272BD5D503F /* PatientData.swift in Sources */,
+				1C8544C65BB9B366A65D4DB54A949B36 /* PatientSession.swift in Sources */,
+				5283053490884AE4309C07088619E62E /* PatientSessionApi.swift in Sources */,
+				615B28992A41F65E3F77F4C8A0508E0E /* PlatformData.swift in Sources */,
+				EBB17EEDFE4B7DC5CE715C4964B18FE4 /* PopupModel.swift in Sources */,
+				9852BE651E9723D52A36DDE9096EE697 /* StorageManager.swift in Sources */,
+				BCDBC6D5F18F09DC9C6FADD6558B4DED /* UAString.swift in Sources */,
+				8396CA900D6B4C312E6B00C58770043E /* UserDefaultsManager.swift in Sources */,
+				7C5163C965367A480E004F26D8CDF89B /* Utils.swift in Sources */,
+				CA080DD29A69275D7D7506122AB3873E /* Viewability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C908DB60BC3B17C95A87463BB40C1697 /* Sources */ = {
+		82E11FEB2ED4C83B4A4DB18F1562C408 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE0DDF197B4770E0691C49A322C2C0E2 /* Pods-DocereeAdsSdkTests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -975,41 +1057,70 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EE09C35C1C1B1CFDAD99668E4EC92E1B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		23A2A31736320882E9FE40901618CBBA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = KetchSDK;
-			target = 688F94C8A781975312A010D6D4AD1805 /* KetchSDK */;
-			targetProxy = 75D9FCE5B7C1DE5DA69C127980E5F36C /* PBXContainerItemProxy */;
-		};
-		38A2CCDA9D86C4A683E7188C02B9D81F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = DocereeAdSdk;
-			target = 7A6F653E76ABCE1988760E341C2F68C8 /* DocereeAdSdk */;
-			targetProxy = 1F5883A1B53619BC09E98E7D23ACC014 /* PBXContainerItemProxy */;
-		};
-		ABC8582C80962881E15513FE7E756D4E /* PBXTargetDependency */ = {
+		4E9F9C1D5B660EBAA205F8C11B49E0AC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "DocereeAdSdk-DocereeAdsSdk";
 			target = 0F1FC470CA1799C3CD29347DB313E9C7 /* DocereeAdSdk-DocereeAdsSdk */;
-			targetProxy = 84F507CFCDA19540C2BD863532154401 /* PBXContainerItemProxy */;
+			targetProxy = 17D240F6157FBA77F08176A0D45B96C0 /* PBXContainerItemProxy */;
 		};
-		FE02D81ED50CF3F9E211DA5D9B7CBDAB /* PBXTargetDependency */ = {
+		BF31211D097EEDA6C2A732536916ADEA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-DocereeAdsSdk";
+			target = 80BC09374BCD515EC7E24D1333DBE23C /* Pods-DocereeAdsSdk */;
+			targetProxy = DFED099C3B292E0C8158089655CB6540 /* PBXContainerItemProxy */;
+		};
+		C8A662C21F125866D463ADD3448766BF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = KetchSDK;
 			target = 688F94C8A781975312A010D6D4AD1805 /* KetchSDK */;
-			targetProxy = C6333D37FBB83D1DC8C702C6DE11100D /* PBXContainerItemProxy */;
+			targetProxy = 9A621EE79FB756814BB9BEEEDDAB7922 /* PBXContainerItemProxy */;
+		};
+		E50754840C7FA2C18A72A8A7D8D4FB87 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DocereeAdSdk;
+			target = 7A6F653E76ABCE1988760E341C2F68C8 /* DocereeAdSdk */;
+			targetProxy = 08E604D10D91353483FB2EEC516F8E93 /* PBXContainerItemProxy */;
+		};
+		E52C82E6CF15D970F5971C4C119CDD3C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KetchSDK;
+			target = 688F94C8A781975312A010D6D4AD1805 /* KetchSDK */;
+			targetProxy = 524349E085A7C820AE71206C24B10FA3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0BA1E35B286A1A2D3D93C13F5FC3C521 /* Debug */ = {
+		1E70689403E6781CE24D94487BFCB3A2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 71BBDFDC7B565376F174F216088991E9 /* Pods-DocereeAdsSdk.debug.xcconfig */;
+			baseConfigurationReference = E797E7DE02AEDF9871B8471B04F5DE99 /* DocereeAdSdk.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/DocereeAdSdk";
+				IBSC_MODULE = DocereeAdSdk;
+				INFOPLIST_FILE = "Target Support Files/DocereeAdSdk/ResourceBundle-DocereeAdsSdk-DocereeAdSdk-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_NAME = DocereeAdsSdk;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		38B2BE4DB6BF6A1E9DC44E9A96C52AC8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E67192314C5648CD2D9D7296DE9A1EA2 /* DocereeAdSdk.debug.xcconfig */;
+			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1019,7 +1130,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-DocereeAdsSdk/Pods-DocereeAdsSdk-Info.plist";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/DocereeAdSdk/DocereeAdSdk-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/DocereeAdSdk/DocereeAdSdk-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1027,24 +1142,62 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-DocereeAdsSdk/Pods-DocereeAdsSdk.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				MODULEMAP_FILE = "Target Support Files/DocereeAdSdk/DocereeAdSdk.modulemap";
+				PRODUCT_MODULE_NAME = DocereeAdSdk;
+				PRODUCT_NAME = DocereeAdSdk;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		644D4AB31E83F47ED42B31F728712BF0 /* Release */ = {
+		59548508BE3947544D5824EC5CEF995C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 337199CB6D3328AC7A2CD2E5CCEEF398 /* Pods-DocereeAdsSdk.release.xcconfig */;
+			baseConfigurationReference = 48E42B1BB8D2280C643E2B1708B81D88 /* KetchSDK.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/KetchSDK/KetchSDK-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/KetchSDK/KetchSDK-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/KetchSDK/KetchSDK.modulemap";
+				PRODUCT_MODULE_NAME = KetchSDK;
+				PRODUCT_NAME = KetchSDK;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 5.7;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7A39418130C5A615C13C8C171EC560D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 90960B9912A32DCA76CE646EB0EFF464 /* Pods-DocereeAdsSdk.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -1056,6 +1209,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "Target Support Files/Pods-DocereeAdsSdk/Pods-DocereeAdsSdk-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1080,10 +1235,11 @@
 			};
 			name = Release;
 		};
-		778353AEB4D7CA95C00A1C7676DA6303 /* Release */ = {
+		8410C9B5E53027047ED1904FA56415A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 81B492671F7EB576ED721774BB018B73 /* DocereeAdSdk.release.xcconfig */;
+			baseConfigurationReference = 24F7F79BC31EC2FCEE0124769EC0363F /* Pods-DocereeAdsSdk.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1093,8 +1249,9 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/DocereeAdSdk/DocereeAdSdk-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/DocereeAdSdk/DocereeAdSdk-Info.plist";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-DocereeAdsSdk/Pods-DocereeAdsSdk-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1102,49 +1259,15 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MODULEMAP_FILE = "Target Support Files/DocereeAdSdk/DocereeAdSdk.modulemap";
-				PRODUCT_MODULE_NAME = DocereeAdSdk;
-				PRODUCT_NAME = DocereeAdSdk;
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-DocereeAdsSdk/Pods-DocereeAdsSdk.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		882361D291FD11F6147788CC4004E627 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8384754E5378CB63B7F3086F6A49CDB8 /* DocereeAdSdk.debug.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/DocereeAdSdk/DocereeAdSdk-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/DocereeAdSdk/DocereeAdSdk-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/DocereeAdSdk/DocereeAdSdk.modulemap";
-				PRODUCT_MODULE_NAME = DocereeAdSdk;
-				PRODUCT_NAME = DocereeAdSdk;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1279,7 +1402,104 @@
 			};
 			name = Release;
 		};
-		BE43037A0AE0E3AD6E272F1E20739D5F /* Release */ = {
+		AB9A6EAF2AC594CCD05A3294AC5433F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E797E7DE02AEDF9871B8471B04F5DE99 /* DocereeAdSdk.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/DocereeAdSdk/DocereeAdSdk-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/DocereeAdSdk/DocereeAdSdk-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/DocereeAdSdk/DocereeAdSdk.modulemap";
+				PRODUCT_MODULE_NAME = DocereeAdSdk;
+				PRODUCT_NAME = DocereeAdSdk;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E7A5ECFE2388FB167697C0B21EFEFCF8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 319CD48EF96DDB38740806002EEB57B6 /* Pods-DocereeAdsSdkTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-DocereeAdsSdkTests/Pods-DocereeAdsSdkTests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-DocereeAdsSdkTests/Pods-DocereeAdsSdkTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		EF21C89C06049572FB78C8E7D86214AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E67192314C5648CD2D9D7296DE9A1EA2 /* DocereeAdSdk.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/DocereeAdSdk";
+				IBSC_MODULE = DocereeAdSdk;
+				INFOPLIST_FILE = "Target Support Files/DocereeAdSdk/ResourceBundle-DocereeAdsSdk-DocereeAdSdk-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_NAME = DocereeAdsSdk;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		F7885FB0CE4567E2E38030F3B0A09759 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F1D3B556DDEAE4DD38FDBCEDB8CA7FED /* KetchSDK.release.xcconfig */;
 			buildSettings = {
@@ -1292,7 +1512,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_PREFIX_HEADER = "Target Support Files/KetchSDK/KetchSDK-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "Target Support Files/KetchSDK/KetchSDK-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1307,6 +1530,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_VERSION = 5.7;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1315,10 +1539,11 @@
 			};
 			name = Release;
 		};
-		C0EE467F18AB45468BC017F0A123AC7C /* Debug */ = {
+		FC5AF8B8392714683D42ABBA729A4552 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 48E42B1BB8D2280C643E2B1708B81D88 /* KetchSDK.debug.xcconfig */;
+			baseConfigurationReference = 3EF636D2A84A32264E29B224B5E5B518 /* Pods-DocereeAdsSdkTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1328,8 +1553,9 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/KetchSDK/KetchSDK-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/KetchSDK/KetchSDK-Info.plist";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-DocereeAdsSdkTests/Pods-DocereeAdsSdkTests-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1337,50 +1563,18 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MODULEMAP_FILE = "Target Support Files/KetchSDK/KetchSDK.modulemap";
-				PRODUCT_MODULE_NAME = KetchSDK;
-				PRODUCT_NAME = KetchSDK;
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-DocereeAdsSdkTests/Pods-DocereeAdsSdkTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.7;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		C5137B71A08471D1127EFDF1EAF124DA /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 81B492671F7EB576ED721774BB018B73 /* DocereeAdSdk.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/DocereeAdSdk";
-				IBSC_MODULE = DocereeAdSdk;
-				INFOPLIST_FILE = "Target Support Files/DocereeAdSdk/ResourceBundle-DocereeAdsSdk-DocereeAdSdk-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				PRODUCT_NAME = DocereeAdsSdk;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
-		F49785E3859C59F6E4A3F524B73C4144 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8384754E5378CB63B7F3086F6A49CDB8 /* DocereeAdSdk.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/DocereeAdSdk";
-				IBSC_MODULE = DocereeAdSdk;
-				INFOPLIST_FILE = "Target Support Files/DocereeAdSdk/ResourceBundle-DocereeAdsSdk-DocereeAdSdk-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				PRODUCT_NAME = DocereeAdsSdk;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
 		};
@@ -1399,35 +1593,44 @@
 		50AF7E3BA253BE0C5FED2CC14B27A349 /* Build configuration list for PBXNativeTarget "Pods-DocereeAdsSdk" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0BA1E35B286A1A2D3D93C13F5FC3C521 /* Debug */,
-				644D4AB31E83F47ED42B31F728712BF0 /* Release */,
+				8410C9B5E53027047ED1904FA56415A5 /* Debug */,
+				7A39418130C5A615C13C8C171EC560D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5FE96DA02673F4CC255E114CF8093C85 /* Build configuration list for PBXNativeTarget "DocereeAdSdk" */ = {
+		6F0D8F52A2F3BC6E71E9E50F832B6570 /* Build configuration list for PBXNativeTarget "KetchSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				882361D291FD11F6147788CC4004E627 /* Debug */,
-				778353AEB4D7CA95C00A1C7676DA6303 /* Release */,
+				59548508BE3947544D5824EC5CEF995C /* Debug */,
+				F7885FB0CE4567E2E38030F3B0A09759 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		638E03E96B7C8224844DC0E3212DA737 /* Build configuration list for PBXNativeTarget "KetchSDK" */ = {
+		CBB7176F01DCFDABC64DFEEADA1FE1AA /* Build configuration list for PBXNativeTarget "DocereeAdSdk-DocereeAdsSdk" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C0EE467F18AB45468BC017F0A123AC7C /* Debug */,
-				BE43037A0AE0E3AD6E272F1E20739D5F /* Release */,
+				EF21C89C06049572FB78C8E7D86214AE /* Debug */,
+				1E70689403E6781CE24D94487BFCB3A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D040A11A3BF3123496D9E5A469F71543 /* Build configuration list for PBXNativeTarget "DocereeAdSdk-DocereeAdsSdk" */ = {
+		EFE8E7C356E888EF2FFA59375691B87E /* Build configuration list for PBXNativeTarget "DocereeAdSdk" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F49785E3859C59F6E4A3F524B73C4144 /* Debug */,
-				C5137B71A08471D1127EFDF1EAF124DA /* Release */,
+				38B2BE4DB6BF6A1E9DC44E9A96C52AC8 /* Debug */,
+				AB9A6EAF2AC594CCD05A3294AC5433F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FAA8AEB61C2F3655F0A17772E0E52C0C /* Build configuration list for PBXNativeTarget "Pods-DocereeAdsSdkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC5AF8B8392714683D42ABBA729A4552 /* Debug */,
+				E7A5ECFE2388FB167697C0B21EFEFCF8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,17 +1,35 @@
 # ios-sdk-new
 
+Doceree iOS SDK sources, podspec, and **`DocereeAdsSdk`** Xcode framework.
+
 ## Requirements
-- Use Xcode 11 or higher
-- Target iOS 13.0 or higher
+
+- Xcode 11 or higher
+- iOS 15.0 or higher (see `DocereeAdSdk.podspec`)
 - Create an account on Doceree
 
-## Adding Doceree SDK to your Project
-The simplest way of adding the SDK to your project is via cocoapods. Open your pod file and add these lines to your app’s Pod file. 
+## Publishers: add the SDK with CocoaPods
 
-```sh
-pod 'DocereeAdSdk', '~> 5.0.4'
+In your app `Podfile`:
+
+```ruby
+pod 'DocereeAdSdk', '~> x.y.z'
 ```
 
+Pick the version you ship; see release tags / podspec for current versions.
+
+## Contributors: two workspaces
+
+| What you are doing | Open | Run `pod install` |
+|--------------------|------|-------------------|
+| **SDK framework only** (build `DocereeAdsSdk`, run SDK tests, edit podspec) | **`DocereeAdsSdk.xcworkspace`** inside this folder | In **`ios-sdk-new`** (this folder) |
+| **Sample app + SDK together** (parallel development with the parent repo) | Parent repo **`DocereeiOSMainNew.xcworkspace`** | At **repository root** *and* in **`ios-sdk-new`** when you touch the SDK’s Pods integration |
+
+- **`ios-sdk-new/DocereeAdsSdk.xcworkspace`** — includes `DocereeAdsSdk.xcodeproj` and this folder’s **`Pods`** project. Use this when you only work on the SDK.
+- **Parent `DocereeiOSMainNew`** — links the **`DocereeAdsSdk`** subproject **and** uses the root **`Podfile`** (local path to this pod). That is the flow for iterating on both the demo UI and SDK sources; see the parent **`README.md`**.
+
+The demo app imports **`DocereeAdsSdk`** (framework). Integrators who use CocoaPods alone import **`DocereeAdSdk`** (pod module name).
 
 ## License
+
 This code is distributed under the terms and conditions of the [MIT license](https://github.com/doceree/ios-sdk/blob/master/MIT%20License).

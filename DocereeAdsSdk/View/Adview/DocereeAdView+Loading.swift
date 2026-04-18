@@ -66,7 +66,11 @@ extension DocereeAdView {
         if !isRichMediaAd {
             createSimpleAd(imagePath: adResponseData?.imagePath)
         } else {
-            if let script = adResponseData?.script {
+            if var script = adResponseData?.script {
+                script = script.replacingOccurrences(of: "[timestamp]", with: Date.currentTimeMillis())
+                script = script.replacingOccurrences(of: "[TIMESTAMP]", with: Date.currentTimeMillis())
+                script = script.replacingOccurrences(of: "[CACHE_BUSTER]", with: Date.currentTimeMillis())
+                script = script.replacingOccurrences(of: "[cache_buster]", with: Date.currentTimeMillis())
                 createRichMediaAd(script: script)
             }
         }
