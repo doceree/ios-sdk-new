@@ -28,7 +28,8 @@ class ConfigurationService {
             DocereeLog.debug("Config expired, refresh needed")
         }
         
-        let host = getIdentityHost(type: DocereeMobileAds.shared().getEnvironment())
+        let environment = DocereeMobileAds.shared().getEnvironment()
+        let host = getIdentityHost(type: environment)
         guard let appKey = DocereeMobileAds().loadDocereeIdentifier(from: DocereeAdsIdArchivingUrl) else {
             // Handle missing key
             return nil
@@ -38,10 +39,10 @@ class ConfigurationService {
         UserDefaultsManager.shared.clearConfigExpiration()
         
         guard let url = Self.makeAppConfigurationURL(identityHost: host) else {
-            DocereeLog.debug("Invalid configuration URL for host: \(host)")
+            DocereeLog.debug("Invalid configuration URL (environment=\(environment), host=\(host))")
             return nil
         }
-        DocereeLog.debug("url: \(url)")
+        DocereeLog.debug("App config fetch: environment=\(environment), url=\(url.absoluteString)")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -57,8 +58,10 @@ class ConfigurationService {
             UserDefaultsManager.shared.saveConfig(decoded.data)
             return decoded
         } catch {
-            DocereeLog.debug("Data is not of type AppConfigurationData: \(error)")
-            throw error
+            let preview = String(data: data, encoding: .utf8).map { String($0.prefix(500)) }
+            let wrapped = AppConfigurationServiceError.decodingFailed(underlying: error, responseBodyPreview: preview)
+            DocereeLog.debug("\(wrapped.localizedDescription)")
+            throw wrapped
         }
     }
 }

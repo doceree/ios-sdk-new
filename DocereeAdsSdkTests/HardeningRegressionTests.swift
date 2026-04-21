@@ -23,6 +23,16 @@ final class HardeningRegressionTests: XCTestCase {
         XCTAssertThrowsError(try ConfigurationService.decodeAppConfiguration(from: data))
     }
 
+    func testAppConfigurationServiceError_localizedDescriptionIncludesResponsePreview() {
+        let err = AppConfigurationServiceError.decodingFailed(
+            underlying: NSError(domain: "test", code: 1, userInfo: [NSLocalizedDescriptionKey: "inner"]),
+            responseBodyPreview: "{\"not\":\"AppConfiguration\"}"
+        )
+        let description = err.localizedDescription
+        XCTAssertTrue(description.contains("inner"), description)
+        XCTAssertTrue(description.contains("{\"not\":\"AppConfiguration\"}"), description)
+    }
+
     func testDecodeAppConfiguration_succeedsOnMinimalValidPayload() throws {
         let json = """
         {"timestamp":"t","code":1,"status":"s","message":"m","data":{"hcpValidation":true,"ketchConsent":false,"appId":"aid","platformId":null}}
