@@ -9,6 +9,15 @@ import Foundation
 
 class ConfigurationService {
     static let shared = ConfigurationService()
+
+    /// Builds the HTTPS URL used for app configuration fetch (same string as production).
+    static func makeAppConfigurationURL(identityHost: String) -> URL? {
+        URL(string: "https://\(identityHost)\(getPath(methodName: Methods.AppConfig))")
+    }
+
+    static func decodeAppConfiguration(from data: Data) throws -> AppConfiguration {
+        try JSONDecoder().decode(AppConfiguration.self, from: data)
+    }
     
     func fetchAppConfiguration(appId: String) async throws -> AppConfiguration? {
         // Check if config is still valid
@@ -28,7 +37,7 @@ class ConfigurationService {
         UserDefaultsManager.shared.deleteConfig()
         UserDefaultsManager.shared.clearConfigExpiration()
         
-        guard let url = URL(string: "https://\(host)\(getPath(methodName: Methods.AppConfig))") else {
+        guard let url = Self.makeAppConfigurationURL(identityHost: host) else {
             DocereeLog.debug("Invalid configuration URL for host: \(host)")
             return nil
         }
@@ -43,7 +52,7 @@ class ConfigurationService {
         
         let (data, _) = try await URLSession.shared.data(for: request)
         do {
-            let decoded = try JSONDecoder().decode(AppConfiguration.self, from: data)
+            let decoded = try Self.decodeAppConfiguration(from: data)
             UserDefaultsManager.shared.saveConfigExpiration()
             UserDefaultsManager.shared.saveConfig(decoded.data)
             return decoded
