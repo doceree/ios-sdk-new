@@ -40,10 +40,18 @@ func getPlatformData(rxCodes: [String]?, dxCodes: [String]?) -> String {
     
     let encoder = JSONEncoder()
     encoder.outputFormatting = .prettyPrinted
-    let data = try! encoder.encode(pd)
-    let jsonString = String(data: data, encoding: .utf8)!
-    let toBase64 = jsonString.toBase64()
-    return toBase64!
+    do {
+        let data = try encoder.encode(pd)
+        guard let jsonString = String(data: data, encoding: .utf8),
+              let base64String = jsonString.toBase64() else {
+            DocereeLog.debug("Failed to convert platform data to string/base64")
+            return ""
+        }
+        return base64String
+    } catch {
+        DocereeLog.debug("Failed to encode platform data: \(error)")
+        return ""
+    }
 }
 
 func getParnerData() -> String {
@@ -57,8 +65,16 @@ func getParnerData() -> String {
     
     let encoder = JSONEncoder()
     encoder.outputFormatting = .prettyPrinted
-    let data = try! encoder.encode(pd)
-    let jsonString = String(data: data, encoding: .utf8)!
-    let toBase64 = jsonString.toBase64()
-    return toBase64!
+    do {
+        let data = try encoder.encode(pd)
+        guard let jsonString = String(data: data, encoding: .utf8),
+              let base64String = jsonString.toBase64() else {
+            DocereeLog.debug("Failed to convert partner data to string/base64")
+            return ""
+        }
+        return base64String
+    } catch {
+        DocereeLog.debug("Failed to encode partner data: \(error)")
+        return ""
+    }
 }

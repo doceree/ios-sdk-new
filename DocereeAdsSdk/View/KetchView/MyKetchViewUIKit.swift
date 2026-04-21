@@ -11,7 +11,7 @@ import KetchSDK
 // MARK: - MyKetchUIKitEventListener
 extension MyKetchUIKitViewController: KetchEventListener {
     public func onShow() {
-        print("UI Shown")
+        DocereeLog.debug("UI Shown")
         
         guard let viewController = ketchUI.webPresentationItem?.viewController else {
             return
@@ -23,44 +23,44 @@ extension MyKetchUIKitViewController: KetchEventListener {
     }
 
     public func onDismiss() {
-        print("UI Dismissed")
+        DocereeLog.debug("UI Dismissed")
         dismiss(animated: true)
     }
 
     public func onEnvironmentUpdated(environment: String?) {
-        print("Environment Updated: \(String(describing: environment))")
+        DocereeLog.debug("Environment Updated: \(String(describing: environment))")
     }
 
     public func onRegionInfoUpdated(regionInfo: String?) {
-        print("Region Info Updated: \(String(describing: regionInfo))")
+        DocereeLog.debug("Region Info Updated: \(String(describing: regionInfo))")
     }
 
     public func onJurisdictionUpdated(jurisdiction: String?) {
-        print("Jurisdiction Updated: \(String(describing: jurisdiction))")
+        DocereeLog.debug("Jurisdiction Updated: \(String(describing: jurisdiction))")
     }
 
     public func onIdentitiesUpdated(identities: String?) {
-        print("Identities Updated: \(String(describing: identities))")
+        DocereeLog.debug("Identities Updated: \(String(describing: identities))")
     }
 
     public func onConsentUpdated(consent: KetchSDK.ConsentStatus) {
-        print("Consent Updated: \(consent)")
+        DocereeLog.debug("Consent Updated: \(consent)")
     }
 
     public func onError(description: String) {
-        print("Error: \(description)")
+        DocereeLog.debug("Error: \(description)")
     }
 
     public func onCCPAUpdated(ccpaString: String?) {
-        print("CCPA String Updated: \(String(describing: ccpaString))")
+        DocereeLog.debug("CCPA String Updated: \(String(describing: ccpaString))")
     }
 
     public func onTCFUpdated(tcfString: String?) {
-        print("TCF String Updated: \(String(describing: tcfString))")
+        DocereeLog.debug("TCF String Updated: \(String(describing: tcfString))")
     }
 
     public func onGPPUpdated(gppString: String?) {
-        print("GPP String Updated: \(String(describing: gppString))")
+        DocereeLog.debug("GPP String Updated: \(String(describing: gppString))")
     }
 }
 
@@ -207,22 +207,22 @@ public class MyKetchUIKitViewController: UIViewController {
     
     @objc private func experiencePickerChanged(_ sender: UISegmentedControl) {
         selectedExperienceToShow = sender.selectedSegmentIndex == 0 ? .consent : .preferences
-        print("Selected Experience: \(selectedExperienceToShow.name)")
+        DocereeLog.debug("Selected Experience: \(selectedExperienceToShow.name)")
     }
     
     @objc private func languageChanged(_ sender: UITextField) {
         lang = sender.text ?? "HI"
-        print("Language changed to: \(lang)")
+        DocereeLog.debug("Language changed to: \(lang)")
     }
     
     @objc private func jurisdictionChanged(_ sender: UITextField) {
         jurisdiction = sender.text ?? "default"
-        print("Jurisdiction changed to: \(jurisdiction)")
+        DocereeLog.debug("Jurisdiction changed to: \(jurisdiction)")
     }
     
     @objc private func regionChanged(_ sender: UITextField) {
         region = sender.text ?? "default"
-        print("Region changed to: \(region)")
+        DocereeLog.debug("Region changed to: \(region)")
     }
     
     private func createShowButton() -> UIButton {

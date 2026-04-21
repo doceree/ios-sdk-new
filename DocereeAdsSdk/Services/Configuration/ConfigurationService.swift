@@ -13,10 +13,10 @@ class ConfigurationService {
     func fetchAppConfiguration(appId: String) async throws -> AppConfiguration? {
         // Check if config is still valid
         if UserDefaultsManager.shared.isConfigValid() {
-            print("Config still valid")
+            DocereeLog.debug("Config still valid")
             return nil
         } else {
-            print("Config expired, refresh needed")
+            DocereeLog.debug("Config expired, refresh needed")
         }
         
 //        let host = getIdentityHost(type: DocereeMobileAds.shared().getEnvironment())
@@ -29,8 +29,11 @@ class ConfigurationService {
         UserDefaultsManager.shared.deleteConfig()
         UserDefaultsManager.shared.clearConfigExpiration()
         
-        let url = URL(string: "https://\(host)\(getPath(methodName: Methods.AppConfig))")!
-        print("url: \(url)")
+        guard let url = URL(string: "https://\(host)\(getPath(methodName: Methods.AppConfig))") else {
+            DocereeLog.debug("Invalid configuration URL for host: \(host)")
+            return nil
+        }
+        DocereeLog.debug("url: \(url)")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -44,9 +47,10 @@ class ConfigurationService {
             let decoded = try JSONDecoder().decode(AppConfiguration.self, from: data)
             UserDefaultsManager.shared.saveConfigExpiration()
             UserDefaultsManager.shared.saveConfig(decoded.data)
+            return decoded
         } catch {
-            print("Data is not of type AppConfigurationData:", error)
+            DocereeLog.debug("Data is not of type AppConfigurationData: \(error)")
+            throw error
         }
-        return try JSONDecoder().decode(AppConfiguration.self, from: data)
     }
 }

@@ -45,7 +45,7 @@ public final class DocereeMobileAds {
             DocereeMobileAds.shared().omInitialization()
 
         } catch {
-            print("ERROR: \(error.localizedDescription)")
+            DocereeLog.debug("ERROR: \(error.localizedDescription)")
         }
     }
 
@@ -53,9 +53,9 @@ public final class DocereeMobileAds {
         do {
             let appId = getBundleIdentifier()
             let config = try await ConfigurationService.shared.fetchAppConfiguration(appId: appId)
-            print("Fetched Config:", config?.data as Any)
+            DocereeLog.debug("Fetched Config: \(String(describing: config?.data as Any))")
         } catch {
-            print("Error:", error)
+            DocereeLog.debug("Error: \(error)")
         }
     }
 
@@ -68,7 +68,7 @@ public final class DocereeMobileAds {
             try data.write(to: DocereeAdsIdArchivingUrl, options: .atomic)
             
         } catch {
-            print("ERROR: \(error.localizedDescription)")
+            DocereeLog.debug("ERROR: \(error.localizedDescription)")
         }
         
         // Load app config
@@ -89,7 +89,7 @@ public final class DocereeMobileAds {
             
             return profile
         } catch {
-            print("ERROR: \(error.localizedDescription)")
+            DocereeLog.debug("ERROR: \(error.localizedDescription)")
             return nil
         }
     }
@@ -102,7 +102,7 @@ public final class DocereeMobileAds {
             if #available(iOS 10.0, *) {
                 os_log("Error loading DocereeIdentifier: %@", log: .default, type: .error, error.localizedDescription)
             } else {
-                print("Error loading DocereeIdentifier: \(error.localizedDescription)")
+                DocereeLog.debug("Error loading DocereeIdentifier: \(error.localizedDescription)")
             }
             return nil
         }
@@ -194,7 +194,7 @@ public final class DocereeMobileAds {
 extension DocereeMobileAds {
     func isHcpExist() -> Bool {
         guard let loggedInUser = self.getProfile() else {
-            print("Error: Not found profile data")
+            DocereeLog.debug("Error: Not found profile data")
             return false
         }
         return (loggedInUser.specialization != nil) || (loggedInUser.hcpId != nil)

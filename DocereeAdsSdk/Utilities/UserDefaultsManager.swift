@@ -55,7 +55,7 @@ final class UserDefaultsManager {
             let data = try JSONEncoder().encode(config)
             defaults.set(data, forKey: appConfigKey)
         } catch {
-            print("Failed to encode AppConfigurationData:", error)
+            DocereeLog.debug("Failed to encode AppConfigurationData: \(error)")
         }
     }
     
@@ -64,7 +64,7 @@ final class UserDefaultsManager {
         do {
             return try JSONDecoder().decode(AppConfigurationData.self, from: data)
         } catch {
-            print("Failed to decode AppConfigurationData:", error)
+            DocereeLog.debug("Failed to decode AppConfigurationData: \(error)")
             return nil
         }
     }

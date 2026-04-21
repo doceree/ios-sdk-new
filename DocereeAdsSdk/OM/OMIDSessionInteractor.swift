@@ -30,19 +30,19 @@ class OMIDSessionInteractor {
     private let webViewContext: WKWebView?
     #endif
 
-    private let adSession: OMIDDocereeAdSession
+    private let adSession: OMIDDocereeAdSession?
 
     /// Uniquely identify your integration.
-    private static var partner: OMIDDocereePartner = {
+    private static let omidPartner: OMIDDocereePartner? = {
         // The IAB Tech Lab will assign a unique partner name to you at the time of integration.
         let partnerName = "doceree"
         // For an ads SDK, this should be the same as your SDK’s semantic version. For an app publisher, this should be the same as your app version.
         let partnerVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
-        guard let partner = OMIDDocereePartner(name: partnerName, versionString: partnerVersion ?? "1.0") else {
-            fatalError("Unable to initialize OMID partner")
+        if let partner = OMIDDocereePartner(name: partnerName, versionString: partnerVersion ?? "1.0") {
+            return partner
         }
-
-        return partner
+        DocereeLog.debug("Unable to initialize OMID partner with CFBundleVersion, falling back to 1.0")
+        return OMIDDocereePartner(name: partnerName, versionString: "1.0")
     }()
 
 #if os(tvOS)
@@ -56,29 +56,39 @@ class OMIDSessionInteractor {
     /// - Parameters:
     ///   - adUnit: The type of ad
     ///   - adView: The ad view
-    init(adUnit: AdUnit, adView: UIView? = nil) {
+    init?(adUnit: AdUnit, adView: UIView? = nil) {
         self.adUnit = adUnit
         self.adView = adView
         self.adSession = OMIDSessionInteractor.createAdSession(adUnit: adUnit, adView: adView)
+        guard self.adSession != nil else { return nil }
     }
 
-    private static func createAdSession(adUnit: AdUnit, adView: UIView?) -> OMIDDocereeAdSession {
+    private static func createAdSession(adUnit: AdUnit, adView: UIView?) -> OMIDDocereeAdSession? {
+        guard let omidPartner = Self.omidPartner else {
+            DocereeLog.debug("OMID partner not available")
+            return nil
+        }
         // ensure OMID has been already activated
         guard OMIDDocereeSDK.shared.isActive else {
-            fatalError("OMID is not active")
+            DocereeLog.debug("OMID is not active")
+            return nil
         }
 
         // Obtain ad session context. The context may be different depending on the type of the ad unit.
-        let context = createAdSessionContext(withPartner: partner, adUnit: adUnit, adView: adView)
+        guard let context = createAdSessionContext(withPartner: omidPartner, adUnit: adUnit, adView: adView) else {
+            return nil
+        }
 
         // Obtain ad session configuration. Configuration may be different depending on the type of the ad unit.
-        let configuration = createAdSessionConfiguration(adUnit: adUnit)
+        guard let configuration = createAdSessionConfiguration(adUnit: adUnit) else {
+            return nil
+        }
 
         do {
             // Create ad session
             let session = try OMIDDocereeAdSession(configuration: configuration, adSessionContext: context)
 
-            print("Session created for \(adUnit.title)")
+            DocereeLog.debug("Session created for \(adUnit.title)")
             // Only add adView if not nativeAudio adUnit
             if adUnit == .nativeAudio {
                 return session
@@ -86,21 +96,24 @@ class OMIDSessionInteractor {
 
             // Provide main ad view for measurement
             guard let adView = adView else {
-                fatalError("Ad View is not initialized")
+                DocereeLog.debug("Ad View is not initialized")
+                return nil
             }
             session.mainAdView = adView
             return session
         } catch {
-            fatalError("Unable to instantiate ad session: \(error)")
+            DocereeLog.debug("Unable to instantiate ad session: \(error)")
+            return nil
         }
 
     }
 
-    private static func createAdSessionContext(withPartner partner: OMIDDocereePartner, adUnit: AdUnit, adView: UIView?) -> OMIDDocereeAdSessionContext {
+    private static func createAdSessionContext(withPartner partner: OMIDDocereePartner, adUnit: AdUnit, adView: UIView?) -> OMIDDocereeAdSessionContext? {
         do {
             switch adUnit {
             case .HTMLDisplay, .HTMLVideo, .JSDisplay, .JSVideo:
-                fatalError("Not supported in tvOS")
+                DocereeLog.debug("OMID ad unit \(adUnit.title) not supported on tvOS")
+                return nil
             case .nativeDisplay, .nativeVideo, .nativeAudio:
                 //These values should be parsed from the ad response
                 //For example:
@@ -145,7 +158,8 @@ class OMIDSessionInteractor {
                                                                                   verificationScriptURL: urlToMeasurementScript,
                                                                                   parameters: parameters)
                 else {
-                    fatalError("Unable to instantiate session context: verification resource cannot be nil")
+                    DocereeLog.debug("Unable to instantiate session context: verification resource cannot be created")
+                    return nil
                 }
 
 
@@ -156,7 +170,8 @@ class OMIDSessionInteractor {
                                                 customReferenceIdentifier: nil)
             }
         } catch {
-            fatalError("Unable to create ad session context: \(error)")
+            DocereeLog.debug("Unable to create ad session context: \(error)")
+            return nil
         }
     }
 
@@ -167,7 +182,7 @@ class OMIDSessionInteractor {
     /// - Parameters:
     ///   - adUnit: The type of ad
     ///   - webCreative: The webView where the ad creative and the OMID context is running
-    convenience init(adUnit: AdUnit, webCreative: WKWebView) {
+    convenience init?(adUnit: AdUnit, webCreative: WKWebView) {
         self.init(adUnit: adUnit, adView: webCreative, webViewContext: webCreative)
     }
 
@@ -176,30 +191,40 @@ class OMIDSessionInteractor {
     ///   - adUnit: The type of ad
     ///   - adView: The ad view
     ///   - webViewContext: The webView where the OMID Context is running if not managed natively.
-    init(adUnit: AdUnit, adView: UIView? = nil, webViewContext: WKWebView? = nil) {
+    init?(adUnit: AdUnit, adView: UIView? = nil, webViewContext: WKWebView? = nil) {
         self.adUnit = adUnit
         self.adView = adView
         self.webViewContext = webViewContext
         self.adSession = OMIDSessionInteractor.createAdSession(adUnit: adUnit, adView: adView, omidJSContext: webViewContext)
+        guard self.adSession != nil else { return nil }
     }
 
-    private static func createAdSession(adUnit: AdUnit, adView: UIView?, omidJSContext: WKWebView?) -> OMIDDocereeAdSession {
+    private static func createAdSession(adUnit: AdUnit, adView: UIView?, omidJSContext: WKWebView?) -> OMIDDocereeAdSession? {
+        guard let omidPartner = Self.omidPartner else {
+            DocereeLog.debug("OMID partner not available")
+            return nil
+        }
         // ensure OMID has been already activated
         guard OMIDDocereeSDK.shared.isActive else {
-            fatalError("OMID is not active")
+            DocereeLog.debug("OMID is not active")
+            return nil
         }
 
         // Obtain ad session context. The context may be different depending on the type of the ad unit.
-        let context = createAdSessionContext(withPartner: partner, adUnit: adUnit, adView: adView,  omidJSContext: omidJSContext)
+        guard let context = createAdSessionContext(withPartner: omidPartner, adUnit: adUnit, adView: adView,  omidJSContext: omidJSContext) else {
+            return nil
+        }
 
         // Obtain ad session configuration. Configuration may be different depending on the type of the ad unit.
-        let configuration = createAdSessionConfiguration(adUnit: adUnit)
+        guard let configuration = createAdSessionConfiguration(adUnit: adUnit) else {
+            return nil
+        }
 
         do {
             // Create ad session
             let session = try OMIDDocereeAdSession(configuration: configuration, adSessionContext: context)
 
-            print("Session created for \(adUnit.title)")
+            DocereeLog.debug("Session created for \(adUnit.title)")
             // Only add adView if not nativeAudio adUnit
             if adUnit == .nativeAudio {
                 return session
@@ -207,22 +232,25 @@ class OMIDSessionInteractor {
 
             // Provide main ad view for measurement
             guard let adView = adView else {
-                fatalError("Ad View is not initialized")
+                DocereeLog.debug("Ad View is not initialized")
+                return nil
             }
             session.mainAdView = adView
             return session
         } catch {
-            fatalError("Unable to instantiate ad session: \(error)")
+            DocereeLog.debug("Unable to instantiate ad session: \(error)")
+            return nil
         }
 
     }
 
-    private static func createAdSessionContext(withPartner partner: OMIDDocereePartner, adUnit: AdUnit, adView: UIView?, omidJSContext: WKWebView?) -> OMIDDocereeAdSessionContext {
+    private static func createAdSessionContext(withPartner partner: OMIDDocereePartner, adUnit: AdUnit, adView: UIView?, omidJSContext: WKWebView?) -> OMIDDocereeAdSessionContext? {
         do {
             switch adUnit {
             case .HTMLDisplay, .HTMLVideo:
                 guard let webView = omidJSContext else {
-                    fatalError("Unable to create ad session context: webView is not initialized")
+                    DocereeLog.debug("Unable to create ad session context: webView is not initialized")
+                    return nil
                 }
                 return try OMIDDocereeAdSessionContext(partner: partner,
                                                 webView: webView,
@@ -230,7 +258,8 @@ class OMIDSessionInteractor {
                                                 customReferenceIdentifier: nil)
             case .JSDisplay, .JSVideo:
                 guard let webView = omidJSContext else {
-                    fatalError("Unable to create ad session context: webView is not initialized")
+                    DocereeLog.debug("Unable to create ad session context: webView is not initialized")
+                    return nil
                 }
                 return try OMIDDocereeAdSessionContext(partner: partner, javaScriptWebView: webView, contentUrl: nil, customReferenceIdentifier: nil)
 
@@ -278,7 +307,8 @@ class OMIDSessionInteractor {
                                                                                   verificationScriptURL: urlToMeasurementScript,
                                                                                   parameters: parameters)
                 else {
-                    fatalError("Unable to instantiate session context: verification resource cannot be nil")
+                    DocereeLog.debug("Unable to instantiate session context: verification resource cannot be created")
+                    return nil
                 }
 
 
@@ -289,7 +319,8 @@ class OMIDSessionInteractor {
                                                 customReferenceIdentifier: nil)
             }
         } catch {
-            fatalError("Unable to create ad session context: \(error)")
+            DocereeLog.debug("Unable to create ad session context: \(error)")
+            return nil
         }
 
     }
@@ -297,7 +328,7 @@ class OMIDSessionInteractor {
 
 
 
-    private static func createAdSessionConfiguration(adUnit: AdUnit) -> OMIDDocereeAdSessionConfiguration {
+    private static func createAdSessionConfiguration(adUnit: AdUnit) -> OMIDDocereeAdSessionConfiguration? {
         do {
             switch adUnit {
             case .HTMLDisplay:
@@ -332,25 +363,28 @@ class OMIDSessionInteractor {
                                                       isolateVerificationScripts: false)
             }
         } catch {
-            fatalError("Unable to create ad session configuration: \(error)")
+            DocereeLog.debug("Unable to create ad session configuration: \(error)")
+            return nil
         }
     }
 
     private func createAdEventsPublisher() {
+        guard let adSession else { return }
         // Create event publisher before starting the session
         do {
             self.adEvents = try OMIDDocereeAdEvents(adSession: adSession)
         } catch {
-            fatalError("Unable to instantiate OMIDAdEvents: \(error)")
+            DocereeLog.debug("Unable to instantiate OMIDAdEvents: \(error)")
         }
     }
 
     private func createMediaEventsPublisher() {
+        guard let adSession else { return }
         if adUnit.generatesNativeMediaEvents {
             do {
                 self.mediaEvents = try OMIDDocereeMediaEvents(adSession: adSession)
             } catch {
-                fatalError("Unable to instantiate OMIDMediaEvents: \(error)")
+                DocereeLog.debug("Unable to instantiate OMIDMediaEvents: \(error)")
             }
         }
     }
@@ -364,7 +398,8 @@ class OMIDSessionInteractor {
     /// - Returns: verification script resource to be used in session creation
     private static func createVerificationScriptResource(vendorKey: String?, verificationScriptURL: String, parameters: String?) -> OMIDDocereeVerificationScriptResource? {
         guard let URL = URL(string: verificationScriptURL) else {
-            fatalError("Unable to parse Verification Script URL")
+            DocereeLog.debug("Unable to parse Verification Script URL: \(verificationScriptURL)")
+            return nil
         }
 
         if let vendorKey = vendorKey,
@@ -384,7 +419,11 @@ class OMIDSessionInteractor {
 extension OMIDSessionInteractor {
 
     func startSession() {
-        print("Starting session for \(adSession.debugDescription), \(adUnit.title)")
+        guard let adSession else {
+            DocereeLog.debug("OMID session unavailable; startSession skipped for \(adUnit.title)")
+            return
+        }
+        DocereeLog.debug("Starting session for \(adSession.debugDescription), \(adUnit.title)")
 
         createAdEventsPublisher()
         createMediaEventsPublisher()
@@ -393,62 +432,77 @@ extension OMIDSessionInteractor {
     }
 
     func addCloseButtonObstruction(_ button: UIView) {
-        print("Adding close button obstruction for \(adUnit.title)")
+        guard let adSession else {
+            DocereeLog.debug("OMID session unavailable; addCloseButtonObstruction skipped")
+            return
+        }
+        DocereeLog.debug("Adding close button obstruction for \(adUnit.title)")
         do {
             try adSession.addFriendlyObstruction(button,
                                                  purpose: .closeAd,
                                                  detailedReason: "Close Ad Button")
         } catch {
-            fatalError("Unable to add friendly obstruction \(error.localizedDescription)")
+            DocereeLog.debug("Unable to add friendly obstruction \(error.localizedDescription)")
         }
     }
 
     func fireAdLoaded() {
-        print("Firing ad loaded \(adUnit.title)")
-        do {
-
-            try getAdEventsPublisher().loaded()
+        DocereeLog.debug("Firing ad loaded \(adUnit.title)")
+        guard let adEvents = self.adEvents else {
+            DocereeLog.debug("OMID ad events not available; loaded event skipped")
+            return
         }
-        catch {
-            fatalError("OMID load error: \(error.localizedDescription)")
+        do {
+            try adEvents.loaded()
+        } catch {
+            DocereeLog.debug("OMID load error: \(error.localizedDescription)")
         }
     }
 
     func fireAdLoaded(vastProperties: OMIDDocereeVASTProperties) {
-        print("Firing ad loaded \(adUnit.title)")
-        do {
-            try getAdEventsPublisher().loaded(with: vastProperties)
+        DocereeLog.debug("Firing ad loaded \(adUnit.title)")
+        guard let adEvents = self.adEvents else {
+            DocereeLog.debug("OMID ad events not available; loaded(VAST) event skipped")
+            return
         }
-        catch {
-            fatalError("OMID load error: \(error.localizedDescription)")
+        do {
+            try adEvents.loaded(with: vastProperties)
+        } catch {
+            DocereeLog.debug("OMID load error: \(error.localizedDescription)")
         }
     }
 
     func fireImpression() {
-        print("Firing impression for  \(adUnit.title)")
+        DocereeLog.debug("Firing impression for  \(adUnit.title)")
+        guard let adEvents = self.adEvents else {
+            DocereeLog.debug("OMID ad events not available; impression skipped")
+            return
+        }
         do {
-            try getAdEventsPublisher().impressionOccurred()
+            try adEvents.impressionOccurred()
         } catch {
-            fatalError("OMID impression error: \(error.localizedDescription)")
+            DocereeLog.debug("OMID impression error: \(error.localizedDescription)")
         }
     }
 
     func stopSession() {
-        print("Stopping the session \(adUnit.title)")
-        adSession.finish()
+        DocereeLog.debug("Stopping the session \(adUnit.title)")
+        adSession?.finish()
     }
 
-    func getMediaEventsPublisher() -> OMIDDocereeMediaEvents {
+    func getMediaEventsPublisher() -> OMIDDocereeMediaEvents? {
         guard let mediaEvents = self.mediaEvents else {
-            fatalError("OMIDMediaEvents not instantiated, should start the session first")
+            DocereeLog.debug("OMIDMediaEvents not instantiated; start the session first")
+            return nil
         }
 
         return mediaEvents
     }
 
-    func getAdEventsPublisher() -> OMIDDocereeAdEvents {
+    func getAdEventsPublisher() -> OMIDDocereeAdEvents? {
         guard let adEvents = self.adEvents else {
-            fatalError("OMIDMediaEvents not instantiated, should start the session first")
+            DocereeLog.debug("OMIDAdEvents not instantiated; start the session first")
+            return nil
         }
         return adEvents
     }
@@ -469,7 +523,7 @@ extension OMIDSessionInteractor {
     //    For the simplicity of the demo project the javascript OMID SDK is embedded in the application bundle
     //    in a real life scenario the javascript file should be hosted in a remote server
     static func prefetchOMIDSDK() {
-        print("Simulating OMID SDK Javascript download ...")
+        DocereeLog.debug("Simulating OMID SDK Javascript download ...")
     }
 
 //    static var omidJSService: String {
@@ -481,13 +535,15 @@ extension OMIDSessionInteractor {
         guard let bundleURL = Bundle(for: HcpValidationView.self).url(forResource: "DocereeAdsSdk", withExtension: "bundle"),
               let bundle = Bundle(url: bundleURL),
               let omidServiceUrl = bundle.url(forResource: "omsdk-v1", withExtension: "js") else {
-            fatalError("❌ Could not locate omsdk-v1.js in DocereeAdsSdk.bundle")
+            DocereeLog.debug("Could not locate omsdk-v1.js in DocereeAdsSdk.bundle")
+            return ""
         }
 
         do {
             return try String(contentsOf: omidServiceUrl)
         } catch {
-            fatalError("❌ Failed to load contents of omsdk-v1.js: \(error)")
+            DocereeLog.debug("Failed to load contents of omsdk-v1.js: \(error)")
+            return ""
         }
     }
 

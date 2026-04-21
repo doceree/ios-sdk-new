@@ -50,9 +50,7 @@ extension DocereeAdView {
   
    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
        if navigation === webViewInitialNavigation {
-        #if DEBUG
-            print("WebView did finish loading creative")
-        #endif
+            DocereeLog.debug("WebView did finish loading creative")
 
            // This is an equivalent of listening to DOMContentLoaded event in JS
            // OMID JS service is not guaranteed to handle any events prior to this point and you

@@ -1,6 +1,4 @@
-
-
-// MARK: - adBlockRequest
+// MARK: - AdBlockRequest
 struct AdBlockRequest: Codable {
     let publisherACSID: String
     let advertiserCampID: String

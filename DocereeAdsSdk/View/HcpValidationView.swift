@@ -49,7 +49,7 @@ public class HcpValidationView: UIView  {
         ])
         // Get template ID and configure the UI accordingly
         guard let templateId = hcpResponseData?.data.templateId else {
-            print("Unknown templateId")
+            DocereeLog.debug("Unknown templateId")
             return
         }
         configureTemplate(in: popupContainer, templateId: templateId)
@@ -254,7 +254,7 @@ extension HcpValidationView {
     }
     
     func onClickButton(buttonId: String) {
-        print("Button clicked with ID: \(buttonId)")
+        DocereeLog.debug("Button clicked with ID: \(buttonId)")
         var duration: TimeInterval
         var action: PopupAction
         var actionUrl: String?
@@ -344,9 +344,9 @@ extension HcpValidationView {
 
         // Check if HCP validation is still valid
         if UserDefaultsManager.shared.isHCPValidationValid() {
-            print("HCP validation still valid")
+            DocereeLog.debug("HCP validation still valid")
         } else {
-            print("HCP validation expired, refresh needed")
+            DocereeLog.debug("HCP validation expired, refresh needed")
         }
         
         removeView()
@@ -391,7 +391,7 @@ extension HcpValidationView {
     private func applyFontsSequentially(to titleLabel: UILabel, descriptionLabel: UILabel) {
         loadFontIfNeeded { font in
             guard let font = font else {
-                print("❌ Font loading failed for title label")
+                DocereeLog.debug("❌ Font loading failed for title label")
                 return
             }
             titleLabel.font = font.withSize(isLargeScreen() ? 20 : 15)

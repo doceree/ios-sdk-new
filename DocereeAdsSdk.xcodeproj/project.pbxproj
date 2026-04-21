@@ -58,7 +58,7 @@
 		54EBAFF9282E855C00C7B249 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBAFF0282E855C00C7B249 /* Helpers.swift */; };
 		54EBAFFA282E855C00C7B249 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBAFF1282E855C00C7B249 /* Constants.swift */; };
 		54EBAFFF282E855C00C7B249 /* UAString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBAFF6282E855C00C7B249 /* UAString.swift */; };
-		54EBB005282E87AF00C7B249 /* adBlockRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB002282E87AF00C7B249 /* adBlockRequest.swift */; };
+		54EBB005282E87AF00C7B249 /* AdBlockRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB002282E87AF00C7B249 /* AdBlockRequest.swift */; };
 		54EBB006282E87AF00C7B249 /* AdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB003282E87AF00C7B249 /* AdRequest.swift */; };
 		54EBB007282E87AF00C7B249 /* AdResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB004282E87AF00C7B249 /* AdResponse.swift */; };
 		54EBB00B283221BE00C7B249 /* DocereeAdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB00A283221BE00C7B249 /* DocereeAdRequest.swift */; };
@@ -72,6 +72,10 @@
 		54EBB061283671AA00C7B249 /* DocereeAdViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EBB060283671AA00C7B249 /* DocereeAdViewDelegate.swift */; };
 		54EDF0602C512FE200351DEF /* PatientData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EDF05F2C512FE200351DEF /* PatientData.swift */; };
 		54EDF0622C53E5FC00351DEF /* JsonUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EDF0612C53E5FC00351DEF /* JsonUtility.swift */; };
+		A1B2C3D42F00000100000001 /* AdSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000011 /* AdSizeTests.swift */; };
+		A1B2C3D42F00000100000002 /* ErrorContractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000012 /* ErrorContractTests.swift */; };
+		A1B2C3D42F00000100000003 /* PatientBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000013 /* PatientBuilderTests.swift */; };
+		B0B0B0B02F00000100000001 /* DocereeLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B0B0B02F00000100000011 /* DocereeLog.swift */; };
 		BA65A11615437E096D71A7EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACA702B64B00A64F1DFA542 /* Foundation.framework */; };
 		CB11AD200000000100000001 /* DocereeAdsSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EBAFBC282CF30900C7B249 /* DocereeAdsSdk.framework */; };
 		CB11AD200000000100000002 /* DocereeAdsSdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54EBAFBC282CF30900C7B249 /* DocereeAdsSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -168,7 +172,7 @@
 		54EBAFF0282E855C00C7B249 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		54EBAFF1282E855C00C7B249 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		54EBAFF6282E855C00C7B249 /* UAString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UAString.swift; sourceTree = "<group>"; };
-		54EBB002282E87AF00C7B249 /* adBlockRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adBlockRequest.swift; sourceTree = "<group>"; };
+		54EBB002282E87AF00C7B249 /* AdBlockRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdBlockRequest.swift; sourceTree = "<group>"; };
 		54EBB003282E87AF00C7B249 /* AdRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdRequest.swift; sourceTree = "<group>"; };
 		54EBB004282E87AF00C7B249 /* AdResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdResponse.swift; sourceTree = "<group>"; };
 		54EBB00A283221BE00C7B249 /* DocereeAdRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocereeAdRequest.swift; sourceTree = "<group>"; };
@@ -186,6 +190,10 @@
 		596B48C9E1EA7CAB269B7931 /* Pods-DocereeAdsSdkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DocereeAdsSdkTests.debug.xcconfig"; path = "Target Support Files/Pods-DocereeAdsSdkTests/Pods-DocereeAdsSdkTests.debug.xcconfig"; sourceTree = "<group>"; };
 		64FB1AF2A4862C2D893BC6EB /* DocereeAdsSdkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DocereeAdsSdkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		733026586E86439D7934C392 /* DocereeAdsSdkTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeAdsSdkTests.swift; sourceTree = "<group>"; };
+		A1B2C3D42F00000100000011 /* AdSizeTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdSizeTests.swift; sourceTree = "<group>"; };
+		A1B2C3D42F00000100000012 /* ErrorContractTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ErrorContractTests.swift; sourceTree = "<group>"; };
+		A1B2C3D42F00000100000013 /* PatientBuilderTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PatientBuilderTests.swift; sourceTree = "<group>"; };
+		B0B0B0B02F00000100000011 /* DocereeLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocereeLog.swift; sourceTree = "<group>"; };
 		BACA702B64B00A64F1DFA542 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D0EEAD510000000100000001 /* DocereeAdSdk/DocereeAdSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DocereeAdSdk/DocereeAdSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1BEEF110000000100000001 /* KetchSDK/KetchSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KetchSDK/KetchSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -264,17 +272,14 @@
 		545D18DE2C08858C003DA8E1 /* api */ = {
 			isa = PBXGroup;
 			children = (
-				545D18DF2C08859B003DA8E1 /* PatientSessionApi.swift */,
-				545D18E12C08866C003DA8E1 /* Header.swift */,
-				545D18E52C088FB7003DA8E1 /* StorageManager.swift */,
-				545D18E92C08948D003DA8E1 /* Utils.swift */,
-				545D18EB2C08B440003DA8E1 /* PatientBuilder.swift */,
-				545D18E72C089024003DA8E1 /* PatientSession.swift */,
+				A1B2C3D52F00000100000001 /* PatientSession */,
+				A1B2C3D52F00000100000002 /* DeviceHeaders */,
+				A1B2C3D52F00000100000003 /* Storage */,
 			);
 			path = api;
 			sourceTree = "<group>";
 		};
-		54731C982E02AF47000D0B86 /* Adview */ = {
+		54731C982E02AF47000D0B86 /* AdView */ = {
 			isa = PBXGroup;
 			children = (
 				54EBB0422834F62700C7B249 /* DocereeAdView.swift */,
@@ -287,7 +292,7 @@
 				54731CB52E02DE02000D0B86 /* DocereeAdView+UIHelpers.swift */,
 				54731CB12E02DBCB000D0B86 /* DocereeAdView+Lifecycle.swift */,
 			);
-			path = Adview;
+			path = AdView;
 			sourceTree = "<group>";
 		};
 		54AA97BE2D9E934D00F2EC8D /* Frameworks */ = {
@@ -363,7 +368,7 @@
 		54EBAFD7282D014500C7B249 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				54EBB002282E87AF00C7B249 /* adBlockRequest.swift */,
+				54EBB002282E87AF00C7B249 /* AdBlockRequest.swift */,
 				54EBB003282E87AF00C7B249 /* AdRequest.swift */,
 				54EDF05F2C512FE200351DEF /* PatientData.swift */,
 				54EBB004282E87AF00C7B249 /* AdResponse.swift */,
@@ -381,6 +386,7 @@
 				54EBB00C2832240000C7B249 /* Extensions */,
 				54EBAFEF282E855C00C7B249 /* AdSize.swift */,
 				54EDF0612C53E5FC00351DEF /* JsonUtility.swift */,
+				B0B0B0B02F00000100000011 /* DocereeLog.swift */,
 				54EBAFF1282E855C00C7B249 /* Constants.swift */,
 				54EBAFF0282E855C00C7B249 /* Helpers.swift */,
 				54EBAFEE282E855C00C7B249 /* HTTPSupport.swift */,
@@ -409,7 +415,7 @@
 			isa = PBXGroup;
 			children = (
 				542857662E0E73A80000E823 /* KetchView */,
-				54731C982E02AF47000D0B86 /* Adview */,
+				54731C982E02AF47000D0B86 /* AdView */,
 				54BA06EC2E01407800E21C45 /* AdConsent */,
 				541F83432DD3368900F82FD0 /* HcpValidationViewManager.swift */,
 				54874D272BBAC2F60018A882 /* HcpValidationView.swift */,
@@ -427,9 +433,39 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		A1B2C3D52F00000100000001 /* PatientSession */ = {
+			isa = PBXGroup;
+			children = (
+				545D18DF2C08859B003DA8E1 /* PatientSessionApi.swift */,
+				545D18EB2C08B440003DA8E1 /* PatientBuilder.swift */,
+				545D18E72C089024003DA8E1 /* PatientSession.swift */,
+				545D18E92C08948D003DA8E1 /* Utils.swift */,
+			);
+			path = PatientSession;
+			sourceTree = "<group>";
+		};
+		A1B2C3D52F00000100000002 /* DeviceHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				545D18E12C08866C003DA8E1 /* Header.swift */,
+			);
+			path = DeviceHeaders;
+			sourceTree = "<group>";
+		};
+		A1B2C3D52F00000100000003 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				545D18E52C088FB7003DA8E1 /* StorageManager.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		B6A5C119A750E11154DA4E5D /* DocereeAdsSdkTests */ = {
 			isa = PBXGroup;
 			children = (
+				A1B2C3D42F00000100000011 /* AdSizeTests.swift */,
+				A1B2C3D42F00000100000012 /* ErrorContractTests.swift */,
+				A1B2C3D42F00000100000013 /* PatientBuilderTests.swift */,
 				733026586E86439D7934C392 /* DocereeAdsSdkTests.swift */,
 			);
 			name = DocereeAdsSdkTests;
@@ -605,7 +641,7 @@
 			files = (
 				542857542E0D68F60000E823 /* MyKetchViewUIKit.swift in Sources */,
 				542857552E0D68F60000E823 /* CreateCMPView.swift in Sources */,
-				54EBB005282E87AF00C7B249 /* adBlockRequest.swift in Sources */,
+				54EBB005282E87AF00C7B249 /* AdBlockRequest.swift in Sources */,
 				54BA06F42E01449600E21C45 /* ConsentConstants.swift in Sources */,
 				54BA06E22DEED5F400E21C45 /* OMIDSessionInteractor.swift in Sources */,
 				54BA06FA2E0147A900E21C45 /* AdConsentUIFactory.swift in Sources */,
@@ -644,6 +680,7 @@
 				54EBB0442834F62700C7B249 /* DocereeAdView.swift in Sources */,
 				54731CAC2E02DB0A000D0B86 /* DocereeAdView+AdUI.swift in Sources */,
 				54EDF0622C53E5FC00351DEF /* JsonUtility.swift in Sources */,
+				B0B0B0B02F00000100000001 /* DocereeLog.swift in Sources */,
 				545D18EA2C08948D003DA8E1 /* Utils.swift in Sources */,
 				54731CA82E02C8E5000D0B86 /* DocereeAdView+Consent.swift in Sources */,
 				54731CA42E02C806000D0B86 /* DocereeAdView+RichMedia.swift in Sources */,
@@ -668,6 +705,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1B2C3D42F00000100000001 /* AdSizeTests.swift in Sources */,
+				A1B2C3D42F00000100000002 /* ErrorContractTests.swift in Sources */,
+				A1B2C3D42F00000100000003 /* PatientBuilderTests.swift in Sources */,
 				0E59CEF62A856505C1BC5F21 /* DocereeAdsSdkTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,7 +15,7 @@ class ImageLoader {
         DispatchQueue.global(qos: .background).async {
             session.dataTask(with: URLRequest(url: url)) { data, response, error in
                 if error != nil {
-                    print(error?.localizedDescription ?? "Unknown error")
+                    DocereeLog.debug(error?.localizedDescription ?? "Unknown error")
                 }
                 if let data = data, let image = UIImage(data: data) {
                     DispatchQueue.main.async {

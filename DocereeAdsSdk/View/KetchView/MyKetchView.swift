@@ -9,51 +9,51 @@ import KetchSDK
 // Example custom listener that simply logs all events
 class MyKetchEventListener: KetchEventListener {
     func onLoad() {
-        print("UI Loaded")
+        DocereeLog.debug("UI Loaded")
     }
 
     func onShow() {
-        print("UI Shown")
+        DocereeLog.debug("UI Shown")
     }
 
     func onDismiss() {
-        print("UI Dismissed")
+        DocereeLog.debug("UI Dismissed")
     }
 
     func onEnvironmentUpdated(environment: String?) {
-        print("Environment Updated: \(String(describing: environment))")
+        DocereeLog.debug("Environment Updated: \(String(describing: environment))")
     }
 
     func onRegionInfoUpdated(regionInfo: String?) {
-        print("Region Info Updated: \(String(describing: regionInfo))")
+        DocereeLog.debug("Region Info Updated: \(String(describing: regionInfo))")
     }
 
     func onJurisdictionUpdated(jurisdiction: String?) {
-        print("Jurisdiction Updated: \(String(describing: jurisdiction))")
+        DocereeLog.debug("Jurisdiction Updated: \(String(describing: jurisdiction))")
     }
 
     func onIdentitiesUpdated(identities: String?) {
-        print("Identities Updated: \(String(describing: identities))")
+        DocereeLog.debug("Identities Updated: \(String(describing: identities))")
     }
 
     func onConsentUpdated(consent: KetchSDK.ConsentStatus) {
-        print("Consent Updated: \(consent)")
+        DocereeLog.debug("Consent Updated: \(consent)")
     }
 
     func onError(description: String) {
-        print("Error: \(description)")
+        DocereeLog.debug("Error: \(description)")
     }
 
     func onCCPAUpdated(ccpaString: String?) {
-        print("CCPA String Updated: \(String(describing: ccpaString))")
+        DocereeLog.debug("CCPA String Updated: \(String(describing: ccpaString))")
     }
 
     func onTCFUpdated(tcfString: String?) {
-        print("TCF String Updated: \(String(describing: tcfString))")
+        DocereeLog.debug("TCF String Updated: \(String(describing: tcfString))")
     }
 
     func onGPPUpdated(gppString: String?) {
-        print("GPP String Updated: \(String(describing: gppString))")
+        DocereeLog.debug("GPP String Updated: \(String(describing: gppString))")
     }
 }
 
@@ -237,11 +237,11 @@ public struct MyKetchView: View {
                      "IABGPP_GppSID",
                      "IABGPP_tcfeuv2_GppSID"]
         
-        print("\n* ----- Begin privacy strings ---- *")
+        DocereeLog.debug("\n* ----- Begin privacy strings ---- *")
         (keys + keys2 + keys3).forEach {
-            print("\($0): \(UserDefaults.standard.value(forKey: $0) ?? "")")
+            DocereeLog.debug("\($0): \(UserDefaults.standard.value(forKey: $0) ?? "")")
         }
-        print("* ----- End privacy strings ---- *\n")
+        DocereeLog.debug("* ----- End privacy strings ---- *\n")
     }
     
     private func prefTabCheckMarkView(tab: KetchUI.ExperienceOption.PreferencesTab) -> some View {

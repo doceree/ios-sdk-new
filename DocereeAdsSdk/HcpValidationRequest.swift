@@ -63,7 +63,7 @@ public final class HcpValidationRequest {
             if urlResponse.statusCode == 200 {
                 do {
                     let decode = try JSONDecoder().decode(HcpValidation.self, from: data!)
-                    print("hcpValidationData: ",decode)
+                    DocereeLog.debug("hcpValidationData: \(decode)")
                     if decode.code != 200 {
                         completion(Results(withData: nil, response: response as? HTTPURLResponse, error: HcpRequestError.apiFailed))
                         return
@@ -88,7 +88,7 @@ public final class HcpValidationRequest {
                 os_log("Error: Ad Tracking is disabled . Please re-enable it to view ads", log: .default, type: .error)
             } else {
                 // Fallback on earlier versions
-                print("Error: Ad Tracking is disabled . Please re-enable it to view ads")
+                DocereeLog.debug("Error: Ad Tracking is disabled . Please re-enable it to view ads")
             }
             return
         }
@@ -133,16 +133,10 @@ public final class HcpValidationRequest {
             guard data != nil else { return }
             let urlResponse = response as! HTTPURLResponse
             guard data != nil else { return }
-            #if DEBUG
-                print("Hcp Updated:", urlResponse.statusCode)
-            #endif
-            
             if urlResponse.statusCode == 200 {
-                #if DEBUG
-                    print("Hcp Updated:", urlResponse.statusCode)
-                #endif
+                DocereeLog.debug("Hcp Updated: \(urlResponse.statusCode)")
             } else {
-                print("Hcp Updation Failed:", urlResponse.statusCode)
+                DocereeLog.debug("Hcp Updation Failed: \(urlResponse.statusCode)")
             }
         }
         task.resume()

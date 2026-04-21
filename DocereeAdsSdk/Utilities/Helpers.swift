@@ -48,7 +48,7 @@ func savePlatformuid(_ newPlatormuid: String) {
         let data = try NSKeyedArchiver.archivedData(withRootObject: newPlatormuid, requiringSecureCoding: false)
         try data.write(to: URL(fileURLWithPath: PlatformArchivingUrl.path), options: .atomic)
     } catch {
-        print("Failed to archive object: \(error)")
+        DocereeLog.debug("Failed to archive object: \(error)")
     }
 }
 

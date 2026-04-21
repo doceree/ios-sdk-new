@@ -72,7 +72,7 @@ public final class DocereeAdRequest: AdServiceProtocol {
     }
 
     internal func sendViewability(to url: String) {
-        print("sendViewability: ", url)
+        DocereeLog.debug("sendViewability: \(url)")
         guard let url = URL(string: url) else { return }
         let request = URLRequest(url: url)
         sendBeacon(request, "Viewability")
@@ -158,9 +158,7 @@ public final class DocereeAdRequest: AdServiceProtocol {
 
         session.dataTask(with: request) { _, response, error in
             if let httpResponse = response as? HTTPURLResponse {
-                #if DEBUG
-                print("\(message) Sent with Status: \(httpResponse.statusCode)")
-                #endif
+                DocereeLog.debug("\(message) Sent with Status: \(httpResponse.statusCode)")
                 
                 if !(200...299).contains(httpResponse.statusCode),
                    retryCount < self.maxRetryCount {
@@ -184,7 +182,7 @@ public final class DocereeAdRequest: AdServiceProtocol {
 extension Data {
     func printJSON() {
         if let JSONString = String(data: self, encoding: .utf8) {
-            print(JSONString)
+            DocereeLog.debug(JSONString)
         }
     }
 }

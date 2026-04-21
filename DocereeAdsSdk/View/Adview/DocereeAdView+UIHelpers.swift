@@ -43,9 +43,7 @@ extension DocereeAdView {
             session.stopSession()
         }
         if totalViewTime > 0 && (savedViewPercentage > 50 || Int(savedViewPercentage) >= (self.adResponseData?.minViewPercentage)!) {
-            #if DEBUG
-                print("View Time: ", totalViewTime)
-            #endif
+            DocereeLog.debug("View Time: \(totalViewTime)")
             if var viewLink = adResponseData?.adViewedURL, !viewLink.isEmpty {
                 let time = standard == "mrc" ? totalViewTime : (self.adResponseData?.minViewTime ?? 0)
                 let percentage = standard == "mrc" ? 50 : (self.adResponseData?.minViewPercentage ?? 0)

@@ -46,10 +46,10 @@ class Utils {
         let num2 = String(str.reversed()).prefix(5)
         let num3 = Int.random(in: 0..<99999) * 99
         uid = String((num1 + Int(num2)! + num3) + num3)
-        print("sessionId Generated UID:", uid)
+        DocereeLog.debug("sessionId Generated UID: \(uid)")
 
         let sessionId = "\(seed).\(version).\(uid).\(Int(time))"
-        print("sessionId sessionId:", sessionId)
+        DocereeLog.debug("sessionId sessionId: \(sessionId)")
 
         return sessionId
     }

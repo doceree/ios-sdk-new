@@ -18,7 +18,7 @@ public class PatientSession {
         do {
             // Save timestamp
             await StorageManager.shared.saveTimestamp()
-            print("sessionId:", PatientSession.sessionId ?? "nil")
+            DocereeLog.debug("sessionId: \(PatientSession.sessionId ?? "nil")")
 
             // End session if sessionId exists
             if PatientSession.sessionId != nil {
@@ -27,7 +27,7 @@ public class PatientSession {
 
             // Generate new sessionId
             PatientSession.sessionId = try await Utils().sessionId()
-            print("Generated sessionId:", PatientSession.sessionId ?? "nil")
+            DocereeLog.debug("Generated sessionId: \(PatientSession.sessionId ?? "nil")")
 
             // Call PatientSessionApi
             try await PatientSessionApi.send(sessionId: PatientSession.sessionId!, status: 1)
@@ -46,36 +46,37 @@ public class PatientSession {
 //            }
 
             // Schedule endSession after expiration time
+            let patientSession = PatientSession()
             DispatchQueue.main.asyncAfter(deadline: .now() + expirationTime) {
                 Task {
-                    await self.endSession()
+                    await patientSession.endSession()
                 }
             }
         } catch {
-            print("Error in startSession:", error)
+            DocereeLog.debug("Error in startSession: \(error)")
         }
     }
 
     public func endSession() async {
-        print("endSession")
+        DocereeLog.debug("endSession")
         do {
             if let sessionId = StorageManager.shared.getItem(forKey: "sessionId") {
-                print("sessionId:", sessionId)
+                DocereeLog.debug("sessionId: \(sessionId)")
                 try await PatientSessionApi.send(sessionId: sessionId, status: 0)
                 await StorageManager.shared.clearItem(forKey: "patientData")
                 await StorageManager.shared.clearItem(forKey: "sessionId")
                 PatientSession.sessionId = nil
             }
         } catch {
-            print("Error in endSession:", error)
+            DocereeLog.debug("Error in endSession: \(error)")
         }
     }
 
     public func savePatientData(_ newValue: JSONObject) -> Bool {
         if let sessionId = StorageManager.shared.getItem(forKey: "sessionId") {
-            print("sessionId:", sessionId)
+            DocereeLog.debug("sessionId: \(sessionId)")
             if sessionId.isEmpty {
-                print("No session found!")
+                DocereeLog.debug("No session found!")
                 return false
             }
 
@@ -110,7 +111,7 @@ public class PatientSession {
     }
 
     func getBr() -> String {
-        print("Br called")
+        DocereeLog.debug("Br called")
         do {
             if let patient = StorageManager.shared.getPatientData() {
                 let attributes = ["attributes": patient]
@@ -118,15 +119,17 @@ public class PatientSession {
                 // Replace escaped characters manually
                 jsonString = jsonString.replacingOccurrences(of: "\\/", with: "/")
                 let encodedBr = try Utils().encodeBase64(jsonString)
-                print("Encrypted br:", encodedBr)
+                DocereeLog.debug("Encrypted br: \(encodedBr)")
                 return encodedBr
             } else {
-                print("PatientSession: No patient found")
+                DocereeLog.debug("PatientSession: No patient found")
             }
         } catch {
-            print("Error fetching patient data:", error)
+            DocereeLog.debug("Error fetching patient data: \(error)")
         }
         return ""
     }
 }
+
+extension PatientSession: @unchecked Sendable {}
 

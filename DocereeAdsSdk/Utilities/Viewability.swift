@@ -101,7 +101,7 @@ func viewabilityPercentageScrollView(adView: UIView, scrollView: UIScrollView) -
 //                verticalPercentage = (visibleHeight / adView.frame.height) * 100
 //                print("bottom portion ", visibleHeight)
             } else {
-                print("mid portion ")
+                DocereeLog.debug("mid portion ")
             }
         } else {
             visibleHeight = adView.frame.height + currentAdY
@@ -147,7 +147,7 @@ func viewabilityPercentageScrollView(adView: UIView, scrollView: UIScrollView) -
 //                horizontalPercentage = (visibleWidth / adView.frame.width) * 100
 //                print("right portion ", visibleWidth)
             } else {
-                print("mid portion ")
+                DocereeLog.debug("mid portion ")
             }
         } else {
             visibleWidth = adView.frame.width + currentAdX

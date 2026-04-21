@@ -21,13 +21,13 @@ class StorageManager {
     func clearUserDefaults() {
         if let domain = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: domain)
-            print("Cleared")
+            DocereeLog.debug("Cleared")
         }
     }
     
     func clearItem(forKey key: String) async {
         UserDefaults.standard.removeObject(forKey: key)
-        print("Cleared Item ", key)
+        DocereeLog.debug("Cleared Item \(key)")
     }
     
     func saveItem(forKey key: String, value: String) async {
@@ -36,24 +36,24 @@ class StorageManager {
     
     func getItem(forKey key: String) -> String? {
         if let savedString = UserDefaults.standard.string(forKey: key) {
-            print("Retrieved string: \(savedString)")
+            DocereeLog.debug("Retrieved string: \(savedString)")
             return savedString
         } else {
-            print("No string found for key \(key)")
+            DocereeLog.debug("No string found for key \(key)")
             return nil
         }
     }
     
     func saveData(forKey key: String, value: JSONObject) {
         UserDefaults.standard.set(value, forKey: key)
-        print("Data stored successfully")
+        DocereeLog.debug("Data stored successfully")
     }
     
     func getData(forKey key: String) -> JSONObject? {
         if let savedData = UserDefaults.standard.object(forKey: key) as? [String: Any] {
             return savedData
         } else {
-            print("No data found for key 'userProfile'")
+            DocereeLog.debug("No data found for key 'userProfile'")
         }
         return nil
     }
@@ -61,7 +61,7 @@ class StorageManager {
     func saveTimestamp() async {
         let currentTime = Date().timeIntervalSince1970
         UserDefaults.standard.set(currentTime, forKey: timestampKey)
-        print("Timestamp saved successfully")
+        DocereeLog.debug("Timestamp saved successfully")
     }
     
     func isExpired() -> Bool {
@@ -83,7 +83,7 @@ class StorageManager {
     func savePatientData(_ value: JSONObject) {
         let expired = isExpired()
         if expired {
-            print("savePatientData session expired!")
+            DocereeLog.debug("savePatientData session expired!")
             UserDefaults.standard.removeObject(forKey: patientKey)
             return
         }
@@ -93,7 +93,7 @@ class StorageManager {
     func getPatientData() -> JSONObject? {
         let expired = isExpired()
         if expired {
-            print("getPatientData session expired!")
+            DocereeLog.debug("getPatientData session expired!")
             UserDefaults.standard.removeObject(forKey: patientKey)
             return nil
         }

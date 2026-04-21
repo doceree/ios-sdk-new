@@ -59,7 +59,7 @@ public struct Patient {
             nonOptionalMap[key] = value
         }
         
-        print(nonOptionalMap)
+        DocereeLog.debug("\(nonOptionalMap)")
         return nonOptionalMap
     }
     
@@ -171,10 +171,10 @@ public class PatientBuilder {
             do {
                 // Define a dictionary with String keys and values
                 let dictionary = try decoder.decode([String: String].self, from: jsonData)
-                print(dictionary) // Output: ["v": "88.56", "u": "Fahrenheit/Celsius"]
+                DocereeLog.debug("\(dictionary)") // Output: ["v": "88.56", "u": "Fahrenheit/Celsius"]
                 return dictionary;
             } catch {
-                print("Failed to decode JSON:", error)
+                DocereeLog.debug("Failed to decode JSON: \(error)")
             }
         }
         return nil

@@ -30,6 +30,29 @@ Pick the version you ship; see release tags / podspec for current versions.
 
 The demo app imports **`DocereeAdsSdk`** (framework). Integrators who use CocoaPods alone import **`DocereeAdSdk`** (pod module name).
 
+## Quick verify commands
+
+From `ios-sdk-new`:
+
+```bash
+pod install
+xcodebuild test -workspace DocereeAdsSdk.xcworkspace -scheme DocereeAdsSdk -destination 'platform=iOS Simulator,name=iPhone 16'
+```
+
+## Troubleshooting notes
+
+- **`Framework 'Pods_DocereeAdsSdkTests' not found`**
+  - Run `pod install` in `ios-sdk-new`.
+  - Keep the `post_integrate` block in `ios-sdk-new/Podfile` (it strips injected `Pods_*` umbrella framework links that can break this workspace setup).
+
+- **`tasks in 'Copy Headers' are delayed by unsandboxed script phases`**
+  - Informational warning from Xcode script phase sandboxing checks.
+  - Safe to ignore for local development unless you explicitly enforce script sandboxing policy.
+
+- **KetchSDK warning about `index.html` processing**
+  - This comes from a third-party pod target (`KetchSDK`).
+  - Do not patch vendor sources in this repo for that warning; treat as non-blocking unless the vendor ships a fix.
+
 ## License
 
 This code is distributed under the terms and conditions of the [MIT license](https://github.com/doceree/ios-sdk/blob/master/MIT%20License).

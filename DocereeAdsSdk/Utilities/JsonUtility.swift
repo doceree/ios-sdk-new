@@ -12,7 +12,7 @@ class JsonUtility {
     // Method to convert an escaped JSON string to an array of dictionaries
     static func decodeJSON<T: Decodable>(_ jsonString: String, as type: T.Type) -> T? {
         guard let jsonData = jsonString.data(using: .utf8) else {
-            print("Error converting string to Data")
+            DocereeLog.debug("Error converting string to Data")
             return nil
         }
         
@@ -20,14 +20,14 @@ class JsonUtility {
             let decodedObject = try JSONDecoder().decode(T.self, from: jsonData)
             return decodedObject
         } catch {
-            print("Failed to decode JSON:", error)
+            DocereeLog.debug("Failed to decode JSON: \(error)")
             return nil
         }
     }
     
     static func unescapeString(escapedString: String) -> String? {
         guard let data = escapedString.data(using: .utf8) else {
-            print("Failed to convert string to data")
+            DocereeLog.debug("Failed to convert string to data")
             return nil
         }
         
@@ -37,7 +37,7 @@ class JsonUtility {
                 return decodedString
             }
         } catch {
-            print("Error decoding JSON: \(error.localizedDescription)")
+            DocereeLog.debug("Error decoding JSON: \(error.localizedDescription)")
         }
         return nil
     }
@@ -50,10 +50,10 @@ class JsonUtility {
             do {
                 // Define a dictionary with String keys and values
                 let dictionary = try decoder.decode([String: String].self, from: jsonData)
-                print(dictionary) // Output: ["v": "88.56", "u": "Fahrenheit/Celsius"]
+                DocereeLog.debug("\(dictionary)") // Output: ["v": "88.56", "u": "Fahrenheit/Celsius"]
                 return dictionary;
             } catch {
-                print("Failed to decode JSON:", error)
+                DocereeLog.debug("Failed to decode JSON: \(error)")
             }
         }
         return nil
@@ -62,7 +62,7 @@ class JsonUtility {
     // Method to convert an escaped JSON string to an array
     static func unEscapeArray(_ escapedJSONString: String) -> [String]? {
         guard let jsonData = escapedJSONString.data(using: .utf8) else {
-            print("Error converting string to Data")
+            DocereeLog.debug("Error converting string to Data")
             return nil
         }
         
@@ -72,11 +72,11 @@ class JsonUtility {
             if let jsonArray = jsonObject as? [String] {
                 return jsonArray
             } else {
-                print("Unexpected JSON format")
+                DocereeLog.debug("Unexpected JSON format")
                 return nil
             }
         } catch {
-            print("Failed to decode JSON:", error)
+            DocereeLog.debug("Failed to decode JSON: \(error)")
             return nil
         }
     }
@@ -84,7 +84,7 @@ class JsonUtility {
     // Method to convert an escaped JSON string to an array of dictionaries
     static func convertEscapedJSONStringToArray(_ escapedJSONString: String) -> [[String: Any]]? {
         guard let jsonData = escapedJSONString.data(using: .utf8) else {
-            print("Error converting string to Data")
+            DocereeLog.debug("Error converting string to Data")
             return nil
         }
         
@@ -94,11 +94,11 @@ class JsonUtility {
             if let jsonArray = jsonObject as? [[String: Any]] {
                 return jsonArray
             } else {
-                print("Unexpected JSON format")
+                DocereeLog.debug("Unexpected JSON format")
                 return nil
             }
         } catch {
-            print("Failed to decode JSON:", error)
+            DocereeLog.debug("Failed to decode JSON: \(error)")
             return nil
         }
     }
