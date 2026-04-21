@@ -11,8 +11,14 @@ class ConfigurationService {
     static let shared = ConfigurationService()
 
     /// Builds the HTTPS URL used for app configuration fetch (same string as production).
-    static func makeAppConfigurationURL(identityHost: String) -> URL? {
-        URL(string: "https://\(identityHost)\(getPath(methodName: Methods.AppConfig))")
+    static func makeAppConfigurationURL(identityHost: String, environment: EnvironmentType) -> URL? {
+        let path = getPath(methodName: Methods.AppConfig, type: environment)
+        return URL(string: "https://\(identityHost)\(path)")
+    }
+
+    private static func responseBodyPreview(from data: Data, limit: Int = 500) -> String? {
+        guard !data.isEmpty else { return nil }
+        return String(data: data, encoding: .utf8).map { String($0.prefix(limit)) }
     }
 
     static func decodeAppConfiguration(from data: Data) throws -> AppConfiguration {
@@ -38,7 +44,7 @@ class ConfigurationService {
         UserDefaultsManager.shared.deleteConfig()
         UserDefaultsManager.shared.clearConfigExpiration()
         
-        guard let url = Self.makeAppConfigurationURL(identityHost: host) else {
+        guard let url = Self.makeAppConfigurationURL(identityHost: host, environment: environment) else {
             DocereeLog.debug("Invalid configuration URL (environment=\(environment), host=\(host))")
             return nil
         }
@@ -51,14 +57,25 @@ class ConfigurationService {
         let body = ["appId": appId]
         request.httpBody = try JSONSerialization.data(withJSONObject: body)
         
-        let (data, _) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            DocereeLog.debug("App config: non-HTTP response (environment=\(environment))")
+            throw AppConfigurationServiceError.invalidHTTPResponse
+        }
+        let status = httpResponse.statusCode
+        guard (200...299).contains(status) else {
+            let preview = Self.responseBodyPreview(from: data)
+            let err = AppConfigurationServiceError.httpStatusNotSuccess(statusCode: status, responseBodyPreview: preview)
+            DocereeLog.debug("\(err.localizedDescription)")
+            throw err
+        }
         do {
             let decoded = try Self.decodeAppConfiguration(from: data)
             UserDefaultsManager.shared.saveConfigExpiration()
             UserDefaultsManager.shared.saveConfig(decoded.data)
             return decoded
         } catch {
-            let preview = String(data: data, encoding: .utf8).map { String($0.prefix(500)) }
+            let preview = Self.responseBodyPreview(from: data)
             let wrapped = AppConfigurationServiceError.decodingFailed(underlying: error, responseBodyPreview: preview)
             DocereeLog.debug("\(wrapped.localizedDescription)")
             throw wrapped

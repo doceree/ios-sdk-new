@@ -22,14 +22,24 @@ struct AppConfigurationData: Codable {
     let platformId: Int?
 }
 
-/// Thrown when an app-configuration HTTP response cannot be decoded as `AppConfiguration`.
+/// Thrown when app configuration cannot be loaded from the network or decoded.
 public enum AppConfigurationServiceError: Error {
+    case invalidHTTPResponse
+    case httpStatusNotSuccess(statusCode: Int, responseBodyPreview: String?)
     case decodingFailed(underlying: Error, responseBodyPreview: String?)
 }
 
 extension AppConfigurationServiceError: LocalizedError {
     public var errorDescription: String? {
         switch self {
+        case .invalidHTTPResponse:
+            return "App configuration request returned a non-HTTP response."
+        case .httpStatusNotSuccess(let statusCode, let preview):
+            var message = "App configuration HTTP status \(statusCode) was not successful."
+            if let preview, !preview.isEmpty {
+                message += " Response preview: \(preview)"
+            }
+            return message
         case .decodingFailed(let underlying, let preview):
             var message = "Unable to decode app configuration: \(underlying.localizedDescription)"
             if let preview, !preview.isEmpty {
