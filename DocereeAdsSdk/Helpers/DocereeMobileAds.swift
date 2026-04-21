@@ -11,6 +11,7 @@ import AppTrackingTransparency
 import AdSupport
 import UIKit
 #endif
+import os.log
 
 public final class DocereeMobileAds {
     
@@ -54,7 +55,7 @@ public final class DocereeMobileAds {
             let config = try await ConfigurationService.shared.fetchAppConfiguration(appId: appId)
             DocereeLog.debug("Fetched Config: \(String(describing: config?.data as Any))")
         } catch {
-            DocereeLog.debug("App configuration load failed: \(error.localizedDescription)")
+            DocereeLog.debug("Error: \(error)")
         }
     }
 
@@ -77,9 +78,6 @@ public final class DocereeMobileAds {
     }
 
     public func getProfile() -> Hcp? {
-        guard FileManager.default.fileExists(atPath: ProfileArchivingUrl.path) else {
-            return nil
-        }
         do {
             let data = try Data(contentsOf: ProfileArchivingUrl)
             
@@ -91,20 +89,21 @@ public final class DocereeMobileAds {
             
             return profile
         } catch {
-            DocereeLog.debug("Failed to read HCP profile: \(error.localizedDescription)")
+            DocereeLog.debug("ERROR: \(error.localizedDescription)")
             return nil
         }
     }
     
     func loadDocereeIdentifier(from url: URL) -> String? {
-        guard FileManager.default.fileExists(atPath: url.path) else {
-            return nil
-        }
         do {
             let data = try Data(contentsOf: url)
             return try NSKeyedUnarchiver.unarchivedObject(ofClass: NSString.self, from: data) as String?
         } catch {
-            DocereeLog.debug("Error loading DocereeIdentifier: \(error.localizedDescription)")
+            if #available(iOS 10.0, *) {
+                os_log("Error loading DocereeIdentifier: %@", log: .default, type: .error, error.localizedDescription)
+            } else {
+                DocereeLog.debug("Error loading DocereeIdentifier: \(error.localizedDescription)")
+            }
             return nil
         }
     }
