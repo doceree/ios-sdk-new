@@ -73,9 +73,8 @@ public class MyKetchUIKitViewController: UIViewController {
     private var jurisdiction = "australia"
     private var region = "AUS"
     private var selectedTabs = KetchUI.ExperienceOption.PreferencesTab.allCases
-    
-    public init() {
-        // Initialize KetchSDK
+
+    private static func makeKetchUI() -> KetchUI {
         let ketch = KetchSDK.create(
             organizationCode: "doceree",
             propertyCode: "ios",
@@ -84,23 +83,28 @@ public class MyKetchUIKitViewController: UIViewController {
                 Ketch.Identity(key: "idfa", value: getIdentifierForAdvertising() ?? "")
             ]
         )
-        
-        // Initialize KetchUI
-        self.ketchUI = KetchUI(
+        return KetchUI(
             ketch: ketch,
             experienceOptions: [
                 .forceExperience(.consent)
             ]
         )
-        
-        super.init(nibName: nil, bundle: nil)
-        
-        // Set listener
+    }
+
+    private func wireKetchListener() {
         ketchUI.eventListener = self
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    public init() {
+        self.ketchUI = Self.makeKetchUI()
+        super.init(nibName: nil, bundle: nil)
+        wireKetchListener()
+    }
+    
+    public required init?(coder: NSCoder) {
+        self.ketchUI = Self.makeKetchUI()
+        super.init(coder: coder)
+        wireKetchListener()
     }
     
     public override func viewDidLoad() {

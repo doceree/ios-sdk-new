@@ -70,8 +70,7 @@ public class CreateCMPView: UIView {
     private var region = "AUS"
     private var selectedTabs = KetchUI.ExperienceOption.PreferencesTab.allCases
 
-    public init() {
-        // Initialize KetchSDK
+    private static func makeKetchUI() -> KetchUI {
         let ketch = KetchSDK.create(
             organizationCode: "doceree",
             propertyCode: "ios",
@@ -80,26 +79,29 @@ public class CreateCMPView: UIView {
                 Ketch.Identity(key: "idfa", value: getIdentifierForAdvertising() ?? "")
             ]
         )
-
-        // Initialize KetchUI
-        self.ketchUI = KetchUI(
+        return KetchUI(
             ketch: ketch,
             experienceOptions: [
                 .forceExperience(.consent)
             ]
         )
+    }
 
-        super.init(frame: .zero)
-
-        // Set listener
+    private func wireKetchAndLoad() {
         ketchUI.eventListener = self
-
-        // Load Ketch view
         loadKetchView()
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    public init() {
+        self.ketchUI = Self.makeKetchUI()
+        super.init(frame: .zero)
+        wireKetchAndLoad()
+    }
+
+    public required init?(coder: NSCoder) {
+        self.ketchUI = Self.makeKetchUI()
+        super.init(coder: coder)
+        wireKetchAndLoad()
     }
 
     private func loadKetchView() {
