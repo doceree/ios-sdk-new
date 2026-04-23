@@ -6,14 +6,14 @@ final class HardeningRegressionTests: XCTestCase {
     func testMakeAppConfigurationURL_matchesManualConstructionForEachEnvironment() {
         for env in [EnvironmentType.Dev, .Local, .Qa, .Prod] {
             let host = getIdentityHost(type: env)
-            let expected = URL(string: "https://\(host)\(getPath(methodName: Methods.AppConfig))")
+            let expected = URL(string: "https://\(host)\(getPath(methodName: Methods.AppConfig, type: env))")
             XCTAssertEqual(
-                ConfigurationService.makeAppConfigurationURL(identityHost: host),
+                ConfigurationService.makeAppConfigurationURL(identityHost: host, environment: env),
                 expected,
                 "URL mismatch for environment \(env)"
             )
             XCTAssertTrue(
-                ConfigurationService.makeAppConfigurationURL(identityHost: host)?.absoluteString.contains("/dop/settings") == true
+                ConfigurationService.makeAppConfigurationURL(identityHost: host, environment: env)?.absoluteString.contains("/dop/settings") == true
             )
         }
     }
@@ -31,6 +31,26 @@ final class HardeningRegressionTests: XCTestCase {
         let description = err.localizedDescription
         XCTAssertTrue(description.contains("inner"), description)
         XCTAssertTrue(description.contains("{\"not\":\"AppConfiguration\"}"), description)
+    }
+
+    func testAppConfigurationServiceError_httpStatusIncludesPreview() {
+        let err = AppConfigurationServiceError.httpStatusNotSuccess(statusCode: 503, responseBodyPreview: "retry")
+        XCTAssertTrue(err.localizedDescription.contains("503"), err.localizedDescription)
+        XCTAssertTrue(err.localizedDescription.contains("retry"), err.localizedDescription)
+    }
+
+    func testAppConfigurationServiceError_invalidHTTPResponseDescription() {
+        let err = AppConfigurationServiceError.invalidHTTPResponse
+        XCTAssertFalse(err.localizedDescription.isEmpty)
+    }
+
+    func testAppConfigurationFetchOutcome_requestEncodingFailedPreservesUnderlying() {
+        let underlying = NSError(domain: "test.encoding", code: 42)
+        guard case .requestEncodingFailed(let wrapped) = AppConfigurationFetchOutcome.requestEncodingFailed(underlying: underlying) else {
+            return XCTFail("Expected requestEncodingFailed")
+        }
+        XCTAssertEqual((wrapped as NSError).domain, "test.encoding")
+        XCTAssertEqual((wrapped as NSError).code, 42)
     }
 
     func testDecodeAppConfiguration_succeedsOnMinimalValidPayload() throws {

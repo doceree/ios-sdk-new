@@ -11,6 +11,10 @@ public enum DocereeAdRequestError: String, Error {
     case invalidURL
     case invalidRequest
     case invalidResponse
+    /// URLSession returned a non-HTTP URL response for an ad request.
+    case nonHTTPResponse
+    /// Ad bidder returned a non-success HTTP status (after retries for transient 5xx, if any).
+    case httpUnsuccessful
 }
 
 public enum HcpRequestError: String, Error {

@@ -64,7 +64,7 @@ enum ConsentType {
     case consentType3
 }
 
-public enum EnvironmentType {
+public enum EnvironmentType: Sendable {
     case Dev
     case Prod
     case Local
@@ -135,3 +135,14 @@ struct Constants {
     static let verificationParameters = ""
 }
 
+// MARK: - DocereeLog
+/// Internal debug logging for SDK development. No output in non-DEBUG builds.
+/// Kept in this file so CocoaPods / mixed targets always compile it with core SDK sources.
+enum DocereeLog {
+    static func debug(_ message: @autoclosure () -> String) {
+        #if DEBUG
+        let text = message()
+        print("[DocereeAdsSdk]", text)
+        #endif
+    }
+}

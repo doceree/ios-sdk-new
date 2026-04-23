@@ -6,45 +6,60 @@
 //
 
 import Foundation
-import os.log
+import UIKit
 
 extension DocereeAdView {
 
     func fetchAd(_ size: String, _ uId: String) {
-        Task {
+        adFetchTask?.cancel()
+        adFetchTask = Task { [weak self] in
+            guard let self else { return }
             do {
-                guard let request = docereeAdRequest else {
-                    delegate?.docereeAdView(self, didFailToReceiveAdWithError: .invalidRequest)
+                guard let request = self.docereeAdRequest else {
+                    await MainActor.run { [weak self] in
+                        guard let self, self.window != nil else { return }
+                        self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: .invalidRequest)
+                    }
                     return
                 }
-                
-                let (results, isRichMediaAd) = try await request.requestAd(userId: uId, adUnitId: docereeAdUnitId, size: size)
-                self.isRichMediaAd = isRichMediaAd
-                
+
+                let (results, isRichMediaAd) = try await request.requestAd(userId: uId, adUnitId: self.docereeAdUnitId, size: size)
                 guard let data = results.data else {
-                    delegate?.docereeAdView(self, didFailToReceiveAdWithError: .invalidResponse)
+                    await MainActor.run { [weak self] in
+                        guard let self, self.window != nil else { return }
+                        self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: .invalidResponse)
+                        self.removeAllViews()
+                        self.startTimer(adFound: false)
+                    }
                     return
                 }
-                
+
                 let rs = try JSONDecoder().decode(AdResponseMain.self, from: data)
-                self.adResponseData = rs.response.first
-                
-                if self.adResponseData?.status == -1 {
-                    guard self.window != nil else { return }
-                    self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: .adNotFound)
-                    self.removeAllViews()
-                } else {
-                    self.createAdUI()
+                await MainActor.run { [weak self] in
+                    guard let self else { return }
+                    self.isRichMediaAd = isRichMediaAd
+                    self.adResponseData = rs.response.first
+
+                    if self.adResponseData?.status == -1 {
+                        guard self.window != nil else { return }
+                        self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: .adNotFound)
+                        self.removeAllViews()
+                    } else {
+                        self.createAdUI()
+                    }
+
+                    self.startTimer(adFound: true)
                 }
-                
-                self.startTimer(adFound: true)
-                
+            } catch is CancellationError {
+                DocereeLog.debug("Ad fetch cancelled")
             } catch {
-                os_log("Ad fetch failed: %@", log: .default, type: .error, error.localizedDescription)
-                guard self.window != nil else { return }
-                self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: error as? DocereeAdRequestError ?? .failedToCreateRequest)
-                self.removeAllViews()
-                self.startTimer(adFound: false)
+                DocereeLog.debug("Ad fetch failed: \(error.localizedDescription)")
+                await MainActor.run { [weak self] in
+                    guard let self, self.window != nil else { return }
+                    self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: error as? DocereeAdRequestError ?? .failedToCreateRequest)
+                    self.removeAllViews()
+                    self.startTimer(adFound: false)
+                }
             }
         }
     }
@@ -54,7 +69,7 @@ extension DocereeAdView {
             createPassbackAd(tag: tag)
             return
         }
-        
+
         self.cbId = adResponseData?.CBID?.split(separator: "_").first.map(String.init)
         self.docereeAdUnitId = adResponseData?.adUnit ?? ""
         self.ctaLink = adResponseData?.clickURL?.replacingOccurrences(of: "DOCEREE_CLICK_URL_UNESC", with: "")
@@ -75,5 +90,5 @@ extension DocereeAdView {
             }
         }
     }
-    
+
 }

@@ -12,6 +12,13 @@ final class ErrorContractTests: XCTestCase {
         XCTAssertEqual(DocereeAdRequestError.adNotFound.rawValue, "Ad not found")
         XCTAssertEqual(DocereeAdRequestError.invalidAppKey.rawValue, "invalidAppKey")
         XCTAssertEqual(DocereeAdRequestError.failedToCreateRequest.rawValue, "failedToCreateRequest")
+        XCTAssertEqual(DocereeAdRequestError.nonHTTPResponse.rawValue, "nonHTTPResponse")
+        XCTAssertEqual(DocereeAdRequestError.httpUnsuccessful.rawValue, "httpUnsuccessful")
+    }
+
+    func testDocereeHTTPTimeouts_beaconShorterThanInteractive() {
+        XCTAssertLessThanOrEqual(DocereeHTTPTimeouts.beaconRequest, DocereeHTTPTimeouts.interactiveRequest)
+        XCTAssertGreaterThan(DocereeHTTPTimeouts.beaconRequest, 0)
     }
 
     func testHcpRequestErrorRawValues() {

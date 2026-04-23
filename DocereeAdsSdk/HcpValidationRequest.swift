@@ -19,65 +19,70 @@ public final class HcpValidationRequest {
     }
     
     internal func getHcpSelfValidation(completion: @escaping(_ results: Results) -> Void) async {
-
         self.requestHttpHeaders.add(value: "application/json", forKey: "Content-Type")
-        
-        // query params
-        let josnObject: [String : Any] = await [
-            GetHcpValidation.bundleId.rawValue : Bundle.main.bundleIdentifier!,
-            GetHcpValidation.uuid.rawValue : getUUID() as Any,
-            GetHcpValidation.userId.rawValue : getUUID() as Any,
+
+        let uuid = await getUUID()
+        let josnObject: [String: Any] = [
+            GetHcpValidation.bundleId.rawValue: Bundle.main.bundleIdentifier!,
+            GetHcpValidation.uuid.rawValue: uuid as Any,
+            GetHcpValidation.userId.rawValue: uuid as Any,
         ]
 
-        let body = josnObject //httpBodyParameters.allValues()
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
         var components = URLComponents()
         components.scheme = "https"
         components.host = getIdentityHost(type: DocereeMobileAds.shared().getEnvironment())
         components.path = getPath(methodName: Methods.GetHcpValidation, type: DocereeMobileAds.shared().getEnvironment())
-        let collectDataEndPoint: URL = components.url!
-        var request: URLRequest = URLRequest(url: collectDataEndPoint)
+        guard let collectDataEndPoint = components.url else {
+            await MainActor.run {
+                completion(Results(withData: nil, response: nil, error: HcpRequestError.apiFailed))
+            }
+            return
+        }
+        var request = URLRequest(url: collectDataEndPoint)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        // set headers
+
         for header in requestHttpHeaders.allValues() {
             request.setValue(header.value, forHTTPHeaderField: header.key)
         }
-        
+
         request.httpMethod = HttpMethod.post.rawValue
-        
+
         let jsonData: Data
         do {
-            jsonData = try JSONSerialization.data(withJSONObject: body, options: [])
-            request.httpBody = jsonData
+            jsonData = try JSONSerialization.data(withJSONObject: josnObject, options: [])
         } catch {
+            await MainActor.run {
+                completion(Results(withData: nil, response: nil, error: HcpRequestError.apiFailed))
+            }
             return
         }
-        
-        let task = session.dataTask(with: request) { (data, response, error) in
-            guard data != nil else { return }
-            let urlResponse = response as! HTTPURLResponse
-//            data?.printJSON()
+        request.httpBody = jsonData
 
-            if urlResponse.statusCode == 200 {
-                do {
-                    let decode = try JSONDecoder().decode(HcpValidation.self, from: data!)
-                    DocereeLog.debug("hcpValidationData: \(decode)")
-                    if decode.code != 200 {
-                        completion(Results(withData: nil, response: response as? HTTPURLResponse, error: HcpRequestError.apiFailed))
-                        return
+        do {
+            let (data, http) = try await DocereeURLSessionLoading.dataWithInteractiveRetries(for: request)
+            do {
+                let decode = try JSONDecoder().decode(HcpValidation.self, from: data)
+                DocereeLog.debug("hcpValidationData: \(decode)")
+                if decode.code != 200 {
+                    await MainActor.run {
+                        completion(Results(withData: nil, response: http, error: HcpRequestError.apiFailed))
                     }
-                    completion(Results(withData: data, response: response as? HTTPURLResponse, error: nil))
-                } catch {
-                    completion(Results(withData: nil, response: response as? HTTPURLResponse, error: HcpRequestError.parsingError))
+                    return
                 }
-            } else {
-                completion(Results(withData: nil, response: response as? HTTPURLResponse, error: HcpRequestError.apiFailed))
+                await MainActor.run {
+                    completion(Results(withData: data, response: http, error: nil))
+                }
+            } catch {
+                await MainActor.run {
+                    completion(Results(withData: nil, response: http, error: HcpRequestError.parsingError))
+                }
+            }
+        } catch {
+            DocereeLog.debug("getHcpSelfValidation failed: \(error.localizedDescription)")
+            await MainActor.run {
+                completion(Results(withData: nil, response: nil, error: HcpRequestError.apiFailed))
             }
         }
-        task.resume()
-
     }
     
     internal func updateHcpSelfValidation(_ hcpStatus: String) {
@@ -103,44 +108,40 @@ public final class HcpValidationRequest {
             UpdateHcpValidation.userId.rawValue : advertisementId as Any,
         ]
 
-        let body = josnObject //httpBodyParameters.allValues()
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
+        let body = josnObject
         var components = URLComponents()
         components.scheme = "https"
         components.host = getIdentityHost(type: DocereeMobileAds.shared().getEnvironment())
         components.path = getPath(methodName: Methods.UpdateHcpValidation, type: DocereeMobileAds.shared().getEnvironment())
-        let collectDataEndPoint: URL = components.url!
-        var request: URLRequest = URLRequest(url: collectDataEndPoint)
+        guard let collectDataEndPoint = components.url else {
+            DocereeLog.debug("updateHcpSelfValidation: invalid URL")
+            return
+        }
+        var request = URLRequest(url: collectDataEndPoint)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        // set headers
+
         for header in requestHttpHeaders.allValues() {
             request.setValue(header.value, forHTTPHeaderField: header.key)
         }
-        
+
         request.httpMethod = HttpMethod.post.rawValue
-        
+
         let jsonData: Data
         do {
             jsonData = try JSONSerialization.data(withJSONObject: body, options: [])
-            request.httpBody = jsonData
         } catch {
             return
         }
-        
-        let task = session.dataTask(with: request) { (data, response, error) in
-            guard data != nil else { return }
-            let urlResponse = response as! HTTPURLResponse
-            guard data != nil else { return }
-            if urlResponse.statusCode == 200 {
-                DocereeLog.debug("Hcp Updated: \(urlResponse.statusCode)")
-            } else {
-                DocereeLog.debug("Hcp Updation Failed: \(urlResponse.statusCode)")
+        request.httpBody = jsonData
+
+        Task {
+            do {
+                let (_, http) = try await DocereeURLSessionLoading.dataWithInteractiveRetries(for: request)
+                DocereeLog.debug("Hcp update HTTP \(http.statusCode)")
+            } catch {
+                DocereeLog.debug("Hcp update request failed: \(error.localizedDescription)")
             }
         }
-        task.resume()
-
     }
 }
 
@@ -184,14 +185,19 @@ public class GoogleFontLoader {
             return
         }
 
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil, let cssString = String(data: data, encoding: .utf8) else {
+        Task {
+            do {
+                let (data, _) = try await DocereeURLSessionLoading.dataWithInteractiveRetries(for: URLRequest(url: url))
+                guard let cssString = String(data: data, encoding: .utf8) else {
+                    completion(nil)
+                    return
+                }
+                completion(extractFontFileURL(from: cssString))
+            } catch {
+                DocereeLog.debug("GoogleFontLoader: CSS fetch failed — \(error.localizedDescription)")
                 completion(nil)
-                return
             }
-            completion(extractFontFileURL(from: cssString))
         }
-        task.resume()
     }
 
     private static func extractFontFileURL(from css: String) -> String? {
@@ -212,29 +218,26 @@ public class GoogleFontLoader {
             return
         }
 
-        let task = URLSession.shared.downloadTask(with: fontURL) { location, response, error in
-            guard let location = location, error == nil else {
-                completion(false)
-                return
-            }
+        Task {
+            do {
+                let (fontData, _) = try await DocereeURLSessionLoading.dataWithInteractiveRetries(for: URLRequest(url: fontURL))
+                guard let dataProvider = CGDataProvider(data: fontData as CFData),
+                      let font = CGFont(dataProvider) else {
+                    await MainActor.run { completion(false) }
+                    return
+                }
 
-            let fontData = try? Data(contentsOf: location)
-            guard let dataProvider = CGDataProvider(data: fontData! as CFData),
-                  let font = CGFont(dataProvider) else {
-                completion(false)
-                return
-            }
+                var errorRef: Unmanaged<CFError>?
+                guard CTFontManagerRegisterGraphicsFont(font, &errorRef) else {
+                    await MainActor.run { completion(false) }
+                    return
+                }
 
-            var errorRef: Unmanaged<CFError>?
-            if !CTFontManagerRegisterGraphicsFont(font, &errorRef) {
-                completion(false)
-                return
-            }
-
-            DispatchQueue.main.async {
-                completion(true)
+                await MainActor.run { completion(true) }
+            } catch {
+                DocereeLog.debug("GoogleFontLoader: font download failed — \(error.localizedDescription)")
+                await MainActor.run { completion(false) }
             }
         }
-        task.resume()
     }
 }

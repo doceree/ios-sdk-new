@@ -53,14 +53,11 @@ class PatientSessionApi {
     private static func sendRequest(url: URL, headers: [String: String]) async throws {
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = headers
+        request.timeoutInterval = DocereeHTTPTimeouts.interactiveRequest
 
         do {
-            let (_, response) = try await URLSession.shared.data(for: request)
-            let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
-            DocereeLog.debug("PatientSessionApi response: \(statusCode)")
-            guard statusCode == 200 else {
-                throw URLError(.badServerResponse)
-            }
+            let (_, http) = try await DocereeURLSessionLoading.dataWithInteractiveRetries(for: request)
+            DocereeLog.debug("PatientSessionApi response: \(http.statusCode)")
         } catch {
             DocereeLog.debug("PatientSessionApi: request failed: \(error)")
             throw error

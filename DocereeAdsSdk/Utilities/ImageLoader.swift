@@ -11,18 +11,21 @@ class ImageLoader {
     }
     
     func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
-        let session = URLSession(configuration: .default)
-        DispatchQueue.global(qos: .background).async {
-            session.dataTask(with: URLRequest(url: url)) { data, response, error in
-                if error != nil {
-                    DocereeLog.debug(error?.localizedDescription ?? "Unknown error")
+        Task {
+            var request = URLRequest(url: url)
+            request.timeoutInterval = DocereeHTTPTimeouts.interactiveRequest
+            do {
+                let (data, _) = try await DocereeURLSessionLoading.dataWithInteractiveRetries(for: request)
+                let image = UIImage(data: data)
+                await MainActor.run {
+                    completion(image)
                 }
-                if let data = data, let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        completion(image)
-                    }
+            } catch {
+                DocereeLog.debug(error.localizedDescription)
+                await MainActor.run {
+                    completion(nil)
                 }
-                }.resume()
+            }
         }
     }
     

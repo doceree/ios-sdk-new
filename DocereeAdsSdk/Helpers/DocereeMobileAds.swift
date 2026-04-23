@@ -50,12 +50,23 @@ public final class DocereeMobileAds {
     }
 
     func loadAppConfiguration() async {
-        do {
-            let appId = getBundleIdentifier()
-            let config = try await ConfigurationService.shared.fetchAppConfiguration(appId: appId)
-            DocereeLog.debug("Fetched Config: \(String(describing: config?.data as Any))")
-        } catch {
-            DocereeLog.debug("Error: \(error)")
+        let appId = getBundleIdentifier()
+        let outcome = await ConfigurationService.shared.fetchAppConfiguration(appId: appId)
+        switch outcome {
+        case .usedValidCache:
+            DocereeLog.debug("App config: using valid cache")
+        case .cancelled:
+            DocereeLog.debug("App config: cancelled")
+        case .missingApplicationKey:
+            DocereeLog.debug("App config: missing application key")
+        case .invalidConfigurationURL(let environment, let host):
+            DocereeLog.debug("App config: invalid URL (environment=\(environment), host=\(host))")
+        case .requestEncodingFailed(let error):
+            DocereeLog.debug("App config: request encoding failed: \(error.localizedDescription)")
+        case .fetchFailed(let error):
+            DocereeLog.debug("App config: fetch failed: \(error.localizedDescription)")
+        case .refreshed(let config):
+            DocereeLog.debug("Fetched Config: \(String(describing: config.data as Any))")
         }
     }
 

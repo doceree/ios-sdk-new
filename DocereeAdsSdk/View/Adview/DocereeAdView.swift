@@ -41,7 +41,10 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     var oneSecMrcSent = false
     var viewportPercentage: Float = 90
     var isRefreshing = false
-    
+
+    /// In-flight `fetchAd` work; cancelled from `deinit` when the view is torn down.
+    var adFetchTask: Task<Void, Never>?
+
     lazy var adImageView: UIImageView = {
         let adImageView = UIImageView()
         adImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -148,6 +151,8 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     }
     
     deinit {
+        adFetchTask?.cancel()
+        adFetchTask = nil
         NotificationCenter.default.removeObserver(self)
         viewportTimer?.stop()
         customTimer?.stop()
