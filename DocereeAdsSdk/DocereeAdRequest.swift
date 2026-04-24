@@ -37,6 +37,8 @@ public final class DocereeAdRequest: AdServiceProtocol {
 
     // MARK: - Public Methods
     internal func requestAd(userId: String?, adUnitId: String, size: String) async throws -> (Results, Bool) {
+        let signpost = DocereeSignposts.adRequestInterval("doceree.request_ad")
+        defer { signpost.end() }
         try Task.checkCancellation()
 
         guard let appKey = DocereeMobileAds().loadDocereeIdentifier(from: DocereeAdsIdArchivingUrl) else {

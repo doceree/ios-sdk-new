@@ -82,6 +82,8 @@ internal enum DocereeURLSessionLoading {
         for request: URLRequest,
         session: URLSession = .shared
     ) async throws -> (Data, HTTPURLResponse) {
+        let signpost = DocereeSignposts.networkInterval("doceree.interactive_data")
+        defer { signpost.end() }
         var req = request
         if req.timeoutInterval <= 0 {
             req.timeoutInterval = DocereeHTTPTimeouts.interactiveRequest
@@ -130,6 +132,8 @@ internal enum DocereeURLSessionBeacon {
     private static let maxAttempts = DocereeHTTPTransportRetry.maxAttempts
 
     internal static func sendWithRetries(for request: URLRequest, session: URLSession, message: String) async {
+        let signpost = DocereeSignposts.networkInterval("doceree.beacon_send")
+        defer { signpost.end() }
         var req = request
         req.timeoutInterval = DocereeHTTPTimeouts.beaconRequest
 

@@ -17,7 +17,13 @@ public final class DocereeMobileAds {
     
     internal static var trackingStatus: String = "not determined"
     public static var collectDataStatus = true
-    
+
+    /// When `true`, the SDK emits `os_signpost` intervals for key operations (see Instruments → Points of interest / system trace). Default is `true` in `DEBUG` and `false` in Release.
+    public static var isSignpostEnabled: Bool {
+        get { DocereeSignposts.isEnabled }
+        set { DocereeSignposts.isEnabled = newValue }
+    }
+
     private var environmentType = EnvironmentType.Prod
     
     private static var sharedNetworkManager: DocereeMobileAds = {

@@ -18,6 +18,8 @@ class ConfigurationService {
 
     /// Performs the POST, validates HTTP status, and decodes JSON. Retries transient 5xx and common `URLError`s with bounded backoff. Does not read or write `UserDefaults`.
     internal func executeAppConfigurationRequest(_ request: URLRequest) async throws -> AppConfiguration {
+        let signpost = DocereeSignposts.configurationInterval("doceree.execute_app_config")
+        defer { signpost.end() }
         for attempt in 0..<DocereeHTTPTransportRetry.maxAttempts {
             try Task.checkCancellation()
             do {
