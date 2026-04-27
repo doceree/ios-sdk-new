@@ -49,19 +49,27 @@ class ConfigurationService {
 
     private func performAppConfigurationRequestOnce(_ request: URLRequest) async throws -> AppConfiguration {
         try Task.checkCancellation()
-        let (data, response) = try await urlSession.data(for: request)
-        try Task.checkCancellation()
-        guard let httpResponse = response as? HTTPURLResponse else {
-            DocereeLog.debug("App config: non-HTTP response")
-            throw AppConfigurationServiceError.invalidHTTPResponse
+        let data: Data
+        do {
+            let spHttp = DocereeSignposts.configurationInterval("doceree.config_http")
+            defer { spHttp.end() }
+            let (d, response) = try await urlSession.data(for: request)
+            try Task.checkCancellation()
+            guard let httpResponse = response as? HTTPURLResponse else {
+                DocereeLog.debug("App config: non-HTTP response")
+                throw AppConfigurationServiceError.invalidHTTPResponse
+            }
+            let status = httpResponse.statusCode
+            guard (200...299).contains(status) else {
+                let preview = Self.responseBodyPreview(from: d)
+                let err = AppConfigurationServiceError.httpStatusNotSuccess(statusCode: status, responseBodyPreview: preview)
+                DocereeLog.debug("\(err.localizedDescription)")
+                throw err
+            }
+            data = d
         }
-        let status = httpResponse.statusCode
-        guard (200...299).contains(status) else {
-            let preview = Self.responseBodyPreview(from: data)
-            let err = AppConfigurationServiceError.httpStatusNotSuccess(statusCode: status, responseBodyPreview: preview)
-            DocereeLog.debug("\(err.localizedDescription)")
-            throw err
-        }
+        let spDecode = DocereeSignposts.configurationInterval("doceree.config_decode")
+        defer { spDecode.end() }
         do {
             return try Self.decodeAppConfiguration(from: data)
         } catch {

@@ -13,6 +13,8 @@ extension DocereeAdView {
     func fetchAd(_ size: String, _ uId: String) {
         adFetchTask?.cancel()
         adFetchTask = Task { [weak self] in
+            let spViewLoad = DocereeSignposts.adViewInterval("doceree.ad_view_load")
+            defer { spViewLoad.end() }
             guard let self else { return }
             do {
                 guard let request = self.docereeAdRequest else {

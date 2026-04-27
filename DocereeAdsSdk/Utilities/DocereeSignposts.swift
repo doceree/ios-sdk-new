@@ -14,15 +14,16 @@ internal enum DocereeSignposts {
     /// When `false`, all signpost begin/end calls are no-ops.
     internal static var isEnabled: Bool = {
 //        #if DEBUG
-//        return true
-//        #else
         return true
+//        #else
+//        return false
 //        #endif
     }()
 
     private static let networkLog = OSLog(subsystem: subsystem, category: "Network")
     private static let adRequestLog = OSLog(subsystem: subsystem, category: "AdRequest")
     private static let configurationLog = OSLog(subsystem: subsystem, category: "Configuration")
+    private static let adViewLog = OSLog(subsystem: subsystem, category: "AdView")
 
     /// Pair `begin`/`end` for one scoped operation. Call `end()` in `defer` so failures still close the interval.
     internal struct Interval {
@@ -56,5 +57,9 @@ internal enum DocereeSignposts {
 
     internal static func configurationInterval(_ name: StaticString) -> Interval {
         Interval(name: name, log: configurationLog)
+    }
+
+    internal static func adViewInterval(_ name: StaticString) -> Interval {
+        Interval(name: name, log: adViewLog)
     }
 }

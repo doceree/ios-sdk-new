@@ -65,8 +65,15 @@ public final class DocereeAdRequest: AdServiceProtocol {
         )
         urlRequest.timeoutInterval = DocereeHTTPTimeouts.interactiveRequest
 
-        let (data, httpResponse) = try await performAdNetworkFetchWithRetries(urlRequest)
+        let (data, httpResponse) = try await { () async throws -> (Data, HTTPURLResponse) in
+            let spHttp = DocereeSignposts.adRequestInterval("doceree.request_ad_http")
+            defer { spHttp.end() }
+            return try await performAdNetworkFetchWithRetries(urlRequest)
+        }()
         try Task.checkCancellation()
+
+        let spDecode = DocereeSignposts.adRequestInterval("doceree.request_ad_decode")
+        defer { spDecode.end() }
         do {
             let decoded = try JSONDecoder().decode(AdResponseMain.self, from: data)
             guard let adResponse = decoded.response.first, adResponse.errMessage?.isEmpty ?? true else {
