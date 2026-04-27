@@ -30,6 +30,31 @@ Pick the version you ship; see release tags / podspec for current versions.
 
 The demo app imports **`DocereeAdsSdk`** (framework). Integrators who use CocoaPods alone import **`DocereeAdSdk`** (pod module name).
 
+## Signpost profiling (Instruments)
+
+Use this when measuring SDK runtime behavior.
+
+1. Run the host app (or sample app) with this SDK linked.
+2. For `Release` profiling, set `DocereeMobileAds.isSignpostEnabled = true` before SDK network/ad calls.
+3. Record with Instruments using a template that includes **os_signpost** / **Points of Interest**.
+4. Filter by `doceree.` to focus on SDK events.
+
+Current signpost names:
+
+- `doceree.execute_app_config`
+- `doceree.config_http`
+- `doceree.config_decode`
+- `doceree.request_ad`
+- `doceree.request_ad_http`
+- `doceree.request_ad_decode`
+- `doceree.ad_view_load`
+- `doceree.beacon_send`
+
+Notes:
+
+- You will see the **host app process** in Instruments, not a separate SDK process (expected for embedded frameworks).
+- Durations are wall-clock time and include network latency.
+
 ## Quick verify commands
 
 From `ios-sdk-new`:
