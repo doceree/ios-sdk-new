@@ -63,7 +63,7 @@
 		959A9846F974DA09B9D11E384AE1093C /* DocereeAdView+WebViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92873C82D795B957C602371501568088 /* DocereeAdView+WebViewDelegate.swift */; };
 		999936E61CA374B9AF998DF2110570A2 /* OMIDSessionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A32AD738DFA530875AC99AB6239A28 /* OMIDSessionInteractor.swift */; };
 		9A80559B2AD2FC6E0B035FB241EC21B2 /* PopupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B712230910AAFEEDDD47DA246729DDA8 /* PopupModel.swift */; };
-		9B48E71B2CD2FECE6B7813A2EACA5F4B /* PatientBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB72F0666C78B3016B38A928542FCC84 /* PatientBuilder.swift */; };
+		9B48E71B2CD2FECE6B7813A2EACA5F4B /* SessionPayloadBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB72F0666C78B3016B38A928542FCC84 /* SessionPayloadBuilder.swift */; };
 		9FB9B2E1DFF9919BFF263F1C4FD6E014 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FF77BE5BC993577F55D2692F9765DD /* Header.swift */; };
 		A013049F8E3D1E0C95AE327127D55F3C /* PresentationItem+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCB0D720763006227D2238FD0CB52A1 /* PresentationItem+ViewController.swift */; };
 		A518B73CE4DBE4BDB8795E46B1B5FC39 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 694B4F351695469DE1C36F0E3EF1785E /* WebKit.framework */; };
@@ -274,7 +274,7 @@
 		E4ACF8DC185F33E6299321363AA306EC /* AdBlockRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdBlockRequest.swift; sourceTree = "<group>"; };
 		E59A21BEE16C4B1B0159E359228EAFB7 /* DocereeAdSdk */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = DocereeAdSdk; path = DocereeAdSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB25725406B8D9B1707CFFC126C436F5 /* KetchSDK.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KetchSDK.swift; path = Sources/KetchSDK/Core/KetchSDK.swift; sourceTree = "<group>"; };
-		EB72F0666C78B3016B38A928542FCC84 /* PatientBuilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PatientBuilder.swift; sourceTree = "<group>"; };
+		EB72F0666C78B3016B38A928542FCC84 /* SessionPayloadBuilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SessionPayloadBuilder.swift; sourceTree = "<group>"; };
 		EC354A0C64D3F6D08D7A209C2CA0A63A /* View+KetchViewModifier.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "View+KetchViewModifier.swift"; path = "Sources/KetchSDK/UI/Extensions/View+KetchViewModifier.swift"; sourceTree = "<group>"; };
 		EC4A13C86FF091E2D96BC2131845432F /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
 		EE3397C31D60710F1C4DADE6B9A03AF0 /* AdConsentUIFactory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdConsentUIFactory.swift; sourceTree = "<group>"; };
@@ -640,7 +640,7 @@
 		CE5EAD40E0363B59D800223AE34FC561 /* PatientSession */ = {
 			isa = PBXGroup;
 			children = (
-				EB72F0666C78B3016B38A928542FCC84 /* PatientBuilder.swift */,
+				EB72F0666C78B3016B38A928542FCC84 /* SessionPayloadBuilder.swift */,
 				10A487F58954FB6F4657C4C57F134465 /* PatientSession.swift */,
 				791DFE6E1B902B26537D08C893303B85 /* PatientSessionApi.swift */,
 				BFDC64A22A6D68186132B345DD4D182A /* Utils.swift */,
@@ -1026,7 +1026,7 @@
 				E23833CEEB2AFE8006052137AB16F3C4 /* MyKetchViewUIKit.swift in Sources */,
 				999936E61CA374B9AF998DF2110570A2 /* OMIDSessionInteractor.swift in Sources */,
 				E3E0D6A8E91B071496FB714C06977BC7 /* PathUtility.swift in Sources */,
-				9B48E71B2CD2FECE6B7813A2EACA5F4B /* PatientBuilder.swift in Sources */,
+				9B48E71B2CD2FECE6B7813A2EACA5F4B /* SessionPayloadBuilder.swift in Sources */,
 				938009B3C28E3C22351D2E38A0135DCB /* PatientData.swift in Sources */,
 				1C0E0709BE58E6AA2D132115C1EAA6DC /* PatientSession.swift in Sources */,
 				4C6461848C45D95E162F8F8E5121ACF8 /* PatientSessionApi.swift in Sources */,

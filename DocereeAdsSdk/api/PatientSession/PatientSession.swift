@@ -9,7 +9,7 @@ import Foundation
 
 public class PatientSession {
     static var sessionId: String?
-    private let expirationTime: TimeInterval = 3 * 60 // 3 minutes in seconds
+    private let expirationTime: TimeInterval = 30 * 60 // 30 minutes in seconds
     public typealias JSONObject = [String: Any]
     
     public init() {}
@@ -35,15 +35,11 @@ public class PatientSession {
             // Save sessionId
             await StorageManager.shared.saveItem(forKey: "sessionId", value: PatientSession.sessionId!)
 
-            // Build patient object
-            let patientBuilder = PatientBuilder()
+            let payloadBuilder = SessionPayloadBuilder()
                 .add(key: "sessionId", value: PatientSession.sessionId!)
-            let patient = patientBuilder.build()
+            let payload = payloadBuilder.build()
 
-            // Save patient data
-//            if let patient = patient {
-            _ = savePatientData(patient.toJson())
-//            }
+            _ = savePatientData(payload.toJson())
 
             // Schedule endSession after expiration time
             let patientSession = PatientSession()
@@ -103,13 +99,6 @@ public class PatientSession {
         }
         return mergedDict
     }
-    func mergeObjects(_ obj1: JSONObject, _ obj2: JSONObject) -> JSONObject {
-        // Assuming Patient is a struct or class with properties to be merged
-        let merged = obj1
-        // Merge obj2 properties into obj1 (implement the merging logic as per your requirements)
-        return merged
-    }
-
     func getBr() -> String {
         DocereeLog.debug("Br called")
         do {

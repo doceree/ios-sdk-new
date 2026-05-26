@@ -10,7 +10,8 @@ import Foundation
 
 class StorageManager {
     
-    private let expirationTime: TimeInterval = 3 * 60 * 1000 // 3 minutes in milliseconds
+    /// Must match `PatientSession` window: `TimeInterval` is always **seconds** (not milliseconds).
+    private let expirationTime: TimeInterval = 30 * 60
     private let timestampKey = "timestamp"
     private let patientKey = "patientData"
     typealias JSONObject = [String: Any]
