@@ -194,16 +194,48 @@ public final class DocereeMobileAds {
         OMIDSessionInteractor.prefetchOMIDSDK()
     }
     
-    // Save consent data
+    // Legacy consent API (6.2.1) — unchanged overload for existing integrations.
     public func setConsentData(isPersonalizeAd: String = "",
                                 privacyComplianceType: String = "",
                                 privacyString: String = "") {
-        // Persist in UserDefaults
         UserDefaultsManager.shared.setConsentData(
             isPersonalizeAd: isPersonalizeAd,
             privacyComplianceType: privacyComplianceType,
             privacyString: privacyString
         )
+    }
+
+    /// Extended consent API with GPP framework version and section IDs. Values are forwarded as-is; no on-device defaults.
+    public func setConsentData(isPersonalizeAd: String,
+                                privacyComplianceType: String,
+                                privacyComplianceVersion: String,
+                                privacyComplianceSID: String,
+                                privacyString: String) {
+        UserDefaultsManager.shared.setConsentData(
+            isPersonalizeAd: isPersonalizeAd,
+            privacyComplianceType: privacyComplianceType,
+            privacyComplianceVersion: privacyComplianceVersion,
+            privacyComplianceSID: privacyComplianceSID,
+            privacyString: privacyString
+        )
+    }
+
+    /// Universal identifiers for demand matching (RampID, UID2, ID5, LiveIntent). Empty values are omitted from ad requests.
+    public func setUniversalIds(rampId: String = "",
+                                 uid2: String = "",
+                                 id5: String = "",
+                                 liveIntentId: String = "") {
+        UniversalIdStore.shared.set(
+            rampId: rampId,
+            uid2: uid2,
+            id5: id5,
+            liveIntentId: liveIntentId
+        )
+    }
+
+    /// Clears explicit consent so the SDK can fall back to IAB in-app keys on the next ad request.
+    public func clearConsentData() {
+        UserDefaultsManager.shared.resetConsentForTesting()
     }
     
 }
@@ -215,5 +247,44 @@ extension DocereeMobileAds {
             return false
         }
         return (loggedInUser.specialization != nil) || (loggedInUser.hcpId != nil)
+    }
+
+    internal static func storedUniversalIds() -> UniversalIds {
+        UniversalIdStore.shared.current()
+    }
+
+    internal static func resetStoredUniversalIdsForTesting() {
+        UniversalIdStore.shared.resetForTesting()
+    }
+}
+
+/// In-memory universal identifier store. Last `setUniversalIds` call wins; values are not persisted by the SDK.
+final class UniversalIdStore {
+    static let shared = UniversalIdStore()
+
+    private let lock = NSLock()
+    private var ids = UniversalIds()
+
+    func set(rampId: String, uid2: String, id5: String, liveIntentId: String) {
+        lock.lock()
+        defer { lock.unlock() }
+        ids = UniversalIds(
+            rampId: rampId,
+            uid2: uid2,
+            id5: id5,
+            liveIntentId: liveIntentId
+        )
+    }
+
+    func current() -> UniversalIds {
+        lock.lock()
+        defer { lock.unlock() }
+        return ids
+    }
+
+    func resetForTesting() {
+        lock.lock()
+        defer { lock.unlock() }
+        ids = UniversalIds()
     }
 }

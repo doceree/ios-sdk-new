@@ -1,8 +1,11 @@
 
 final class UserDefaultsManager {
     static let shared = UserDefaultsManager()
-    private let defaults = UserDefaults.standard
-    private init() {}
+    private let defaults: UserDefaults
+
+    init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
+    }
 
     // MARK: - Internal Keys
     private let configExpirationKey = "configExpirationDate"
@@ -10,7 +13,10 @@ final class UserDefaultsManager {
     private let appConfigKey = "appConfigData"
     private let isPersonalizeAdKey = "isPersonalizeAd"
     private let privacyComplianceTypeKey = "privacyComplianceType"
+    private let privacyComplianceVersionKey = "privacyComplianceVersion"
+    private let privacyComplianceSIDKey = "privacyComplianceSID"
     private let privacyStringKey = "privacyString"
+    private let hasExplicitConsentKey = "hasExplicitConsent"
 
     // MARK: - Config Expiration (always 24 hours)
 
@@ -75,18 +81,65 @@ final class UserDefaultsManager {
 
     // MARK: - Privacy Consent
 
+    /// Legacy three-parameter consent API. Clears extended GPP fields so stale values are not forwarded.
     func setConsentData(isPersonalizeAd: String = "", privacyComplianceType: String = "", privacyString: String = "") {
         defaults.set(isPersonalizeAd, forKey: isPersonalizeAdKey)
         defaults.set(privacyComplianceType, forKey: privacyComplianceTypeKey)
+        defaults.set("", forKey: privacyComplianceVersionKey)
+        defaults.set("", forKey: privacyComplianceSIDKey)
         defaults.set(privacyString, forKey: privacyStringKey)
+        defaults.set(true, forKey: hasExplicitConsentKey)
     }
 
-    
+    func setConsentData(
+        isPersonalizeAd: String,
+        privacyComplianceType: String,
+        privacyComplianceVersion: String,
+        privacyComplianceSID: String,
+        privacyString: String
+    ) {
+        defaults.set(isPersonalizeAd, forKey: isPersonalizeAdKey)
+        defaults.set(privacyComplianceType, forKey: privacyComplianceTypeKey)
+        defaults.set(privacyComplianceVersion, forKey: privacyComplianceVersionKey)
+        defaults.set(privacyComplianceSID, forKey: privacyComplianceSIDKey)
+        defaults.set(privacyString, forKey: privacyStringKey)
+        defaults.set(true, forKey: hasExplicitConsentKey)
+    }
+
+    func hasExplicitConsent() -> Bool {
+        defaults.bool(forKey: hasExplicitConsentKey)
+    }
+
+    func getExplicitConsentData() -> (
+        isPersonalizeAd: String,
+        privacyComplianceType: String,
+        privacyComplianceVersion: String,
+        privacyComplianceSID: String,
+        privacyString: String
+    ) {
+        (
+            defaults.string(forKey: isPersonalizeAdKey) ?? "",
+            defaults.string(forKey: privacyComplianceTypeKey) ?? "",
+            defaults.string(forKey: privacyComplianceVersionKey) ?? "",
+            defaults.string(forKey: privacyComplianceSIDKey) ?? "",
+            defaults.string(forKey: privacyStringKey) ?? ""
+        )
+    }
+
+    /// Backward-compatible accessor used by older call sites.
     func getConsentData() -> (isPersonalizeAd: String, privacyComplianceType: String, privacyString: String) {
-        let isPersonalizeAd = defaults.string(forKey: isPersonalizeAdKey) ?? ""
-        let privacyComplianceType = defaults.string(forKey: privacyComplianceTypeKey) ?? ""
-        let privacyString = defaults.string(forKey: privacyStringKey) ?? ""
-        return (isPersonalizeAd, privacyComplianceType, privacyString)
+        let explicit = getExplicitConsentData()
+        return (explicit.isPersonalizeAd, explicit.privacyComplianceType, explicit.privacyString)
     }
 
+    func resetConsentForTesting() {
+        [
+            isPersonalizeAdKey,
+            privacyComplianceTypeKey,
+            privacyComplianceVersionKey,
+            privacyComplianceSIDKey,
+            privacyStringKey,
+            hasExplicitConsentKey
+        ].forEach { defaults.removeObject(forKey: $0) }
+    }
 }

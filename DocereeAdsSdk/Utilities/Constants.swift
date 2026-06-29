@@ -47,9 +47,22 @@ enum QueryParamsForAdRequest: String {
     case br = "br"
     case cdt = "cdt"
     case privacyConsent = "privacyConsent"
+    case consent = "cns"
+    case rampId = "rampid"
+    case uid2 = "uid2"
+    case id5 = "id5"
+    case liveIntentId = "liveintentid"
+}
+
+/// Nested consent object keys under `cns` in the ad-request body.
+enum ConsentPayloadKey: String {
     case userPreference = "upref"
     case privacyType = "pcytyp"
+    case privacyVersion = "pcyversion"
     case privacyString = "pcystr"
+    case privacySectionIDs = "pcysid"
+    case consentSource = "pcysrc"
+    case gdprApplies = "gdprapp"
 }
 
 enum AdBlockService: String {

@@ -52,11 +52,13 @@ public final class DocereeAdRequest: AdServiceProtocol {
             id = getIdentifierForAdvertising()
         }
 
-        guard let loggedInUser = DocereeMobileAds.shared().getProfile() else {
-            throw DocereeAdRequestError.invalidUserProfile
+        guard let id = id else {
+            throw DocereeAdRequestError.failedToCreateRequest
         }
 
-        let body: [String: Any] = makeAdRequestBody(appKey: appKey, userId: id!, user: loggedInUser, adUnitId: adUnitId)
+        let userForRequest = DocereeMobileAds.shared().getProfile() ?? Hcp.HcpBuilder().build()
+
+        let body: [String: Any] = makeAdRequestBody(appKey: appKey, userId: id, user: userForRequest, adUnitId: adUnitId)
         var urlRequest = try makeRequest(
             advertisementId: id,
             path: getPath(methodName: Methods.GetImage, type: DocereeMobileAds.shared().getEnvironment()),
@@ -175,30 +177,18 @@ public final class DocereeAdRequest: AdServiceProtocol {
     }
 
     // MARK: - Helper Methods
-    private func makeAdRequestBody(appKey: String, userId: String, user: Hcp, adUnitId: String) -> [String: Any] {
-        let consentData = UserDefaultsManager.shared.getConsentData()
-        return [
-            QueryParamsForAdRequest.appKey.rawValue: appKey,
-            QueryParamsForAdRequest.userId.rawValue: userId,
-            QueryParamsForAdRequest.email.rawValue: user.email ?? "",
-            QueryParamsForAdRequest.firstName.rawValue: user.firstName ?? "",
-            QueryParamsForAdRequest.lastName.rawValue: user.lastName ?? "",
-            QueryParamsForAdRequest.specialization.rawValue: user.specialization ?? "",
-            QueryParamsForAdRequest.hcpId.rawValue: user.hcpId ?? "",
-            QueryParamsForAdRequest.hashedHcpId.rawValue: user.hashedHcpId ?? "",
-            QueryParamsForAdRequest.gender.rawValue: user.gender ?? "",
-            QueryParamsForAdRequest.city.rawValue: user.city ?? "",
-            QueryParamsForAdRequest.state.rawValue: user.state ?? "",
-            QueryParamsForAdRequest.country.rawValue: user.country ?? "",
-            QueryParamsForAdRequest.zipCode.rawValue: user.zipCode ?? "",
-            QueryParamsForAdRequest.adUnit.rawValue: adUnitId,
-            QueryParamsForAdRequest.br.rawValue : PatientSession().getBr(),
-            QueryParamsForAdRequest.cdt.rawValue: "",
-            QueryParamsForAdRequest.privacyConsent.rawValue: 1,
-            QueryParamsForAdRequest.userPreference.rawValue: consentData.isPersonalizeAd,
-            QueryParamsForAdRequest.privacyType.rawValue: consentData.privacyComplianceType,
-            QueryParamsForAdRequest.privacyString.rawValue: consentData.privacyString
-        ]
+    internal func makeAdRequestBody(appKey: String, userId: String, user: Hcp, adUnitId: String) -> [String: Any] {
+        let consent = ConsentSignalCollector.shared.collect()
+        let universalIds = DocereeMobileAds.storedUniversalIds()
+        return AdRequestPayloadAssembler.makeBody(
+            appKey: appKey,
+            userId: userId,
+            user: user,
+            adUnitId: adUnitId,
+            consent: consent,
+            universalIds: universalIds,
+            br: PatientSession().getBr()
+        )
     }
 
     private func makeRequest(advertisementId: String?, path: String, host: String, body: [String: Any]) throws -> URLRequest {

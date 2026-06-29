@@ -79,6 +79,10 @@
 		A1B2C3D42F00000100000005 /* ConfigurationServiceNetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000015 /* ConfigurationServiceNetworkTests.swift */; };
 		A1B2C3D42F00000100000006 /* DocereeAdRequestNetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000016 /* DocereeAdRequestNetworkTests.swift */; };
 		A1B2C3D42F00000100000019 /* DocereeSignposts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000018 /* DocereeSignposts.swift */; };
+		A1B2C3D42F00000100000025 /* PrivacyConsentSignals.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000020 /* PrivacyConsentSignals.swift */; };
+		A1B2C3D42F00000100000026 /* ConsentSignalCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000021 /* ConsentSignalCollector.swift */; };
+		A1B2C3D42F00000100000028 /* AdRequestPayloadAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000023 /* AdRequestPayloadAssembler.swift */; };
+		A1B2C3D42F00000100000029 /* ConsentAndIdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000024 /* ConsentAndIdentityTests.swift */; };
 		BA65A11615437E096D71A7EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACA702B64B00A64F1DFA542 /* Foundation.framework */; };
 		CB11AD200000000100000001 /* DocereeAdsSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EBAFBC282CF30900C7B249 /* DocereeAdsSdk.framework */; };
 		CB11AD200000000100000002 /* DocereeAdsSdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54EBAFBC282CF30900C7B249 /* DocereeAdsSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -200,6 +204,10 @@
 		A1B2C3D42F00000100000015 /* ConfigurationServiceNetworkTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConfigurationServiceNetworkTests.swift; sourceTree = "<group>"; };
 		A1B2C3D42F00000100000016 /* DocereeAdRequestNetworkTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeAdRequestNetworkTests.swift; sourceTree = "<group>"; };
 		A1B2C3D42F00000100000018 /* DocereeSignposts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocereeSignposts.swift; sourceTree = "<group>"; };
+		A1B2C3D42F00000100000020 /* PrivacyConsentSignals.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PrivacyConsentSignals.swift; sourceTree = "<group>"; };
+		A1B2C3D42F00000100000021 /* ConsentSignalCollector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConsentSignalCollector.swift; sourceTree = "<group>"; };
+		A1B2C3D42F00000100000023 /* AdRequestPayloadAssembler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdRequestPayloadAssembler.swift; sourceTree = "<group>"; };
+		A1B2C3D42F00000100000024 /* ConsentAndIdentityTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConsentAndIdentityTests.swift; sourceTree = "<group>"; };
 		BACA702B64B00A64F1DFA542 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D0EEAD510000000100000001 /* DocereeAdSdk/DocereeAdSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DocereeAdSdk/DocereeAdSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1BEEF110000000100000001 /* KetchSDK/KetchSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KetchSDK/KetchSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -403,6 +411,9 @@
 				54BD8A2D28A2503200DC94A3 /* Viewability.swift */,
 				54ADD0A729388996004A7182 /* ImageLoader.swift */,
 				54874D2D2BBC2DAE0018A882 /* UserDefaultsManager.swift */,
+				A1B2C3D42F00000100000020 /* PrivacyConsentSignals.swift */,
+				A1B2C3D42F00000100000021 /* ConsentSignalCollector.swift */,
+				A1B2C3D42F00000100000023 /* AdRequestPayloadAssembler.swift */,
 				54874D2F2BBC30810018A882 /* Enums.swift */,
 			);
 			path = Utilities;
@@ -475,6 +486,7 @@
 				A1B2C3D42F00000100000014 /* HardeningRegressionTests.swift */,
 				A1B2C3D42F00000100000015 /* ConfigurationServiceNetworkTests.swift */,
 				A1B2C3D42F00000100000016 /* DocereeAdRequestNetworkTests.swift */,
+				A1B2C3D42F00000100000024 /* ConsentAndIdentityTests.swift */,
 				733026586E86439D7934C392 /* DocereeAdsSdkTests.swift */,
 			);
 			name = DocereeAdsSdkTests;
@@ -704,6 +716,9 @@
 				54EBAFE8282D177000C7B249 /* PathUtility.swift in Sources */,
 				54EBAFD9282D018700C7B249 /* HcpProfile.swift in Sources */,
 				54874D2E2BBC2DAE0018A882 /* UserDefaultsManager.swift in Sources */,
+				A1B2C3D42F00000100000025 /* PrivacyConsentSignals.swift in Sources */,
+				A1B2C3D42F00000100000026 /* ConsentSignalCollector.swift in Sources */,
+				A1B2C3D42F00000100000028 /* AdRequestPayloadAssembler.swift in Sources */,
 				54EBB0122832240B00C7B249 /* ImageExtensions.swift in Sources */,
 				54EBB00B283221BE00C7B249 /* DocereeAdRequest.swift in Sources */,
 				54EBAFFA282E855C00C7B249 /* Constants.swift in Sources */,
@@ -720,6 +735,7 @@
 				A1B2C3D42F00000100000004 /* HardeningRegressionTests.swift in Sources */,
 				A1B2C3D42F00000100000005 /* ConfigurationServiceNetworkTests.swift in Sources */,
 				A1B2C3D42F00000100000006 /* DocereeAdRequestNetworkTests.swift in Sources */,
+				A1B2C3D42F00000100000029 /* ConsentAndIdentityTests.swift in Sources */,
 				0E59CEF62A856505C1BC5F21 /* DocereeAdsSdkTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
