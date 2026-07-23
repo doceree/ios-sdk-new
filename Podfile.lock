@@ -1,5 +1,5 @@
 PODS:
-  - DocereeAdSdk (6.2.2):
+  - DocereeAdSdk (6.3.0):
     - KetchSDK (= 4.0.3)
   - KetchSDK (4.0.3)
 
@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :path: "."
 
 SPEC CHECKSUMS:
-  DocereeAdSdk: a434c2f0d0154b0a8ac1eba771a8439cada6231e
+  DocereeAdSdk: 018ea96213f1730be5dc314a0b8a349f22d34a9d
   KetchSDK: 8aafe383bab66b06e6628bdb3aafe2ee5cae68d3
 
 PODFILE CHECKSUM: 63399de5623fec911feb0fdfd388637384524d28

@@ -34,7 +34,7 @@ func getPlatformData(rxCodes: [String]?, dxCodes: [String]?) -> String {
         return ""
     }
 
-    let name = Hcp.HcpBuilder().getName()
+    let name = loggedInUser.fullName
 
     let pd = PlatformData(nm: name, em: loggedInUser.email ?? "", sp: loggedInUser.specialization ?? "", og: loggedInUser.organisation ?? "", hc: loggedInUser.mciRegistrationNumber ?? "", rx: rxCodes ?? [], dx: dxCodes ?? [], gd: loggedInUser.gender ?? "", ag: "", wl: loggedInUser.city ?? "", mo: loggedInUser.mobile ?? "")
     
@@ -59,7 +59,7 @@ func getParnerData() -> String {
         return ""
     }
 
-    let name = Hcp.HcpBuilder().getName()
+    let name = loggedInUser.fullName
 
     let pd = PartnerData(pn: "Partner ID", nm: name, em: loggedInUser.email ?? "", sp: loggedInUser.specialization ?? "", og: loggedInUser.organisation ?? "", hc: loggedInUser.mciRegistrationNumber ?? "", gd: loggedInUser.gender ?? "", ag: "", wl: loggedInUser.city ?? "", mo: loggedInUser.mobile ?? "")
     

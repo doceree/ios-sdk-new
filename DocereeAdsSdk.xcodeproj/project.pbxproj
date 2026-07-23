@@ -83,6 +83,7 @@
 		A1B2C3D42F00000100000026 /* ConsentSignalCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000021 /* ConsentSignalCollector.swift */; };
 		A1B2C3D42F00000100000028 /* AdRequestPayloadAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000023 /* AdRequestPayloadAssembler.swift */; };
 		A1B2C3D42F00000100000029 /* ConsentAndIdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000024 /* ConsentAndIdentityTests.swift */; };
+		A1B2C3D42F00000100000030 /* HcpProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F0000010000002A /* HcpProfileTests.swift */; };
 		BA65A11615437E096D71A7EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACA702B64B00A64F1DFA542 /* Foundation.framework */; };
 		CB11AD200000000100000001 /* DocereeAdsSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EBAFBC282CF30900C7B249 /* DocereeAdsSdk.framework */; };
 		CB11AD200000000100000002 /* DocereeAdsSdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54EBAFBC282CF30900C7B249 /* DocereeAdsSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -208,6 +209,7 @@
 		A1B2C3D42F00000100000021 /* ConsentSignalCollector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConsentSignalCollector.swift; sourceTree = "<group>"; };
 		A1B2C3D42F00000100000023 /* AdRequestPayloadAssembler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdRequestPayloadAssembler.swift; sourceTree = "<group>"; };
 		A1B2C3D42F00000100000024 /* ConsentAndIdentityTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConsentAndIdentityTests.swift; sourceTree = "<group>"; };
+		A1B2C3D42F0000010000002A /* HcpProfileTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HcpProfileTests.swift; sourceTree = "<group>"; };
 		BACA702B64B00A64F1DFA542 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D0EEAD510000000100000001 /* DocereeAdSdk/DocereeAdSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DocereeAdSdk/DocereeAdSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1BEEF110000000100000001 /* KetchSDK/KetchSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KetchSDK/KetchSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -487,6 +489,7 @@
 				A1B2C3D42F00000100000015 /* ConfigurationServiceNetworkTests.swift */,
 				A1B2C3D42F00000100000016 /* DocereeAdRequestNetworkTests.swift */,
 				A1B2C3D42F00000100000024 /* ConsentAndIdentityTests.swift */,
+				A1B2C3D42F0000010000002A /* HcpProfileTests.swift */,
 				733026586E86439D7934C392 /* DocereeAdsSdkTests.swift */,
 			);
 			name = DocereeAdsSdkTests;
@@ -736,6 +739,7 @@
 				A1B2C3D42F00000100000005 /* ConfigurationServiceNetworkTests.swift in Sources */,
 				A1B2C3D42F00000100000006 /* DocereeAdRequestNetworkTests.swift in Sources */,
 				A1B2C3D42F00000100000029 /* ConsentAndIdentityTests.swift in Sources */,
+				A1B2C3D42F00000100000030 /* HcpProfileTests.swift in Sources */,
 				0E59CEF62A856505C1BC5F21 /* DocereeAdsSdkTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

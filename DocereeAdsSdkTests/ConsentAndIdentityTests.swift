@@ -282,6 +282,59 @@ final class ConsentAndIdentityTests: XCTestCase {
         XCTAssertEqual(signals.privacyString, "%%%%broken%%%%")
     }
 
+    func testHealthAssociateAdRequestUsesRoleSpecificPayload() {
+        let user = Hcp.HcpBuilder()
+            .setRole(.ha)
+            .setFirstName(firstName: "Sarah")
+            .setAssociateId(associateId: "STAFF-77123")
+            .setAssociateRole(associateRole: "registered_nurse")
+            .setDepartment(department: "Cardiology")
+            .build()
+
+        let body = AdRequestPayloadAssembler.makeBody(
+            appKey: "app",
+            userId: "user",
+            user: user,
+            adUnitId: "unit",
+            consent: ConsentSignals(),
+            universalIds: UniversalIds(),
+            br: ""
+        )
+
+        XCTAssertEqual(body[QueryParamsForAdRequest.role.rawValue] as? String, "ha")
+        XCTAssertEqual(body[QueryParamsForAdRequest.associateId.rawValue] as? String, "STAFF-77123")
+        XCTAssertNil(body[QueryParamsForAdRequest.hcpId.rawValue])
+        XCTAssertNil(body[QueryParamsForAdRequest.specialization.rawValue])
+    }
+
+    func testDefaultHcpAdRequestKeepsLegacyPayloadShape() {
+        let body = AdRequestPayloadAssembler.makeBody(
+            appKey: "app",
+            userId: "user",
+            user: Hcp.HcpBuilder()
+                .setSpecialization(specialization: "Pediatrics")
+                .setHcpId(hcpId: "HCP-1001")
+                .setMobile(mobile: "+12125550100")
+                .setHashedEmail(hashedEmail: "sha256:c84d9f2e")
+                .setHashedMobile(hashedMobile: "sha256:b94d27e2")
+                .setDateOfBirth(dateOfBirth: "1978-04-12")
+                .build(),
+            adUnitId: "unit",
+            consent: ConsentSignals(),
+            universalIds: UniversalIds(),
+            br: ""
+        )
+
+        XCTAssertNil(body[QueryParamsForAdRequest.role.rawValue])
+        XCTAssertEqual(body[QueryParamsForAdRequest.specialization.rawValue] as? String, "Pediatrics")
+        XCTAssertEqual(body[QueryParamsForAdRequest.hcpId.rawValue] as? String, "HCP-1001")
+        XCTAssertEqual(body[QueryParamsForAdRequest.mobile.rawValue] as? String, "+12125550100")
+        XCTAssertEqual(body[QueryParamsForAdRequest.hashedEmail.rawValue] as? String, "sha256:c84d9f2e")
+        XCTAssertEqual(body[QueryParamsForAdRequest.hashedMobile.rawValue] as? String, "sha256:b94d27e2")
+        XCTAssertEqual(body[QueryParamsForAdRequest.dateOfBirth.rawValue] as? String, "1978-04-12")
+        XCTAssertNil(body[QueryParamsForAdRequest.associateId.rawValue])
+    }
+
     private func clearIABDefaults() {
         [
             IABConsentStorageKeys.gppString,

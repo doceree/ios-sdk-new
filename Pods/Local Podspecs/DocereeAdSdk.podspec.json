@@ -1,6 +1,6 @@
 {
   "name": "DocereeAdSdk",
-  "version": "6.2.2",
+  "version": "6.3.0",
   "license": {
     "type": "MIT",
     "file": "MIT License"
@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/doceree/ios-sdk-new.git",
-    "tag": "6.2.2"
+    "tag": "6.3.0"
   },
   "source_files": "DocereeAdsSdk/**/*.{swift}",
   "resource_bundles": {
