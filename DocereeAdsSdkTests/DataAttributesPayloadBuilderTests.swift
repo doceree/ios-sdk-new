@@ -1,19 +1,19 @@
 import XCTest
 @testable import DocereeAdsSdk
 
-final class SessionPayloadBuilderTests: XCTestCase {
-    func testSessionPayloadToJsonOmitsEmptyDefaultBuilder() {
-        let json = SessionPayloadBuilder().build().toJson()
+final class DataAttributesPayloadBuilderTests: XCTestCase {
+    func testDataAttributesPayloadToJsonOmitsEmptyDefaultBuilder() {
+        let json = DataAttributesPayloadBuilder().build().toJson()
         XCTAssertTrue(json.isEmpty, "All-default payload fields should be filtered out")
     }
 
-    func testSessionPayloadToJsonIncludesAgeUnderPatientDataKey() {
-        let json = SessionPayloadBuilder().add(key: "age", value: "42").build().toJson()
+    func testDataAttributesPayloadToJsonIncludesAgeUnderPatientDataKey() {
+        let json = DataAttributesPayloadBuilder().add(key: "age", value: "42").build().toJson()
         XCTAssertEqual(json["ag"] as? String, "42")
     }
 
-    func testSessionPayloadToJsonIncludesSessionIdUnderPatientDataKey() {
-        let json = SessionPayloadBuilder().add(key: "sessionId", value: "sess-1").build().toJson()
+    func testDataAttributesPayloadToJsonIncludesSessionIdUnderPatientDataKey() {
+        let json = DataAttributesPayloadBuilder().add(key: "sessionId", value: "sess-1").build().toJson()
         XCTAssertEqual(json["sid"] as? String, "sess-1")
     }
 
@@ -22,20 +22,20 @@ final class SessionPayloadBuilderTests: XCTestCase {
             ["dxCode": "E11.9", "status": "active"]
         ]
         let sessionDetails: [String: Any] = ["diagnosis_v1": payload]
-        let json = SessionPayloadBuilder().add(key: SessionPayloadBuilder.sessionDetailsKey, value: sessionDetails).build().toJson()
-        let nested = json[SessionPayloadBuilder.sessionDetailsKey] as? [String: Any]
+        let json = DataAttributesPayloadBuilder().add(key: DataAttributesPayloadBuilder.sessionDetailsKey, value: sessionDetails).build().toJson()
+        let nested = json[DataAttributesPayloadBuilder.sessionDetailsKey] as? [String: Any]
         let mapped = nested?["diagnosis_v1"] as? [[String: Any]]
         XCTAssertEqual(mapped?.count, 1)
         XCTAssertEqual(mapped?.first?["dxCode"] as? String, "E11.9")
     }
 
     func testSessionDetailsDeepMergesAcrossAdds() {
-        let json = SessionPayloadBuilder()
-            .add(key: SessionPayloadBuilder.sessionDetailsKey, value: ["diagnosis_v1": [["dxCode": "E11.9", "status": "active"]]])
-            .add(key: SessionPayloadBuilder.sessionDetailsKey, value: ["heartRate": 72])
+        let json = DataAttributesPayloadBuilder()
+            .add(key: DataAttributesPayloadBuilder.sessionDetailsKey, value: ["diagnosis_v1": [["dxCode": "E11.9", "status": "active"]]])
+            .add(key: DataAttributesPayloadBuilder.sessionDetailsKey, value: ["heartRate": 72])
             .build()
             .toJson()
-        let nested = json[SessionPayloadBuilder.sessionDetailsKey] as? [String: Any]
+        let nested = json[DataAttributesPayloadBuilder.sessionDetailsKey] as? [String: Any]
         XCTAssertEqual((nested?["heartRate"] as? Int), 72)
         let dx = nested?["diagnosis_v1"] as? [[String: Any]]
         XCTAssertEqual(dx?.first?["dxCode"] as? String, "E11.9")
@@ -48,8 +48,8 @@ final class SessionPayloadBuilderTests: XCTestCase {
             "patientId": "pat-1"
         ]
 
-        let json = SessionPayloadBuilder().add(key: SessionPayloadBuilder.actionEventKey, value: invalidAction).build().toJson()
-        XCTAssertNil(json[SessionPayloadBuilder.actionEventKey], "Invalid appointment action should be dropped")
+        let json = DataAttributesPayloadBuilder().add(key: DataAttributesPayloadBuilder.actionEventKey, value: invalidAction).build().toJson()
+        XCTAssertNil(json[DataAttributesPayloadBuilder.actionEventKey], "Invalid appointment action should be dropped")
     }
 
     func testActionEventValidationAcceptsRequiredAppointmentCommonFields() {
@@ -60,8 +60,8 @@ final class SessionPayloadBuilderTests: XCTestCase {
             "appointmentId": "appt-1"
         ]
 
-        let json = SessionPayloadBuilder().add(key: SessionPayloadBuilder.actionEventKey, value: validAction).build().toJson()
-        let events = json[SessionPayloadBuilder.actionEventKey] as? [[String: Any]]
+        let json = DataAttributesPayloadBuilder().add(key: DataAttributesPayloadBuilder.actionEventKey, value: validAction).build().toJson()
+        let events = json[DataAttributesPayloadBuilder.actionEventKey] as? [[String: Any]]
         XCTAssertEqual(events?.count, 1)
         XCTAssertEqual(events?.first?["appointmentId"] as? String, "appt-1")
     }
@@ -89,14 +89,14 @@ final class SessionPayloadBuilderTests: XCTestCase {
             "gender": "f"
         ]
 
-        let json = SessionPayloadBuilder()
-            .add(key: SessionPayloadBuilder.userDetailsKey, value: userDetails)
-            .add(key: SessionPayloadBuilder.healthAssociateKey, value: healthAssociate)
+        let json = DataAttributesPayloadBuilder()
+            .add(key: DataAttributesPayloadBuilder.userDetailsKey, value: userDetails)
+            .add(key: DataAttributesPayloadBuilder.healthAssociateKey, value: healthAssociate)
             .build()
             .toJson()
 
-        let user = json[SessionPayloadBuilder.userDetailsKey] as? [String: Any]
-        let associate = json[SessionPayloadBuilder.healthAssociateKey] as? [String: Any]
+        let user = json[DataAttributesPayloadBuilder.userDetailsKey] as? [String: Any]
+        let associate = json[DataAttributesPayloadBuilder.healthAssociateKey] as? [String: Any]
         XCTAssertEqual(user?["hcpId"] as? String, "HCP-1001")
         XCTAssertEqual(user?["hashedHcpId"] as? String, "sha256:hcp1001")
         XCTAssertEqual(user?["specialization"] as? String, "cardiology")
@@ -109,11 +109,11 @@ final class SessionPayloadBuilderTests: XCTestCase {
             "hashedId": "sha256:abc",
             "mobile": "+1-555-001"
         ]
-        let json = SessionPayloadBuilder()
-            .add(key: SessionPayloadBuilder.patientDetailsKey, value: patientDetails)
+        let json = DataAttributesPayloadBuilder()
+            .add(key: DataAttributesPayloadBuilder.patientDetailsKey, value: patientDetails)
             .build()
             .toJson()
-        let details = json[SessionPayloadBuilder.patientDetailsKey] as? [String: Any]
+        let details = json[DataAttributesPayloadBuilder.patientDetailsKey] as? [String: Any]
         XCTAssertEqual(details?["patientId"] as? String, "pat-11")
     }
 }

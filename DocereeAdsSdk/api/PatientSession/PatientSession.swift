@@ -35,7 +35,7 @@ public class PatientSession {
             // Save sessionId
             await StorageManager.shared.saveItem(forKey: "sessionId", value: PatientSession.sessionId!)
 
-            let payloadBuilder = SessionPayloadBuilder()
+            let payloadBuilder = DataAttributesPayloadBuilder()
                 .add(key: "sessionId", value: PatientSession.sessionId!)
             let payload = payloadBuilder.build()
 
@@ -68,24 +68,27 @@ public class PatientSession {
         }
     }
 
-    public func savePatientData(_ newValue: JSONObject) -> Bool {
-        if let sessionId = StorageManager.shared.getItem(forKey: "sessionId") {
-            DocereeLog.debug("sessionId: \(sessionId)")
-            if sessionId.isEmpty {
-                DocereeLog.debug("No session found!")
-                return false
-            }
-
-            if let savedValue = StorageManager.shared.getPatientData() {
-                let mergedValue = mergeDictionaries(savedValue, newValue)
-                StorageManager.shared.savePatientData(mergedValue)
-                return true
-            } else {
-                StorageManager.shared.savePatientData(newValue)
-                return true
-            }
+    public func hasActiveSession() -> Bool {
+        guard let sessionId = StorageManager.shared.getItem(forKey: "sessionId"),
+              !sessionId.isEmpty else {
+            return false
         }
-        return false
+        return !StorageManager.shared.isExpired()
+    }
+
+    public func savePatientData(_ newValue: JSONObject) -> Bool {
+        if let sessionId = StorageManager.shared.getItem(forKey: "sessionId"), !sessionId.isEmpty {
+            DocereeLog.debug("sessionId: \(sessionId)")
+        }
+
+        if let savedValue = StorageManager.shared.getPatientData() {
+            let mergedValue = mergeDictionaries(savedValue, newValue)
+            StorageManager.shared.savePatientData(mergedValue)
+            return true
+        }
+
+        StorageManager.shared.savePatientData(newValue)
+        return true
     }
     // Function to merge two dictionaries
     func mergeDictionaries(_ dict1: [String: Any], _ dict2: [String: Any]) -> [String: Any] {

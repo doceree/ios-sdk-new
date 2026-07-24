@@ -82,8 +82,7 @@ class StorageManager {
     }
     
     func savePatientData(_ value: JSONObject) {
-        let expired = isExpired()
-        if expired {
+        if hasSessionTimestamp(), isExpired() {
             DocereeLog.debug("savePatientData session expired!")
             UserDefaults.standard.removeObject(forKey: patientKey)
             return
@@ -92,13 +91,16 @@ class StorageManager {
     }
     
     func getPatientData() -> JSONObject? {
-        let expired = isExpired()
-        if expired {
+        if hasSessionTimestamp(), isExpired() {
             DocereeLog.debug("getPatientData session expired!")
             UserDefaults.standard.removeObject(forKey: patientKey)
             return nil
         }
         return getData(forKey: patientKey)
+    }
+
+    private func hasSessionTimestamp() -> Bool {
+        UserDefaults.standard.value(forKey: timestampKey) != nil
     }
 }
 

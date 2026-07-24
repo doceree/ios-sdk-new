@@ -22,7 +22,7 @@
 		545D18E62C088FB7003DA8E1 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E52C088FB7003DA8E1 /* StorageManager.swift */; };
 		545D18E82C089024003DA8E1 /* PatientSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E72C089024003DA8E1 /* PatientSession.swift */; };
 		545D18EA2C08948D003DA8E1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E92C08948D003DA8E1 /* Utils.swift */; };
-		545D18EC2C08B440003DA8E1 /* SessionPayloadBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18EB2C08B440003DA8E1 /* SessionPayloadBuilder.swift */; };
+		545D18EC2C08B440003DA8E1 /* DataAttributesPayloadBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18EB2C08B440003DA8E1 /* DataAttributesPayloadBuilder.swift */; };
 		54731C9A2E02AF64000D0B86 /* DocereeAdView+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54731C992E02AF64000D0B86 /* DocereeAdView+Loading.swift */; };
 		54731C9E2E02C3B1000D0B86 /* DocereeAdView+Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54731C9D2E02C3B1000D0B86 /* DocereeAdView+Timer.swift */; };
 		54731CA22E02C79D000D0B86 /* DocereeAdView+WebViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54731CA12E02C79D000D0B86 /* DocereeAdView+WebViewDelegate.swift */; };
@@ -74,7 +74,7 @@
 		54EDF0622C53E5FC00351DEF /* JsonUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EDF0612C53E5FC00351DEF /* JsonUtility.swift */; };
 		A1B2C3D42F00000100000001 /* AdSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000011 /* AdSizeTests.swift */; };
 		A1B2C3D42F00000100000002 /* ErrorContractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000012 /* ErrorContractTests.swift */; };
-		A1B2C3D42F00000100000003 /* SessionPayloadBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000013 /* SessionPayloadBuilderTests.swift */; };
+		A1B2C3D42F00000100000003 /* DataAttributesPayloadBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000013 /* DataAttributesPayloadBuilderTests.swift */; };
 		A1B2C3D42F00000100000004 /* HardeningRegressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000014 /* HardeningRegressionTests.swift */; };
 		A1B2C3D42F00000100000005 /* ConfigurationServiceNetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000015 /* ConfigurationServiceNetworkTests.swift */; };
 		A1B2C3D42F00000100000006 /* DocereeAdRequestNetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000016 /* DocereeAdRequestNetworkTests.swift */; };
@@ -142,7 +142,7 @@
 		545D18E52C088FB7003DA8E1 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		545D18E72C089024003DA8E1 /* PatientSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSession.swift; sourceTree = "<group>"; };
 		545D18E92C08948D003DA8E1 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		545D18EB2C08B440003DA8E1 /* SessionPayloadBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPayloadBuilder.swift; sourceTree = "<group>"; };
+		545D18EB2C08B440003DA8E1 /* DataAttributesPayloadBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAttributesPayloadBuilder.swift; sourceTree = "<group>"; };
 		54731C992E02AF64000D0B86 /* DocereeAdView+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+Loading.swift"; sourceTree = "<group>"; };
 		54731C9D2E02C3B1000D0B86 /* DocereeAdView+Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+Timer.swift"; sourceTree = "<group>"; };
 		54731CA12E02C79D000D0B86 /* DocereeAdView+WebViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+WebViewDelegate.swift"; sourceTree = "<group>"; };
@@ -200,7 +200,7 @@
 		733026586E86439D7934C392 /* DocereeAdsSdkTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeAdsSdkTests.swift; sourceTree = "<group>"; };
 		A1B2C3D42F00000100000011 /* AdSizeTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdSizeTests.swift; sourceTree = "<group>"; };
 		A1B2C3D42F00000100000012 /* ErrorContractTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ErrorContractTests.swift; sourceTree = "<group>"; };
-		A1B2C3D42F00000100000013 /* SessionPayloadBuilderTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SessionPayloadBuilderTests.swift; sourceTree = "<group>"; };
+		A1B2C3D42F00000100000013 /* DataAttributesPayloadBuilderTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DataAttributesPayloadBuilderTests.swift; sourceTree = "<group>"; };
 		A1B2C3D42F00000100000014 /* HardeningRegressionTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HardeningRegressionTests.swift; sourceTree = "<group>"; };
 		A1B2C3D42F00000100000015 /* ConfigurationServiceNetworkTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConfigurationServiceNetworkTests.swift; sourceTree = "<group>"; };
 		A1B2C3D42F00000100000016 /* DocereeAdRequestNetworkTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeAdRequestNetworkTests.swift; sourceTree = "<group>"; };
@@ -456,7 +456,7 @@
 			isa = PBXGroup;
 			children = (
 				545D18DF2C08859B003DA8E1 /* PatientSessionApi.swift */,
-				545D18EB2C08B440003DA8E1 /* SessionPayloadBuilder.swift */,
+				545D18EB2C08B440003DA8E1 /* DataAttributesPayloadBuilder.swift */,
 				545D18E72C089024003DA8E1 /* PatientSession.swift */,
 				545D18E92C08948D003DA8E1 /* Utils.swift */,
 			);
@@ -484,7 +484,7 @@
 			children = (
 				A1B2C3D42F00000100000011 /* AdSizeTests.swift */,
 				A1B2C3D42F00000100000012 /* ErrorContractTests.swift */,
-				A1B2C3D42F00000100000013 /* SessionPayloadBuilderTests.swift */,
+				A1B2C3D42F00000100000013 /* DataAttributesPayloadBuilderTests.swift */,
 				A1B2C3D42F00000100000014 /* HardeningRegressionTests.swift */,
 				A1B2C3D42F00000100000015 /* ConfigurationServiceNetworkTests.swift */,
 				A1B2C3D42F00000100000016 /* DocereeAdRequestNetworkTests.swift */,
@@ -685,7 +685,7 @@
 				54731CA22E02C79D000D0B86 /* DocereeAdView+WebViewDelegate.swift in Sources */,
 				A1B2C3D42F00000100000019 /* DocereeSignposts.swift in Sources */,
 				541F833A2DD1FB2D00F82FD0 /* AppConfiguration.swift in Sources */,
-				545D18EC2C08B440003DA8E1 /* SessionPayloadBuilder.swift in Sources */,
+				545D18EC2C08B440003DA8E1 /* DataAttributesPayloadBuilder.swift in Sources */,
 				54EBB007282E87AF00C7B249 /* AdResponse.swift in Sources */,
 				545D18E22C08866C003DA8E1 /* Header.swift in Sources */,
 				54731C9A2E02AF64000D0B86 /* DocereeAdView+Loading.swift in Sources */,
@@ -734,7 +734,7 @@
 			files = (
 				A1B2C3D42F00000100000001 /* AdSizeTests.swift in Sources */,
 				A1B2C3D42F00000100000002 /* ErrorContractTests.swift in Sources */,
-				A1B2C3D42F00000100000003 /* SessionPayloadBuilderTests.swift in Sources */,
+				A1B2C3D42F00000100000003 /* DataAttributesPayloadBuilderTests.swift in Sources */,
 				A1B2C3D42F00000100000004 /* HardeningRegressionTests.swift in Sources */,
 				A1B2C3D42F00000100000005 /* ConfigurationServiceNetworkTests.swift in Sources */,
 				A1B2C3D42F00000100000006 /* DocereeAdRequestNetworkTests.swift in Sources */,

@@ -1,13 +1,11 @@
 //
-//  SessionPayloadBuilder.swift
+//  DataAttributesPayloadBuilder.swift
 //  DocereeAdsSdk
-//
-//  Created by Muqeem Ahmad on 30/05/24.
 //
 
 import Foundation
 
-public struct SessionPayload {
+public struct DataAttributesPayload {
     var sessionId: String
     var extraAttributes: [String: Any]
 
@@ -46,7 +44,7 @@ public struct SessionPayload {
     }
 }
 
-public class SessionPayloadBuilder {
+public class DataAttributesPayloadBuilder {
     /// HCP / user context object for `docereeAds.add`.
     public static let userDetailsKey = "userDetails"
     /// Patient identity and clinical profile object for `docereeAds.add`.
@@ -58,13 +56,13 @@ public class SessionPayloadBuilder {
     /// Session-scoped attributes (vitals, `diagnosis_v1`, etc.) as one nested JSON object.
     public static let sessionDetailsKey = "sessionDetails"
 
-    private var payload: SessionPayload
+    private var payload: DataAttributesPayload
 
     public init() {
-        self.payload = SessionPayload(sessionId: "", extraAttributes: [:])
+        self.payload = DataAttributesPayload(sessionId: "", extraAttributes: [:])
     }
 
-    public func     add(key: String, value: Any) -> SessionPayloadBuilder {
+    public func add(key: String, value: Any) -> DataAttributesPayloadBuilder {
         if key == "sessionId" {
             payload.sessionId = value as? String ?? ""
             return self
@@ -115,7 +113,7 @@ public class SessionPayloadBuilder {
 
         if resolvedKey == Self.actionEventKey {
             guard let event = value as? [String: Any], isValidActionEvent(event) else {
-                DocereeLog.debug("SessionPayloadBuilder: dropping invalid actionEvent payload")
+                DocereeLog.debug("DataAttributesPayloadBuilder: dropping invalid actionEvent payload")
                 return
             }
             if var events = payload.extraAttributes[resolvedKey] as? [[String: Any]] {
@@ -180,7 +178,13 @@ public class SessionPayloadBuilder {
         return merged
     }
 
-    public func build() -> SessionPayload {
+    public func build() -> DataAttributesPayload {
         return payload
     }
 }
+
+@available(*, deprecated, renamed: "DataAttributesPayload")
+public typealias SessionPayload = DataAttributesPayload
+
+@available(*, deprecated, renamed: "DataAttributesPayloadBuilder")
+public typealias SessionPayloadBuilder = DataAttributesPayloadBuilder
