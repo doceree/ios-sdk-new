@@ -82,6 +82,10 @@
 		A1B2C3D42F00000100000025 /* PrivacyConsentSignals.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000020 /* PrivacyConsentSignals.swift */; };
 		A1B2C3D42F00000100000026 /* ConsentSignalCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000021 /* ConsentSignalCollector.swift */; };
 		A1B2C3D42F00000100000028 /* AdRequestPayloadAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000023 /* AdRequestPayloadAssembler.swift */; };
+		A1B2C3D42F00000100000032 /* HealthcareIntakePayloadBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000031 /* HealthcareIntakePayloadBuilder.swift */; };
+		A1B2C3D42F00000100000034 /* HealthcareIntakeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000033 /* HealthcareIntakeClient.swift */; };
+		A1B2C3D42F00000100000038 /* HealthcareIntakeEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000037 /* HealthcareIntakeEndpoint.swift */; };
+		A1B2C3D42F00000100000036 /* HealthcareIntakePayloadBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000035 /* HealthcareIntakePayloadBuilderTests.swift */; };
 		A1B2C3D42F00000100000029 /* ConsentAndIdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000024 /* ConsentAndIdentityTests.swift */; };
 		A1B2C3D42F00000100000030 /* HcpProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F0000010000002A /* HcpProfileTests.swift */; };
 		BA65A11615437E096D71A7EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACA702B64B00A64F1DFA542 /* Foundation.framework */; };
@@ -208,6 +212,10 @@
 		A1B2C3D42F00000100000020 /* PrivacyConsentSignals.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PrivacyConsentSignals.swift; sourceTree = "<group>"; };
 		A1B2C3D42F00000100000021 /* ConsentSignalCollector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConsentSignalCollector.swift; sourceTree = "<group>"; };
 		A1B2C3D42F00000100000023 /* AdRequestPayloadAssembler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdRequestPayloadAssembler.swift; sourceTree = "<group>"; };
+		A1B2C3D42F00000100000031 /* HealthcareIntakePayloadBuilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HealthcareIntakePayloadBuilder.swift; sourceTree = "<group>"; };
+		A1B2C3D42F00000100000033 /* HealthcareIntakeClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HealthcareIntakeClient.swift; sourceTree = "<group>"; };
+		A1B2C3D42F00000100000037 /* HealthcareIntakeEndpoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HealthcareIntakeEndpoint.swift; sourceTree = "<group>"; };
+		A1B2C3D42F00000100000035 /* HealthcareIntakePayloadBuilderTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HealthcareIntakePayloadBuilderTests.swift; sourceTree = "<group>"; };
 		A1B2C3D42F00000100000024 /* ConsentAndIdentityTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConsentAndIdentityTests.swift; sourceTree = "<group>"; };
 		A1B2C3D42F0000010000002A /* HcpProfileTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HcpProfileTests.swift; sourceTree = "<group>"; };
 		BACA702B64B00A64F1DFA542 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -289,6 +297,7 @@
 			isa = PBXGroup;
 			children = (
 				A1B2C3D52F00000100000001 /* PatientSession */,
+				A1B2C3D52F00000100000004 /* HealthcareIntake */,
 				A1B2C3D52F00000100000002 /* DeviceHeaders */,
 				A1B2C3D52F00000100000003 /* Storage */,
 			);
@@ -463,6 +472,16 @@
 			path = PatientSession;
 			sourceTree = "<group>";
 		};
+		A1B2C3D52F00000100000004 /* HealthcareIntake */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D42F00000100000037 /* HealthcareIntakeEndpoint.swift */,
+				A1B2C3D42F00000100000031 /* HealthcareIntakePayloadBuilder.swift */,
+				A1B2C3D42F00000100000033 /* HealthcareIntakeClient.swift */,
+			);
+			path = HealthcareIntake;
+			sourceTree = "<group>";
+		};
 		A1B2C3D52F00000100000002 /* DeviceHeaders */ = {
 			isa = PBXGroup;
 			children = (
@@ -485,6 +504,7 @@
 				A1B2C3D42F00000100000011 /* AdSizeTests.swift */,
 				A1B2C3D42F00000100000012 /* ErrorContractTests.swift */,
 				A1B2C3D42F00000100000013 /* DataAttributesPayloadBuilderTests.swift */,
+				A1B2C3D42F00000100000035 /* HealthcareIntakePayloadBuilderTests.swift */,
 				A1B2C3D42F00000100000014 /* HardeningRegressionTests.swift */,
 				A1B2C3D42F00000100000015 /* ConfigurationServiceNetworkTests.swift */,
 				A1B2C3D42F00000100000016 /* DocereeAdRequestNetworkTests.swift */,
@@ -722,6 +742,9 @@
 				A1B2C3D42F00000100000025 /* PrivacyConsentSignals.swift in Sources */,
 				A1B2C3D42F00000100000026 /* ConsentSignalCollector.swift in Sources */,
 				A1B2C3D42F00000100000028 /* AdRequestPayloadAssembler.swift in Sources */,
+				A1B2C3D42F00000100000032 /* HealthcareIntakePayloadBuilder.swift in Sources */,
+				A1B2C3D42F00000100000038 /* HealthcareIntakeEndpoint.swift in Sources */,
+				A1B2C3D42F00000100000034 /* HealthcareIntakeClient.swift in Sources */,
 				54EBB0122832240B00C7B249 /* ImageExtensions.swift in Sources */,
 				54EBB00B283221BE00C7B249 /* DocereeAdRequest.swift in Sources */,
 				54EBAFFA282E855C00C7B249 /* Constants.swift in Sources */,
@@ -735,6 +758,7 @@
 				A1B2C3D42F00000100000001 /* AdSizeTests.swift in Sources */,
 				A1B2C3D42F00000100000002 /* ErrorContractTests.swift in Sources */,
 				A1B2C3D42F00000100000003 /* DataAttributesPayloadBuilderTests.swift in Sources */,
+				A1B2C3D42F00000100000036 /* HealthcareIntakePayloadBuilderTests.swift in Sources */,
 				A1B2C3D42F00000100000004 /* HardeningRegressionTests.swift in Sources */,
 				A1B2C3D42F00000100000005 /* ConfigurationServiceNetworkTests.swift in Sources */,
 				A1B2C3D42F00000100000006 /* DocereeAdRequestNetworkTests.swift in Sources */,
