@@ -3,6 +3,51 @@ import Foundation
 public enum DocereeUserRole: String {
     case hcp = "hcp"
     case ha = "ha"
+    case user = "user"
+
+    static func fromStoredRawValue(_ rawValue: String) -> DocereeUserRole? {
+        if rawValue == "consumer" || rawValue == "dtc" { return .user }
+        return DocereeUserRole(rawValue: rawValue)
+    }
+}
+
+/// Builds a profile that can be passed to `DocereeMobileAds.login(with:)`.
+/// The SDK derives the active user type from the concrete builder class — clients must not set role.
+public protocol DocereeProfileBuilding {
+    func build() -> Hcp
+}
+
+/// Shared field storage used by all public profile builders.
+struct HcpProfileBuilderStorage {
+    var firstName: String?
+    var lastName: String?
+    var specialization: String?
+    var userType: String?
+    var organisation: String?
+    var gender: String?
+    var city: String?
+    var zipCode: String?
+    var email: String?
+    var mobile: String?
+    var dateOfBirth: String?
+    var hashedEmail: String?
+    var hashedMobile: String?
+    var state: String?
+    var country: String?
+    var hcpId: String?
+    var hashedHcpId: String?
+    var associateId: String?
+    var hashedAssociateId: String?
+    var associateRole: String?
+    var department: String?
+    var clinicalInfluenceTier: Int?
+    var patientId: String?
+    var hashedPatientId: String?
+    var publisherAttestedConsent: PublisherAttestedConsent?
+
+    func build(defaultRole: DocereeUserRole = .hcp) -> Hcp {
+        Hcp.make(from: self, role: defaultRole)
+    }
 }
 
 public final class Hcp: NSObject, NSSecureCoding {
@@ -11,6 +56,7 @@ public final class Hcp: NSObject, NSSecureCoding {
     let firstName: String?
     let lastName: String?
     let specialization: String?
+    let userType: String?
     let organisation: String?
     let gender: String?
     let city: String?
@@ -18,11 +64,6 @@ public final class Hcp: NSObject, NSSecureCoding {
     let email: String?
     let mobile: String?
     let dateOfBirth: String?
-    let mciRegistrationNumber: String?
-    let gmc: String?
-    let hashedGMC: String?
-    let npi: String?
-    let hashedNPI: String?
     let hashedEmail: String?
     let hashedMobile: String?
     let state: String?
@@ -34,6 +75,9 @@ public final class Hcp: NSObject, NSSecureCoding {
     let associateRole: String?
     let department: String?
     let clinicalInfluenceTier: Int?
+    let patientId: String?
+    let hashedPatientId: String?
+    let publisherAttestedConsent: PublisherAttestedConsent?
 
     public var fullName: String {
         [firstName, lastName]
@@ -42,11 +86,18 @@ public final class Hcp: NSObject, NSSecureCoding {
             .joined(separator: " ")
     }
 
+    /// Preferred HCP identifier from `hcpId`.
+    var resolvedHcpIdentifier: String {
+        if let hcpId, !hcpId.isEmpty { return hcpId }
+        return ""
+    }
+
     private struct Fields {
         var role: DocereeUserRole = .hcp
         var firstName: String?
         var lastName: String?
         var specialization: String?
+        var userType: String?
         var organisation: String?
         var gender: String?
         var city: String?
@@ -54,11 +105,6 @@ public final class Hcp: NSObject, NSSecureCoding {
         var email: String?
         var mobile: String?
         var dateOfBirth: String?
-        var mciRegistrationNumber: String?
-        var gmc: String?
-        var hashedGMC: String?
-        var npi: String?
-        var hashedNPI: String?
         var hashedEmail: String?
         var hashedMobile: String?
         var state: String?
@@ -70,6 +116,9 @@ public final class Hcp: NSObject, NSSecureCoding {
         var associateRole: String?
         var department: String?
         var clinicalInfluenceTier: Int?
+        var patientId: String?
+        var hashedPatientId: String?
+        var publisherAttestedConsent: PublisherAttestedConsent?
     }
 
     private init(fields: Fields) {
@@ -77,6 +126,7 @@ public final class Hcp: NSObject, NSSecureCoding {
         firstName = fields.firstName
         lastName = fields.lastName
         specialization = fields.specialization
+        userType = fields.userType
         organisation = fields.organisation
         gender = fields.gender
         city = fields.city
@@ -84,11 +134,6 @@ public final class Hcp: NSObject, NSSecureCoding {
         email = fields.email
         mobile = fields.mobile
         dateOfBirth = fields.dateOfBirth
-        mciRegistrationNumber = fields.mciRegistrationNumber
-        gmc = fields.gmc
-        hashedGMC = fields.hashedGMC
-        npi = fields.npi
-        hashedNPI = fields.hashedNPI
         hashedEmail = fields.hashedEmail
         hashedMobile = fields.hashedMobile
         state = fields.state
@@ -100,37 +145,76 @@ public final class Hcp: NSObject, NSSecureCoding {
         associateRole = fields.associateRole
         department = fields.department
         clinicalInfluenceTier = fields.clinicalInfluenceTier
+        patientId = fields.patientId
+        hashedPatientId = fields.hashedPatientId
+        publisherAttestedConsent = fields.publisherAttestedConsent
     }
 
-    private convenience init(builder: HcpBuilder) {
-        self.init(fields: Fields(
-            role: builder.role,
-            firstName: builder.firstName,
-            lastName: builder.lastName,
-            specialization: builder.specialization,
-            organisation: builder.organisation,
-            gender: builder.gender,
-            city: builder.city,
-            zipCode: builder.zipCode,
-            email: builder.email,
-            mobile: builder.mobile,
-            dateOfBirth: builder.dateOfBirth,
-            mciRegistrationNumber: builder.mciRegistrationNumber,
-            gmc: builder.gmc,
-            hashedGMC: builder.hashedGMC,
-            npi: builder.npi,
-            hashedNPI: builder.hashedNPI,
-            hashedEmail: builder.hashedEmail,
-            hashedMobile: builder.hashedMobile,
-            state: builder.state,
-            country: builder.country,
-            hcpId: builder.hcpId,
-            hashedHcpId: builder.hashedHcpId,
-            associateId: builder.associateId,
-            hashedAssociateId: builder.hashedAssociateId,
-            associateRole: builder.associateRole,
-            department: builder.department,
-            clinicalInfluenceTier: builder.clinicalInfluenceTier
+    func applyingRole(_ role: DocereeUserRole) -> Hcp {
+        var fields = asFields()
+        fields.role = role
+        return Hcp(fields: fields)
+    }
+
+    private func asFields() -> Fields {
+        Fields(
+            role: role,
+            firstName: firstName,
+            lastName: lastName,
+            specialization: specialization,
+            userType: userType,
+            organisation: organisation,
+            gender: gender,
+            city: city,
+            zipCode: zipCode,
+            email: email,
+            mobile: mobile,
+            dateOfBirth: dateOfBirth,
+            hashedEmail: hashedEmail,
+            hashedMobile: hashedMobile,
+            state: state,
+            country: country,
+            hcpId: hcpId,
+            hashedHcpId: hashedHcpId,
+            associateId: associateId,
+            hashedAssociateId: hashedAssociateId,
+            associateRole: associateRole,
+            department: department,
+            clinicalInfluenceTier: clinicalInfluenceTier,
+            patientId: patientId,
+            hashedPatientId: hashedPatientId,
+            publisherAttestedConsent: publisherAttestedConsent
+        )
+    }
+
+    static func make(from storage: HcpProfileBuilderStorage, role: DocereeUserRole) -> Hcp {
+        Hcp(fields: Fields(
+            role: role,
+            firstName: storage.firstName,
+            lastName: storage.lastName,
+            specialization: storage.specialization,
+            userType: storage.userType,
+            organisation: storage.organisation,
+            gender: storage.gender,
+            city: storage.city,
+            zipCode: storage.zipCode,
+            email: storage.email,
+            mobile: storage.mobile,
+            dateOfBirth: storage.dateOfBirth,
+            hashedEmail: storage.hashedEmail,
+            hashedMobile: storage.hashedMobile,
+            state: storage.state,
+            country: storage.country,
+            hcpId: storage.hcpId,
+            hashedHcpId: storage.hashedHcpId,
+            associateId: storage.associateId,
+            hashedAssociateId: storage.hashedAssociateId,
+            associateRole: storage.associateRole,
+            department: storage.department,
+            clinicalInfluenceTier: storage.clinicalInfluenceTier,
+            patientId: storage.patientId,
+            hashedPatientId: storage.hashedPatientId,
+            publisherAttestedConsent: storage.publisherAttestedConsent
         ))
     }
 
@@ -139,6 +223,7 @@ public final class Hcp: NSObject, NSSecureCoding {
         coder.encode(firstName, forKey: ArchiveKey.firstName)
         coder.encode(lastName, forKey: ArchiveKey.lastName)
         coder.encode(specialization, forKey: ArchiveKey.specialization)
+        coder.encode(userType, forKey: ArchiveKey.userType)
         coder.encode(organisation, forKey: ArchiveKey.organisation)
         coder.encode(gender, forKey: ArchiveKey.gender)
         coder.encode(city, forKey: ArchiveKey.city)
@@ -146,11 +231,6 @@ public final class Hcp: NSObject, NSSecureCoding {
         coder.encode(email, forKey: ArchiveKey.email)
         coder.encode(mobile, forKey: ArchiveKey.mobile)
         coder.encode(dateOfBirth, forKey: ArchiveKey.dateOfBirth)
-        coder.encode(mciRegistrationNumber, forKey: ArchiveKey.mciRegistrationNumber)
-        coder.encode(gmc, forKey: ArchiveKey.gmc)
-        coder.encode(hashedGMC, forKey: ArchiveKey.hashedGMC)
-        coder.encode(npi, forKey: ArchiveKey.npi)
-        coder.encode(hashedNPI, forKey: ArchiveKey.hashedNPI)
         coder.encode(hashedEmail, forKey: ArchiveKey.hashedEmail)
         coder.encode(hashedMobile, forKey: ArchiveKey.hashedMobile)
         coder.encode(state, forKey: ArchiveKey.state)
@@ -164,6 +244,13 @@ public final class Hcp: NSObject, NSSecureCoding {
         if let clinicalInfluenceTier {
             coder.encode(NSNumber(value: clinicalInfluenceTier), forKey: ArchiveKey.clinicalInfluenceTier)
         }
+        coder.encode(patientId, forKey: ArchiveKey.patientId)
+        coder.encode(hashedPatientId, forKey: ArchiveKey.hashedPatientId)
+        coder.encode(publisherAttestedConsent?.consentBasis, forKey: ArchiveKey.consentBasis)
+        coder.encode(publisherAttestedConsent?.mechanism, forKey: ArchiveKey.consentMechanism)
+        coder.encode(publisherAttestedConsent?.grantedAt, forKey: ArchiveKey.consentGrantedAt)
+        coder.encode(publisherAttestedConsent?.expiresAt, forKey: ArchiveKey.consentExpiresAt)
+        coder.encode(publisherAttestedConsent?.consentReferenceId, forKey: ArchiveKey.consentReferenceId)
     }
 
     required convenience public init?(coder: NSCoder) {
@@ -172,6 +259,7 @@ public final class Hcp: NSObject, NSSecureCoding {
             firstName: Self.decodeString(coder, forKey: ArchiveKey.firstName),
             lastName: Self.decodeString(coder, forKey: ArchiveKey.lastName),
             specialization: Self.decodeString(coder, forKey: ArchiveKey.specialization),
+            userType: Self.decodeString(coder, forKey: ArchiveKey.userType),
             organisation: Self.decodeString(coder, forKey: ArchiveKey.organisation),
             gender: Self.decodeString(coder, forKey: ArchiveKey.gender),
             city: Self.decodeString(coder, forKey: ArchiveKey.city),
@@ -179,11 +267,6 @@ public final class Hcp: NSObject, NSSecureCoding {
             email: Self.decodeString(coder, forKey: ArchiveKey.email),
             mobile: Self.decodeString(coder, forKey: ArchiveKey.mobile),
             dateOfBirth: Self.decodeString(coder, forKey: ArchiveKey.dateOfBirth),
-            mciRegistrationNumber: Self.decodeString(coder, forKey: ArchiveKey.mciRegistrationNumber),
-            gmc: Self.decodeString(coder, forKey: ArchiveKey.gmc),
-            hashedGMC: Self.decodeString(coder, forKey: ArchiveKey.hashedGMC),
-            npi: Self.decodeString(coder, forKey: ArchiveKey.npi),
-            hashedNPI: Self.decodeString(coder, forKey: ArchiveKey.hashedNPI),
             hashedEmail: Self.decodeString(coder, forKey: ArchiveKey.hashedEmail),
             hashedMobile: Self.decodeString(coder, forKey: ArchiveKey.hashedMobile),
             state: Self.decodeString(coder, forKey: ArchiveKey.state),
@@ -194,8 +277,22 @@ public final class Hcp: NSObject, NSSecureCoding {
             hashedAssociateId: Self.decodeString(coder, forKey: ArchiveKey.hashedAssociateId),
             associateRole: Self.decodeString(coder, forKey: ArchiveKey.associateRole),
             department: Self.decodeString(coder, forKey: ArchiveKey.department),
-            clinicalInfluenceTier: Self.decodeInt(coder, forKey: ArchiveKey.clinicalInfluenceTier)
+            clinicalInfluenceTier: Self.decodeInt(coder, forKey: ArchiveKey.clinicalInfluenceTier),
+            patientId: Self.decodeString(coder, forKey: ArchiveKey.patientId),
+            hashedPatientId: Self.decodeString(coder, forKey: ArchiveKey.hashedPatientId),
+            publisherAttestedConsent: Self.decodePublisherAttestedConsent(coder)
         ))
+    }
+
+    private static func decodePublisherAttestedConsent(_ coder: NSCoder) -> PublisherAttestedConsent? {
+        let consent = PublisherAttestedConsent(
+            consentBasis: decodeString(coder, forKey: ArchiveKey.consentBasis),
+            mechanism: decodeString(coder, forKey: ArchiveKey.consentMechanism),
+            grantedAt: decodeString(coder, forKey: ArchiveKey.consentGrantedAt),
+            expiresAt: decodeString(coder, forKey: ArchiveKey.consentExpiresAt),
+            consentReferenceId: decodeString(coder, forKey: ArchiveKey.consentReferenceId)
+        )
+        return consent.isEmpty ? nil : consent
     }
 
     public static var supportsSecureCoding: Bool {
@@ -208,7 +305,7 @@ public final class Hcp: NSObject, NSSecureCoding {
 
     private static func decodeRole(_ coder: NSCoder) -> DocereeUserRole {
         guard let rawValue = decodeString(coder, forKey: ArchiveKey.role),
-              let role = DocereeUserRole(rawValue: rawValue) else {
+              let role = DocereeUserRole.fromStoredRawValue(rawValue) else {
             return .hcp
         }
         return role
@@ -217,183 +314,6 @@ public final class Hcp: NSObject, NSSecureCoding {
     private static func decodeInt(_ coder: NSCoder, forKey key: String) -> Int? {
         coder.decodeObject(of: NSNumber.self, forKey: key)?.intValue
     }
-
-    public class HcpBuilder {
-
-        public init() {}
-
-        var role: DocereeUserRole = .hcp
-        var firstName: String?
-        var lastName: String?
-        var specialization: String?
-        var organisation: String?
-        var gender: String?
-        var city: String?
-        var zipCode: String?
-        var email: String?
-        var mobile: String?
-        var dateOfBirth: String?
-        var mciRegistrationNumber: String?
-        var gmc: String?
-        var hashedGMC: String?
-        var npi: String?
-        var hashedNPI: String?
-        var hashedEmail: String?
-        var hashedMobile: String?
-        var state: String?
-        var country: String?
-        var hcpId: String?
-        var hashedHcpId: String?
-        var associateId: String?
-        var hashedAssociateId: String?
-        var associateRole: String?
-        var department: String?
-        var clinicalInfluenceTier: Int?
-
-        public func setRole(_ role: DocereeUserRole) -> HcpBuilder {
-            self.role = role
-            return self
-        }
-
-        public func setFirstName(firstName: String?) -> HcpBuilder {
-            self.firstName = firstName
-            return self
-        }
-
-        public func setLastName(lastName: String?) -> HcpBuilder {
-            self.lastName = lastName
-            return self
-        }
-
-        public func setSpecialization(specialization: String?) -> HcpBuilder {
-            self.specialization = specialization
-            return self
-        }
-
-        public func setOrganisation(organisation: String?) -> HcpBuilder {
-            self.organisation = organisation
-            return self
-        }
-
-        public func setGender(gender: String?) -> HcpBuilder {
-            self.gender = gender
-            return self
-        }
-
-        public func setCity(city: String?) -> HcpBuilder {
-            self.city = city
-            return self
-        }
-
-        public func setZipCode(zipCode: String?) -> HcpBuilder {
-            self.zipCode = zipCode
-            return self
-        }
-
-        public func setEmail(email: String?) -> HcpBuilder {
-            self.email = email
-            return self
-        }
-
-        public func setMobile(mobile: String?) -> HcpBuilder {
-            self.mobile = mobile
-            return self
-        }
-
-        public func setDateOfBirth(dateOfBirth: String?) -> HcpBuilder {
-            self.dateOfBirth = dateOfBirth
-            return self
-        }
-
-        public func setMciRegistrationNumber(mciRegistrationNumber: String?) -> HcpBuilder {
-            self.mciRegistrationNumber = mciRegistrationNumber
-            return self
-        }
-
-        public func setGmc(gmc: String?) -> HcpBuilder {
-            self.gmc = gmc
-            return self
-        }
-
-        public func setHashedGMC(hashedGMC: String?) -> HcpBuilder {
-            self.hashedGMC = hashedGMC
-            return self
-        }
-
-        public func setNpi(npi: String?) -> HcpBuilder {
-            self.npi = npi
-            return self
-        }
-
-        public func setHashedEmail(hashedEmail: String?) -> HcpBuilder {
-            self.hashedEmail = hashedEmail
-            return self
-        }
-
-        public func setHashedMobile(hashedMobile: String?) -> HcpBuilder {
-            self.hashedMobile = hashedMobile
-            return self
-        }
-
-        public func setHashedNPI(hashedNPI: String?) -> HcpBuilder {
-            self.hashedNPI = hashedNPI
-            return self
-        }
-
-        public func setState(state: String?) -> HcpBuilder {
-            self.state = state
-            return self
-        }
-
-        public func setCountry(country: String?) -> HcpBuilder {
-            self.country = country
-            return self
-        }
-
-        public func setHcpId(hcpId: String?) -> HcpBuilder {
-            self.hcpId = hcpId
-            return self
-        }
-
-        public func setHashedHcpId(hashedHcpId: String?) -> HcpBuilder {
-            self.hashedHcpId = hashedHcpId
-            return self
-        }
-
-        public func setAssociateId(associateId: String?) -> HcpBuilder {
-            self.associateId = associateId
-            return self
-        }
-
-        public func setHashedAssociateId(hashedAssociateId: String?) -> HcpBuilder {
-            self.hashedAssociateId = hashedAssociateId
-            return self
-        }
-
-        public func setAssociateRole(associateRole: String?) -> HcpBuilder {
-            self.associateRole = associateRole
-            return self
-        }
-
-        public func setDepartment(department: String?) -> HcpBuilder {
-            self.department = department
-            return self
-        }
-
-        public func setClinicalInfluenceTier(clinicalInfluenceTier: Int?) -> HcpBuilder {
-            self.clinicalInfluenceTier = clinicalInfluenceTier
-            return self
-        }
-
-        @available(*, deprecated, message: "Use DocereeMobileAds.shared().getProfile()?.fullName instead.")
-        public func getName() -> String {
-            DocereeMobileAds.shared().getProfile()?.fullName ?? ""
-        }
-
-        public func build() -> Hcp {
-            Hcp(builder: self)
-        }
-    }
 }
 
 private enum ArchiveKey {
@@ -401,6 +321,7 @@ private enum ArchiveKey {
     static let firstName = "firstname"
     static let lastName = "lastname"
     static let specialization = "specialization"
+    static let userType = "userType"
     static let organisation = "organisation"
     static let gender = "gender"
     static let city = "city"
@@ -408,11 +329,6 @@ private enum ArchiveKey {
     static let email = "email"
     static let mobile = "mobile"
     static let dateOfBirth = "dateOfBirth"
-    static let mciRegistrationNumber = "mciregistrationnumber"
-    static let gmc = "gmc"
-    static let hashedGMC = "hashedGMC"
-    static let npi = "npi"
-    static let hashedNPI = "hashedNPI"
     static let hashedEmail = "hashedEmail"
     static let hashedMobile = "hashedMobile"
     static let state = "state"
@@ -424,4 +340,11 @@ private enum ArchiveKey {
     static let associateRole = "associateRole"
     static let department = "department"
     static let clinicalInfluenceTier = "clinicalInfluenceTier"
+    static let patientId = "patientId"
+    static let hashedPatientId = "hashedPatientId"
+    static let consentBasis = "consentBasis"
+    static let consentMechanism = "consentMechanism"
+    static let consentGrantedAt = "consentGrantedAt"
+    static let consentExpiresAt = "consentExpiresAt"
+    static let consentReferenceId = "consentReferenceId"
 }

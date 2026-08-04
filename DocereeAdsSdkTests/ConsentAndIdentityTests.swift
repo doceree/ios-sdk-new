@@ -131,7 +131,7 @@ final class ConsentAndIdentityTests: XCTestCase {
         let body = AdRequestPayloadAssembler.makeBody(
             appKey: "app",
             userId: "user",
-            user: Hcp.HcpBuilder().build(),
+            user: HcpBuilder().build(),
             adUnitId: "unit",
             consent: ConsentSignals(),
             universalIds: ids,
@@ -147,7 +147,7 @@ final class ConsentAndIdentityTests: XCTestCase {
         let body = AdRequestPayloadAssembler.makeBody(
             appKey: "app",
             userId: "user",
-            user: Hcp.HcpBuilder().build(),
+            user: HcpBuilder().build(),
             adUnitId: "unit",
             consent: ConsentSignals(
                 isPersonalizeAd: "1",
@@ -178,7 +178,7 @@ final class ConsentAndIdentityTests: XCTestCase {
         let body = AdRequestPayloadAssembler.makeBody(
             appKey: "app",
             userId: "user",
-            user: Hcp.HcpBuilder().build(),
+            user: HcpBuilder().build(),
             adUnitId: "unit",
             consent: signals,
             universalIds: UniversalIds(),
@@ -203,7 +203,7 @@ final class ConsentAndIdentityTests: XCTestCase {
         let body = AdRequestPayloadAssembler.makeBody(
             appKey: "app",
             userId: "user",
-            user: Hcp.HcpBuilder().build(),
+            user: HcpBuilder().build(),
             adUnitId: "unit",
             consent: signals,
             universalIds: UniversalIds(),
@@ -230,7 +230,7 @@ final class ConsentAndIdentityTests: XCTestCase {
         let body = DocereeAdRequest.shared.makeAdRequestBody(
             appKey: "app-key",
             userId: "device-id",
-            user: Hcp.HcpBuilder().build(),
+            user: HcpBuilder().build(),
             adUnitId: "ad-unit"
         )
 
@@ -245,7 +245,7 @@ final class ConsentAndIdentityTests: XCTestCase {
         let body = AdRequestPayloadAssembler.makeBody(
             appKey: "app",
             userId: "user",
-            user: Hcp.HcpBuilder().build(),
+            user: HcpBuilder().build(),
             adUnitId: "unit",
             consent: ConsentSignals(
                 isPersonalizeAd: "1",
@@ -283,12 +283,11 @@ final class ConsentAndIdentityTests: XCTestCase {
     }
 
     func testHealthAssociateAdRequestUsesRoleSpecificPayload() {
-        let user = Hcp.HcpBuilder()
-            .setRole(.ha)
-            .setFirstName(firstName: "Sarah")
-            .setAssociateId(associateId: "STAFF-77123")
-            .setAssociateRole(associateRole: "registered_nurse")
-            .setDepartment(department: "Cardiology")
+        let user = HealthAssociateBuilder()
+            .setFirstName("Sarah")
+            .setAssociateId("STAFF-77123")
+            .setAssociateRole("registered_nurse")
+            .setDepartment("Cardiology")
             .build()
 
         let body = AdRequestPayloadAssembler.makeBody(
@@ -298,7 +297,8 @@ final class ConsentAndIdentityTests: XCTestCase {
             adUnitId: "unit",
             consent: ConsentSignals(),
             universalIds: UniversalIds(),
-            br: ""
+            br: "",
+            role: .ha
         )
 
         XCTAssertEqual(body[QueryParamsForAdRequest.role.rawValue] as? String, "ha")
@@ -311,13 +311,13 @@ final class ConsentAndIdentityTests: XCTestCase {
         let body = AdRequestPayloadAssembler.makeBody(
             appKey: "app",
             userId: "user",
-            user: Hcp.HcpBuilder()
-                .setSpecialization(specialization: "Pediatrics")
-                .setHcpId(hcpId: "HCP-1001")
-                .setMobile(mobile: "+12125550100")
-                .setHashedEmail(hashedEmail: "sha256:c84d9f2e")
-                .setHashedMobile(hashedMobile: "sha256:b94d27e2")
-                .setDateOfBirth(dateOfBirth: "1978-04-12")
+            user: HcpBuilder()
+                .setSpecialization("Pediatrics")
+                .setHcpId("HCP-1001")
+                .setMobile("+12125550100")
+                .setHashedEmail("sha256:c84d9f2e")
+                .setHashedMobile("sha256:b94d27e2")
+                .setDateOfBirth("1978-04-12")
                 .build(),
             adUnitId: "unit",
             consent: ConsentSignals(),

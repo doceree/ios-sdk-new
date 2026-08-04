@@ -82,18 +82,48 @@ public class PatientSession {
         }
 
         if let savedValue = StorageManager.shared.getPatientData() {
-            let mergedValue = mergeDictionaries(savedValue, newValue)
+            let mergedValue = normalizeActionEvents(in: mergeDictionaries(savedValue, newValue))
             StorageManager.shared.savePatientData(mergedValue)
             return true
         }
 
-        StorageManager.shared.savePatientData(newValue)
+        StorageManager.shared.savePatientData(normalizeActionEvents(in: newValue))
         return true
     }
+
+    private func normalizeActionEvents(in payload: [String: Any]) -> [String: Any] {
+        guard let events = payload[DataAttributesPayloadBuilder.actionEventKey] as? [[String: Any]],
+              !events.isEmpty else {
+            return payload
+        }
+
+        var normalized = payload
+        normalized[DataAttributesPayloadBuilder.actionEventKey] =
+            DataAttributesPayloadBuilder.mergeActionEventsByType(existing: events, incoming: [])
+        return normalized
+    }
+
     // Function to merge two dictionaries
     func mergeDictionaries(_ dict1: [String: Any], _ dict2: [String: Any]) -> [String: Any] {
         var mergedDict = dict1
         for (key, value) in dict2 {
+            if key == DataAttributesPayloadBuilder.actionEventKey {
+                let existingEvents = mergedDict[key] as? [[String: Any]] ?? []
+                let incomingEvents: [[String: Any]]
+                if let events = value as? [[String: Any]] {
+                    incomingEvents = events
+                } else if let event = value as? [String: Any] {
+                    incomingEvents = [event]
+                } else {
+                    mergedDict[key] = value
+                    continue
+                }
+                mergedDict[key] = DataAttributesPayloadBuilder.mergeActionEventsByType(
+                    existing: existingEvents,
+                    incoming: incomingEvents
+                )
+                continue
+            }
             if let dictValue = value as? [String: Any], let existingValue = mergedDict[key] as? [String: Any] {
                 mergedDict[key] = mergeDictionaries(existingValue, dictValue)
             } else {
@@ -102,24 +132,79 @@ public class PatientSession {
         }
         return mergedDict
     }
+    func getPtd() -> String {
+        guard let stored = StorageManager.shared.getPatientData(),
+              let patientDetails = stored[DataAttributesPayloadBuilder.patientDetailsKey] as? [String: Any],
+              !patientDetails.isEmpty else {
+            return ""
+        }
+        do {
+            return try encodeJSONObjectToBase64(patientDetails)
+        } catch {
+            DocereeLog.debug("Error fetching patient data for ptd: \(error)")
+            return ""
+        }
+    }
+
+    func getAtd() -> String {
+        guard let stored = StorageManager.shared.getPatientData(),
+              let actionEvents = stored[DataAttributesPayloadBuilder.actionEventKey] as? [[String: Any]],
+              !actionEvents.isEmpty else {
+            return ""
+        }
+        let deduplicated = DataAttributesPayloadBuilder.mergeActionEventsByType(
+            existing: actionEvents,
+            incoming: []
+        )
+        guard !deduplicated.isEmpty else {
+            return ""
+        }
+        do {
+            return try encodeJSONObjectToBase64(deduplicated)
+        } catch {
+            DocereeLog.debug("Error fetching action data for atd: \(error)")
+            return ""
+        }
+    }
+
     func getBr() -> String {
         DocereeLog.debug("Br called")
-        do {
-            if let patient = StorageManager.shared.getPatientData() {
-                let attributes = ["attributes": patient]
-                var jsonString = String(data: try JSONSerialization.data(withJSONObject: attributes, options: []), encoding: .utf8)!
-                // Replace escaped characters manually
-                jsonString = jsonString.replacingOccurrences(of: "\\/", with: "/")
-                let encodedBr = try Utils().encodeBase64(jsonString)
-                DocereeLog.debug("Encrypted br: \(encodedBr)")
-                return encodedBr
-            } else {
-                DocereeLog.debug("PatientSession: No patient found")
-            }
-        } catch {
-            DocereeLog.debug("Error fetching patient data: \(error)")
+        guard let payload = sessionPayloadForBr() else {
+            DocereeLog.debug("PatientSession: No session data found")
+            return ""
         }
-        return ""
+        do {
+            let encodedBr = try encodeJSONObjectToBase64(payload)
+            DocereeLog.debug("Encrypted br: \(encodedBr)")
+            return encodedBr
+        } catch {
+            DocereeLog.debug("Error fetching session data for br: \(error)")
+            return ""
+        }
+    }
+
+    private func sessionPayloadForBr() -> [String: Any]? {
+        guard let stored = StorageManager.shared.getPatientData() else {
+            return nil
+        }
+
+        var payload: [String: Any] = [:]
+        if let sessionDetails = stored[DataAttributesPayloadBuilder.sessionDetailsKey] as? [String: Any],
+           !sessionDetails.isEmpty {
+            payload = sessionDetails
+        }
+
+        if let sessionId = stored[PatientData.shared.sessionId] as? String, !sessionId.isEmpty {
+            payload[PatientData.shared.sessionId] = sessionId
+        }
+
+        return payload.isEmpty ? nil : payload
+    }
+
+    private func encodeJSONObjectToBase64(_ object: Any) throws -> String {
+        var jsonString = String(data: try JSONSerialization.data(withJSONObject: object, options: []), encoding: .utf8)!
+        jsonString = jsonString.replacingOccurrences(of: "\\/", with: "/")
+        return try Utils().encodeBase64(jsonString)
     }
 }
 

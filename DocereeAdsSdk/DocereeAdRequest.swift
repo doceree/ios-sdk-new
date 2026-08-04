@@ -56,7 +56,7 @@ public final class DocereeAdRequest: AdServiceProtocol {
             throw DocereeAdRequestError.failedToCreateRequest
         }
 
-        let userForRequest = DocereeMobileAds.shared().getProfile() ?? Hcp.HcpBuilder().build()
+        let userForRequest = DocereeMobileAds.shared().getProfile() ?? HcpBuilder().build()
 
         let body: [String: Any] = makeAdRequestBody(appKey: appKey, userId: id, user: userForRequest, adUnitId: adUnitId)
         var urlRequest = try makeRequest(
@@ -66,6 +66,7 @@ public final class DocereeAdRequest: AdServiceProtocol {
             body: body
         )
         urlRequest.timeoutInterval = DocereeHTTPTimeouts.interactiveRequest
+        logAdRequest(urlRequest, body: body)
 
         let (data, httpResponse) = try await { () async throws -> (Data, HTTPURLResponse) in
             let spHttp = DocereeSignposts.adRequestInterval("doceree.request_ad_http")
@@ -180,6 +181,7 @@ public final class DocereeAdRequest: AdServiceProtocol {
     internal func makeAdRequestBody(appKey: String, userId: String, user: Hcp, adUnitId: String) -> [String: Any] {
         let consent = ConsentSignalCollector.shared.collect()
         let universalIds = DocereeMobileAds.storedUniversalIds()
+        let patientSession = PatientSession()
         return AdRequestPayloadAssembler.makeBody(
             appKey: appKey,
             userId: userId,
@@ -187,7 +189,9 @@ public final class DocereeAdRequest: AdServiceProtocol {
             adUnitId: adUnitId,
             consent: consent,
             universalIds: universalIds,
-            br: PatientSession().getBr()
+            br: patientSession.getBr(),
+            ptd: patientSession.getPtd(),
+            atd: patientSession.getAtd()
         )
     }
 
@@ -225,6 +229,17 @@ public final class DocereeAdRequest: AdServiceProtocol {
         Task {
             await DocereeURLSessionBeacon.sendWithRetries(for: request, session: session, message: message)
         }
+    }
+
+    private func logAdRequest(_ request: URLRequest, body: [String: Any]) {
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: body, options: [.prettyPrinted, .sortedKeys]),
+              let jsonString = String(data: jsonData, encoding: .utf8) else {
+            DocereeLog.debug("Ad request URL: \(request.url?.absoluteString ?? "nil")")
+            DocereeLog.debug("Ad request body: \(body)")
+            return
+        }
+        DocereeLog.debug("Ad request URL: \(request.url?.absoluteString ?? "nil")")
+        DocereeLog.debug("Ad request body:\n\(jsonString)")
     }
 
 }

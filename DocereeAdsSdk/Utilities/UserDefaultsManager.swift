@@ -17,6 +17,8 @@ final class UserDefaultsManager {
     private let privacyComplianceSIDKey = "privacyComplianceSID"
     private let privacyStringKey = "privacyString"
     private let hasExplicitConsentKey = "hasExplicitConsent"
+    private let loggedInUserRoleKey = "docereeLoggedInUserRole"
+    private let loggedInUserProfileKey = "docereeLoggedInUserProfile"
 
     // MARK: - Config Expiration (always 24 hours)
 
@@ -141,5 +143,45 @@ final class UserDefaultsManager {
             privacyStringKey,
             hasExplicitConsentKey
         ].forEach { defaults.removeObject(forKey: $0) }
+    }
+
+    // MARK: - Logged-in user profile (single active user; latest login wins)
+
+    func saveLoggedInProfile(_ profile: Hcp, role: DocereeUserRole) {
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: profile, requiringSecureCoding: true)
+            defaults.set(role.rawValue, forKey: loggedInUserRoleKey)
+            defaults.set(data, forKey: loggedInUserProfileKey)
+        } catch {
+            DocereeLog.debug("Failed to archive logged-in profile: \(error)")
+        }
+    }
+
+    func loadLoggedInProfile() -> Hcp? {
+        guard let data = defaults.data(forKey: loggedInUserProfileKey) else { return nil }
+        let allowedClasses = NSSet(array: [NSString.self, Hcp.self, NSNumber.self])
+        do {
+            return try NSKeyedUnarchiver.unarchivedObject(
+                ofClasses: allowedClasses as! Set<AnyHashable>,
+                from: data
+            ) as? Hcp
+        } catch {
+            DocereeLog.debug("Failed to decode logged-in profile: \(error)")
+            return nil
+        }
+    }
+
+    func loggedInUserRole() -> DocereeUserRole? {
+        guard let rawValue = defaults.string(forKey: loggedInUserRoleKey) else { return nil }
+        return DocereeUserRole.fromStoredRawValue(rawValue)
+    }
+
+    func clearLoggedInProfile() {
+        defaults.removeObject(forKey: loggedInUserRoleKey)
+        defaults.removeObject(forKey: loggedInUserProfileKey)
+    }
+
+    func resetLoggedInProfileForTesting() {
+        clearLoggedInProfile()
     }
 }

@@ -4,29 +4,29 @@ import XCTest
 final class HcpProfileTests: XCTestCase {
 
     func testFullNameJoinsFirstAndLastName() {
-        let hcp = Hcp.HcpBuilder()
-            .setFirstName(firstName: "Jane")
-            .setLastName(lastName: "Doe")
+        let hcp = HcpBuilder()
+            .setFirstName("Jane")
+            .setLastName("Doe")
             .build()
 
         XCTAssertEqual(hcp.fullName, "Jane Doe")
     }
 
     func testFullNameOmitsMissingParts() {
-        let hcp = Hcp.HcpBuilder()
-            .setFirstName(firstName: "Jane")
+        let hcp = HcpBuilder()
+            .setFirstName("Jane")
             .build()
 
         XCTAssertEqual(hcp.fullName, "Jane")
     }
 
     func testSecureCodingRoundTripPreservesProfileFields() throws {
-        let original = Hcp.HcpBuilder()
-            .setFirstName(firstName: "Jane")
-            .setLastName(lastName: "Doe")
-            .setEmail(email: "jane@example.com")
-            .setHcpId(hcpId: "HCP-1001")
-            .setHashedHcpId(hashedHcpId: "sha256:hcp")
+        let original = HcpBuilder()
+            .setFirstName("Jane")
+            .setLastName("Doe")
+            .setEmail("jane@example.com")
+            .setHcpId("HCP-1001")
+            .setHashedHcpId("sha256:hcp")
             .build()
 
         let data = try NSKeyedArchiver.archivedData(withRootObject: original, requiringSecureCoding: true)
@@ -41,24 +41,51 @@ final class HcpProfileTests: XCTestCase {
         XCTAssertEqual(decoded.role, .hcp)
     }
 
+    func testDefaultRoleIsUserForUserBuilder() {
+        let user = UserBuilder().build()
+        XCTAssertEqual(user.role, .user)
+    }
+
+    func testSecureCodingRoundTripPreservesUserBuilderFields() throws {
+        let original = UserBuilder()
+            .setFirstName("Jane")
+            .setLastName("Doe")
+            .setUserType("HCP")
+            .setSpecialization("Pediatrics")
+            .setOrganisation("Apollo")
+            .setHcpId("USER-1001")
+            .build()
+
+        let data = try NSKeyedArchiver.archivedData(withRootObject: original, requiringSecureCoding: true)
+        let decoded = try XCTUnwrap(
+            NSKeyedUnarchiver.unarchivedObject(ofClasses: [Hcp.self, NSString.self, NSNumber.self], from: data) as? Hcp
+        )
+
+        XCTAssertEqual(decoded.role, .user)
+        XCTAssertEqual(decoded.userType, "HCP")
+        XCTAssertEqual(decoded.specialization, "Pediatrics")
+        XCTAssertEqual(decoded.organisation, "Apollo")
+        XCTAssertEqual(decoded.hcpId, "USER-1001")
+    }
+
     func testDefaultRoleIsHcp() {
-        let hcp = Hcp.HcpBuilder().build()
+        let hcp = HcpBuilder().build()
         XCTAssertEqual(hcp.role, .hcp)
     }
 
     func testSecureCodingRoundTripPreservesHealthAssociateFields() throws {
-        let original = Hcp.HcpBuilder()
-            .setRole(.ha)
-            .setFirstName(firstName: "Alex")
-            .setLastName(lastName: "Smith")
-            .setAssociateId(associateId: "STAFF-77123")
-            .setHashedAssociateId(hashedAssociateId: "sha256:d44f1a2b3c4d5e6f")
-            .setAssociateRole(associateRole: "registered_nurse")
-            .setDepartment(department: "Cardiology")
-            .setClinicalInfluenceTier(clinicalInfluenceTier: 1)
-            .setDateOfBirth(dateOfBirth: "1985-04-22")
-            .setHashedMobile(hashedMobile: "sha256:f66b1c2d3e4f5a6b")
+        let original = HealthAssociateBuilder()
+            .setFirstName("Alex")
+            .setLastName("Smith")
+            .setAssociateId("STAFF-77123")
+            .setHashedAssociateId("sha256:d44f1a2b3c4d5e6f")
+            .setAssociateRole("registered_nurse")
+            .setDepartment("Cardiology")
+            .setClinicalInfluenceTier(1)
+            .setDateOfBirth("1985-04-22")
+            .setHashedMobile("sha256:f66b1c2d3e4f5a6b")
             .build()
+            .applyingRole(.ha)
 
         let data = try NSKeyedArchiver.archivedData(withRootObject: original, requiringSecureCoding: true)
         let decoded = try XCTUnwrap(
@@ -76,8 +103,8 @@ final class HcpProfileTests: XCTestCase {
     }
 
     func testLegacyProfileWithoutRoleDefaultsToHcp() throws {
-        let legacy = Hcp.HcpBuilder()
-            .setFirstName(firstName: "Legacy")
+        let legacy = HcpBuilder()
+            .setFirstName("Legacy")
             .build()
         let data = try NSKeyedArchiver.archivedData(withRootObject: legacy, requiringSecureCoding: true)
 

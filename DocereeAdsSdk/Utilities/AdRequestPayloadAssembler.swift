@@ -9,9 +9,14 @@ enum AdRequestPayloadAssembler {
         adUnitId: String,
         consent: ConsentSignals,
         universalIds: UniversalIds,
-        br: String
+        br: String,
+        ptd: String = "",
+        atd: String = "",
+        role: DocereeUserRole? = nil
     ) -> [String: Any] {
-        if user.role == .ha {
+        let resolvedRole = role ?? UserDefaultsManager.shared.loggedInUserRole() ?? user.role
+        switch resolvedRole {
+        case .ha:
             return makeHealthAssociateBody(
                 appKey: appKey,
                 userId: userId,
@@ -19,8 +24,26 @@ enum AdRequestPayloadAssembler {
                 adUnitId: adUnitId,
                 consent: consent,
                 universalIds: universalIds,
-                br: br
+                br: br,
+                ptd: ptd,
+                atd: atd,
+                role: resolvedRole
             )
+        case .user:
+            return makeUserBody(
+                appKey: appKey,
+                userId: userId,
+                user: user,
+                adUnitId: adUnitId,
+                consent: consent,
+                universalIds: universalIds,
+                br: br,
+                ptd: ptd,
+                atd: atd,
+                role: resolvedRole
+            )
+        case .hcp:
+            break
         }
 
         return makeHcpBody(
@@ -30,7 +53,9 @@ enum AdRequestPayloadAssembler {
             adUnitId: adUnitId,
             consent: consent,
             universalIds: universalIds,
-            br: br
+            br: br,
+            ptd: ptd,
+            atd: atd
         )
     }
 
@@ -42,7 +67,9 @@ enum AdRequestPayloadAssembler {
         adUnitId: String,
         consent: ConsentSignals,
         universalIds: UniversalIds,
-        br: String
+        br: String,
+        ptd: String,
+        atd: String
     ) -> [String: Any] {
         var body: [String: Any] = [
             QueryParamsForAdRequest.appKey.rawValue: appKey,
@@ -65,11 +92,13 @@ enum AdRequestPayloadAssembler {
             QueryParamsForAdRequest.privacyConsent.rawValue: 1
         ]
 
+        addDataAttributes(ptd: ptd, atd: atd, into: &body)
+
         addNonEmptyString(user.hashedEmail ?? "", forKey: QueryParamsForAdRequest.hashedEmail, into: &body)
         addNonEmptyString(user.hashedMobile ?? "", forKey: QueryParamsForAdRequest.hashedMobile, into: &body)
         addNonEmptyString(user.dateOfBirth ?? "", forKey: QueryParamsForAdRequest.dateOfBirth, into: &body)
 
-        if let consentObject = makeConsentObject(from: consent) {
+        if let consentObject = makeConsentObject(from: consent, publisherAttested: user.publisherAttestedConsent) {
             body[QueryParamsForAdRequest.consent.rawValue] = consentObject
         }
 
@@ -89,12 +118,15 @@ enum AdRequestPayloadAssembler {
         adUnitId: String,
         consent: ConsentSignals,
         universalIds: UniversalIds,
-        br: String
+        br: String,
+        ptd: String,
+        atd: String,
+        role: DocereeUserRole
     ) -> [String: Any] {
         var body: [String: Any] = [
             QueryParamsForAdRequest.appKey.rawValue: appKey,
             QueryParamsForAdRequest.userId.rawValue: userId,
-            QueryParamsForAdRequest.role.rawValue: user.role.rawValue,
+            QueryParamsForAdRequest.role.rawValue: role.rawValue,
             QueryParamsForAdRequest.email.rawValue: user.email ?? "",
             QueryParamsForAdRequest.firstName.rawValue: user.firstName ?? "",
             QueryParamsForAdRequest.lastName.rawValue: user.lastName ?? "",
@@ -110,6 +142,8 @@ enum AdRequestPayloadAssembler {
             QueryParamsForAdRequest.privacyConsent.rawValue: 1
         ]
 
+        addDataAttributes(ptd: ptd, atd: atd, into: &body)
+
         addNonEmptyString(user.hashedEmail ?? "", forKey: QueryParamsForAdRequest.hashedEmail, into: &body)
         addNonEmptyString(user.hashedMobile ?? "", forKey: QueryParamsForAdRequest.hashedMobile, into: &body)
         addNonEmptyString(user.dateOfBirth ?? "", forKey: QueryParamsForAdRequest.dateOfBirth, into: &body)
@@ -121,7 +155,7 @@ enum AdRequestPayloadAssembler {
             body[QueryParamsForAdRequest.clinicalInfluenceTier.rawValue] = clinicalInfluenceTier
         }
 
-        if let consentObject = makeConsentObject(from: consent) {
+        if let consentObject = makeConsentObject(from: consent, publisherAttested: user.publisherAttestedConsent) {
             body[QueryParamsForAdRequest.consent.rawValue] = consentObject
         }
 
@@ -133,7 +167,65 @@ enum AdRequestPayloadAssembler {
         return body
     }
 
-    static func makeConsentObject(from consent: ConsentSignals) -> [String: Any]? {
+    /// User payload — used when profile role is `.user`.
+    private static func makeUserBody(
+        appKey: String,
+        userId: String,
+        user: Hcp,
+        adUnitId: String,
+        consent: ConsentSignals,
+        universalIds: UniversalIds,
+        br: String,
+        ptd: String,
+        atd: String,
+        role: DocereeUserRole
+    ) -> [String: Any] {
+        var body: [String: Any] = [
+            QueryParamsForAdRequest.appKey.rawValue: appKey,
+            QueryParamsForAdRequest.userId.rawValue: userId,
+            QueryParamsForAdRequest.role.rawValue: role.rawValue,
+            QueryParamsForAdRequest.email.rawValue: user.email ?? "",
+            QueryParamsForAdRequest.firstName.rawValue: user.firstName ?? "",
+            QueryParamsForAdRequest.lastName.rawValue: user.lastName ?? "",
+            QueryParamsForAdRequest.mobile.rawValue: user.mobile ?? "",
+            QueryParamsForAdRequest.specialization.rawValue: user.specialization ?? "",
+            QueryParamsForAdRequest.organisation.rawValue: user.organisation ?? "",
+            QueryParamsForAdRequest.hcpId.rawValue: user.hcpId ?? "",
+            QueryParamsForAdRequest.hashedHcpId.rawValue: user.hashedHcpId ?? "",
+            QueryParamsForAdRequest.gender.rawValue: user.gender ?? "",
+            QueryParamsForAdRequest.city.rawValue: user.city ?? "",
+            QueryParamsForAdRequest.state.rawValue: user.state ?? "",
+            QueryParamsForAdRequest.country.rawValue: user.country ?? "",
+            QueryParamsForAdRequest.zipCode.rawValue: user.zipCode ?? "",
+            QueryParamsForAdRequest.adUnit.rawValue: adUnitId,
+            QueryParamsForAdRequest.br.rawValue: br,
+            QueryParamsForAdRequest.cdt.rawValue: "",
+            QueryParamsForAdRequest.privacyConsent.rawValue: 1
+        ]
+
+        addDataAttributes(ptd: ptd, atd: atd, into: &body)
+
+        addNonEmptyString(user.userType ?? "", forKey: QueryParamsForAdRequest.userType, into: &body)
+        addNonEmptyString(user.hashedEmail ?? "", forKey: QueryParamsForAdRequest.hashedEmail, into: &body)
+        addNonEmptyString(user.hashedMobile ?? "", forKey: QueryParamsForAdRequest.hashedMobile, into: &body)
+        addNonEmptyString(user.dateOfBirth ?? "", forKey: QueryParamsForAdRequest.dateOfBirth, into: &body)
+
+        if let consentObject = makeConsentObject(from: consent, publisherAttested: user.publisherAttestedConsent) {
+            body[QueryParamsForAdRequest.consent.rawValue] = consentObject
+        }
+
+        addNonEmptyString(universalIds.rampId, forKey: QueryParamsForAdRequest.rampId, into: &body)
+        addNonEmptyString(universalIds.uid2, forKey: QueryParamsForAdRequest.uid2, into: &body)
+        addNonEmptyString(universalIds.id5, forKey: QueryParamsForAdRequest.id5, into: &body)
+        addNonEmptyString(universalIds.liveIntentId, forKey: QueryParamsForAdRequest.liveIntentId, into: &body)
+
+        return body
+    }
+
+    static func makeConsentObject(
+        from consent: ConsentSignals,
+        publisherAttested: PublisherAttestedConsent? = nil
+    ) -> [String: Any]? {
         var cns: [String: Any] = [:]
 
         addNonEmptyString(consent.isPersonalizeAd, forKey: .userPreference, into: &cns)
@@ -158,6 +250,12 @@ enum AdRequestPayloadAssembler {
 
         if let source = consent.source?.rawValue {
             cns[ConsentPayloadKey.consentSource.rawValue] = source
+        }
+
+        if let publisherAttested, !publisherAttested.isEmpty {
+            for (key, value) in publisherAttested.cnsPayload() {
+                cns[key] = value
+            }
         }
 
         return cns.isEmpty ? nil : cns
@@ -198,5 +296,14 @@ enum AdRequestPayloadAssembler {
     private static func addNonEmptyString(_ value: String, forKey key: QueryParamsForAdRequest, into body: inout [String: Any]) {
         guard !value.isEmpty else { return }
         body[key.rawValue] = value
+    }
+
+    private static func addDataAttributes(
+        ptd: String,
+        atd: String,
+        into body: inout [String: Any]
+    ) {
+        addNonEmptyString(ptd, forKey: QueryParamsForAdRequest.ptd, into: &body)
+        addNonEmptyString(atd, forKey: QueryParamsForAdRequest.atd, into: &body)
     }
 }

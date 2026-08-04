@@ -51,7 +51,7 @@ public class DataAttributesPayloadBuilder {
     public static let patientDetailsKey = "patientDetails"
     /// Care-team associate object for `docereeAds.add`.
     public static let healthAssociateKey = "healthAssociate"
-    /// Appointment / workflow events; each `add` appends one validated event object into an array.
+    /// Appointment / workflow events; each `add` upserts one validated event by its `type`.
     public static let actionEventKey = "actionEvent"
     /// Session-scoped attributes (vitals, `diagnosis_v1`, etc.) as one nested JSON object.
     public static let sessionDetailsKey = "sessionDetails"
@@ -64,11 +64,21 @@ public class DataAttributesPayloadBuilder {
 
     public func add(key: String, value: Any) -> DataAttributesPayloadBuilder {
         if key == "sessionId" {
-            payload.sessionId = value as? String ?? ""
+            let sessionId = value as? String ?? ""
+            guard !sessionId.isEmpty else { return self }
+            payload.sessionId = sessionId
+            persistDelta([PatientData.shared.sessionId: sessionId])
             return self
         }
-        addStandardizedAttribute(key: key, value: value)
+        if let delta = applyStandardizedAttribute(key: key, value: value) {
+            persistDelta(delta)
+        }
         return self
+    }
+
+    private func persistDelta(_ delta: [String: Any]) {
+        guard !delta.isEmpty else { return }
+        _ = PatientSession().savePatientData(delta)
     }
 
     /// Maps legacy flat `add(key:value:)` inputs to `PatientData` short keys. Session-scoped fields use `sessionDetails` instead.
@@ -108,21 +118,19 @@ public class DataAttributesPayloadBuilder {
         "appointmentId"
     ]
 
-    private func addStandardizedAttribute(key: String, value: Any) {
+    /// Applies one attribute update and returns the storage delta when the value was accepted.
+    private func applyStandardizedAttribute(key: String, value: Any) -> [String: Any]? {
         let resolvedKey = Self.standardizedAliases[key] ?? key
 
         if resolvedKey == Self.actionEventKey {
             guard let event = value as? [String: Any], isValidActionEvent(event) else {
                 DocereeLog.debug("DataAttributesPayloadBuilder: dropping invalid actionEvent payload")
-                return
+                return nil
             }
-            if var events = payload.extraAttributes[resolvedKey] as? [[String: Any]] {
-                events.append(event)
-                payload.extraAttributes[resolvedKey] = events
-            } else {
-                payload.extraAttributes[resolvedKey] = [event]
-            }
-            return
+            let existingEvents = payload.extraAttributes[resolvedKey] as? [[String: Any]] ?? []
+            let mergedEvents = Self.mergeActionEventsByType(existing: existingEvents, incoming: [event])
+            payload.extraAttributes[resolvedKey] = mergedEvents
+            return [resolvedKey: mergedEvents]
         }
 
         if let existing = payload.extraAttributes[resolvedKey] {
@@ -130,6 +138,11 @@ public class DataAttributesPayloadBuilder {
         } else {
             payload.extraAttributes[resolvedKey] = value
         }
+
+        guard let storedValue = payload.extraAttributes[resolvedKey] else {
+            return nil
+        }
+        return [resolvedKey: storedValue]
     }
 
     private func isValidActionEvent(_ event: [String: Any]) -> Bool {
@@ -150,14 +163,29 @@ public class DataAttributesPayloadBuilder {
         return true
     }
 
+    /// Keeps at most one action event per `type`; incoming events replace existing ones of the same type.
+    static func mergeActionEventsByType(existing: [[String: Any]], incoming: [[String: Any]]) -> [[String: Any]] {
+        var byType: [String: [String: Any]] = [:]
+        var order: [String] = []
+
+        for event in existing + incoming {
+            guard let type = event["type"] as? String, !type.isEmpty else { continue }
+            if byType[type] == nil {
+                order.append(type)
+            }
+            byType[type] = event
+        }
+
+        return order.compactMap { byType[$0] }
+    }
+
     private func mergeAttributeValues(existing: Any, incoming: Any) -> Any {
         if let existingDict = existing as? [String: Any], let incomingDict = incoming as? [String: Any] {
             return mergeNestedDictionaries(existingDict, incomingDict)
         }
         if var existingArray = existing as? [[String: Any]],
            let incomingArray = incoming as? [[String: Any]] {
-            existingArray.append(contentsOf: incomingArray)
-            return existingArray
+            return Self.mergeActionEventsByType(existing: existingArray, incoming: incomingArray)
         }
         if var existingArray = existing as? [Any], let incomingArray = incoming as? [Any] {
             existingArray.append(contentsOf: incomingArray)

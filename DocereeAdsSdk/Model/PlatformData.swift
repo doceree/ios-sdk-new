@@ -36,7 +36,7 @@ func getPlatformData(rxCodes: [String]?, dxCodes: [String]?) -> String {
 
     let name = loggedInUser.fullName
 
-    let pd = PlatformData(nm: name, em: loggedInUser.email ?? "", sp: loggedInUser.specialization ?? "", og: loggedInUser.organisation ?? "", hc: loggedInUser.mciRegistrationNumber ?? "", rx: rxCodes ?? [], dx: dxCodes ?? [], gd: loggedInUser.gender ?? "", ag: "", wl: loggedInUser.city ?? "", mo: loggedInUser.mobile ?? "")
+    let pd = PlatformData(nm: name, em: loggedInUser.email ?? "", sp: loggedInUser.specialization ?? "", og: loggedInUser.organisation ?? "", hc: loggedInUser.resolvedHcpIdentifier, rx: rxCodes ?? [], dx: dxCodes ?? [], gd: loggedInUser.gender ?? "", ag: "", wl: loggedInUser.city ?? "", mo: loggedInUser.mobile ?? "")
     
     let encoder = JSONEncoder()
     encoder.outputFormatting = .prettyPrinted
@@ -61,7 +61,7 @@ func getParnerData() -> String {
 
     let name = loggedInUser.fullName
 
-    let pd = PartnerData(pn: "Partner ID", nm: name, em: loggedInUser.email ?? "", sp: loggedInUser.specialization ?? "", og: loggedInUser.organisation ?? "", hc: loggedInUser.mciRegistrationNumber ?? "", gd: loggedInUser.gender ?? "", ag: "", wl: loggedInUser.city ?? "", mo: loggedInUser.mobile ?? "")
+    let pd = PartnerData(pn: "Partner ID", nm: name, em: loggedInUser.email ?? "", sp: loggedInUser.specialization ?? "", og: loggedInUser.organisation ?? "", hc: loggedInUser.resolvedHcpIdentifier, gd: loggedInUser.gender ?? "", ag: "", wl: loggedInUser.city ?? "", mo: loggedInUser.mobile ?? "")
     
     let encoder = JSONEncoder()
     encoder.outputFormatting = .prettyPrinted
