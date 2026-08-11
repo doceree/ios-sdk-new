@@ -87,13 +87,13 @@ public final class HealthAssociateBuilder: DocereeProfileBuilding {
         return self
     }
 
-    public func setClinicalInfluenceTier(_ clinicalInfluenceTier: Int?) -> HealthAssociateBuilder {
-        storage.clinicalInfluenceTier = clinicalInfluenceTier
+    public func setOrganisation(_ organisation: String?) -> HealthAssociateBuilder {
+        storage.organisation = organisation
         return self
     }
 
-    public func setConsent(_ consent: PublisherAttestedConsent?) -> HealthAssociateBuilder {
-        storage.publisherAttestedConsent = consent
+    public func setClinicalInfluenceTier(_ clinicalInfluenceTier: Int?) -> HealthAssociateBuilder {
+        storage.clinicalInfluenceTier = clinicalInfluenceTier
         return self
     }
 

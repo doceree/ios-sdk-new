@@ -77,6 +77,9 @@
 		54F1A0052F10000100000005 /* ProfileLoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0062F10000100000006 /* ProfileLoginTests.swift */; };
 		54F1A0072F10000100000007 /* HcpBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0082F10000100000008 /* HcpBuilder.swift */; };
 		54F1A00B2F1000010000000B /* PublisherAttestedConsent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A00C2F1000010000000C /* PublisherAttestedConsent.swift */; };
+		54F1A00D2F1000010000000D /* DocereeMobileAds+DataAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A00E2F1000010000000E /* DocereeMobileAds+DataAttributes.swift */; };
+		54F1A00F2F1000010000000F /* DocereeMobileAdsDataAttributesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0102F10000100000010 /* DocereeMobileAdsDataAttributesTests.swift */; };
+		54F1A0112F10000100000011 /* DocereeConsent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0122F10000100000012 /* DocereeConsent.swift */; };
 		A1B2C3D42F00000100000001 /* AdSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000011 /* AdSizeTests.swift */; };
 		A1B2C3D42F00000100000002 /* ErrorContractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000012 /* ErrorContractTests.swift */; };
 		A1B2C3D42F00000100000003 /* DataAttributesPayloadBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000013 /* DataAttributesPayloadBuilderTests.swift */; };
@@ -208,6 +211,9 @@
 		54F1A0062F10000100000006 /* ProfileLoginTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileLoginTests.swift; sourceTree = "<group>"; };
 		54F1A0082F10000100000008 /* HcpBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HcpBuilder.swift; sourceTree = "<group>"; };
 		54F1A00C2F1000010000000C /* PublisherAttestedConsent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherAttestedConsent.swift; sourceTree = "<group>"; };
+		54F1A00E2F1000010000000E /* DocereeMobileAds+DataAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeMobileAds+DataAttributes.swift"; sourceTree = "<group>"; };
+		54F1A0102F10000100000010 /* DocereeMobileAdsDataAttributesTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeMobileAdsDataAttributesTests.swift; sourceTree = "<group>"; };
+		54F1A0122F10000100000012 /* DocereeConsent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocereeConsent.swift; sourceTree = "<group>"; };
 		5732343192416F0013A5C6B6 /* Pods-DocereeAdsSdk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DocereeAdsSdk.debug.xcconfig"; path = "Target Support Files/Pods-DocereeAdsSdk/Pods-DocereeAdsSdk.debug.xcconfig"; sourceTree = "<group>"; };
 		596B48C9E1EA7CAB269B7931 /* Pods-DocereeAdsSdkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DocereeAdsSdkTests.debug.xcconfig"; path = "Target Support Files/Pods-DocereeAdsSdkTests/Pods-DocereeAdsSdkTests.debug.xcconfig"; sourceTree = "<group>"; };
 		64FB1AF2A4862C2D893BC6EB /* DocereeAdsSdkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DocereeAdsSdkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -412,6 +418,7 @@
 				54F1A0022F10000100000002 /* HealthAssociateBuilder.swift */,
 				54F1A0042F10000100000004 /* UserBuilder.swift */,
 				54F1A00C2F1000010000000C /* PublisherAttestedConsent.swift */,
+				54F1A0122F10000100000012 /* DocereeConsent.swift */,
 				543ACD322964535A005C47FE /* PlatformData.swift */,
 				5497DE472D5CC75E00D566BB /* PopupModel.swift */,
 				54874D252BBAAB860018A882 /* HcpValidation.swift */,
@@ -469,6 +476,7 @@
 			isa = PBXGroup;
 			children = (
 				54EBB05E28366F6E00C7B249 /* DocereeMobileAds.swift */,
+				54F1A00E2F1000010000000E /* DocereeMobileAds+DataAttributes.swift */,
 				54EBB060283671AA00C7B249 /* DocereeAdViewDelegate.swift */,
 				54874D2B2BBC05C90018A882 /* DocereeHcpViewDelegate.swift */,
 			);
@@ -525,6 +533,7 @@
 				A1B2C3D42F00000100000024 /* ConsentAndIdentityTests.swift */,
 				A1B2C3D42F0000010000002A /* HcpProfileTests.swift */,
 				54F1A0062F10000100000006 /* ProfileLoginTests.swift */,
+				54F1A0102F10000100000010 /* DocereeMobileAdsDataAttributesTests.swift */,
 				733026586E86439D7934C392 /* DocereeAdsSdkTests.swift */,
 			);
 			name = DocereeAdsSdkTests;
@@ -732,6 +741,7 @@
 				54731CB62E02DE02000D0B86 /* DocereeAdView+UIHelpers.swift in Sources */,
 				5428575C2E0D70680000E823 /* MyKetchView.swift in Sources */,
 				54EBB05F28366F6E00C7B249 /* DocereeMobileAds.swift in Sources */,
+				54F1A00D2F1000010000000D /* DocereeMobileAds+DataAttributes.swift in Sources */,
 				54874D302BBC30810018A882 /* Enums.swift in Sources */,
 				54EBB0432834F62700C7B249 /* AdConsentUIView.swift in Sources */,
 				5497DE482D5CC76200D566BB /* PopupModel.swift in Sources */,
@@ -757,6 +767,8 @@
 				54F1A0012F10000100000001 /* HealthAssociateBuilder.swift in Sources */,
 				54F1A0032F10000100000003 /* UserBuilder.swift in Sources */,
 				54F1A00B2F1000010000000B /* PublisherAttestedConsent.swift in Sources */,
+				54F1A0112F10000100000011 /* DocereeConsent.swift in Sources */,
+				54F1A00D2F1000010000000D /* DocereeMobileAds+DataAttributes.swift in Sources */,
 				54874D2E2BBC2DAE0018A882 /* UserDefaultsManager.swift in Sources */,
 				A1B2C3D42F00000100000025 /* PrivacyConsentSignals.swift in Sources */,
 				A1B2C3D42F00000100000026 /* ConsentSignalCollector.swift in Sources */,
@@ -784,6 +796,7 @@
 				A1B2C3D42F00000100000029 /* ConsentAndIdentityTests.swift in Sources */,
 				A1B2C3D42F00000100000030 /* HcpProfileTests.swift in Sources */,
 				54F1A0052F10000100000005 /* ProfileLoginTests.swift in Sources */,
+				54F1A00F2F1000010000000F /* DocereeMobileAdsDataAttributesTests.swift in Sources */,
 				0E59CEF62A856505C1BC5F21 /* DocereeAdsSdkTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

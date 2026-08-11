@@ -87,11 +87,6 @@ public final class HcpBuilder: DocereeProfileBuilding {
         return self
     }
 
-    public func setConsent(_ consent: PublisherAttestedConsent?) -> HcpBuilder {
-        storage.publisherAttestedConsent = consent
-        return self
-    }
-
     @available(*, deprecated, message: "Use DocereeMobileAds.shared().getProfile()?.fullName instead.")
     public func getName() -> String {
         DocereeMobileAds.shared().getProfile()?.fullName ?? ""

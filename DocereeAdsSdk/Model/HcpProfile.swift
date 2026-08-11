@@ -43,7 +43,6 @@ struct HcpProfileBuilderStorage {
     var clinicalInfluenceTier: Int?
     var patientId: String?
     var hashedPatientId: String?
-    var publisherAttestedConsent: PublisherAttestedConsent?
 
     func build(defaultRole: DocereeUserRole = .hcp) -> Hcp {
         Hcp.make(from: self, role: defaultRole)
@@ -77,7 +76,6 @@ public final class Hcp: NSObject, NSSecureCoding {
     let clinicalInfluenceTier: Int?
     let patientId: String?
     let hashedPatientId: String?
-    let publisherAttestedConsent: PublisherAttestedConsent?
 
     public var fullName: String {
         [firstName, lastName]
@@ -118,7 +116,6 @@ public final class Hcp: NSObject, NSSecureCoding {
         var clinicalInfluenceTier: Int?
         var patientId: String?
         var hashedPatientId: String?
-        var publisherAttestedConsent: PublisherAttestedConsent?
     }
 
     private init(fields: Fields) {
@@ -147,7 +144,6 @@ public final class Hcp: NSObject, NSSecureCoding {
         clinicalInfluenceTier = fields.clinicalInfluenceTier
         patientId = fields.patientId
         hashedPatientId = fields.hashedPatientId
-        publisherAttestedConsent = fields.publisherAttestedConsent
     }
 
     func applyingRole(_ role: DocereeUserRole) -> Hcp {
@@ -182,8 +178,7 @@ public final class Hcp: NSObject, NSSecureCoding {
             department: department,
             clinicalInfluenceTier: clinicalInfluenceTier,
             patientId: patientId,
-            hashedPatientId: hashedPatientId,
-            publisherAttestedConsent: publisherAttestedConsent
+            hashedPatientId: hashedPatientId
         )
     }
 
@@ -213,8 +208,7 @@ public final class Hcp: NSObject, NSSecureCoding {
             department: storage.department,
             clinicalInfluenceTier: storage.clinicalInfluenceTier,
             patientId: storage.patientId,
-            hashedPatientId: storage.hashedPatientId,
-            publisherAttestedConsent: storage.publisherAttestedConsent
+            hashedPatientId: storage.hashedPatientId
         ))
     }
 
@@ -246,11 +240,6 @@ public final class Hcp: NSObject, NSSecureCoding {
         }
         coder.encode(patientId, forKey: ArchiveKey.patientId)
         coder.encode(hashedPatientId, forKey: ArchiveKey.hashedPatientId)
-        coder.encode(publisherAttestedConsent?.consentBasis, forKey: ArchiveKey.consentBasis)
-        coder.encode(publisherAttestedConsent?.mechanism, forKey: ArchiveKey.consentMechanism)
-        coder.encode(publisherAttestedConsent?.grantedAt, forKey: ArchiveKey.consentGrantedAt)
-        coder.encode(publisherAttestedConsent?.expiresAt, forKey: ArchiveKey.consentExpiresAt)
-        coder.encode(publisherAttestedConsent?.consentReferenceId, forKey: ArchiveKey.consentReferenceId)
     }
 
     required convenience public init?(coder: NSCoder) {
@@ -279,20 +268,8 @@ public final class Hcp: NSObject, NSSecureCoding {
             department: Self.decodeString(coder, forKey: ArchiveKey.department),
             clinicalInfluenceTier: Self.decodeInt(coder, forKey: ArchiveKey.clinicalInfluenceTier),
             patientId: Self.decodeString(coder, forKey: ArchiveKey.patientId),
-            hashedPatientId: Self.decodeString(coder, forKey: ArchiveKey.hashedPatientId),
-            publisherAttestedConsent: Self.decodePublisherAttestedConsent(coder)
+            hashedPatientId: Self.decodeString(coder, forKey: ArchiveKey.hashedPatientId)
         ))
-    }
-
-    private static func decodePublisherAttestedConsent(_ coder: NSCoder) -> PublisherAttestedConsent? {
-        let consent = PublisherAttestedConsent(
-            consentBasis: decodeString(coder, forKey: ArchiveKey.consentBasis),
-            mechanism: decodeString(coder, forKey: ArchiveKey.consentMechanism),
-            grantedAt: decodeString(coder, forKey: ArchiveKey.consentGrantedAt),
-            expiresAt: decodeString(coder, forKey: ArchiveKey.consentExpiresAt),
-            consentReferenceId: decodeString(coder, forKey: ArchiveKey.consentReferenceId)
-        )
-        return consent.isEmpty ? nil : consent
     }
 
     public static var supportsSecureCoding: Bool {
@@ -342,9 +319,4 @@ private enum ArchiveKey {
     static let clinicalInfluenceTier = "clinicalInfluenceTier"
     static let patientId = "patientId"
     static let hashedPatientId = "hashedPatientId"
-    static let consentBasis = "consentBasis"
-    static let consentMechanism = "consentMechanism"
-    static let consentGrantedAt = "consentGrantedAt"
-    static let consentExpiresAt = "consentExpiresAt"
-    static let consentReferenceId = "consentReferenceId"
 }

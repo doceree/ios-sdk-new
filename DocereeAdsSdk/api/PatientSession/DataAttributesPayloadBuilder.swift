@@ -44,6 +44,7 @@ public struct DataAttributesPayload {
     }
 }
 
+@available(*, deprecated, message: "Use DocereeMobileAds.shared().add(_:value:) instead.")
 public class DataAttributesPayloadBuilder {
     /// HCP / user context object for `docereeAds.add`.
     public static let userDetailsKey = "userDetails"

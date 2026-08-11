@@ -19,6 +19,7 @@ final class UserDefaultsManager {
     private let hasExplicitConsentKey = "hasExplicitConsent"
     private let loggedInUserRoleKey = "docereeLoggedInUserRole"
     private let loggedInUserProfileKey = "docereeLoggedInUserProfile"
+    private let consentStorageKey = "docereeConsent"
 
     // MARK: - Config Expiration (always 24 hours)
 
@@ -83,8 +84,50 @@ final class UserDefaultsManager {
 
     // MARK: - Privacy Consent
 
+    func saveConsent(_ consent: DocereeConsent) {
+        let merged = (loadConsent() ?? DocereeConsent()).merging(consent)
+        if merged.isEmpty {
+            clearConsent()
+            return
+        }
+        do {
+            let data = try JSONEncoder().encode(merged)
+            defaults.set(data, forKey: consentStorageKey)
+        } catch {
+            DocereeLog.debug("Failed to encode DocereeConsent: \(error)")
+        }
+    }
+
+    func loadConsent() -> DocereeConsent? {
+        guard let data = defaults.data(forKey: consentStorageKey) else { return nil }
+        do {
+            let consent = try JSONDecoder().decode(DocereeConsent.self, from: data)
+            return consent.isEmpty ? nil : consent
+        } catch {
+            DocereeLog.debug("Failed to decode DocereeConsent: \(error)")
+            return nil
+        }
+    }
+
+    func clearConsent() {
+        defaults.removeObject(forKey: consentStorageKey)
+    }
+
+    func hasStoredConsent() -> Bool {
+        loadConsent() != nil
+    }
+
     /// Legacy three-parameter consent API. Clears extended GPP fields so stale values are not forwarded.
     func setConsentData(isPersonalizeAd: String = "", privacyComplianceType: String = "", privacyString: String = "") {
+        saveConsent(
+            DocereeConsent.fromLegacyExplicit(
+                isPersonalizeAd: isPersonalizeAd,
+                privacyComplianceType: privacyComplianceType,
+                privacyComplianceVersion: "",
+                privacyComplianceSID: "",
+                privacyString: privacyString
+            )
+        )
         defaults.set(isPersonalizeAd, forKey: isPersonalizeAdKey)
         defaults.set(privacyComplianceType, forKey: privacyComplianceTypeKey)
         defaults.set("", forKey: privacyComplianceVersionKey)
@@ -100,6 +143,15 @@ final class UserDefaultsManager {
         privacyComplianceSID: String,
         privacyString: String
     ) {
+        saveConsent(
+            DocereeConsent.fromLegacyExplicit(
+                isPersonalizeAd: isPersonalizeAd,
+                privacyComplianceType: privacyComplianceType,
+                privacyComplianceVersion: privacyComplianceVersion,
+                privacyComplianceSID: privacyComplianceSID,
+                privacyString: privacyString
+            )
+        )
         defaults.set(isPersonalizeAd, forKey: isPersonalizeAdKey)
         defaults.set(privacyComplianceType, forKey: privacyComplianceTypeKey)
         defaults.set(privacyComplianceVersion, forKey: privacyComplianceVersionKey)
@@ -143,6 +195,7 @@ final class UserDefaultsManager {
             privacyStringKey,
             hasExplicitConsentKey
         ].forEach { defaults.removeObject(forKey: $0) }
+        clearConsent()
     }
 
     // MARK: - Logged-in user profile (single active user; latest login wins)

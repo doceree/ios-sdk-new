@@ -103,7 +103,7 @@ final class ProfileLoginTests: XCTestCase {
             userId: "user",
             user: user,
             adUnitId: "unit",
-            consent: ConsentSignals(),
+            consent: CollectedConsent(consent: DocereeConsent()),
             universalIds: UniversalIds(),
             br: ""
         )
@@ -120,24 +120,26 @@ final class ProfileLoginTests: XCTestCase {
         XCTAssertNil(body[QueryParamsForAdRequest.associateId.rawValue])
     }
 
-    func testPublisherAttestedConsentFromBuilderIsForwardedInCns() {
-        DocereeMobileAds.login(with: HcpBuilder()
-            .setHcpId("HCP-1001")
-            .setConsent(PublisherAttestedConsentBuilder()
+    func testPublisherAttestedConsentIsForwardedInCns() {
+        DocereeMobileAds.login(with: HcpBuilder().setHcpId("HCP-1001"))
+        DocereeMobileAds.shared().setConsent(
+            DocereeConsentBuilder()
                 .setConsentBasis("publisher_attested")
                 .setMechanism("publisher_onboarding")
                 .setGrantedAt("2024-03-10T08:30:00Z")
                 .setExpiresAt("2025-03-10T08:30:00Z")
                 .setConsentReferenceId("CONSENT-HCP-44821")
-                .build()))
+                .build()
+        )
 
         let user = DocereeMobileAds.shared().getProfile()!
+        let consent = ConsentSignalCollector.shared.collect()
         let body = AdRequestPayloadAssembler.makeBody(
             appKey: "app",
             userId: "user",
             user: user,
             adUnitId: "unit",
-            consent: ConsentSignals(),
+            consent: consent,
             universalIds: UniversalIds(),
             br: ""
         )

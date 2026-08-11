@@ -300,7 +300,7 @@ final class DataAttributesPayloadBuilderTests: XCTestCase {
             userId: "user",
             user: user,
             adUnitId: "unit",
-            consent: ConsentSignals(),
+            consent: CollectedConsent(consent: DocereeConsent()),
             universalIds: UniversalIds(),
             br: "encoded-session",
             ptd: ptd,

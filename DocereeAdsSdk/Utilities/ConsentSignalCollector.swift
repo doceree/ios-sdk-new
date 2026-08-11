@@ -1,6 +1,6 @@
 import Foundation
 
-/// Collects consent signals for ad requests: explicit publisher values take precedence over IAB in-app storage.
+/// Collects consent signals for ad requests: stored consent takes precedence over IAB in-app storage.
 final class ConsentSignalCollector {
     static let shared = ConsentSignalCollector()
 
@@ -12,50 +12,82 @@ final class ConsentSignalCollector {
         self.iabDefaults = iabDefaults
     }
 
-    func collect() -> ConsentSignals {
-        if defaultsManager.hasExplicitConsent() {
-            let explicit = defaultsManager.getExplicitConsentData()
-            return ConsentSignals(
-                isPersonalizeAd: explicit.isPersonalizeAd,
-                privacyComplianceType: explicit.privacyComplianceType,
-                privacyComplianceVersion: explicit.privacyComplianceVersion,
-                privacyComplianceSID: explicit.privacyComplianceSID,
-                privacyString: explicit.privacyString,
-                gdprApplies: "",
-                source: .explicit
-            )
+    func collect() -> CollectedConsent {
+        if let stored = defaultsManager.loadConsent() {
+            return CollectedConsent(consent: stored, source: .explicit)
         }
+
+        if defaultsManager.hasExplicitConsent() {
+            let legacy = defaultsManager.getExplicitConsentData()
+            let consent = DocereeConsent.fromLegacyExplicit(
+                isPersonalizeAd: legacy.isPersonalizeAd,
+                privacyComplianceType: legacy.privacyComplianceType,
+                privacyComplianceVersion: legacy.privacyComplianceVersion,
+                privacyComplianceSID: legacy.privacyComplianceSID,
+                privacyString: legacy.privacyString
+            )
+            return CollectedConsent(consent: consent, source: .explicit)
+        }
+
         return collectFromIAB()
     }
 
-    private func collectFromIAB() -> ConsentSignals {
+    /// Backward-compatible accessor used by older tests and call sites.
+    func collectLegacySignals() -> ConsentSignals {
+        let collected = collect()
+        let consent = collected.consent
+        return ConsentSignals(
+            isPersonalizeAd: consent.userConsent ?? "",
+            privacyComplianceType: consent.privacyType ?? "",
+            privacyComplianceVersion: consent.privacyVersion ?? "",
+            privacyComplianceSID: legacySidString(from: consent, source: collected.source),
+            privacyString: consent.privacyString ?? "",
+            gdprApplies: collected.gdprApplies,
+            source: collected.source
+        )
+    }
+
+    private func legacySidString(from consent: DocereeConsent, source: ConsentSource?) -> String {
+        guard let privacySid = consent.privacySid, !privacySid.isEmpty else { return "" }
+        if source == .iab && consent.privacyType == "gpp" {
+            return privacySid.joined(separator: "_")
+        }
+        return privacySid.joined(separator: ",")
+    }
+
+    private func collectFromIAB() -> CollectedConsent {
         let gppString = stringValue(forKey: IABConsentStorageKeys.gppString)
         if !gppString.isEmpty {
-            return ConsentSignals(
-                isPersonalizeAd: "",
-                privacyComplianceType: "gpp",
-                privacyComplianceVersion: stringValue(forKey: IABConsentStorageKeys.gppVersion),
-                privacyComplianceSID: stringValue(forKey: IABConsentStorageKeys.gppSID),
-                privacyString: gppString,
-                gdprApplies: "",
+            return CollectedConsent(
+                consent: DocereeConsent(
+                    privacyType: "gpp",
+                    privacyString: gppString,
+                    privacySid: DocereeConsent.parseSidList(stringValue(forKey: IABConsentStorageKeys.gppSID)),
+                    privacyVersion: nonEmpty(stringValue(forKey: IABConsentStorageKeys.gppVersion))
+                ),
                 source: .iab
             )
         }
 
         let tcfString = stringValue(forKey: IABConsentStorageKeys.tcfString)
         if !tcfString.isEmpty {
-            return ConsentSignals(
-                isPersonalizeAd: "",
-                privacyComplianceType: "tcf",
-                privacyComplianceVersion: stringValue(forKey: IABConsentStorageKeys.tcfPolicyVersion),
-                privacyComplianceSID: "",
-                privacyString: tcfString,
-                gdprApplies: stringValue(forKey: IABConsentStorageKeys.gdprApplies),
-                source: .iab
+            return CollectedConsent(
+                consent: DocereeConsent(
+                    privacyType: "tcf",
+                    privacyString: tcfString,
+                    privacyVersion: nonEmpty(stringValue(forKey: IABConsentStorageKeys.tcfPolicyVersion))
+                ),
+                source: .iab,
+                gdprApplies: stringValue(forKey: IABConsentStorageKeys.gdprApplies)
             )
         }
 
-        return ConsentSignals()
+        return CollectedConsent(consent: DocereeConsent())
+    }
+
+    private func nonEmpty(_ value: String) -> String? {
+        let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? nil : trimmed
     }
 
     private func stringValue(forKey key: String) -> String {

@@ -1,6 +1,7 @@
 import Foundation
 
-/// Publisher-attested consent supplied by the main app at login.
+/// Deprecated — use `DocereeConsent` and `DocereeMobileAds.shared().setConsent(_:)` instead.
+@available(*, deprecated, message: "Use DocereeConsent and DocereeMobileAds.shared().setConsent(_:)")
 public struct PublisherAttestedConsent: Equatable {
     public let consentBasis: String?
     public let mechanism: String?
@@ -22,27 +23,19 @@ public struct PublisherAttestedConsent: Equatable {
         self.consentReferenceId = consentReferenceId
     }
 
-    func cnsPayload() -> [String: Any] {
-        var payload: [String: Any] = [:]
-        addNonEmpty(consentBasis, forKey: .consentBasis, into: &payload)
-        addNonEmpty(mechanism, forKey: .mechanism, into: &payload)
-        addNonEmpty(grantedAt, forKey: .grantedAt, into: &payload)
-        addNonEmpty(expiresAt, forKey: .expiresAt, into: &payload)
-        addNonEmpty(consentReferenceId, forKey: .consentReferenceId, into: &payload)
-        return payload
-    }
-
-    var isEmpty: Bool {
-        cnsPayload().isEmpty
-    }
-
-    private func addNonEmpty(_ value: String?, forKey key: PublisherAttestedConsentKey, into payload: inout [String: Any]) {
-        guard let value = value?.trimmingCharacters(in: .whitespacesAndNewlines), !value.isEmpty else { return }
-        payload[key.rawValue] = value
+    func toDocereeConsent() -> DocereeConsent {
+        DocereeConsent(
+            consentBasis: consentBasis,
+            mechanism: mechanism,
+            grantedAt: grantedAt,
+            expiresAt: expiresAt,
+            consentReferenceId: consentReferenceId
+        )
     }
 }
 
-/// Builds publisher-attested consent for profile builders. Maps to ad-request `cns` keys internally.
+/// Deprecated — use `DocereeConsentBuilder` instead.
+@available(*, deprecated, message: "Use DocereeConsentBuilder")
 public final class PublisherAttestedConsentBuilder {
 
     private var consentBasis: String?

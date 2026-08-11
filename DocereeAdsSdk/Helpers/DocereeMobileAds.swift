@@ -222,10 +222,32 @@ public final class DocereeMobileAds {
         OMIDSessionInteractor.prefetchOMIDSDK()
     }
     
-    // Legacy consent API (6.2.1) — unchanged overload for existing integrations.
+    /// Stores consent for all subsequent ad requests. Non-nil fields merge with any values already stored.
+    public func setConsent(_ consent: DocereeConsent) {
+        UserDefaultsManager.shared.saveConsent(consent)
+    }
+
+    /// Clears all stored consent so the SDK can fall back to IAB keys on the next ad request.
+    public func clearConsent() {
+        UserDefaultsManager.shared.clearConsent()
+    }
+
+    /// Returns stored consent, if any.
+    public func consent() -> DocereeConsent? {
+        UserDefaultsManager.shared.loadConsent()
+    }
+
+    @available(*, deprecated, message: "Use setConsent(_:) with DocereeConsent instead.")
     public func setConsentData(isPersonalizeAd: String = "",
                                 privacyComplianceType: String = "",
                                 privacyString: String = "") {
+        setConsent(
+            DocereeConsent(
+                userConsent: isPersonalizeAd.isEmpty ? nil : isPersonalizeAd,
+                privacyType: privacyComplianceType.isEmpty ? nil : privacyComplianceType,
+                privacyString: privacyString.isEmpty ? nil : privacyString
+            )
+        )
         UserDefaultsManager.shared.setConsentData(
             isPersonalizeAd: isPersonalizeAd,
             privacyComplianceType: privacyComplianceType,
@@ -233,12 +255,21 @@ public final class DocereeMobileAds {
         )
     }
 
-    /// Extended consent API with GPP framework version and section IDs. Values are forwarded as-is; no on-device defaults.
+    @available(*, deprecated, message: "Use setConsent(_:) with DocereeConsent instead.")
     public func setConsentData(isPersonalizeAd: String,
                                 privacyComplianceType: String,
                                 privacyComplianceVersion: String,
                                 privacyComplianceSID: String,
                                 privacyString: String) {
+        setConsent(
+            DocereeConsent.fromLegacyExplicit(
+                isPersonalizeAd: isPersonalizeAd,
+                privacyComplianceType: privacyComplianceType,
+                privacyComplianceVersion: privacyComplianceVersion,
+                privacyComplianceSID: privacyComplianceSID,
+                privacyString: privacyString
+            )
+        )
         UserDefaultsManager.shared.setConsentData(
             isPersonalizeAd: isPersonalizeAd,
             privacyComplianceType: privacyComplianceType,
@@ -261,7 +292,7 @@ public final class DocereeMobileAds {
         )
     }
 
-    /// Clears explicit consent so the SDK can fall back to IAB in-app keys on the next ad request.
+    /// Clears all stored consent so the SDK can fall back to IAB in-app keys on the next ad request.
     public func clearConsentData() {
         UserDefaultsManager.shared.resetConsentForTesting()
     }

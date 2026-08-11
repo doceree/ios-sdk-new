@@ -7,7 +7,7 @@ enum AdRequestPayloadAssembler {
         userId: String,
         user: Hcp,
         adUnitId: String,
-        consent: ConsentSignals,
+        consent: CollectedConsent,
         universalIds: UniversalIds,
         br: String,
         ptd: String = "",
@@ -65,7 +65,7 @@ enum AdRequestPayloadAssembler {
         userId: String,
         user: Hcp,
         adUnitId: String,
-        consent: ConsentSignals,
+        consent: CollectedConsent,
         universalIds: UniversalIds,
         br: String,
         ptd: String,
@@ -98,7 +98,7 @@ enum AdRequestPayloadAssembler {
         addNonEmptyString(user.hashedMobile ?? "", forKey: QueryParamsForAdRequest.hashedMobile, into: &body)
         addNonEmptyString(user.dateOfBirth ?? "", forKey: QueryParamsForAdRequest.dateOfBirth, into: &body)
 
-        if let consentObject = makeConsentObject(from: consent, publisherAttested: user.publisherAttestedConsent) {
+        if let consentObject = consent.makeCnsObject() {
             body[QueryParamsForAdRequest.consent.rawValue] = consentObject
         }
 
@@ -116,7 +116,7 @@ enum AdRequestPayloadAssembler {
         userId: String,
         user: Hcp,
         adUnitId: String,
-        consent: ConsentSignals,
+        consent: CollectedConsent,
         universalIds: UniversalIds,
         br: String,
         ptd: String,
@@ -155,7 +155,7 @@ enum AdRequestPayloadAssembler {
             body[QueryParamsForAdRequest.clinicalInfluenceTier.rawValue] = clinicalInfluenceTier
         }
 
-        if let consentObject = makeConsentObject(from: consent, publisherAttested: user.publisherAttestedConsent) {
+        if let consentObject = consent.makeCnsObject() {
             body[QueryParamsForAdRequest.consent.rawValue] = consentObject
         }
 
@@ -173,7 +173,7 @@ enum AdRequestPayloadAssembler {
         userId: String,
         user: Hcp,
         adUnitId: String,
-        consent: ConsentSignals,
+        consent: CollectedConsent,
         universalIds: UniversalIds,
         br: String,
         ptd: String,
@@ -210,7 +210,7 @@ enum AdRequestPayloadAssembler {
         addNonEmptyString(user.hashedMobile ?? "", forKey: QueryParamsForAdRequest.hashedMobile, into: &body)
         addNonEmptyString(user.dateOfBirth ?? "", forKey: QueryParamsForAdRequest.dateOfBirth, into: &body)
 
-        if let consentObject = makeConsentObject(from: consent, publisherAttested: user.publisherAttestedConsent) {
+        if let consentObject = consent.makeCnsObject() {
             body[QueryParamsForAdRequest.consent.rawValue] = consentObject
         }
 
@@ -222,43 +222,28 @@ enum AdRequestPayloadAssembler {
         return body
     }
 
-    static func makeConsentObject(
-        from consent: ConsentSignals,
-        publisherAttested: PublisherAttestedConsent? = nil
-    ) -> [String: Any]? {
-        var cns: [String: Any] = [:]
+    static func makeConsentObject(from consent: CollectedConsent) -> [String: Any]? {
+        consent.makeCnsObject()
+    }
 
-        addNonEmptyString(consent.isPersonalizeAd, forKey: .userPreference, into: &cns)
-        addNonEmptyString(consent.privacyComplianceType, forKey: .privacyType, into: &cns)
-        addNonEmptyString(consent.privacyString, forKey: .privacyString, into: &cns)
-
-        if let version = parsePrivacyVersion(consent.privacyComplianceVersion) {
-            cns[ConsentPayloadKey.privacyVersion.rawValue] = version
-        }
-
-        if let sectionIDs = parseSectionIDs(
-            consent.privacyComplianceSID,
+    static func makeConsentObject(from consent: ConsentSignals) -> [String: Any]? {
+        let collected = CollectedConsent(
+            consent: DocereeConsent(
+                userConsent: nonEmpty(consent.isPersonalizeAd),
+                privacyType: nonEmpty(consent.privacyComplianceType),
+                privacyString: nonEmpty(consent.privacyString),
+                privacySid: DocereeConsent.parseSidList(consent.privacyComplianceSID),
+                privacyVersion: nonEmpty(consent.privacyComplianceVersion)
+            ),
             source: consent.source,
-            privacyType: consent.privacyComplianceType
-        ) {
-            cns[ConsentPayloadKey.privacySectionIDs.rawValue] = sectionIDs
-        }
+            gdprApplies: consent.gdprApplies
+        )
+        return collected.makeCnsObject()
+    }
 
-        if let gdprApplies = parseGdprApplies(consent.gdprApplies) {
-            cns[ConsentPayloadKey.gdprApplies.rawValue] = gdprApplies
-        }
-
-        if let source = consent.source?.rawValue {
-            cns[ConsentPayloadKey.consentSource.rawValue] = source
-        }
-
-        if let publisherAttested, !publisherAttested.isEmpty {
-            for (key, value) in publisherAttested.cnsPayload() {
-                cns[key] = value
-            }
-        }
-
-        return cns.isEmpty ? nil : cns
+    private static func nonEmpty(_ value: String) -> String? {
+        let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? nil : trimmed
     }
 
     private static func parseGdprApplies(_ value: String) -> Int? {
@@ -266,12 +251,6 @@ enum AdRequestPayloadAssembler {
         guard !trimmed.isEmpty else { return nil }
         guard let intValue = Int(trimmed), intValue == 0 || intValue == 1 else { return nil }
         return intValue
-    }
-
-    private static func parsePrivacyVersion(_ value: String) -> Double? {
-        let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return nil }
-        return Double(trimmed)
     }
 
     private static func parseSectionIDs(
