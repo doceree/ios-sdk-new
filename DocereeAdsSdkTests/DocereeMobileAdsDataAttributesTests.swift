@@ -44,9 +44,9 @@ final class DocereeMobileAdsDataAttributesTests: XCTestCase {
         DocereeMobileAds.shared().add("actionEvent", value: updated)
 
         let atd = PatientSession().getAtd()
-        let events = decodeBase64JSONArray(atd)
+        let events = decodeAtdEvents(atd)
         XCTAssertEqual(events?.count, 1)
-        XCTAssertEqual(events?.first?["appointmentId"] as? String, "APT-2")
+        XCTAssertEqual(events?.first?["apid"] as? String, "APT-2")
     }
 
     func testAddKeyValuePairsPersistSectionsForAdRequest() {
@@ -62,6 +62,15 @@ final class DocereeMobileAdsDataAttributesTests: XCTestCase {
         XCTAssertFalse(PatientSession().getPtd().isEmpty)
         XCTAssertFalse(PatientSession().getBr().isEmpty)
         XCTAssertFalse(PatientSession().getAtd().isEmpty)
+    }
+
+    private func decodeAtdEvents(_ encoded: String) -> [[String: Any]]? {
+        guard let data = Data(base64Encoded: encoded),
+              let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let events = json["evts"] as? [[String: Any]] else {
+            return nil
+        }
+        return events
     }
 
     private func decodeBase64JSONArray(_ encoded: String) -> [[String: Any]]? {

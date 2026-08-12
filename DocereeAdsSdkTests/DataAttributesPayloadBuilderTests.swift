@@ -123,9 +123,9 @@ final class DataAttributesPayloadBuilderTests: XCTestCase {
 
         StorageManager.shared.savePatientData(legacyPayload)
 
-        let atdBeforeSave = decodeBase64JSONArray(PatientSession().getAtd())
+        let atdBeforeSave = decodeAtdEvents(PatientSession().getAtd())
         XCTAssertEqual(atdBeforeSave?.count, 1)
-        XCTAssertEqual(atdBeforeSave?.first?["appointmentId"] as? String, "appt-2")
+        XCTAssertEqual(atdBeforeSave?.first?["apid"] as? String, "appt-2")
 
         _ = PatientSession().savePatientData([:])
 
@@ -273,15 +273,16 @@ final class DataAttributesPayloadBuilderTests: XCTestCase {
 
         XCTAssertFalse(ptd.isEmpty)
         let decodedPtd = decodeBase64JSON(ptd)
-        XCTAssertEqual(decodedPtd?["patientId"] as? String, "pat-11")
-        let decodedAtd = decodeBase64JSONArray(atd)
+        XCTAssertEqual(decodedPtd?["pid"] as? String, "pat-11")
+        let decodedAtd = decodeAtdEvents(atd)
         XCTAssertEqual(decodedAtd?.count, 1)
-        XCTAssertEqual(decodedAtd?.first?["appointmentId"] as? String, "appt-1")
+        XCTAssertEqual(decodedAtd?.first?["apid"] as? String, "appt-1")
         XCTAssertFalse(br.isEmpty)
 
         let decodedBr = decodeBase64JSON(br)
-        XCTAssertEqual(decodedBr?["heartRate"] as? Int, 72)
-        XCTAssertEqual(decodedBr?["sid"] as? String, "sess-99")
+        let attributes = decodedBr?["attributes"] as? [String: Any]
+        XCTAssertEqual(attributes?["hr"] as? Int, 72)
+        XCTAssertEqual(attributes?["sid"] as? String, "sess-99")
         XCTAssertNil(decodedBr?["patientDetails"])
         XCTAssertNil(decodedBr?["actionEvent"])
     }
@@ -320,6 +321,15 @@ final class DataAttributesPayloadBuilderTests: XCTestCase {
             return nil
         }
         return json
+    }
+
+    private func decodeAtdEvents(_ encoded: String) -> [[String: Any]]? {
+        guard let data = Data(base64Encoded: encoded),
+              let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let events = json["evts"] as? [[String: Any]] else {
+            return nil
+        }
+        return events
     }
 
     private func decodeBase64JSONArray(_ encoded: String) -> [[String: Any]]? {

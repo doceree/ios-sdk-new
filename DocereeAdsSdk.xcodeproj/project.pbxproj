@@ -23,6 +23,12 @@
 		545D18E82C089024003DA8E1 /* PatientSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E72C089024003DA8E1 /* PatientSession.swift */; };
 		545D18EA2C08948D003DA8E1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E92C08948D003DA8E1 /* Utils.swift */; };
 		545D18EC2C08B440003DA8E1 /* DataAttributesPayloadBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18EB2C08B440003DA8E1 /* DataAttributesPayloadBuilder.swift */; };
+		54F1A0212F10000100000021 /* PatientDetailsPTDMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0202F10000100000020 /* PatientDetailsPTDMapper.swift */; };
+		54F1A0242F10000100000024 /* SessionAttributesBRMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0252F10000100000025 /* SessionAttributesBRMapper.swift */; };
+		54F1A0292F10000100000029 /* ActionAttributesATDMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0282F10000100000028 /* ActionAttributesATDMapper.swift */; };
+		54F1A0232F10000100000023 /* PatientDetailsPTDMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0222F10000100000022 /* PatientDetailsPTDMapperTests.swift */; };
+		54F1A0262F10000100000026 /* SessionAttributesBRMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0272F10000100000027 /* SessionAttributesBRMapperTests.swift */; };
+		54F1A02B2F1000010000002B /* ActionAttributesATDMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A02A2F1000010000002A /* ActionAttributesATDMapperTests.swift */; };
 		54731C9A2E02AF64000D0B86 /* DocereeAdView+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54731C992E02AF64000D0B86 /* DocereeAdView+Loading.swift */; };
 		54731C9E2E02C3B1000D0B86 /* DocereeAdView+Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54731C9D2E02C3B1000D0B86 /* DocereeAdView+Timer.swift */; };
 		54731CA22E02C79D000D0B86 /* DocereeAdView+WebViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54731CA12E02C79D000D0B86 /* DocereeAdView+WebViewDelegate.swift */; };
@@ -155,6 +161,12 @@
 		545D18E72C089024003DA8E1 /* PatientSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSession.swift; sourceTree = "<group>"; };
 		545D18E92C08948D003DA8E1 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		545D18EB2C08B440003DA8E1 /* DataAttributesPayloadBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAttributesPayloadBuilder.swift; sourceTree = "<group>"; };
+		54F1A0202F10000100000020 /* PatientDetailsPTDMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetailsPTDMapper.swift; sourceTree = "<group>"; };
+		54F1A0252F10000100000025 /* SessionAttributesBRMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionAttributesBRMapper.swift; sourceTree = "<group>"; };
+		54F1A0282F10000100000028 /* ActionAttributesATDMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionAttributesATDMapper.swift; sourceTree = "<group>"; };
+		54F1A0222F10000100000022 /* PatientDetailsPTDMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetailsPTDMapperTests.swift; sourceTree = "<group>"; };
+		54F1A0272F10000100000027 /* SessionAttributesBRMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionAttributesBRMapperTests.swift; sourceTree = "<group>"; };
+		54F1A02A2F1000010000002A /* ActionAttributesATDMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionAttributesATDMapperTests.swift; sourceTree = "<group>"; };
 		54731C992E02AF64000D0B86 /* DocereeAdView+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+Loading.swift"; sourceTree = "<group>"; };
 		54731C9D2E02C3B1000D0B86 /* DocereeAdView+Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+Timer.swift"; sourceTree = "<group>"; };
 		54731CA12E02C79D000D0B86 /* DocereeAdView+WebViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+WebViewDelegate.swift"; sourceTree = "<group>"; };
@@ -488,6 +500,9 @@
 			children = (
 				545D18DF2C08859B003DA8E1 /* PatientSessionApi.swift */,
 				545D18EB2C08B440003DA8E1 /* DataAttributesPayloadBuilder.swift */,
+				54F1A0202F10000100000020 /* PatientDetailsPTDMapper.swift */,
+				54F1A0252F10000100000025 /* SessionAttributesBRMapper.swift */,
+				54F1A0282F10000100000028 /* ActionAttributesATDMapper.swift */,
 				545D18E72C089024003DA8E1 /* PatientSession.swift */,
 				545D18E92C08948D003DA8E1 /* Utils.swift */,
 			);
@@ -534,6 +549,9 @@
 				A1B2C3D42F0000010000002A /* HcpProfileTests.swift */,
 				54F1A0062F10000100000006 /* ProfileLoginTests.swift */,
 				54F1A0102F10000100000010 /* DocereeMobileAdsDataAttributesTests.swift */,
+				54F1A0222F10000100000022 /* PatientDetailsPTDMapperTests.swift */,
+				54F1A0272F10000100000027 /* SessionAttributesBRMapperTests.swift */,
+				54F1A02A2F1000010000002A /* ActionAttributesATDMapperTests.swift */,
 				733026586E86439D7934C392 /* DocereeAdsSdkTests.swift */,
 			);
 			name = DocereeAdsSdkTests;
@@ -730,6 +748,9 @@
 				A1B2C3D42F00000100000019 /* DocereeSignposts.swift in Sources */,
 				541F833A2DD1FB2D00F82FD0 /* AppConfiguration.swift in Sources */,
 				545D18EC2C08B440003DA8E1 /* DataAttributesPayloadBuilder.swift in Sources */,
+				54F1A0212F10000100000021 /* PatientDetailsPTDMapper.swift in Sources */,
+				54F1A0242F10000100000024 /* SessionAttributesBRMapper.swift in Sources */,
+				54F1A0292F10000100000029 /* ActionAttributesATDMapper.swift in Sources */,
 				54EBB007282E87AF00C7B249 /* AdResponse.swift in Sources */,
 				545D18E22C08866C003DA8E1 /* Header.swift in Sources */,
 				54731C9A2E02AF64000D0B86 /* DocereeAdView+Loading.swift in Sources */,
@@ -797,6 +818,9 @@
 				A1B2C3D42F00000100000030 /* HcpProfileTests.swift in Sources */,
 				54F1A0052F10000100000005 /* ProfileLoginTests.swift in Sources */,
 				54F1A00F2F1000010000000F /* DocereeMobileAdsDataAttributesTests.swift in Sources */,
+				54F1A0232F10000100000023 /* PatientDetailsPTDMapperTests.swift in Sources */,
+				54F1A0262F10000100000026 /* SessionAttributesBRMapperTests.swift in Sources */,
+				54F1A02B2F1000010000002B /* ActionAttributesATDMapperTests.swift in Sources */,
 				0E59CEF62A856505C1BC5F21 /* DocereeAdsSdkTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

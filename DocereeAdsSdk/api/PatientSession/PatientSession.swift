@@ -139,7 +139,8 @@ public class PatientSession {
             return ""
         }
         do {
-            return try encodeJSONObjectToBase64(patientDetails)
+            let ptdPayload = PatientDetailsPTDMapper.shortForm(patientDetails)
+            return try encodeJSONObjectToBase64(ptdPayload)
         } catch {
             DocereeLog.debug("Error fetching patient data for ptd: \(error)")
             return ""
@@ -160,7 +161,8 @@ public class PatientSession {
             return ""
         }
         do {
-            return try encodeJSONObjectToBase64(deduplicated)
+            let payload = ActionAttributesATDMapper.atdPayload(from: deduplicated)
+            return try encodeJSONObjectToBase64(payload)
         } catch {
             DocereeLog.debug("Error fetching action data for atd: \(error)")
             return ""
@@ -188,16 +190,12 @@ public class PatientSession {
             return nil
         }
 
-        var payload: [String: Any] = [:]
-        if let sessionDetails = stored[DataAttributesPayloadBuilder.sessionDetailsKey] as? [String: Any],
-           !sessionDetails.isEmpty {
-            payload = sessionDetails
-        }
-
+        var sessionDetails = stored[DataAttributesPayloadBuilder.sessionDetailsKey] as? [String: Any] ?? [:]
         if let sessionId = stored[PatientData.shared.sessionId] as? String, !sessionId.isEmpty {
-            payload[PatientData.shared.sessionId] = sessionId
+            sessionDetails[PatientData.shared.sessionId] = sessionId
         }
 
+        let payload = SessionAttributesBRMapper.brPayload(from: sessionDetails)
         return payload.isEmpty ? nil : payload
     }
 
