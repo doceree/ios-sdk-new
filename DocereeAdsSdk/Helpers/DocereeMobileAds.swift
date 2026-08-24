@@ -191,7 +191,10 @@ public final class DocereeMobileAds {
     }
     
     public static func clearUserData() {
-        UserDefaultsManager.shared.clearLoggedInProfile()
+        UserDefaultsManager.shared.clearAllPersistedSDKState()
+        StorageManager.shared.clearAllAttributeAndSessionData()
+        PatientSession.sessionId = nil
+        resetStoredUniversalIdsForTesting()
         do {
             try FileManager.default.removeItem(at: ProfileArchivingUrl)
             try FileManager.default.removeItem(at: PlatformArchivingUrl)

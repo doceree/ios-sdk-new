@@ -19,6 +19,12 @@ class StorageManager {
     
     private init() {}
     
+    func clearAllAttributeAndSessionData() {
+        UserDefaults.standard.removeObject(forKey: patientKey)
+        UserDefaults.standard.removeObject(forKey: timestampKey)
+        UserDefaults.standard.removeObject(forKey: "sessionId")
+    }
+    
     func clearUserDefaults() {
         if let domain = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: domain)

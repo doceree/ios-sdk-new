@@ -237,4 +237,14 @@ final class UserDefaultsManager {
     func resetLoggedInProfileForTesting() {
         clearLoggedInProfile()
     }
+
+    /// Removes all SDK-owned persisted state from UserDefaults.
+    func clearAllPersistedSDKState() {
+        clearLoggedInProfile()
+        clearConsent()
+        resetConsentForTesting()
+        deleteConfig()
+        clearConfigExpiration()
+        clearHCPValidationExpiration()
+    }
 }
