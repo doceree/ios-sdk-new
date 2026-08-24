@@ -303,12 +303,13 @@ final class ConsentAndIdentityTests: XCTestCase {
         XCTAssertNil(body[QueryParamsForAdRequest.specialization.rawValue])
     }
 
-    func testDefaultHcpAdRequestKeepsLegacyPayloadShape() {
+    func testHcpAdRequestIncludesRoleInPayload() {
         let body = AdRequestPayloadAssembler.makeBody(
             appKey: "app",
             userId: "user",
             user: HcpBuilder()
                 .setSpecialization("Pediatrics")
+                .setOrganisation("Apollo")
                 .setHcpId("HCP-1001")
                 .setMobile("+12125550100")
                 .setHashedEmail("sha256:c84d9f2e")
@@ -321,8 +322,9 @@ final class ConsentAndIdentityTests: XCTestCase {
             br: ""
         )
 
-        XCTAssertNil(body[QueryParamsForAdRequest.role.rawValue])
+        XCTAssertEqual(body[QueryParamsForAdRequest.role.rawValue] as? String, "hcp")
         XCTAssertEqual(body[QueryParamsForAdRequest.specialization.rawValue] as? String, "Pediatrics")
+        XCTAssertEqual(body[QueryParamsForAdRequest.organisation.rawValue] as? String, "Apollo")
         XCTAssertEqual(body[QueryParamsForAdRequest.hcpId.rawValue] as? String, "HCP-1001")
         XCTAssertEqual(body[QueryParamsForAdRequest.mobile.rawValue] as? String, "+12125550100")
         XCTAssertEqual(body[QueryParamsForAdRequest.hashedEmail.rawValue] as? String, "sha256:c84d9f2e")

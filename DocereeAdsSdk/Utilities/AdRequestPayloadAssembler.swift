@@ -43,23 +43,21 @@ enum AdRequestPayloadAssembler {
                 role: resolvedRole
             )
         case .hcp:
-            break
+            return makeHcpBody(
+                appKey: appKey,
+                userId: userId,
+                user: user,
+                adUnitId: adUnitId,
+                consent: consent,
+                universalIds: universalIds,
+                br: br,
+                ptd: ptd,
+                atd: atd,
+                role: resolvedRole
+            )
         }
-
-        return makeHcpBody(
-            appKey: appKey,
-            userId: userId,
-            user: user,
-            adUnitId: adUnitId,
-            consent: consent,
-            universalIds: universalIds,
-            br: br,
-            ptd: ptd,
-            atd: atd
-        )
     }
 
-    /// Original HCP ad-request shape — unchanged for existing integrations.
     private static func makeHcpBody(
         appKey: String,
         userId: String,
@@ -69,16 +67,20 @@ enum AdRequestPayloadAssembler {
         universalIds: UniversalIds,
         br: String,
         ptd: String,
-        atd: String
+        atd: String,
+        role: DocereeUserRole
     ) -> [String: Any] {
         var body: [String: Any] = [
             QueryParamsForAdRequest.appKey.rawValue: appKey,
             QueryParamsForAdRequest.userId.rawValue: userId,
+            QueryParamsForAdRequest.role.rawValue: role.rawValue,
             QueryParamsForAdRequest.email.rawValue: user.email ?? "",
             QueryParamsForAdRequest.firstName.rawValue: user.firstName ?? "",
             QueryParamsForAdRequest.lastName.rawValue: user.lastName ?? "",
             QueryParamsForAdRequest.mobile.rawValue: user.mobile ?? "",
+            QueryParamsForAdRequest.dateOfBirth.rawValue: user.dateOfBirth ?? "",
             QueryParamsForAdRequest.specialization.rawValue: user.specialization ?? "",
+            QueryParamsForAdRequest.organisation.rawValue: user.organisation ?? "",
             QueryParamsForAdRequest.hcpId.rawValue: user.hcpId ?? "",
             QueryParamsForAdRequest.hashedHcpId.rawValue: user.hashedHcpId ?? "",
             QueryParamsForAdRequest.gender.rawValue: user.gender ?? "",
@@ -96,7 +98,6 @@ enum AdRequestPayloadAssembler {
 
         addNonEmptyString(user.hashedEmail ?? "", forKey: QueryParamsForAdRequest.hashedEmail, into: &body)
         addNonEmptyString(user.hashedMobile ?? "", forKey: QueryParamsForAdRequest.hashedMobile, into: &body)
-        addNonEmptyString(user.dateOfBirth ?? "", forKey: QueryParamsForAdRequest.dateOfBirth, into: &body)
 
         if let consentObject = consent.makeCnsObject() {
             body[QueryParamsForAdRequest.consent.rawValue] = consentObject
@@ -151,6 +152,7 @@ enum AdRequestPayloadAssembler {
         addNonEmptyString(user.hashedAssociateId ?? "", forKey: QueryParamsForAdRequest.hashedAssociateId, into: &body)
         addNonEmptyString(user.associateRole ?? "", forKey: QueryParamsForAdRequest.associateRole, into: &body)
         addNonEmptyString(user.department ?? "", forKey: QueryParamsForAdRequest.department, into: &body)
+        addNonEmptyString(user.organisation ?? "", forKey: QueryParamsForAdRequest.organisation, into: &body)
         if let clinicalInfluenceTier = user.clinicalInfluenceTier {
             body[QueryParamsForAdRequest.clinicalInfluenceTier.rawValue] = clinicalInfluenceTier
         }
