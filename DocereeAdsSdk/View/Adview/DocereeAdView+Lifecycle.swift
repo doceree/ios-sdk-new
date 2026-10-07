@@ -29,6 +29,7 @@ extension DocereeAdView {
             delegate?.docereeAdViewDidDismissScreen(self)
             DocereeAdView.didLeaveAd = false
         }
+        DocereeBeaconQueue.flushQueue()
         self.refresh()
     }
     

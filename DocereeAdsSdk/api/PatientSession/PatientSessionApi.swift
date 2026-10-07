@@ -2,41 +2,46 @@
 //  PatientSessionApi.swift
 //  DocereeAdsSdk
 //
-//  Created by Muqeem Ahmad on 30/05/24.
-//
 
 import Foundation
 
 class PatientSessionApi {
 
-    static func send(sessionId: String = "", status: Int = 0) async throws {
-        let headerJson = try await fetchHeaders()
+    static func send(sessionId: String = "", status: Int = 0) async {
+        do {
+            let headerJson = try await fetchHeaders()
 
-        guard let hcpData = DocereeMobileAds.shared().getProfile() else {
-            DocereeLog.debug("PatientSessionApi: profile data not found")
-            return
+            guard let hcpData = DocereeMobileAds.shared().getProfile() else {
+                DocereeLog.debug("PatientSessionApi: profile data not found")
+                return
+            }
+
+            guard
+                let userIdentifier = getIdentifierForAdvertising(),
+                let hcpIdentifier = hcpData.hcpId
+            else {
+                DocereeLog.debug("PatientSessionApi: uid or hid is nil")
+                return
+            }
+
+            guard let url = PatientSessionEndpoint.buildURL(
+                mode: DocereeMobileAds.shared().getEnvironment(),
+                userIdentifier: userIdentifier,
+                sessionIdentifier: sessionId,
+                hcpIdentifier: hcpIdentifier,
+                status: status
+            ) else {
+                DocereeLog.debug("PatientSessionApi: failed to build session URL")
+                return
+            }
+
+            var request = URLRequest(url: url)
+            request.allHTTPHeaderFields = headerJson
+            request.timeoutInterval = DocereeHTTPTimeouts.interactiveRequest
+            DocereeBeaconQueue.sendRequestOrEnqueue(kind: .session, request: request, sessionId: sessionId)
+        } catch {
+            DocereeLog.debug("PatientSessionApi: session ping queued or failed: \(error)")
         }
-
-        guard
-            let userIdentifier = getIdentifierForAdvertising(),
-            let hcpIdentifier = hcpData.hcpId
-        else {
-            DocereeLog.debug("PatientSessionApi: uid or hid is nil")
-            return
-        }
-
-        guard let url = PatientSessionEndpoint.buildURL(
-            mode: DocereeMobileAds.shared().getEnvironment(),
-            userIdentifier: userIdentifier,
-            sessionIdentifier: sessionId,
-            hcpIdentifier: hcpIdentifier,
-            status: status
-        ) else {
-            DocereeLog.debug("PatientSessionApi: failed to build session URL")
-            return
-        }
-
-        try await sendRequest(url: url, headers: headerJson)
     }
 
     private static func fetchHeaders() async throws -> [String: String] {
@@ -46,20 +51,6 @@ class PatientSessionApi {
             return headerJson
         } catch {
             DocereeLog.debug("PatientSessionApi: error fetching headers: \(error)")
-            throw error
-        }
-    }
-
-    private static func sendRequest(url: URL, headers: [String: String]) async throws {
-        var request = URLRequest(url: url)
-        request.allHTTPHeaderFields = headers
-        request.timeoutInterval = DocereeHTTPTimeouts.interactiveRequest
-
-        do {
-            let (_, http) = try await DocereeURLSessionLoading.dataWithInteractiveRetries(for: request)
-            DocereeLog.debug("PatientSessionApi response: \(http.statusCode)")
-        } catch {
-            DocereeLog.debug("PatientSessionApi: request failed: \(error)")
             throw error
         }
     }

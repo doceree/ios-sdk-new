@@ -27,9 +27,21 @@ public final class DocereeMobileAds {
     private var environmentType = EnvironmentType.Prod
     
     private static var sharedNetworkManager: DocereeMobileAds = {
-        var docereeMobileAds = DocereeMobileAds()
+        let docereeMobileAds = DocereeMobileAds()
+        docereeMobileAds.registerSDKLifecycleHooks()
         return docereeMobileAds
     }()
+
+    private func registerSDKLifecycleHooks() {
+        DocereeNetworkMonitor.shared.start()
+        NotificationCenter.default.addObserver(
+            forName: UIApplication.didBecomeActiveNotification,
+            object: nil,
+            queue: .main
+        ) { _ in
+            DocereeBeaconQueue.flushQueue()
+        }
+    }
     
     public func setEnvironment(type: EnvironmentType) {
         environmentType = type
@@ -110,6 +122,7 @@ public final class DocereeMobileAds {
         // Load app config
         Task(priority: .userInitiated) {
             await DocereeMobileAds().loadAppConfiguration()
+            DocereeBeaconQueue.flushQueue()
         }
     }
 
@@ -159,6 +172,7 @@ public final class DocereeMobileAds {
     public typealias CompletionHandler = ((_ completionStatus:Any?) -> Void)?
     
     public func start(completionHandler: CompletionHandler) {
+        DocereeBeaconQueue.flushQueue()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
         if #available(iOS 14, *) {
             #if canImport(AdSupport) && canImport(AppTrackingTransparency)
@@ -194,6 +208,7 @@ public final class DocereeMobileAds {
         UserDefaultsManager.shared.clearAllPersistedSDKState()
         StorageManager.shared.clearAllAttributeAndSessionData()
         HealthcareIntakeRequestIdStore.clear()
+        DocereeBeaconQueue.clearQueue()
         PatientSession.sessionId = nil
         resetStoredUniversalIdsForTesting()
         do {

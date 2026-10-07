@@ -102,6 +102,13 @@
 		A1B2C3D42F00000100000034 /* HealthcareIntakeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000033 /* HealthcareIntakeClient.swift */; };
 		A1B2C3D42F00000100000036 /* HealthcareIntakePayloadBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000035 /* HealthcareIntakePayloadBuilderTests.swift */; };
 		A1B2C3D42F00000100000038 /* HealthcareIntakeEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000037 /* HealthcareIntakeEndpoint.swift */; };
+		BQ0100010000000100000001 /* DocereeBeaconQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BQ0100010000000100000002 /* DocereeBeaconQueue.swift */; };
+		BQ0100010000000100000003 /* DocereeNetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BQ0100010000000100000004 /* DocereeNetworkReachability.swift */; };
+		BQ0100010000000100000005 /* DocereeBeaconQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BQ0100010000000100000006 /* DocereeBeaconQueueTests.swift */; };
+		BQ0100020000000100000001 /* DocereeNetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BQ0100020000000100000002 /* DocereeNetworkMonitor.swift */; };
+		BQ0100020000000100000003 /* DocereeAdQuestRetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BQ0100020000000100000004 /* DocereeAdQuestRetry.swift */; };
+		BQ0100020000000100000005 /* DocereeAdView+QuestRetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BQ0100020000000100000006 /* DocereeAdView+QuestRetry.swift */; };
+		BQ0100020000000100000007 /* DocereeAdQuestRetryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BQ0100020000000100000008 /* DocereeAdQuestRetryTests.swift */; };
 		BA65A11615437E096D71A7EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACA702B64B00A64F1DFA542 /* Foundation.framework */; };
 		CB11AD200000000100000001 /* DocereeAdsSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EBAFBC282CF30900C7B249 /* DocereeAdsSdk.framework */; };
 		CB11AD200000000100000002 /* DocereeAdsSdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54EBAFBC282CF30900C7B249 /* DocereeAdsSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -246,6 +253,13 @@
 		A1B2C3D42F00000100000033 /* HealthcareIntakeClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HealthcareIntakeClient.swift; sourceTree = "<group>"; };
 		A1B2C3D42F00000100000035 /* HealthcareIntakePayloadBuilderTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HealthcareIntakePayloadBuilderTests.swift; sourceTree = "<group>"; };
 		A1B2C3D42F00000100000037 /* HealthcareIntakeEndpoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HealthcareIntakeEndpoint.swift; sourceTree = "<group>"; };
+		BQ0100010000000100000002 /* DocereeBeaconQueue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeBeaconQueue.swift; sourceTree = "<group>"; };
+		BQ0100010000000100000004 /* DocereeNetworkReachability.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeNetworkReachability.swift; sourceTree = "<group>"; };
+		BQ0100010000000100000006 /* DocereeBeaconQueueTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeBeaconQueueTests.swift; sourceTree = "<group>"; };
+		BQ0100020000000100000002 /* DocereeNetworkMonitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeNetworkMonitor.swift; sourceTree = "<group>"; };
+		BQ0100020000000100000004 /* DocereeAdQuestRetry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeAdQuestRetry.swift; sourceTree = "<group>"; };
+		BQ0100020000000100000006 /* DocereeAdView+QuestRetry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+QuestRetry.swift"; sourceTree = "<group>"; };
+		BQ0100020000000100000008 /* DocereeAdQuestRetryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeAdQuestRetryTests.swift; sourceTree = "<group>"; };
 		BACA702B64B00A64F1DFA542 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D0EEAD510000000100000001 /* DocereeAdSdk/DocereeAdSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DocereeAdSdk/DocereeAdSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1BEEF110000000100000001 /* KetchSDK/KetchSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KetchSDK/KetchSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -337,6 +351,7 @@
 			children = (
 				54EBB0422834F62700C7B249 /* DocereeAdView.swift */,
 				54731C992E02AF64000D0B86 /* DocereeAdView+Loading.swift */,
+				BQ0100020000000100000006 /* DocereeAdView+QuestRetry.swift */,
 				54731CAB2E02DB0A000D0B86 /* DocereeAdView+AdUI.swift */,
 				54731C9D2E02C3B1000D0B86 /* DocereeAdView+Timer.swift */,
 				54731CA32E02C806000D0B86 /* DocereeAdView+RichMedia.swift */,
@@ -448,6 +463,10 @@
 				A1B2C3D42F00000100000018 /* DocereeSignposts.swift */,
 				54EBAFF0282E855C00C7B249 /* Helpers.swift */,
 				54EBAFEE282E855C00C7B249 /* HTTPSupport.swift */,
+				BQ0100010000000100000002 /* DocereeBeaconQueue.swift */,
+				BQ0100010000000100000004 /* DocereeNetworkReachability.swift */,
+				BQ0100020000000100000002 /* DocereeNetworkMonitor.swift */,
+				BQ0100020000000100000004 /* DocereeAdQuestRetry.swift */,
 				54EBAFF6282E855C00C7B249 /* UAString.swift */,
 				54EBAFE7282D177000C7B249 /* PathUtility.swift */,
 				54EBB05228366CD800C7B249 /* CustomTimer.swift */,
@@ -542,6 +561,8 @@
 				A1B2C3D42F00000100000012 /* ErrorContractTests.swift */,
 				A1B2C3D42F00000100000013 /* DataAttributesPayloadBuilderTests.swift */,
 				A1B2C3D42F00000100000035 /* HealthcareIntakePayloadBuilderTests.swift */,
+				BQ0100010000000100000006 /* DocereeBeaconQueueTests.swift */,
+				BQ0100020000000100000008 /* DocereeAdQuestRetryTests.swift */,
 				A1B2C3D42F00000100000014 /* HardeningRegressionTests.swift */,
 				A1B2C3D42F00000100000015 /* ConfigurationServiceNetworkTests.swift */,
 				A1B2C3D42F00000100000016 /* DocereeAdRequestNetworkTests.swift */,
@@ -734,6 +755,11 @@
 				54BA06E32DEED5F400E21C45 /* AdUnit.swift in Sources */,
 				542857652E0E6B920000E823 /* KetchViewManager.swift in Sources */,
 				54EBAFF7282E855C00C7B249 /* HTTPSupport.swift in Sources */,
+				BQ0100010000000100000001 /* DocereeBeaconQueue.swift in Sources */,
+				BQ0100010000000100000003 /* DocereeNetworkReachability.swift in Sources */,
+				BQ0100020000000100000001 /* DocereeNetworkMonitor.swift in Sources */,
+				BQ0100020000000100000003 /* DocereeAdQuestRetry.swift in Sources */,
+				BQ0100020000000100000005 /* DocereeAdView+QuestRetry.swift in Sources */,
 				54BD8A2E28A2503200DC94A3 /* Viewability.swift in Sources */,
 				543ACD332964535A005C47FE /* PlatformData.swift in Sources */,
 				545D18E62C088FB7003DA8E1 /* StorageManager.swift in Sources */,
@@ -811,6 +837,8 @@
 				A1B2C3D42F00000100000002 /* ErrorContractTests.swift in Sources */,
 				A1B2C3D42F00000100000003 /* DataAttributesPayloadBuilderTests.swift in Sources */,
 				A1B2C3D42F00000100000036 /* HealthcareIntakePayloadBuilderTests.swift in Sources */,
+				BQ0100010000000100000005 /* DocereeBeaconQueueTests.swift in Sources */,
+				BQ0100020000000100000007 /* DocereeAdQuestRetryTests.swift in Sources */,
 				A1B2C3D42F00000100000004 /* HardeningRegressionTests.swift in Sources */,
 				A1B2C3D42F00000100000005 /* ConfigurationServiceNetworkTests.swift in Sources */,
 				A1B2C3D42F00000100000006 /* DocereeAdRequestNetworkTests.swift in Sources */,

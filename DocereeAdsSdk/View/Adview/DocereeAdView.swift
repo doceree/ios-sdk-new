@@ -100,6 +100,8 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     
     //MARK: Public methods
     public func load(_ docereeAdRequest: DocereeAdRequest) {
+        resetQuestRetries()
+        DocereeBeaconQueue.flushQueue()
         guard let adSize = self.adSize else { return }
         let unsupportedPhoneSizes: Set<String> = ["LEADERBOARD", "FULLBANNER"]
 
@@ -144,6 +146,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     }
     
     func refresh() {
+        DocereeBeaconQueue.flushQueue()
         self.removeAllViews()
         if let request = docereeAdRequest, parentViewController != nil {
             load(request)
@@ -153,6 +156,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     deinit {
         adFetchTask?.cancel()
         adFetchTask = nil
+        stopAdNetworkRecovery()
         NotificationCenter.default.removeObserver(self)
         viewportTimer?.stop()
         customTimer?.stop()

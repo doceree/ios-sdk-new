@@ -147,7 +147,7 @@ public final class DocereeAdRequest: AdServiceProtocol {
         guard let url = URL(string: url) else { return }
         var request = URLRequest(url: url)
         request.timeoutInterval = DocereeHTTPTimeouts.beaconRequest
-        sendBeacon(request, "Impression")
+        sendBeacon(request, kind: .impression, "Impression")
     }
 
     internal func sendViewability(to url: String) {
@@ -155,7 +155,7 @@ public final class DocereeAdRequest: AdServiceProtocol {
         guard let url = URL(string: url) else { return }
         var request = URLRequest(url: url)
         request.timeoutInterval = DocereeHTTPTimeouts.beaconRequest
-        sendBeacon(request, "Viewability")
+        sendBeacon(request, kind: .viewability, "Viewability")
     }
 
     internal func sendAdBlock(advertiserCampID: String?, blockLevel: String?, platformUid: String?, publisherACSID: String?) {
@@ -174,7 +174,7 @@ public final class DocereeAdRequest: AdServiceProtocol {
         ) else { return }
 
         request.timeoutInterval = DocereeHTTPTimeouts.beaconRequest
-        sendBeacon(request, "Ad Block")
+        sendBeacon(request, kind: .adblock, "Ad Block")
     }
 
     // MARK: - Helper Methods
@@ -225,10 +225,9 @@ public final class DocereeAdRequest: AdServiceProtocol {
         return request
     }
 
-    private func sendBeacon(_ request: URLRequest, _ message: String) {
-        Task {
-            await DocereeURLSessionBeacon.sendWithRetries(for: request, session: session, message: message)
-        }
+    private func sendBeacon(_ request: URLRequest, kind: DocereeBeaconQueue.Kind, _ message: String) {
+        DocereeLog.debug("\(message) beacon dispatch")
+        DocereeBeaconQueue.sendBeaconOrEnqueue(kind: kind, request: request)
     }
 
     private func logAdRequest(_ request: URLRequest, body: [String: Any]) {

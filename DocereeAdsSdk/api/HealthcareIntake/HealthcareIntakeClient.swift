@@ -82,24 +82,54 @@ public final class HealthcareIntakeClient {
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
 
+        let bodyData: Data
         do {
-            urlRequest.httpBody = try JSONSerialization.data(withJSONObject: payload)
+            bodyData = try JSONSerialization.data(withJSONObject: payload)
+            urlRequest.httpBody = bodyData
         } catch {
             throw HealthcareIntakeError.requestEncodingFailed(underlying: error)
         }
 
-        let (data, response) = try await urlSession.data(for: urlRequest)
-        guard let http = response as? HTTPURLResponse else {
+        do {
+            let (data, response) = try await urlSession.data(for: urlRequest)
+            guard let http = response as? HTTPURLResponse else {
+                throw HealthcareIntakeError.invalidHTTPResponse
+            }
+            guard (200...299).contains(http.statusCode) else {
+                DocereeLog.debug("HealthcareIntakeClient HTTP \(http.statusCode)")
+                throw HealthcareIntakeError.httpStatusNotSuccess(statusCode: http.statusCode)
+            }
+
+            let bodyText = String(data: data, encoding: .utf8) ?? ""
+            DocereeLog.debug("HealthcareIntakeClient response: \(http.statusCode) \(bodyText)")
+            try Self.applyLiveIntakeResponseBody(data)
+        } catch let error as HealthcareIntakeError {
+            if case .intakeRejected = error {
+                throw error
+            }
+            enqueueFailedIntake(url: url, bodyData: bodyData)
+            throw error
+        } catch {
+            enqueueFailedIntake(url: url, bodyData: bodyData)
             throw HealthcareIntakeError.invalidHTTPResponse
         }
-        guard (200...299).contains(http.statusCode) else {
-            DocereeLog.debug("HealthcareIntakeClient HTTP \(http.statusCode)")
-            throw HealthcareIntakeError.httpStatusNotSuccess(statusCode: http.statusCode)
-        }
+    }
 
-        let bodyText = String(data: data, encoding: .utf8) ?? ""
-        DocereeLog.debug("HealthcareIntakeClient response: \(http.statusCode) \(bodyText)")
+    private func enqueueFailedIntake(url: URL, bodyData: Data) {
+        DocereeBeaconQueue.enqueueRequest(
+            kind: .intake,
+            url: url.absoluteString,
+            method: HTTPMethod.post,
+            body: String(data: bodyData, encoding: .utf8),
+            headers: [
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            ]
+        )
+    }
 
+    /// Live intake call: parse body, require acceptance, persist `request_id`.
+    static func applyLiveIntakeResponseBody(_ data: Data) throws {
         guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
             throw HealthcareIntakeError.responseDecodingFailed
         }
@@ -107,6 +137,21 @@ public final class HealthcareIntakeClient {
         let intakeResponse = HealthcareIntakeResponse(json: json)
         guard intakeResponse.accepted else {
             throw HealthcareIntakeError.intakeRejected(requestId: intakeResponse.requestId)
+        }
+
+        HealthcareIntakeRequestIdStore.save(intakeResponse.requestId)
+    }
+
+    /// Queue flush: drop rejected payloads; persist `request_id` on success.
+    static func applyQueuedIntakeResponseBody(_ data: Data) throws {
+        guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+            throw HealthcareIntakeError.responseDecodingFailed
+        }
+
+        let intakeResponse = HealthcareIntakeResponse(json: json)
+        guard intakeResponse.accepted else {
+            DocereeLog.debug("Flushed intake was rejected; dropping from queue")
+            return
         }
 
         HealthcareIntakeRequestIdStore.save(intakeResponse.requestId)

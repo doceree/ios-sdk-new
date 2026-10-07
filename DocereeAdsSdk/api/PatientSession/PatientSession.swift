@@ -30,7 +30,7 @@ public class PatientSession {
             DocereeLog.debug("Generated sessionId: \(PatientSession.sessionId ?? "nil")")
 
             // Call PatientSessionApi
-            try await PatientSessionApi.send(sessionId: PatientSession.sessionId!, status: 1)
+            await PatientSessionApi.send(sessionId: PatientSession.sessionId!, status: 1)
 
             // Save sessionId
             await StorageManager.shared.saveItem(forKey: "sessionId", value: PatientSession.sessionId!)
@@ -58,7 +58,7 @@ public class PatientSession {
         do {
             if let sessionId = StorageManager.shared.getItem(forKey: "sessionId") {
                 DocereeLog.debug("sessionId: \(sessionId)")
-                try await PatientSessionApi.send(sessionId: sessionId, status: 0)
+                await PatientSessionApi.send(sessionId: sessionId, status: 0)
                 await StorageManager.shared.clearItem(forKey: "patientData")
                 await StorageManager.shared.clearItem(forKey: "sessionId")
                 PatientSession.sessionId = nil

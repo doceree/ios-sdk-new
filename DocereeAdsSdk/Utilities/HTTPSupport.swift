@@ -132,10 +132,23 @@ internal enum DocereeURLSessionBeacon {
     private static let maxAttempts = DocereeHTTPTransportRetry.maxAttempts
 
     internal static func sendWithRetries(for request: URLRequest, session: URLSession, message: String) async {
+        do {
+            try await sendWithRetriesOrThrow(for: request, session: session, message: message)
+        } catch {
+            DocereeLog.debug("\(message) failed after retries: \(error.localizedDescription)")
+        }
+    }
+
+    internal static func sendWithRetriesOrThrow(
+        for request: URLRequest,
+        session: URLSession,
+        message: String
+    ) async throws {
         let signpost = DocereeSignposts.networkInterval("doceree.beacon_send")
         defer { signpost.end() }
         var req = request
         req.timeoutInterval = DocereeHTTPTimeouts.beaconRequest
+        var lastError: Error = URLError(.unknown)
 
         for attempt in 0..<maxAttempts {
             do {
@@ -144,6 +157,7 @@ internal enum DocereeURLSessionBeacon {
                 try Task.checkCancellation()
                 guard let http = response as? HTTPURLResponse else {
                     DocereeLog.debug("\(message) non-HTTP response (attempt \(attempt + 1))")
+                    lastError = URLError(.badServerResponse)
                     if attempt < maxAttempts - 1 {
                         try await Task.sleep(nanoseconds: DocereeHTTPTransportRetry.backoffNanoseconds(afterFailureAtAttempt: attempt))
                     }
@@ -154,39 +168,35 @@ internal enum DocereeURLSessionBeacon {
                     return
                 }
                 DocereeLog.debug("\(message) HTTP \(http.statusCode) (attempt \(attempt + 1))")
+                lastError = URLError(.badServerResponse)
                 if DocereeHTTPTransportRetry.shouldRetry(httpStatusCode: http.statusCode),
                    attempt < maxAttempts - 1 {
                     try await Task.sleep(nanoseconds: DocereeHTTPTransportRetry.backoffNanoseconds(afterFailureAtAttempt: attempt))
                     continue
                 }
-                return
+                throw lastError
             } catch is CancellationError {
-                return
+                throw CancellationError()
             } catch let urlError as URLError {
                 DocereeLog.debug("\(message) transport error: \(urlError.localizedDescription) (attempt \(attempt + 1))")
+                lastError = urlError
                 if DocereeHTTPTransportRetry.shouldRetry(urlError: urlError),
                    attempt < maxAttempts - 1 {
-                    do {
-                        try await Task.sleep(nanoseconds: DocereeHTTPTransportRetry.backoffNanoseconds(afterFailureAtAttempt: attempt))
-                    } catch is CancellationError {
-                        return
-                    } catch {}
+                    try await Task.sleep(nanoseconds: DocereeHTTPTransportRetry.backoffNanoseconds(afterFailureAtAttempt: attempt))
                     continue
                 }
-                return
+                throw urlError
             } catch {
                 DocereeLog.debug("\(message) transport error: \(error.localizedDescription) (attempt \(attempt + 1))")
+                lastError = error
                 if attempt < maxAttempts - 1 {
-                    do {
-                        try await Task.sleep(nanoseconds: DocereeHTTPTransportRetry.backoffNanoseconds(afterFailureAtAttempt: attempt))
-                    } catch is CancellationError {
-                        return
-                    } catch {}
+                    try await Task.sleep(nanoseconds: DocereeHTTPTransportRetry.backoffNanoseconds(afterFailureAtAttempt: attempt))
                     continue
                 }
-                return
+                throw error
             }
         }
+        throw lastError
     }
 }
 

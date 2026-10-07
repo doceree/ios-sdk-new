@@ -11,6 +11,8 @@ import UIKit
 extension DocereeAdView {
 
     func fetchAd(_ size: String, _ uId: String) {
+        lastAdFetchSize = size
+        lastAdFetchUserId = uId
         adFetchTask?.cancel()
         adFetchTask = Task { [weak self] in
             let spViewLoad = DocereeSignposts.adViewInterval("doceree.ad_view_load")
@@ -47,6 +49,7 @@ extension DocereeAdView {
                         self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: .adNotFound)
                         self.removeAllViews()
                     } else {
+                        self.resetQuestRetries()
                         self.createAdUI()
                     }
 
@@ -61,6 +64,7 @@ extension DocereeAdView {
                     self.delegate?.docereeAdView(self, didFailToReceiveAdWithError: error as? DocereeAdRequestError ?? .failedToCreateRequest)
                     self.removeAllViews()
                     self.startTimer(adFound: false)
+                    self.handleAdRequestFailure(error)
                 }
             }
         }
