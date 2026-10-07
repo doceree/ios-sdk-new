@@ -222,7 +222,11 @@ enum DocereeBeaconQueue {
     ) {
         Task {
             do {
-                try await dispatch(liveItem(from: request, kind: kind, sessionId: sessionId))
+                try await sendLiveWithInteractiveRetries(
+                    kind: kind,
+                    request: request,
+                    sessionId: sessionId
+                )
                 DocereeLog.debug("\(kind.rawValue) sent")
             } catch {
                 DocereeLog.debug("\(kind.rawValue) failed, persisting: \(error.localizedDescription)")
@@ -231,15 +235,63 @@ enum DocereeBeaconQueue {
         }
     }
 
+    /// Starts a flush if none is running; duplicate calls share one in-flight task.
     static func flushQueue() {
-        if flushInFlight != nil { return }
-        flushInFlight = Task {
-            defer { flushInFlight = nil }
+        _ = beginFlushTaskIfNeeded()
+    }
+
+    /// Waits for the current or newly started flush (coalesced with concurrent callers).
+    static func flushQueueAndWait() async {
+        await beginFlushTaskIfNeeded().value
+    }
+
+    private static func beginFlushTaskIfNeeded() -> Task<Void, Never> {
+        queueLock.lock()
+        if let existing = flushInFlight {
+            queueLock.unlock()
+            return existing
+        }
+        let task = Task {
+            defer {
+                queueLock.lock()
+                flushInFlight = nil
+                queueLock.unlock()
+            }
             guard await DocereeNetworkReachability.isNetworkAvailable() else {
                 DocereeLog.debug("Skipping beacon flush — network unavailable")
                 return
             }
             await performFlush()
+        }
+        flushInFlight = task
+        queueLock.unlock()
+        return task
+    }
+
+    private static func sendLiveWithInteractiveRetries(
+        kind: Kind,
+        request: URLRequest,
+        sessionId: String? = nil
+    ) async throws {
+        let item = liveItem(from: request, kind: kind, sessionId: sessionId)
+        let builtRequest = try await buildURLRequest(for: item)
+        let timeoutRequest: URLRequest = {
+            var copy = builtRequest
+            if copy.timeoutInterval <= 0 {
+                copy.timeoutInterval = DocereeHTTPTimeouts.interactiveRequest
+            }
+            return copy
+        }()
+
+        if kind == .intake {
+            let (data, _) = try await DocereeURLSessionLoading.dataWithInteractiveRetries(for: timeoutRequest)
+            try HealthcareIntakeClient.applyLiveIntakeResponseBody(data)
+            return
+        }
+
+        let (_, http) = try await DocereeURLSessionLoading.dataWithInteractiveRetries(for: timeoutRequest)
+        guard (200...299).contains(http.statusCode) else {
+            throw URLError(.badServerResponse)
         }
     }
 

@@ -30,6 +30,10 @@ extension DocereeAdView {
             DocereeAdView.didLeaveAd = false
         }
         DocereeBeaconQueue.flushQueue()
+        if isWaitingForNetworkRecovery() {
+            DocereeLog.debug("Skipping ad refresh — waiting for network recovery poll")
+            return
+        }
         self.refresh()
     }
     

@@ -40,4 +40,25 @@ final class DocereeBeaconQueueTests: XCTestCase {
         XCTAssertEqual(DocereeBeaconQueue.backoffDelayMs(attempts: 1), 2000)
         XCTAssertEqual(DocereeBeaconQueue.backoffDelayMs(attempts: 2), 4000)
     }
+
+    func testImpressionAndViewabilityRemainSeparateQueueEntries() {
+        DocereeBeaconQueue.enqueueBeacon(kind: .impression, url: "https://example.com/imp?x=1")
+        DocereeBeaconQueue.enqueueBeacon(kind: .viewability, url: "https://example.com/imp?x=1")
+        XCTAssertEqual(DocereeBeaconQueue.loadQueue().count, 2)
+    }
+
+    func testIntakeAndSessionDoNotCoalesce() {
+        DocereeBeaconQueue.enqueueRequest(
+            kind: .session,
+            url: "https://example.com/event?status=1",
+            method: "GET"
+        )
+        DocereeBeaconQueue.enqueueRequest(
+            kind: .intake,
+            url: "https://example.com/intake",
+            method: "POST",
+            body: "{}"
+        )
+        XCTAssertEqual(DocereeBeaconQueue.loadQueue().count, 2)
+    }
 }

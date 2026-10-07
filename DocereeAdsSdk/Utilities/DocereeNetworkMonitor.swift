@@ -19,8 +19,14 @@ final class DocereeNetworkMonitor {
             guard let self else { return }
             let satisfied = path.status == .satisfied
             if satisfied, !self.pathSatisfied {
-                DocereeLog.debug("Network path satisfied — flushing beacon queue")
-                DocereeBeaconQueue.flushQueue()
+                Task {
+                    guard await DocereeNetworkReachability.isNetworkAvailable() else {
+                        DocereeLog.debug("Network path up but ad host unreachable — deferring beacon flush")
+                        return
+                    }
+                    DocereeLog.debug("Network restored — flushing beacon queue")
+                    await DocereeBeaconQueue.flushQueueAndWait()
+                }
             }
             self.pathSatisfied = satisfied
         }

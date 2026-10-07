@@ -33,6 +33,11 @@ extension DocereeAdView {
         set { objc_setAssociatedObject(self, &AssociatedKeys.waitingForNetwork, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
 
+    /// True while the ad view is polling for connectivity after an offline quest failure.
+    func isWaitingForNetworkRecovery() -> Bool {
+        waitingForNetwork
+    }
+
     func resetQuestRetries() {
         questOnlineRetryCount = 0
         stopQuestRetry()

@@ -173,8 +173,9 @@ public final class DocereeAdRequest: AdServiceProtocol {
             body: body
         ) else { return }
 
-        request.timeoutInterval = DocereeHTTPTimeouts.beaconRequest
-        sendBeacon(request, kind: .adblock, "Ad Block")
+        request.timeoutInterval = DocereeHTTPTimeouts.interactiveRequest
+        DocereeLog.debug("Ad Block report dispatch")
+        DocereeBeaconQueue.sendRequestOrEnqueue(kind: .adblock, request: request)
     }
 
     // MARK: - Helper Methods
