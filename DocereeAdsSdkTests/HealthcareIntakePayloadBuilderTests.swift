@@ -102,3 +102,55 @@ final class HealthcareIntakePayloadBuilderTests: XCTestCase {
         XCTAssertEqual((payload["routing"] as? [String: Any])?["patient_internal_id"] as? String, "PT-00112")
     }
 }
+
+final class HealthcareIntakeResponseTests: XCTestCase {
+    func testParsesAcceptedResponseUsingTopLevelRequestIdWhenNestedIsEmpty() {
+        let response = HealthcareIntakeResponse(json: [
+            "data": [
+                "accepted": true,
+                "request_id": ""
+            ],
+            "request_id": "22f23182-1744-4b42-89a8-6ae34893f925"
+        ])
+
+        XCTAssertTrue(response.accepted)
+        XCTAssertEqual(response.requestId, "22f23182-1744-4b42-89a8-6ae34893f925")
+    }
+
+    func testPrefersNestedRequestIdWhenPresent() {
+        let response = HealthcareIntakeResponse(json: [
+            "data": [
+                "accepted": true,
+                "request_id": "nested-id"
+            ],
+            "request_id": "top-level-id"
+        ])
+
+        XCTAssertEqual(response.requestId, "nested-id")
+    }
+
+    func testBuildIncludesStoredRequestIdOnFollowUpPayload() {
+        let patientDetails: [String: Any] = [
+            "siteId": "2620",
+            "pubId": "5",
+            "userid": "DE.V1.13817772462a.1784197089665",
+            "timestamp": "2026-09-02T07:51:02.452Z"
+        ]
+
+        let payload = HealthcareIntakePayloadBuilder.build(
+            from: patientDetails,
+            storedRequestId: "d229da90-c8a0-48b9-98b5-d2b0afef55d6"
+        )
+
+        XCTAssertEqual(payload["request_id"] as? String, "d229da90-c8a0-48b9-98b5-d2b0afef55d6")
+        XCTAssertEqual(payload["siteId"] as? String, "2620")
+        XCTAssertEqual(payload["pubId"] as? String, "5")
+        XCTAssertEqual(payload["userid"] as? String, "DE.V1.13817772462a.1784197089665")
+        XCTAssertEqual(payload["timestamp"] as? String, "2026-09-02T07:51:02.452Z")
+    }
+
+    func testBuildOmitsRequestIdWhenNoneStoredAndNotProvided() {
+        let payload = HealthcareIntakePayloadBuilder.build(from: [:], storedRequestId: nil)
+        XCTAssertNil(payload["request_id"])
+    }
+}

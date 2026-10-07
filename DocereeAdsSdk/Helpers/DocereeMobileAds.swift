@@ -193,6 +193,7 @@ public final class DocereeMobileAds {
     public static func clearUserData() {
         UserDefaultsManager.shared.clearAllPersistedSDKState()
         StorageManager.shared.clearAllAttributeAndSessionData()
+        HealthcareIntakeRequestIdStore.clear()
         PatientSession.sessionId = nil
         resetStoredUniversalIdsForTesting()
         do {

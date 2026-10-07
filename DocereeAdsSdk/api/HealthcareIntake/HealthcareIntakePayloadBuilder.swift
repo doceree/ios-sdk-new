@@ -2,8 +2,11 @@ import Foundation
 
 /// Maps host-app patient JSON into the healthcare intake request body.
 enum HealthcareIntakePayloadBuilder {
-    static func build(from patientDetails: [String: Any]) -> [String: Any] {
-        [
+    static func build(
+        from patientDetails: [String: Any],
+        storedRequestId: String? = HealthcareIntakeRequestIdStore.load()
+    ) -> [String: Any] {
+        var payload: [String: Any] = [
             "patient": buildPatientSection(from: patientDetails),
             "insurance": buildInsuranceSection(from: patientDetails),
             "routing": buildRoutingSection(from: patientDetails),
@@ -14,6 +17,14 @@ enum HealthcareIntakePayloadBuilder {
             "userid": blankString(patientDetails["userid"]),
             "timestamp": blankString(patientDetails["timestamp"])
         ]
+
+        let requestId = blankString(patientDetails["request_id"])
+        let resolvedRequestId = requestId.isEmpty ? (storedRequestId ?? "") : requestId
+        if !resolvedRequestId.isEmpty {
+            payload["request_id"] = resolvedRequestId
+        }
+
+        return payload
     }
 
     private static func buildPatientSection(from details: [String: Any]) -> [String: Any] {
@@ -130,5 +141,25 @@ enum HealthcareIntakePayloadBuilder {
     private static func blankString(_ value: Any?) -> String {
         guard let string = value as? String else { return "" }
         return string
+    }
+}
+
+enum HealthcareIntakeRequestIdStore {
+    private static let storageKey = "docereeHealthcareIntakeRequestId"
+
+    static func load() -> String? {
+        guard let value = UserDefaults.standard.string(forKey: storageKey) else { return nil }
+        let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? nil : trimmed
+    }
+
+    static func save(_ requestId: String) {
+        let trimmed = requestId.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+        UserDefaults.standard.set(trimmed, forKey: storageKey)
+    }
+
+    static func clear() {
+        UserDefaults.standard.removeObject(forKey: storageKey)
     }
 }
