@@ -39,6 +39,14 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     var totalViewTime = 0
     var savedViewPercentage: Float = 0.0
     var oneSecMrcSent = false
+    /// One engagement (eType=5) per dip below 50%; reset when visibility returns to ≥50%.
+    var belowFiftyEngagementSent = false
+    /// One custom-standard engagement (eType=5) when min time/percent threshold is met.
+    var customEngagementSent = false
+    /// Seconds elapsed in the current viewability timer session (RN `timerCounter`).
+    var viewabilityTickCounter = 0
+    var backgroundEnteredAt: Date?
+    var didEnterBackgroundFromViewability = false
     var viewportPercentage: Float = 90
     var isRefreshing = false
 
@@ -114,6 +122,11 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         totalViewTime = 0
         savedViewPercentage = 0
         self.oneSecMrcSent = false
+        self.belowFiftyEngagementSent = false
+        self.customEngagementSent = false
+        self.viewabilityTickCounter = 0
+        self.backgroundEnteredAt = nil
+        self.didEnterBackgroundFromViewability = false
         self.docereeAdRequest = docereeAdRequest
         let sizeObj = adSize.getAdSize()
         let width = Int(sizeObj.width)
@@ -139,7 +152,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
             DocereeAdView.self.didLeaveAd = true
             viewportTimer?.stop()
             customTimer?.stop()
-            self.sendViewTime(standard: "mrc")
+            self.sendViewTime(standard: "mrc", adViewed: false)
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
             self.removeAllViews()
         }
@@ -160,7 +173,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         NotificationCenter.default.removeObserver(self)
         viewportTimer?.stop()
         customTimer?.stop()
-        self.sendViewTime(standard: "mrc", killSession: true)
+        self.sendViewTime(standard: "mrc", killSession: true, adViewed: false)
         adWebView?.navigationDelegate = nil
         adWebView?.uiDelegate = nil
         adWebView?.removeFromSuperview()

@@ -38,37 +38,38 @@ extension DocereeAdView {
         setupConsentIcons()
     }
 
-    func sendViewTime(standard: String, killSession: Bool = false, adViewed: Bool = false) {
+    @discardableResult
+    func sendViewTime(standard: String, killSession: Bool = false, adViewed: Bool = false) -> Bool {
         if let session = sessionInteractor, killSession {
             session.stopSession()
         }
-        if totalViewTime > 0 && (savedViewPercentage > 50 || Int(savedViewPercentage) >= (self.adResponseData?.minViewPercentage)!) {
-            DocereeLog.debug("View Time: \(totalViewTime)")
-            if var viewLink = adResponseData?.adViewedURL, !viewLink.isEmpty {
-                let time = standard == "mrc" ? totalViewTime : (self.adResponseData?.minViewTime ?? 0)
-                let percentage = standard == "mrc" ? 50 : (self.adResponseData?.minViewPercentage ?? 0)
-                viewLink = populateTokens(in: viewLink, time: time, percent: percentage, standard: standard, adViewed: adViewed)
-                self.docereeAdRequest?.sendViewability(to: viewLink)
-            }
+        let minViewPercentRequired = adResponseData?.minViewPercentage ?? 0
+        let meetsViewThreshold = savedViewPercentage > 50 || Int(savedViewPercentage) >= minViewPercentRequired
+        guard totalViewTime > 0 && meetsViewThreshold else { return false }
 
-            if standard == "mrc" && self.oneSecMrcSent == true {
-                totalViewTime = 0
-                savedViewPercentage = 0
-            }
+        DocereeLog.debug("View Time: \(totalViewTime)")
+        guard var viewLink = adResponseData?.adViewedURL, !viewLink.isEmpty else { return false }
+
+        let time = standard == "mrc" ? totalViewTime : (self.adResponseData?.minViewTime ?? 0)
+        let percentage = standard == "mrc" ? 50 : (self.adResponseData?.minViewPercentage ?? 0)
+        viewLink = AdViewedURLPopulator.populate(
+            url: viewLink,
+            viewedTime: time,
+            viewedPercentage: percentage,
+            standard: standard,
+            adViewed: adViewed
+        )
+        let eType = AdViewedURLPopulator.eventType(from: adViewed)
+        DocereeLog.debug(
+            "sendViewTime standard=\(standard) adViewed=\(adViewed) eType=\(eType)"
+        )
+        self.docereeAdRequest?.sendViewability(to: viewLink)
+
+        if standard == "mrc" && self.oneSecMrcSent == true {
+            totalViewTime = 0
+            savedViewPercentage = 0
         }
+        return true
     }
     
-    func populateTokens(in url: String, time: Int, percent: Int, standard: String, adViewed: Bool) -> String {
-        var result = url
-            .replacingOccurrences(of: "{{EVENT_CLIENT_TIME}}", with: Date.currentTimeMillis())
-            .replacingOccurrences(of: "{{VIEWED_TIME}}", with: String(time))
-            .replacingOccurrences(of: "{{VIEWED_PERCENTAGE}}", with: String(percent))
-            .replacingOccurrences(of: "_std", with: standard)
-        
-        if !adViewed {
-            result = result.replacingOccurrences(of: "eType=2", with: "eType=5")
-        }
-        
-        return result
-    }
 }

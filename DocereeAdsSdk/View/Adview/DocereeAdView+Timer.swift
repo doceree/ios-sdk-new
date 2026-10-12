@@ -9,7 +9,7 @@ import Foundation
 
 extension DocereeAdView {
     
-    func startTimer(adFound: Bool) {
+    func startTimer(adFound: Bool, resetViewabilityTickCounter: Bool = true) {
         customTimer?.stop()
         customTimer = CustomTimer { (seconds) in
 
@@ -22,30 +22,37 @@ extension DocereeAdView {
                 if viewPercentage >= 50 {
                     self.totalViewTime += 1
                     self.savedViewPercentage = viewPercentage
+                    self.belowFiftyEngagementSent = false
+
                     if self.oneSecMrcSent == false {
                         self.sendViewTime(standard: "mrc", adViewed: true)
                         self.oneSecMrcSent = true
                     }
                 } else {
-                    self.sendViewTime(standard: "mrc")
+                    self.sendOffViewportEngagementIfNeeded()
                 }
-                
-                // for standard: custom
-                if let minTime = self.adResponseData?.minViewTime,
+
+                if !self.customEngagementSent,
+                   self.adResponseData?.standard() == "custom",
+                   let minTime = self.adResponseData?.minViewTime,
                    let minPercent = self.adResponseData?.minViewPercentage,
-                   self.totalViewTime >= minTime,
+                   self.totalViewTime == minTime,
                    Int(viewPercentage) >= minPercent {
-                    self.sendViewTime(standard: "custom")
+                    self.sendViewTime(standard: "custom", adViewed: false)
+                    self.customEngagementSent = true
                 }
             }
-            if self.customTimer!.count % 30 == 0 {
-                self.customTimer?.count = 0
+            self.viewabilityTickCounter += 1
+            if self.viewabilityTickCounter % 30 == 0 {
                 self.customTimer?.stop()
-                self.sendViewTime(standard: "mrc", killSession: true)
+                self.sendViewTime(standard: "mrc", killSession: true, adViewed: false)
                 self.safeRefresh()
             }
         }
         customTimer?.count = 0
+        if resetViewabilityTickCounter {
+            viewabilityTickCounter = 0
+        }
         customTimer?.start()
     }
     

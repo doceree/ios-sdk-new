@@ -29,7 +29,7 @@ extension AdConsentUIView {
         consentView.addSubview(label)
         consentView.frame = CGRect(x: .zero, y: .zero, width: adViewFrame!.width, height: adViewFrame!.height)
 
-        self.docereeAdView?.sendViewTime(standard: "mrc", killSession: true)
+        self.docereeAdView?.sendViewTime(standard: "mrc", killSession: true, adViewed: false)
         if (!self.isRichMedia) {
             self.docereeAdView!.addSubview(consentView)
         } else {
