@@ -43,9 +43,11 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
     var belowFiftyEngagementSent = false
     /// One custom-standard engagement (eType=5) when min time/percent threshold is met.
     var customEngagementSent = false
-    /// Seconds elapsed in the current viewability timer session (RN `timerCounter`).
-    var viewabilityTickCounter = 0
-    var backgroundEnteredAt: Date?
+    /// Wall-clock start of the current 30s ad cycle; nil after the cycle ends.
+    var viewabilityCycleStartedAt: Date?
+    /// Cycle ended; slot cleared — load fresh ad when foreground and viewport ≥50%.
+    var refreshPendingAfterCycle = false
+    var pendingRefreshPollTimer: CustomTimer?
     var didEnterBackgroundFromViewability = false
     var viewportPercentage: Float = 90
     var isRefreshing = false
@@ -124,8 +126,9 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         self.oneSecMrcSent = false
         self.belowFiftyEngagementSent = false
         self.customEngagementSent = false
-        self.viewabilityTickCounter = 0
-        self.backgroundEnteredAt = nil
+        self.viewabilityCycleStartedAt = nil
+        self.refreshPendingAfterCycle = false
+        self.stopPendingRefreshPoll()
         self.didEnterBackgroundFromViewability = false
         self.docereeAdRequest = docereeAdRequest
         let sizeObj = adSize.getAdSize()
@@ -153,6 +156,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
             viewportTimer?.stop()
             customTimer?.stop()
             self.sendViewTime(standard: "mrc", adViewed: false)
+            ActiveAdRecoveryStore.clear()
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
             self.removeAllViews()
         }
@@ -171,6 +175,7 @@ public final class DocereeAdView: UIView, UIApplicationDelegate, WKNavigationDel
         adFetchTask = nil
         stopAdNetworkRecovery()
         NotificationCenter.default.removeObserver(self)
+        stopPendingRefreshPoll()
         viewportTimer?.stop()
         customTimer?.stop()
         self.sendViewTime(standard: "mrc", killSession: true, adViewed: false)

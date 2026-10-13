@@ -199,6 +199,13 @@ enum DocereeBeaconQueue {
         enqueueRequest(kind: kind, url: url, method: HTTPMethod.get)
     }
 
+    static func sendViewabilityURLOrEnqueue(_ urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        var request = URLRequest(url: url)
+        request.timeoutInterval = DocereeHTTPTimeouts.beaconRequest
+        sendBeaconOrEnqueue(kind: .viewability, request: request)
+    }
+
     static func sendBeaconOrEnqueue(kind: Kind, request: URLRequest) {
         Task {
             do {

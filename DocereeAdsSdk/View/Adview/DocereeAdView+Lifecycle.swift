@@ -8,19 +8,19 @@
 import UIKit
 import os.log
 
-private enum ViewabilityBackgroundSession {
-    /// Wall-clock grace to resume the same 30s viewability cycle after background (scroll-back parity).
-    static let reengagementGraceSeconds: TimeInterval = 30
-}
-
 extension DocereeAdView {
    
     @objc func appMovedToBackground() {
         os_log("App moved to background", log: .default, type: .debug)
         didEnterBackgroundFromViewability = true
-        backgroundEnteredAt = Date()
-        stopViewabilityTimers()
+        viewportTimer?.stop()
+        customTimer?.stop()
         sendBackgroundEngagementIfNeeded()
+        if isViewabilityCycleComplete() {
+            didEnterBackgroundFromViewability = false
+            onViewabilityCycleComplete(reason: "background-after-cycle")
+            return
+        }
         if DocereeAdView.didLeaveAd {
             delegate?.docereeAdViewWillLeaveApplication(self)
         }
@@ -43,50 +43,46 @@ extension DocereeAdView {
             return
         }
 
+        if isViewabilityCycleComplete() {
+            didEnterBackgroundFromViewability = false
+            onViewabilityCycleComplete(reason: "foreground-after-cycle")
+            return
+        }
+
+        if refreshPendingAfterCycle {
+            didEnterBackgroundFromViewability = false
+            tryPerformCycleRefresh(reason: "foreground-pending")
+            return
+        }
+
         guard didEnterBackgroundFromViewability else {
             return
         }
         didEnterBackgroundFromViewability = false
 
-        if let enteredAt = backgroundEnteredAt {
-            backgroundEnteredAt = nil
-            let awaySeconds = Date().timeIntervalSince(enteredAt)
-            if awaySeconds >= ViewabilityBackgroundSession.reengagementGraceSeconds {
-                DocereeLog.debug(
-                    "Foreground after \(ViewabilityBackgroundSession.reengagementGraceSeconds)s — ending ad session"
-                )
-                stopTimersAndSendMRC(killSession: true)
-                refresh()
-                return
-            }
-        }
-
-        resumeViewabilityTimerOnForeground()
+        startTimer(adFound: hasLoadedAdForViewability(), resetViewabilityCycle: false)
     }
     
-    //will call on dismiss view
     public override func willMove(toWindow newWindow: UIWindow?) {
         if window != nil {
             self.delegate = nil
             NotificationCenter.default.removeObserver(self)
+            stopPendingRefreshPoll()
             stopTimersAndSendMRC(killSession: true)
         }
     }
 
-    /// RN `startTimer` on app active — same creative, do not reset session tick counter.
-    func resumeViewabilityTimerOnForeground() {
-        DocereeLog.debug("Resuming viewability timer on foreground")
-        startTimer(adFound: hasLoadedAdForViewability(), resetViewabilityTickCounter: false)
-    }
-
     func stopViewabilityTimers() {
+        stopPendingRefreshPoll()
         viewportTimer?.stop()
         customTimer?.stop()
     }
 
     func stopTimersAndSendMRC(killSession: Bool = false) {
         stopViewabilityTimers()
+        refreshPendingAfterCycle = false
         sendViewTime(standard: "mrc", killSession: killSession, adViewed: false)
+        ActiveAdRecoveryStore.clear()
     }
 
 }

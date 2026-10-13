@@ -5,28 +5,32 @@
 //  Created by Muqeem Ahmad on 18/06/25.
 //
 
-import Foundation
+import UIKit
 
 extension DocereeAdView {
     
-    func startTimer(adFound: Bool, resetViewabilityTickCounter: Bool = true) {
+    func startTimer(adFound: Bool, resetViewabilityCycle: Bool = true) {
         customTimer?.stop()
+        beginViewabilityCycleIfNeeded(reset: resetViewabilityCycle)
+
         customTimer = CustomTimer { (seconds) in
+            guard UIApplication.shared.applicationState == .active else { return }
 
             let isViewLinkNullOrEmpty: Bool = (self.adResponseData?.adViewedURL ?? "").isEmpty
             let isPassbackEmpty: Bool = (self.adResponseData?.passbackTag ?? "").isEmpty
             if adFound && (!isViewLinkNullOrEmpty) && isPassbackEmpty {
                 let viewPercentage = checkViewability(adView: self)
 
-                // for standard: mrc
                 if viewPercentage >= 50 {
                     self.totalViewTime += 1
                     self.savedViewPercentage = viewPercentage
                     self.belowFiftyEngagementSent = false
+                    self.persistActiveAdSnapshotIfNeeded()
 
                     if self.oneSecMrcSent == false {
                         self.sendViewTime(standard: "mrc", adViewed: true)
                         self.oneSecMrcSent = true
+                        self.persistActiveAdSnapshotIfNeeded()
                     }
                 } else {
                     self.sendOffViewportEngagementIfNeeded()
@@ -42,17 +46,12 @@ extension DocereeAdView {
                     self.customEngagementSent = true
                 }
             }
-            self.viewabilityTickCounter += 1
-            if self.viewabilityTickCounter % 30 == 0 {
-                self.customTimer?.stop()
-                self.sendViewTime(standard: "mrc", killSession: true, adViewed: false)
-                self.safeRefresh()
+
+            if self.isViewabilityCycleComplete() {
+                self.onViewabilityCycleComplete(reason: "tick")
             }
         }
         customTimer?.count = 0
-        if resetViewabilityTickCounter {
-            viewabilityTickCounter = 0
-        }
         customTimer?.start()
     }
     
@@ -67,15 +66,5 @@ extension DocereeAdView {
         }
         viewportTimer?.count = 0
         viewportTimer?.start()
-    }
-    
-    private func safeRefresh() {
-        guard (self.delegate != nil) else { return }
-        guard !isRefreshing else { return }
-        isRefreshing = true
-        refresh()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.isRefreshing = false
-        }
     }
 }

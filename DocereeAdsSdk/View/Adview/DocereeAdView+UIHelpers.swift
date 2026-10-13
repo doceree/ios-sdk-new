@@ -68,6 +68,9 @@ extension DocereeAdView {
         if standard == "mrc" && self.oneSecMrcSent == true {
             totalViewTime = 0
             savedViewPercentage = 0
+            if !adViewed {
+                ActiveAdRecoveryStore.clear()
+            }
         }
         return true
     }

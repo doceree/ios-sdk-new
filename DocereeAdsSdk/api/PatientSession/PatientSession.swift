@@ -16,14 +16,15 @@ public class PatientSession {
     
     public func startSession() async {
         do {
-            // Save timestamp
-            await StorageManager.shared.saveTimestamp()
-            DocereeLog.debug("sessionId: \(PatientSession.sessionId ?? "nil")")
-
-            // End session if sessionId exists
-            if PatientSession.sessionId != nil {
+            // End any previous session from memory OR storage (e.g. after app kill).
+            let existingSid = PatientSession.sessionId ?? StorageManager.shared.getItem(forKey: "sessionId")
+            if existingSid != nil {
+                DocereeLog.debug("Ending previous session before start (\(existingSid!))")
                 await endSession()
             }
+
+            await StorageManager.shared.saveTimestamp()
+            DocereeLog.debug("sessionId: \(PatientSession.sessionId ?? "nil")")
 
             // Generate new sessionId
             PatientSession.sessionId = try await Utils().sessionId()

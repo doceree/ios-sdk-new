@@ -119,7 +119,8 @@ public final class DocereeMobileAds {
             DocereeLog.debug("ERROR: \(error.localizedDescription)")
         }
         
-        // Load app config
+        OrphanedAdEngagementRecovery.recover()
+
         Task(priority: .userInitiated) {
             await DocereeMobileAds().loadAppConfiguration()
             DocereeBeaconQueue.flushQueue()
@@ -207,6 +208,7 @@ public final class DocereeMobileAds {
     public static func clearUserData() {
         UserDefaultsManager.shared.clearAllPersistedSDKState()
         StorageManager.shared.clearAllAttributeAndSessionData()
+        ActiveAdRecoveryStore.clear()
         HealthcareIntakeRequestIdStore.clear()
         DocereeBeaconQueue.clearQueue()
         PatientSession.sessionId = nil
