@@ -23,12 +23,6 @@
 		545D18E82C089024003DA8E1 /* PatientSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E72C089024003DA8E1 /* PatientSession.swift */; };
 		545D18EA2C08948D003DA8E1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18E92C08948D003DA8E1 /* Utils.swift */; };
 		545D18EC2C08B440003DA8E1 /* DataAttributesPayloadBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D18EB2C08B440003DA8E1 /* DataAttributesPayloadBuilder.swift */; };
-		54F1A0212F10000100000021 /* PatientDetailsPTDMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0202F10000100000020 /* PatientDetailsPTDMapper.swift */; };
-		54F1A0242F10000100000024 /* SessionAttributesBRMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0252F10000100000025 /* SessionAttributesBRMapper.swift */; };
-		54F1A0292F10000100000029 /* ActionAttributesATDMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0282F10000100000028 /* ActionAttributesATDMapper.swift */; };
-		54F1A0232F10000100000023 /* PatientDetailsPTDMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0222F10000100000022 /* PatientDetailsPTDMapperTests.swift */; };
-		54F1A0262F10000100000026 /* SessionAttributesBRMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0272F10000100000027 /* SessionAttributesBRMapperTests.swift */; };
-		54F1A02B2F1000010000002B /* ActionAttributesATDMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A02A2F1000010000002A /* ActionAttributesATDMapperTests.swift */; };
 		54731C9A2E02AF64000D0B86 /* DocereeAdView+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54731C992E02AF64000D0B86 /* DocereeAdView+Loading.swift */; };
 		54731C9E2E02C3B1000D0B86 /* DocereeAdView+Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54731C9D2E02C3B1000D0B86 /* DocereeAdView+Timer.swift */; };
 		54731CA22E02C79D000D0B86 /* DocereeAdView+WebViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54731CA12E02C79D000D0B86 /* DocereeAdView+WebViewDelegate.swift */; };
@@ -36,8 +30,6 @@
 		54731CA82E02C8E5000D0B86 /* DocereeAdView+Consent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54731CA72E02C8E5000D0B86 /* DocereeAdView+Consent.swift */; };
 		54731CAC2E02DB0A000D0B86 /* DocereeAdView+AdUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54731CAB2E02DB0A000D0B86 /* DocereeAdView+AdUI.swift */; };
 		54731CB22E02DBCB000D0B86 /* DocereeAdView+Lifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54731CB12E02DBCB000D0B86 /* DocereeAdView+Lifecycle.swift */; };
-		A5E1B0012F20ENG00000001 /* DocereeAdView+ViewabilityEngagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E1B0022F20ENG00000001 /* DocereeAdView+ViewabilityEngagement.swift */; };
-		A5E1C0012F20CYCL00000001 /* DocereeAdView+ViewabilityCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E1C0022F20CYCL00000001 /* DocereeAdView+ViewabilityCycle.swift */; };
 		54731CB62E02DE02000D0B86 /* DocereeAdView+UIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54731CB52E02DE02000D0B86 /* DocereeAdView+UIHelpers.swift */; };
 		54874D262BBAAB860018A882 /* HcpValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54874D252BBAAB860018A882 /* HcpValidation.swift */; };
 		54874D282BBAC2F60018A882 /* HcpValidationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54874D272BBAC2F60018A882 /* HcpValidationView.swift */; };
@@ -88,6 +80,12 @@
 		54F1A00D2F1000010000000D /* DocereeMobileAds+DataAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A00E2F1000010000000E /* DocereeMobileAds+DataAttributes.swift */; };
 		54F1A00F2F1000010000000F /* DocereeMobileAdsDataAttributesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0102F10000100000010 /* DocereeMobileAdsDataAttributesTests.swift */; };
 		54F1A0112F10000100000011 /* DocereeConsent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0122F10000100000012 /* DocereeConsent.swift */; };
+		54F1A0212F10000100000021 /* PatientDetailsPTDMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0202F10000100000020 /* PatientDetailsPTDMapper.swift */; };
+		54F1A0232F10000100000023 /* PatientDetailsPTDMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0222F10000100000022 /* PatientDetailsPTDMapperTests.swift */; };
+		54F1A0242F10000100000024 /* SessionAttributesBRMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0252F10000100000025 /* SessionAttributesBRMapper.swift */; };
+		54F1A0262F10000100000026 /* SessionAttributesBRMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0272F10000100000027 /* SessionAttributesBRMapperTests.swift */; };
+		54F1A0292F10000100000029 /* ActionAttributesATDMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A0282F10000100000028 /* ActionAttributesATDMapper.swift */; };
+		54F1A02B2F1000010000002B /* ActionAttributesATDMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F1A02A2F1000010000002A /* ActionAttributesATDMapperTests.swift */; };
 		A1B2C3D42F00000100000001 /* AdSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000011 /* AdSizeTests.swift */; };
 		A1B2C3D42F00000100000002 /* ErrorContractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000012 /* ErrorContractTests.swift */; };
 		A1B2C3D42F00000100000003 /* DataAttributesPayloadBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000013 /* DataAttributesPayloadBuilderTests.swift */; };
@@ -104,6 +102,11 @@
 		A1B2C3D42F00000100000034 /* HealthcareIntakeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000033 /* HealthcareIntakeClient.swift */; };
 		A1B2C3D42F00000100000036 /* HealthcareIntakePayloadBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000035 /* HealthcareIntakePayloadBuilderTests.swift */; };
 		A1B2C3D42F00000100000038 /* HealthcareIntakeEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100000037 /* HealthcareIntakeEndpoint.swift */; };
+		A5E1B0012F20ENG00000001 /* DocereeAdView+ViewabilityEngagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E1B0022F20ENG00000001 /* DocereeAdView+ViewabilityEngagement.swift */; };
+		A5E1C0012F20CYCL00000001 /* DocereeAdView+ViewabilityCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E1C0022F20CYCL00000001 /* DocereeAdView+ViewabilityCycle.swift */; };
+		AA0100010000000100000001 /* DocereeAdView+ActiveAdRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0100010000000100000002 /* DocereeAdView+ActiveAdRecovery.swift */; };
+		AR0100010000000100000001 /* ActiveAdRecoveryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AR0100010000000100000002 /* ActiveAdRecoveryStore.swift */; };
+		BA65A11615437E096D71A7EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACA702B64B00A64F1DFA542 /* Foundation.framework */; };
 		BQ0100010000000100000001 /* DocereeBeaconQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BQ0100010000000100000002 /* DocereeBeaconQueue.swift */; };
 		BQ0100010000000100000003 /* DocereeNetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BQ0100010000000100000004 /* DocereeNetworkReachability.swift */; };
 		BQ0100010000000100000005 /* DocereeBeaconQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BQ0100010000000100000006 /* DocereeBeaconQueueTests.swift */; };
@@ -111,18 +114,15 @@
 		BQ0100020000000100000003 /* DocereeAdQuestRetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BQ0100020000000100000004 /* DocereeAdQuestRetry.swift */; };
 		BQ0100020000000100000005 /* DocereeAdView+QuestRetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BQ0100020000000100000006 /* DocereeAdView+QuestRetry.swift */; };
 		BQ0100020000000100000007 /* DocereeAdQuestRetryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BQ0100020000000100000008 /* DocereeAdQuestRetryTests.swift */; };
-		ET0100010000000100000001 /* AdViewedURLPopulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ET0100010000000100000002 /* AdViewedURLPopulator.swift */; };
-		ET0100010000000100000003 /* AdViewedURLPopulatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ET0100010000000100000004 /* AdViewedURLPopulatorTests.swift */; };
-		AR0100010000000100000001 /* ActiveAdRecoveryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AR0100010000000100000002 /* ActiveAdRecoveryStore.swift */; };
-		OR0100010000000100000001 /* OrphanedAdEngagementRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = OR0100010000000100000002 /* OrphanedAdEngagementRecovery.swift */; };
-		AA0100010000000100000001 /* DocereeAdView+ActiveAdRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0100010000000100000002 /* DocereeAdView+ActiveAdRecovery.swift */; };
-		OR0100010000000100000003 /* OrphanedAdEngagementRecoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OR0100010000000100000004 /* OrphanedAdEngagementRecoveryTests.swift */; };
-		PS0100010000000100000001 /* PatientSessionStartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = PS0100010000000100000002 /* PatientSessionStartTests.swift */; };
-		BA65A11615437E096D71A7EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACA702B64B00A64F1DFA542 /* Foundation.framework */; };
 		CB11AD200000000100000001 /* DocereeAdsSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EBAFBC282CF30900C7B249 /* DocereeAdsSdk.framework */; };
 		CB11AD200000000100000002 /* DocereeAdsSdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54EBAFBC282CF30900C7B249 /* DocereeAdsSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D0EEAD510000000100000002 /* DocereeAdSdk/DocereeAdSdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D0EEAD510000000100000001 /* DocereeAdSdk/DocereeAdSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D0EEAD510000000100000003 /* KetchSDK/KetchSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1BEEF110000000100000001 /* KetchSDK/KetchSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ET0100010000000100000001 /* AdViewedURLPopulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ET0100010000000100000002 /* AdViewedURLPopulator.swift */; };
+		ET0100010000000100000003 /* AdViewedURLPopulatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ET0100010000000100000004 /* AdViewedURLPopulatorTests.swift */; };
+		OR0100010000000100000001 /* OrphanedAdEngagementRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = OR0100010000000100000002 /* OrphanedAdEngagementRecovery.swift */; };
+		OR0100010000000100000003 /* OrphanedAdEngagementRecoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OR0100010000000100000004 /* OrphanedAdEngagementRecoveryTests.swift */; };
+		PS0100010000000100000001 /* PatientSessionStartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = PS0100010000000100000002 /* PatientSessionStartTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,12 +177,6 @@
 		545D18E72C089024003DA8E1 /* PatientSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSession.swift; sourceTree = "<group>"; };
 		545D18E92C08948D003DA8E1 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		545D18EB2C08B440003DA8E1 /* DataAttributesPayloadBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAttributesPayloadBuilder.swift; sourceTree = "<group>"; };
-		54F1A0202F10000100000020 /* PatientDetailsPTDMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetailsPTDMapper.swift; sourceTree = "<group>"; };
-		54F1A0252F10000100000025 /* SessionAttributesBRMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionAttributesBRMapper.swift; sourceTree = "<group>"; };
-		54F1A0282F10000100000028 /* ActionAttributesATDMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionAttributesATDMapper.swift; sourceTree = "<group>"; };
-		54F1A0222F10000100000022 /* PatientDetailsPTDMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetailsPTDMapperTests.swift; sourceTree = "<group>"; };
-		54F1A0272F10000100000027 /* SessionAttributesBRMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionAttributesBRMapperTests.swift; sourceTree = "<group>"; };
-		54F1A02A2F1000010000002A /* ActionAttributesATDMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionAttributesATDMapperTests.swift; sourceTree = "<group>"; };
 		54731C992E02AF64000D0B86 /* DocereeAdView+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+Loading.swift"; sourceTree = "<group>"; };
 		54731C9D2E02C3B1000D0B86 /* DocereeAdView+Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+Timer.swift"; sourceTree = "<group>"; };
 		54731CA12E02C79D000D0B86 /* DocereeAdView+WebViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+WebViewDelegate.swift"; sourceTree = "<group>"; };
@@ -190,8 +184,6 @@
 		54731CA72E02C8E5000D0B86 /* DocereeAdView+Consent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+Consent.swift"; sourceTree = "<group>"; };
 		54731CAB2E02DB0A000D0B86 /* DocereeAdView+AdUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+AdUI.swift"; sourceTree = "<group>"; };
 		54731CB12E02DBCB000D0B86 /* DocereeAdView+Lifecycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+Lifecycle.swift"; sourceTree = "<group>"; };
-		A5E1B0022F20ENG00000001 /* DocereeAdView+ViewabilityEngagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+ViewabilityEngagement.swift"; sourceTree = "<group>"; };
-		A5E1C0022F20CYCL00000001 /* DocereeAdView+ViewabilityCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+ViewabilityCycle.swift"; sourceTree = "<group>"; };
 		54731CB52E02DE02000D0B86 /* DocereeAdView+UIHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+UIHelpers.swift"; sourceTree = "<group>"; };
 		54874D252BBAAB860018A882 /* HcpValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HcpValidation.swift; sourceTree = "<group>"; };
 		54874D272BBAC2F60018A882 /* HcpValidationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HcpValidationView.swift; sourceTree = "<group>"; };
@@ -244,6 +236,12 @@
 		54F1A00E2F1000010000000E /* DocereeMobileAds+DataAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeMobileAds+DataAttributes.swift"; sourceTree = "<group>"; };
 		54F1A0102F10000100000010 /* DocereeMobileAdsDataAttributesTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeMobileAdsDataAttributesTests.swift; sourceTree = "<group>"; };
 		54F1A0122F10000100000012 /* DocereeConsent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocereeConsent.swift; sourceTree = "<group>"; };
+		54F1A0202F10000100000020 /* PatientDetailsPTDMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetailsPTDMapper.swift; sourceTree = "<group>"; };
+		54F1A0222F10000100000022 /* PatientDetailsPTDMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetailsPTDMapperTests.swift; sourceTree = "<group>"; };
+		54F1A0252F10000100000025 /* SessionAttributesBRMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionAttributesBRMapper.swift; sourceTree = "<group>"; };
+		54F1A0272F10000100000027 /* SessionAttributesBRMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionAttributesBRMapperTests.swift; sourceTree = "<group>"; };
+		54F1A0282F10000100000028 /* ActionAttributesATDMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionAttributesATDMapper.swift; sourceTree = "<group>"; };
+		54F1A02A2F1000010000002A /* ActionAttributesATDMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionAttributesATDMapperTests.swift; sourceTree = "<group>"; };
 		5732343192416F0013A5C6B6 /* Pods-DocereeAdsSdk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DocereeAdsSdk.debug.xcconfig"; path = "Target Support Files/Pods-DocereeAdsSdk/Pods-DocereeAdsSdk.debug.xcconfig"; sourceTree = "<group>"; };
 		596B48C9E1EA7CAB269B7931 /* Pods-DocereeAdsSdkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DocereeAdsSdkTests.debug.xcconfig"; path = "Target Support Files/Pods-DocereeAdsSdkTests/Pods-DocereeAdsSdkTests.debug.xcconfig"; sourceTree = "<group>"; };
 		64FB1AF2A4862C2D893BC6EB /* DocereeAdsSdkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DocereeAdsSdkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -264,6 +262,11 @@
 		A1B2C3D42F00000100000033 /* HealthcareIntakeClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HealthcareIntakeClient.swift; sourceTree = "<group>"; };
 		A1B2C3D42F00000100000035 /* HealthcareIntakePayloadBuilderTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HealthcareIntakePayloadBuilderTests.swift; sourceTree = "<group>"; };
 		A1B2C3D42F00000100000037 /* HealthcareIntakeEndpoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HealthcareIntakeEndpoint.swift; sourceTree = "<group>"; };
+		A5E1B0022F20ENG00000001 /* DocereeAdView+ViewabilityEngagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+ViewabilityEngagement.swift"; sourceTree = "<group>"; };
+		A5E1C0022F20CYCL00000001 /* DocereeAdView+ViewabilityCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+ViewabilityCycle.swift"; sourceTree = "<group>"; };
+		AA0100010000000100000002 /* DocereeAdView+ActiveAdRecovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+ActiveAdRecovery.swift"; sourceTree = "<group>"; };
+		AR0100010000000100000002 /* ActiveAdRecoveryStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ActiveAdRecoveryStore.swift; sourceTree = "<group>"; };
+		BACA702B64B00A64F1DFA542 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		BQ0100010000000100000002 /* DocereeBeaconQueue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeBeaconQueue.swift; sourceTree = "<group>"; };
 		BQ0100010000000100000004 /* DocereeNetworkReachability.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeNetworkReachability.swift; sourceTree = "<group>"; };
 		BQ0100010000000100000006 /* DocereeBeaconQueueTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeBeaconQueueTests.swift; sourceTree = "<group>"; };
@@ -271,17 +274,14 @@
 		BQ0100020000000100000004 /* DocereeAdQuestRetry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeAdQuestRetry.swift; sourceTree = "<group>"; };
 		BQ0100020000000100000006 /* DocereeAdView+QuestRetry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+QuestRetry.swift"; sourceTree = "<group>"; };
 		BQ0100020000000100000008 /* DocereeAdQuestRetryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeAdQuestRetryTests.swift; sourceTree = "<group>"; };
-		ET0100010000000100000002 /* AdViewedURLPopulator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdViewedURLPopulator.swift; sourceTree = "<group>"; };
-		ET0100010000000100000004 /* AdViewedURLPopulatorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdViewedURLPopulatorTests.swift; sourceTree = "<group>"; };
-		AR0100010000000100000002 /* ActiveAdRecoveryStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ActiveAdRecoveryStore.swift; sourceTree = "<group>"; };
-		OR0100010000000100000002 /* OrphanedAdEngagementRecovery.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OrphanedAdEngagementRecovery.swift; sourceTree = "<group>"; };
-		AA0100010000000100000002 /* DocereeAdView+ActiveAdRecovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+ActiveAdRecovery.swift"; sourceTree = "<group>"; };
-		OR0100010000000100000004 /* OrphanedAdEngagementRecoveryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OrphanedAdEngagementRecoveryTests.swift; sourceTree = "<group>"; };
-		PS0100010000000100000002 /* PatientSessionStartTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PatientSessionStartTests.swift; sourceTree = "<group>"; };
-		BACA702B64B00A64F1DFA542 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D0EEAD510000000100000001 /* DocereeAdSdk/DocereeAdSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DocereeAdSdk/DocereeAdSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1BEEF110000000100000001 /* KetchSDK/KetchSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KetchSDK/KetchSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ET0100010000000100000002 /* AdViewedURLPopulator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdViewedURLPopulator.swift; sourceTree = "<group>"; };
+		ET0100010000000100000004 /* AdViewedURLPopulatorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdViewedURLPopulatorTests.swift; sourceTree = "<group>"; };
 		FE7F6B9B9180B81622FEEA58 /* Pods-DocereeAdsSdkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DocereeAdsSdkTests.release.xcconfig"; path = "Target Support Files/Pods-DocereeAdsSdkTests/Pods-DocereeAdsSdkTests.release.xcconfig"; sourceTree = "<group>"; };
+		OR0100010000000100000002 /* OrphanedAdEngagementRecovery.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OrphanedAdEngagementRecovery.swift; sourceTree = "<group>"; };
+		OR0100010000000100000004 /* OrphanedAdEngagementRecoveryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OrphanedAdEngagementRecoveryTests.swift; sourceTree = "<group>"; };
+		PS0100010000000100000002 /* PatientSessionStartTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PatientSessionStartTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
