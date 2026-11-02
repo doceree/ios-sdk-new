@@ -14,7 +14,7 @@ extension DocereeAdView {
         ActiveAdRecoveryStore.mark(
             adViewedURL: url,
             totalViewTime: totalViewTime,
-            savedViewPercentage: Double(savedViewPercentage),
+            savedViewPercentage: DocereeDecimalPrecision.roundToTwoDecimals(Double(savedViewPercentage)),
             oneSecMrcSent: oneSecMrcSent
         )
     }

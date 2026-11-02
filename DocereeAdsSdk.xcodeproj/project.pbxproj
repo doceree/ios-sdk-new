@@ -118,6 +118,7 @@
 		CB11AD200000000100000002 /* DocereeAdsSdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54EBAFBC282CF30900C7B249 /* DocereeAdsSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D0EEAD510000000100000002 /* DocereeAdSdk/DocereeAdSdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D0EEAD510000000100000001 /* DocereeAdSdk/DocereeAdSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D0EEAD510000000100000003 /* KetchSDK/KetchSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1BEEF110000000100000001 /* KetchSDK/KetchSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DC0100010000000100000001 /* DocereeDecimalPrecision.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0100010000000100000002 /* DocereeDecimalPrecision.swift */; };
 		ET0100010000000100000001 /* AdViewedURLPopulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ET0100010000000100000002 /* AdViewedURLPopulator.swift */; };
 		ET0100010000000100000003 /* AdViewedURLPopulatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ET0100010000000100000004 /* AdViewedURLPopulatorTests.swift */; };
 		OR0100010000000100000001 /* OrphanedAdEngagementRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = OR0100010000000100000002 /* OrphanedAdEngagementRecovery.swift */; };
@@ -275,6 +276,7 @@
 		BQ0100020000000100000006 /* DocereeAdView+QuestRetry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DocereeAdView+QuestRetry.swift"; sourceTree = "<group>"; };
 		BQ0100020000000100000008 /* DocereeAdQuestRetryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeAdQuestRetryTests.swift; sourceTree = "<group>"; };
 		D0EEAD510000000100000001 /* DocereeAdSdk/DocereeAdSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DocereeAdSdk/DocereeAdSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC0100010000000100000002 /* DocereeDecimalPrecision.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocereeDecimalPrecision.swift; sourceTree = "<group>"; };
 		E1BEEF110000000100000001 /* KetchSDK/KetchSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KetchSDK/KetchSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ET0100010000000100000002 /* AdViewedURLPopulator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdViewedURLPopulator.swift; sourceTree = "<group>"; };
 		ET0100010000000100000004 /* AdViewedURLPopulatorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdViewedURLPopulatorTests.swift; sourceTree = "<group>"; };
@@ -338,6 +340,8 @@
 			isa = PBXGroup;
 			children = (
 				542857562E0D6BAE0000E823 /* KetchSDK.framework */,
+				D0EEAD510000000100000001 /* DocereeAdSdk/DocereeAdSdk.framework */,
+				E1BEEF110000000100000001 /* KetchSDK/KetchSDK.framework */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -486,6 +490,7 @@
 				54EBAFEE282E855C00C7B249 /* HTTPSupport.swift */,
 				BQ0100010000000100000002 /* DocereeBeaconQueue.swift */,
 				BQ0100010000000100000004 /* DocereeNetworkReachability.swift */,
+				DC0100010000000100000002 /* DocereeDecimalPrecision.swift */,
 				BQ0100020000000100000002 /* DocereeNetworkMonitor.swift */,
 				BQ0100020000000100000004 /* DocereeAdQuestRetry.swift */,
 				ET0100010000000100000002 /* AdViewedURLPopulator.swift */,
@@ -602,7 +607,6 @@
 				54F1A02A2F1000010000002A /* ActionAttributesATDMapperTests.swift */,
 				733026586E86439D7934C392 /* DocereeAdsSdkTests.swift */,
 			);
-			name = DocereeAdsSdkTests;
 			path = DocereeAdsSdkTests;
 			sourceTree = "<group>";
 		};
@@ -784,6 +788,7 @@
 				54EBAFF7282E855C00C7B249 /* HTTPSupport.swift in Sources */,
 				BQ0100010000000100000001 /* DocereeBeaconQueue.swift in Sources */,
 				BQ0100010000000100000003 /* DocereeNetworkReachability.swift in Sources */,
+				DC0100010000000100000001 /* DocereeDecimalPrecision.swift in Sources */,
 				BQ0100020000000100000001 /* DocereeNetworkMonitor.swift in Sources */,
 				BQ0100020000000100000003 /* DocereeAdQuestRetry.swift in Sources */,
 				BQ0100020000000100000005 /* DocereeAdView+QuestRetry.swift in Sources */,
@@ -1075,7 +1080,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.2.1;
+				MARKETING_VERSION = 6.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.doceree.DocereeAdsSdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1110,7 +1115,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.2.1;
+				MARKETING_VERSION = 6.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.doceree.DocereeAdsSdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

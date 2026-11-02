@@ -2,19 +2,15 @@
 import UIKit
 
 func checkViewability(adView: UIView) -> Float {
+    let raw: Float
     if let parentView = adView.scrollviewObject {
-//        print("ScrollView found")
-        let viewPercentage = viewabilityPercentageScrollView(adView: adView, scrollView: parentView)
-        return Float(viewPercentage)
+        raw = viewabilityPercentageScrollView(adView: adView, scrollView: parentView)
+    } else if let vFrame = adView.parentViewController?.view.getConvertedFrame(fromSubview: adView) {
+        raw = Float(viewabilityPercentage(viewFrame: vFrame))
     } else {
-        let parentVC = adView.parentViewController
-        let frame = parentVC?.view.getConvertedFrame(fromSubview: adView)
-        if let vFrame = frame {
-            let viewPercentage = viewabilityPercentage(viewFrame: vFrame)
-            return Float(viewPercentage)
-        }
+        return 0
     }
-    return 0.0
+    return DocereeDecimalPrecision.roundToTwoDecimals(raw)
 }
 
 func viewabilityPercentage(viewFrame: CGRect) -> CGFloat {

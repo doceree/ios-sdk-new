@@ -91,8 +91,8 @@ public struct DocereeConsent: Equatable, Codable, Sendable {
 
         if let version = privacyVersion?.trimmingCharacters(in: .whitespacesAndNewlines),
            !version.isEmpty,
-           Self.isValidPrivacyVersion(version) {
-            cns[ConsentPayloadKey.privacyVersion.rawValue] = version
+           let normalizedVersion = DocereeDecimalPrecision.decimalString(from: version) {
+            cns[ConsentPayloadKey.privacyVersion.rawValue] = normalizedVersion
         }
 
         if let privacySid, !privacySid.isEmpty {
@@ -122,10 +122,6 @@ public struct DocereeConsent: Equatable, Codable, Sendable {
     private static func nonEmpty(_ value: String) -> String? {
         let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
         return trimmed.isEmpty ? nil : trimmed
-    }
-
-    private static func isValidPrivacyVersion(_ value: String) -> Bool {
-        Double(value) != nil
     }
 
     private func addNonEmpty(_ value: String?, forKey key: ConsentPayloadKey, into object: inout [String: Any]) {
