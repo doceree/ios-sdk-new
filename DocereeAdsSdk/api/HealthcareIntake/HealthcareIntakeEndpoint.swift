@@ -1,5 +1,14 @@
 import Foundation
 
 enum HealthcareIntakeEndpoint {
-    static let url = URL(string: "https://qa-healthcare.doceree.com/v1/intake")!
+    private static let intakePath = "/v1/intake"
+
+    static func url(for environment: EnvironmentType = DocereeMobileAds.shared().getEnvironment()) -> URL? {
+        let host = getHealthcareIntakeHost(type: environment)
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = host
+        components.path = intakePath
+        return components.url
+    }
 }

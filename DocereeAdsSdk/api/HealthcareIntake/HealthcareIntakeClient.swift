@@ -74,7 +74,9 @@ public final class HealthcareIntakeClient {
 
     /// POSTs a fully-built intake JSON body to the SDK healthcare intake endpoint.
     public func submitIntakePayload(_ payload: [String: Any]) async throws {
-        let url = HealthcareIntakeEndpoint.url
+        guard let url = HealthcareIntakeEndpoint.url() else {
+            throw HealthcareIntakeError.invalidURL
+        }
 
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"

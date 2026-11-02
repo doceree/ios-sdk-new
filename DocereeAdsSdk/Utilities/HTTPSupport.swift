@@ -239,6 +239,19 @@ func getIdentityHost(type: EnvironmentType) -> String {
     }
 }
 
+func getHealthcareIntakeHost(type: EnvironmentType) -> String {
+    switch type {
+    case .Dev:
+        return "dev-healthcare.doceree.com"
+    case .Local:
+        return "10.0.3.2"
+    case .Qa:
+        return "qa-healthcare.doceree.com"
+    case .Prod:
+        return "healthcare.doceree.com"
+    }
+}
+
 enum Methods{
     case GetImage
     case AdBlock
