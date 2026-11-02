@@ -91,6 +91,8 @@ let hcp = HcpBuilder()
 DocereeMobileAds.login(with: hcp)
 ```
 
+On ad request (`/drs/quest`), profile fields map to quest keys (e.g. `hashedhcpid`, `hashedemail`, `hashedmobile`). Optional `hashed*` keys are omitted from the body when empty.
+
 ---
 
 ## 3. Health Associate Login (`HealthAssociateBuilder`)
@@ -108,8 +110,9 @@ let healthAssociate = HealthAssociateBuilder()
     .setOrganisation("City General Hospital")
     .setClinicalInfluenceTier(2)
     .setEmail("jane.smith@example.com")
-    .setMobile("+1-555-987-6543")
     .setHashedEmail("sha256:11aa22bb33cc44dd")
+    .setMobile("+1-555-987-6543")
+    .setHashedMobile("sha256:22bb33cc44dd55ee")
     .setDateOfBirth("1990-03-22")
     .setGender("F")
     .setCity("New York")
@@ -131,15 +134,22 @@ Use when the logged-in person is neither an HCP nor a Health Associate.
 import DocereeAdsSdk
 
 let user = UserBuilder()
+    .setUserType("HCP")
     .setHcpId("USR-3301")
+    .setHashedHcpId("sha256:1a2b3c4d5e6f7890")
     .setFirstName("Alex")
     .setLastName("Taylor")
     .setSpecialization("General Practice")
+    .setOrganisation("Community Clinic")
     .setGender("M")
     .setEmail("alex.taylor@example.com")
+    .setHashedEmail("sha256:9f8e7d6c5b4a3210")
     .setMobile("+1-555-222-3333")
+    .setHashedMobile("sha256:8e7d6c5b4a32109f")
+    .setDateOfBirth("1992-01-20")
     .setCity("Boston")
     .setState("MA")
+    .setCountry("US")
     .setZipCode("02108")
     .build()
 
@@ -201,7 +211,9 @@ let patientData: [String: Any] = [
     "age": "47",
     "gender": "M",
     "email": "sam.patient@example.com",
+    "hashedEmail": "sha256:aa11bb22cc33dd44",
     "mobile": "+1-555-444-7890",
+    "hashedMobile": "sha256:bb22cc33dd44ee55",
     "zipCode": "10001",
     "clinicalProfile": clinicalProfile
 ]

@@ -12,18 +12,23 @@ final class DocereeNetworkMonitor {
 
     private init() {}
 
+    /// Whether the device has a usable network path (Wi‑Fi/cellular). Does not hit the ad server.
+    func isPathSatisfied() -> Bool {
+        if !started {
+            return true
+        }
+        return monitor.currentPath.status == .satisfied
+    }
+
     func start() {
         guard !started else { return }
         started = true
+        pathSatisfied = monitor.currentPath.status == .satisfied
         monitor.pathUpdateHandler = { [weak self] path in
             guard let self else { return }
             let satisfied = path.status == .satisfied
             if satisfied, !self.pathSatisfied {
                 Task {
-                    guard await DocereeNetworkReachability.isNetworkAvailable() else {
-                        DocereeLog.debug("Network path up but ad host unreachable — deferring beacon flush")
-                        return
-                    }
                     DocereeLog.debug("Network restored — flushing beacon queue")
                     await DocereeBeaconQueue.flushQueueAndWait()
                 }
