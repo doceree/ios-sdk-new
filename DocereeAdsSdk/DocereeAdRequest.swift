@@ -222,7 +222,7 @@ public final class DocereeAdRequest: AdServiceProtocol {
             request.setValue(header.value, forHTTPHeaderField: header.key)
         }
 
-        request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
+        request.httpBody = try DocereeDecimalPrecision.jsonData(withJSONObject: body)
         return request
     }
 
@@ -232,7 +232,7 @@ public final class DocereeAdRequest: AdServiceProtocol {
     }
 
     private func logAdRequest(_ request: URLRequest, body: [String: Any]) {
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: body, options: [.prettyPrinted, .sortedKeys]),
+        guard let jsonData = try? DocereeDecimalPrecision.jsonData(withJSONObject: body, options: [.prettyPrinted, .sortedKeys]),
               let jsonString = String(data: jsonData, encoding: .utf8) else {
             DocereeLog.debug("Ad request URL: \(request.url?.absoluteString ?? "nil")")
             DocereeLog.debug("Ad request body: \(body)")

@@ -67,7 +67,7 @@ class JsonUtility {
         }
         
         do {
-            let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: [])
+            let jsonObject = try DocereeDecimalPrecision.jsonObject(with: jsonData)
             
             if let jsonArray = jsonObject as? [String] {
                 return jsonArray
@@ -89,7 +89,7 @@ class JsonUtility {
         }
         
         do {
-            let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: [])
+            let jsonObject = try DocereeDecimalPrecision.jsonObject(with: jsonData)
             
             if let jsonArray = jsonObject as? [[String: Any]] {
                 return jsonArray

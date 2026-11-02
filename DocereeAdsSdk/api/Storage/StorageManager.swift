@@ -52,17 +52,25 @@ class StorageManager {
     }
     
     func saveData(forKey key: String, value: JSONObject) {
-        UserDefaults.standard.set(value, forKey: key)
+        let stored = key == patientKey ? normalizedPatientJSONObject(value) : value
+        UserDefaults.standard.set(stored, forKey: key)
         DocereeLog.debug("Data stored successfully")
     }
     
     func getData(forKey key: String) -> JSONObject? {
         if let savedData = UserDefaults.standard.object(forKey: key) as? [String: Any] {
+            if key == patientKey {
+                return normalizedPatientJSONObject(savedData)
+            }
             return savedData
         } else {
             DocereeLog.debug("No data found for key 'userProfile'")
         }
         return nil
+    }
+
+    private func normalizedPatientJSONObject(_ payload: JSONObject) -> JSONObject {
+        DocereeDecimalPrecision.normalizeJSONObject(payload) as? JSONObject ?? payload
     }
     
     func saveTimestamp() async {

@@ -86,7 +86,7 @@ public final class HealthcareIntakeClient {
 
         let bodyData: Data
         do {
-            bodyData = try JSONSerialization.data(withJSONObject: payload)
+            bodyData = try DocereeDecimalPrecision.jsonData(withJSONObject: payload)
             urlRequest.httpBody = bodyData
         } catch {
             throw HealthcareIntakeError.requestEncodingFailed(underlying: error)
@@ -132,7 +132,7 @@ public final class HealthcareIntakeClient {
 
     /// Live intake call: parse body, require acceptance, persist `request_id`.
     static func applyLiveIntakeResponseBody(_ data: Data) throws {
-        guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+        guard let json = try? DocereeDecimalPrecision.jsonObject(with: data) as? [String: Any] else {
             throw HealthcareIntakeError.responseDecodingFailed
         }
 
@@ -146,7 +146,7 @@ public final class HealthcareIntakeClient {
 
     /// Queue flush: drop rejected payloads; persist `request_id` on success.
     static func applyQueuedIntakeResponseBody(_ data: Data) throws {
-        guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+        guard let json = try? DocereeDecimalPrecision.jsonObject(with: data) as? [String: Any] else {
             throw HealthcareIntakeError.responseDecodingFailed
         }
 

@@ -58,7 +58,7 @@ class Utils {
         if let sdkBundle = Bundle(identifier: "com.doceree.DocereeAdsSdk") {
             return sdkBundle.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0"
         } else {
-            return "6.2.1" // fallback
+            return "6.3.1" // fallback
         }
     }
 }

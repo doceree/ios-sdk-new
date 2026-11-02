@@ -29,7 +29,14 @@ enum ActiveAdRecoveryStore {
             updatedAt: updatedAt ?? Int64(Date().timeIntervalSince1970 * 1000)
         )
         do {
-            let data = try JSONEncoder().encode(payload)
+            let object: [String: Any] = [
+                "adViewedURL": payload.adViewedURL,
+                "totalViewTime": payload.totalViewTime,
+                "savedViewPercentage": DocereeDecimalPrecision.jsonNormalizedNumber(from: payload.savedViewPercentage),
+                "oneSecMrcSent": payload.oneSecMrcSent,
+                "updatedAt": payload.updatedAt
+            ]
+            let data = try DocereeDecimalPrecision.jsonData(withJSONObject: object)
             UserDefaults.standard.set(data, forKey: snapshotKey)
         } catch {
             DocereeLog.debug("markActiveAdSnapshot failed: \(error.localizedDescription)")

@@ -201,7 +201,7 @@ public class PatientSession {
     }
 
     private func encodeJSONObjectToBase64(_ object: Any) throws -> String {
-        var jsonString = String(data: try JSONSerialization.data(withJSONObject: object, options: []), encoding: .utf8)!
+        var jsonString = String(data: try DocereeDecimalPrecision.jsonData(withJSONObject: object), encoding: .utf8)!
         jsonString = jsonString.replacingOccurrences(of: "\\/", with: "/")
         return try Utils().encodeBase64(jsonString)
     }

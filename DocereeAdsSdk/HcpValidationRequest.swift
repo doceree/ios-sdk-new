@@ -49,7 +49,7 @@ public final class HcpValidationRequest {
 
         let jsonData: Data
         do {
-            jsonData = try JSONSerialization.data(withJSONObject: josnObject, options: [])
+            jsonData = try DocereeDecimalPrecision.jsonData(withJSONObject: josnObject)
         } catch {
             await MainActor.run {
                 completion(Results(withData: nil, response: nil, error: HcpRequestError.apiFailed))
@@ -128,7 +128,7 @@ public final class HcpValidationRequest {
 
         let jsonData: Data
         do {
-            jsonData = try JSONSerialization.data(withJSONObject: body, options: [])
+            jsonData = try DocereeDecimalPrecision.jsonData(withJSONObject: body)
         } catch {
             return
         }

@@ -13,7 +13,8 @@ extension DocereeMobileAds {
     /// This is the supported public API for data attributes. New keys can be added without SDK changes.
     @discardableResult
     public func add(_ key: String, value: Any) -> Bool {
-        _ = DataAttributesPayloadBuilder().add(key: key, value: value)
+        let normalized = DocereeDecimalPrecision.normalizeJSONObject(value)
+        _ = DataAttributesPayloadBuilder().add(key: key, value: normalized)
         return true
     }
 

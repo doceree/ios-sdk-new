@@ -135,7 +135,7 @@ class ConfigurationService {
         let body = ["appId": appId]
         let bodyData: Data
         do {
-            bodyData = try JSONSerialization.data(withJSONObject: body)
+            bodyData = try DocereeDecimalPrecision.jsonData(withJSONObject: body)
         } catch {
             return .requestEncodingFailed(underlying: error)
         }
