@@ -13,10 +13,12 @@ Doceree iOS SDK sources, podspec, and **`DocereeAdsSdk`** Xcode framework.
 In your app `Podfile`:
 
 ```ruby
-pod 'DocereeAdSdk', '~> x.y.z'
+pod 'DocereeAdSdk', '6.3.1'
 ```
 
-Pick the version you ship; see release tags / podspec for current versions.
+See [releases/tags](https://github.com/doceree/ios-sdk-new/tags) on `doceree/ios-sdk-new` when bumping the pinned version.
+
+> Use pod name **`DocereeAdSdk`** (not `DocereeAdsSdk`). After upgrading, run `pod install --repo-update`.
 
 ## Contributors: two workspaces
 
