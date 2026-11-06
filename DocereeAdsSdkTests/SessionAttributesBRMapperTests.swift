@@ -59,7 +59,7 @@ final class SessionAttributesBRMapperTests: XCTestCase {
                 "performedDate": "2024-08-10",
                 "orderDate": "2024-08-10",
                 "orderedByHcpId": "HCP-77123",
-                "orderedByHashedHcpId": "sha256:b72c1a2b3c",
+                "orderedByHashedHcpId": TestHashFixtures.hashedHcpIdClinical,
                 "tests": [[
                     "hcpcsCode": "83036",
                     "testName": "HbA1c",
@@ -72,7 +72,7 @@ final class SessionAttributesBRMapperTests: XCTestCase {
                 "encounterDate": "2019-03-12",
                 "dxType": "ICD10",
                 "diagnosedByHcpId": "HCP-77123",
-                "diagnosedByHashedHcpId": "sha256:b72c1a2b3c",
+                "diagnosedByHashedHcpId": TestHashFixtures.hashedHcpIdClinical,
                 "encounterType": "office_visit",
                 "diagnoses": [[
                     "dxCode": "E11.9",
@@ -83,7 +83,7 @@ final class SessionAttributesBRMapperTests: XCTestCase {
                 "prescribedDate": "2023-07-04",
                 "rxType": 1,
                 "prescribedByHcpId": "HCP-77123",
-                "prescribedByHashedHcpId": "sha256:b72c1a2b3c",
+                "prescribedByHashedHcpId": TestHashFixtures.hashedHcpIdClinical,
                 "prescriptions": [[
                     "rxCode": "00002-2495-80",
                     "quantity": 90,

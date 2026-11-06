@@ -61,7 +61,7 @@ final class HardeningRegressionTests: XCTestCase {
         let decoded = try ConfigurationService.decodeAppConfiguration(from: data)
         XCTAssertEqual(decoded.data.appId, "aid")
         XCTAssertTrue(decoded.data.hcpValidation)
-        XCTAssertFalse(decoded.data.ketchConsent)
+        XCTAssertFalse(decoded.data.unusedServerFlag)
     }
 
     func testGetPlatformData_withoutProfile_returnsEmptyString() {

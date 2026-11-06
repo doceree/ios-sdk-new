@@ -16,21 +16,21 @@ final class PatientDetailsPTDMapperTests: XCTestCase {
     func testShortFormMapsLongPatientDetailsKeys() {
         let patientDetails: [String: Any] = [
             "patientId": "PT-00112",
-            "hashedId": "sha256:53b1390bdfa91dbb",
+            "hashedId": TestHashFixtures.hashedPatientId,
             "name": "Jane Doe",
             "dob": "1965-09-22",
             "mobile": "+12125550188",
             "email": "patient@email.com",
             "country": "US",
             "city": "New York",
-            "hashedMobile": "sha256:bb22aabbccdd1122",
-            "hashedEmail": "sha256:aa11aabbccdd1122",
+            "hashedMobile": TestHashFixtures.hashedMobileAlt,
+            "hashedEmail": TestHashFixtures.hashedEmailAlt,
             "state": "NY",
             "zipCode": "10001",
             "gender": "F",
             "age": "59",
             "ssn": "123-45-6789",
-            "hashedSsn": "sha256:cc33aabbccdd1122",
+            "hashedSsn": TestHashFixtures.hashedSsn,
             "consent": [
                 "consentBasis": "publisher_attested",
                 "mechanism": "patient_portal",
@@ -103,7 +103,7 @@ final class PatientDetailsPTDMapperTests: XCTestCase {
         let shortForm = PatientDetailsPTDMapper.shortForm(patientDetails)
 
         XCTAssertEqual(shortForm["pid"] as? String, "PT-00112")
-        XCTAssertEqual(shortForm["hpid"] as? String, "sha256:53b1390bdfa91dbb")
+        XCTAssertEqual(shortForm["hpid"] as? String, TestHashFixtures.hashedPatientId)
         XCTAssertEqual(shortForm["pname"] as? String, "Jane Doe")
         XCTAssertEqual(shortForm["zip"] as? String, "10001")
         XCTAssertNil(shortForm["siteId"])

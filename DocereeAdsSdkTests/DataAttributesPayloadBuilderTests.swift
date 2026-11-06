@@ -202,11 +202,11 @@ final class DataAttributesPayloadBuilderTests: XCTestCase {
     func testUserDetailsAndHealthAssociateArePreserved() {
         let userDetails: [String: Any] = [
             "hcpId": "HCP-1001",
-            "hashedHcpId": "sha256:hcp1001",
+            "hashedHcpId": TestHashFixtures.hashedHcpId,
             "email": "hcp@example.com",
             "mobile": "+1-555-000-4444",
-            "hashedEmail": "sha256:email",
-            "hashedMobile": "sha256:mobile",
+            "hashedEmail": TestHashFixtures.hashedEmail,
+            "hashedMobile": TestHashFixtures.hashedMobile,
             "firstName": "John",
             "lastName": "Doe",
             "gender": "m",
@@ -231,7 +231,7 @@ final class DataAttributesPayloadBuilderTests: XCTestCase {
         let user = json[DataAttributesPayloadBuilder.userDetailsKey] as? [String: Any]
         let associate = json[DataAttributesPayloadBuilder.healthAssociateKey] as? [String: Any]
         XCTAssertEqual(user?["hcpId"] as? String, "HCP-1001")
-        XCTAssertEqual(user?["hashedHcpId"] as? String, "sha256:hcp1001")
+        XCTAssertEqual(user?["hashedHcpId"] as? String, TestHashFixtures.hashedHcpId)
         XCTAssertEqual(user?["specialization"] as? String, "cardiology")
         XCTAssertEqual(associate?["gender"] as? String, "f")
     }
@@ -239,7 +239,7 @@ final class DataAttributesPayloadBuilderTests: XCTestCase {
     func testPatientDetailsObjectIsPreserved() {
         let patientDetails: [String: Any] = [
             "patientId": "pat-11",
-            "hashedId": "sha256:abc",
+            "hashedId": TestHashFixtures.hashedPatientId,
             "mobile": "+1-555-001"
         ]
         let json = DataAttributesPayloadBuilder()

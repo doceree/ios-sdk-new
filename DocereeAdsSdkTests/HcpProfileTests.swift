@@ -26,7 +26,7 @@ final class HcpProfileTests: XCTestCase {
             .setLastName("Doe")
             .setEmail("jane@example.com")
             .setHcpId("HCP-1001")
-            .setHashedHcpId("sha256:hcp")
+            .setHashedHcpId(TestHashFixtures.hashedHcpId)
             .build()
 
         let data = try NSKeyedArchiver.archivedData(withRootObject: original, requiringSecureCoding: true)
@@ -37,7 +37,7 @@ final class HcpProfileTests: XCTestCase {
         XCTAssertEqual(decoded.fullName, "Jane Doe")
         XCTAssertEqual(decoded.email, "jane@example.com")
         XCTAssertEqual(decoded.hcpId, "HCP-1001")
-        XCTAssertEqual(decoded.hashedHcpId, "sha256:hcp")
+        XCTAssertEqual(decoded.hashedHcpId, TestHashFixtures.hashedHcpId)
         XCTAssertEqual(decoded.role, .hcp)
     }
 
@@ -78,12 +78,12 @@ final class HcpProfileTests: XCTestCase {
             .setFirstName("Alex")
             .setLastName("Smith")
             .setAssociateId("STAFF-77123")
-            .setHashedAssociateId("sha256:d44f1a2b3c4d5e6f")
+            .setHashedAssociateId(TestHashFixtures.hashedAssociateId)
             .setAssociateRole("registered_nurse")
             .setDepartment("Cardiology")
             .setClinicalInfluenceTier(1)
             .setDateOfBirth("1985-04-22")
-            .setHashedMobile("sha256:f66b1c2d3e4f5a6b")
+            .setHashedMobile(TestHashFixtures.hashedMobile)
             .build()
             .applyingRole(.ha)
 
@@ -94,12 +94,12 @@ final class HcpProfileTests: XCTestCase {
 
         XCTAssertEqual(decoded.role, .ha)
         XCTAssertEqual(decoded.associateId, "STAFF-77123")
-        XCTAssertEqual(decoded.hashedAssociateId, "sha256:d44f1a2b3c4d5e6f")
+        XCTAssertEqual(decoded.hashedAssociateId, TestHashFixtures.hashedAssociateId)
         XCTAssertEqual(decoded.associateRole, "registered_nurse")
         XCTAssertEqual(decoded.department, "Cardiology")
         XCTAssertEqual(decoded.clinicalInfluenceTier, 1)
         XCTAssertEqual(decoded.dateOfBirth, "1985-04-22")
-        XCTAssertEqual(decoded.hashedMobile, "sha256:f66b1c2d3e4f5a6b")
+        XCTAssertEqual(decoded.hashedMobile, TestHashFixtures.hashedMobile)
     }
 
     func testLegacyProfileWithoutRoleDefaultsToHcp() throws {

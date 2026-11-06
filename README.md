@@ -2,6 +2,8 @@
 
 Doceree iOS SDK sources, podspec, and **`DocereeAdsSdk`** Xcode framework.
 
+**Publisher documentation:** [Doceree_iOS_SDK_Integration_Guide.md](./Doceree_iOS_SDK_Integration_Guide.md) (SDK **6.3.2**). Release notes: [RELEASE_NOTES_6.3.2.md](./RELEASE_NOTES_6.3.2.md).
+
 ## Requirements
 
 - Xcode 11 or higher
@@ -13,7 +15,7 @@ Doceree iOS SDK sources, podspec, and **`DocereeAdsSdk`** Xcode framework.
 In your app `Podfile`:
 
 ```ruby
-pod 'DocereeAdSdk', '6.3.1'
+pod 'DocereeAdSdk', '6.3.2'
 ```
 
 See [releases/tags](https://github.com/doceree/ios-sdk-new/tags) on `doceree/ios-sdk-new` when bumping the pinned version.
@@ -25,7 +27,7 @@ See [releases/tags](https://github.com/doceree/ios-sdk-new/tags) on `doceree/ios
 | What you are doing | Open | Run `pod install` |
 |--------------------|------|-------------------|
 | **SDK framework only** (build `DocereeAdsSdk`, run SDK tests, edit podspec) | **`DocereeAdsSdk.xcworkspace`** inside this folder | In **`ios-sdk-new`** (this folder) |
-| **Sample app + SDK together** (parallel development with the parent repo) | Parent repo **`DocereeiOSMainNew.xcworkspace`** | At **repository root** *and* in **`ios-sdk-new`** when you touch the SDK’s Pods integration |
+| **Internal sample app + SDK** (Doceree QA only — not for publishers) | Parent repo **`DocereeiOSMainNew.xcworkspace`** | At **repository root** *and* in **`ios-sdk-new`** when you touch the SDK’s Pods integration |
 
 - **`ios-sdk-new/DocereeAdsSdk.xcworkspace`** — includes `DocereeAdsSdk.xcodeproj` and this folder’s **`Pods`** project. Use this when you only work on the SDK.
 - **Parent `DocereeiOSMainNew`** — links the **`DocereeAdsSdk`** subproject **and** uses the root **`Podfile`** (local path to this pod). That is the flow for iterating on both the demo UI and SDK sources; see the parent **`README.md`**.
@@ -75,10 +77,6 @@ xcodebuild test -workspace DocereeAdsSdk.xcworkspace -scheme DocereeAdsSdk -dest
 - **`tasks in 'Copy Headers' are delayed by unsandboxed script phases`**
   - Informational warning from Xcode script phase sandboxing checks.
   - Safe to ignore for local development unless you explicitly enforce script sandboxing policy.
-
-- **KetchSDK warning about `index.html` processing**
-  - This comes from a third-party pod target (`KetchSDK`).
-  - Do not patch vendor sources in this repo for that warning; treat as non-blocking unless the vendor ships a fix.
 
 ## License
 

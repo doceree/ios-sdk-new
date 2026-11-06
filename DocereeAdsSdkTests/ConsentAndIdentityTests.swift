@@ -215,7 +215,7 @@ final class ConsentAndIdentityTests: XCTestCase {
 
     func testUniversalIdsForwardedWithoutHcpProfile() {
         DocereeMobileAds.shared().setUniversalIds(
-            rampId: "sha256:dtc-ramp",
+            rampId: "ramp-id-dtc-abc123",
             uid2: "dtc-uid2",
             id5: "",
             liveIntentId: "dtc-liveintent"
@@ -229,7 +229,7 @@ final class ConsentAndIdentityTests: XCTestCase {
         )
 
         XCTAssertEqual(body[QueryParamsForAdRequest.hcpId.rawValue] as? String, "")
-        XCTAssertEqual(body[QueryParamsForAdRequest.rampId.rawValue] as? String, "sha256:dtc-ramp")
+        XCTAssertEqual(body[QueryParamsForAdRequest.rampId.rawValue] as? String, "ramp-id-dtc-abc123")
         XCTAssertEqual(body[QueryParamsForAdRequest.uid2.rawValue] as? String, "dtc-uid2")
         XCTAssertEqual(body[QueryParamsForAdRequest.liveIntentId.rawValue] as? String, "dtc-liveintent")
         XCTAssertNil(body[QueryParamsForAdRequest.id5.rawValue])
@@ -312,8 +312,8 @@ final class ConsentAndIdentityTests: XCTestCase {
                 .setOrganisation("Apollo")
                 .setHcpId("HCP-1001")
                 .setMobile("+12125550100")
-                .setHashedEmail("sha256:c84d9f2e")
-                .setHashedMobile("sha256:b94d27e2")
+                .setHashedEmail(TestHashFixtures.hashedEmail)
+                .setHashedMobile(TestHashFixtures.hashedMobile)
                 .setDateOfBirth("1978-04-12")
                 .build(),
             adUnitId: "unit",
@@ -327,8 +327,8 @@ final class ConsentAndIdentityTests: XCTestCase {
         XCTAssertEqual(body[QueryParamsForAdRequest.organisation.rawValue] as? String, "Apollo")
         XCTAssertEqual(body[QueryParamsForAdRequest.hcpId.rawValue] as? String, "HCP-1001")
         XCTAssertEqual(body[QueryParamsForAdRequest.mobile.rawValue] as? String, "+12125550100")
-        XCTAssertEqual(body[QueryParamsForAdRequest.hashedEmail.rawValue] as? String, "sha256:c84d9f2e")
-        XCTAssertEqual(body[QueryParamsForAdRequest.hashedMobile.rawValue] as? String, "sha256:b94d27e2")
+        XCTAssertEqual(body[QueryParamsForAdRequest.hashedEmail.rawValue] as? String, TestHashFixtures.hashedEmail)
+        XCTAssertEqual(body[QueryParamsForAdRequest.hashedMobile.rawValue] as? String, TestHashFixtures.hashedMobile)
         XCTAssertEqual(body[QueryParamsForAdRequest.dateOfBirth.rawValue] as? String, "1978-04-12")
         XCTAssertNil(body[QueryParamsForAdRequest.associateId.rawValue])
     }

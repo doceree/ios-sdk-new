@@ -23,7 +23,7 @@ final class ActionAttributesATDMapperTests: XCTestCase {
             "appointmentTime": "10:30",
             "visitType": "in_person",
             "hcpId": "1234567890",
-            "hashedHcpId": "sha256:a3f9d72c4b6e8f1a",
+            "hashedHcpId": TestHashFixtures.hashedHcpIdClinical,
             "visitUrgency": "routine",
             "facilityName": "Main Street Clinic",
             "facilityAddress": "123 Main St, New York, NY 10001",

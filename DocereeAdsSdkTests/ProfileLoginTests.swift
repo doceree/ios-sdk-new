@@ -95,7 +95,7 @@ final class ProfileLoginTests: XCTestCase {
             .setOrganisation("Apollo")
             .setEmail("patient@email.com")
             .setHcpId("USER-1001")
-            .setHashedHcpId("sha256:user1001"))
+            .setHashedHcpId(TestHashFixtures.hashedUserProfileId))
 
         let user = DocereeMobileAds.shared().getProfile()!
         let body = AdRequestPayloadAssembler.makeBody(
@@ -114,7 +114,7 @@ final class ProfileLoginTests: XCTestCase {
         XCTAssertEqual(body[QueryParamsForAdRequest.specialization.rawValue] as? String, "Pediatrics")
         XCTAssertEqual(body[QueryParamsForAdRequest.organisation.rawValue] as? String, "Apollo")
         XCTAssertEqual(body[QueryParamsForAdRequest.hcpId.rawValue] as? String, "USER-1001")
-        XCTAssertEqual(body[QueryParamsForAdRequest.hashedHcpId.rawValue] as? String, "sha256:user1001")
+        XCTAssertEqual(body[QueryParamsForAdRequest.hashedHcpId.rawValue] as? String, TestHashFixtures.hashedUserProfileId)
         XCTAssertNil(body[QueryParamsForAdRequest.patientId.rawValue])
         XCTAssertNil(body[QueryParamsForAdRequest.hashedPatientId.rawValue])
         XCTAssertNil(body[QueryParamsForAdRequest.associateId.rawValue])
