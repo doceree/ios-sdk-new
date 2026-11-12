@@ -3,8 +3,15 @@ import Foundation
 /// Maps stored `patientDetails` objects to the compact key form required by the ad-request `ptd` field.
 enum PatientDetailsPTDMapper {
 
+    /// Root keys allowed on quest `/drs/quest` patient payload (`ptd` after decode).
+    private static let questRootOutputKeys: Set<String> = ["cntry", "state", "gd", "ag", "cns", "ins", "cp"]
+
+    /// `ins` subsection keys allowed on quest patient payload.
+    private static let questInsuranceOutputKeys: Set<String> = ["has", "typ", "pid", "bin", "pcn", "rel", "pph"]
+
     static func shortForm(_ details: [String: Any]) -> [String: Any] {
-        transformDictionary(details, context: .root)
+        let transformed = transformDictionary(details, context: .root)
+        return filterDictionary(transformed, allowedKeys: questRootOutputKeys)
     }
 
     private enum Context {
@@ -204,7 +211,8 @@ enum PatientDetailsPTDMapper {
             case "cns":
                 return transformDictionary(asDictionary(value), context: .consent)
             case "ins":
-                return transformDictionary(asDictionary(value), context: .insurance)
+                let insurance = transformDictionary(asDictionary(value), context: .insurance)
+                return filterDictionary(insurance, allowedKeys: questInsuranceOutputKeys)
             case "cp":
                 return transformClinicalProfile(asDictionary(value))
             default:
@@ -257,5 +265,9 @@ enum PatientDetailsPTDMapper {
 
     private static func asArray(_ value: Any) -> [Any] {
         value as? [Any] ?? []
+    }
+
+    private static func filterDictionary(_ dictionary: [String: Any], allowedKeys: Set<String>) -> [String: Any] {
+        dictionary.filter { allowedKeys.contains($0.key) }
     }
 }

@@ -273,7 +273,8 @@ final class DataAttributesPayloadBuilderTests: XCTestCase {
 
         XCTAssertFalse(ptd.isEmpty)
         let decodedPtd = decodeBase64JSON(ptd)
-        XCTAssertEqual(decodedPtd?["pid"] as? String, "pat-11")
+        XCTAssertNil(decodedPtd?["pid"])
+        XCTAssertNil(decodedPtd?["pname"])
         let decodedAtd = decodeAtdEvents(atd)
         XCTAssertEqual(decodedAtd?.count, 1)
         XCTAssertEqual(decodedAtd?.first?["apid"] as? String, "appt-1")
